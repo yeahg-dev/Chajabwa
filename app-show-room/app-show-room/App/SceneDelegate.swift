@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  app-show-room
 //
-//  Created by 1 on 2022/08/12.
+//  Created by Moon Yeji on 2022/08/12.
 //
 
 import UIKit
