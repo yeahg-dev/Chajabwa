@@ -9,12 +9,12 @@ import Foundation
 
 protocol APIRequest {
     
-    associatedtype Response: APIResponse
+    associatedtype APIResponse: Decodable
     
     var httpMethod: HTTPMethod { get }
     var baseURLString: String { get }
-    var path: String { get }
-    var queryItems: [String: Any] { get }
+    var path: String { get set }
+    var query: [String: Any] { get }
     var header: [String: String] { get }
     var body: Data? { get }
     
@@ -24,7 +24,7 @@ extension APIRequest {
     
     var url: URL? {
         var urlComponents = URLComponents(string: baseURLString + path)
-        urlComponents?.queryItems = queryItems.map {
+        urlComponents?.queryItems = query.map {
             URLQueryItem(name: $0.key, value: "\($0.value)") }
         return urlComponents?.url
     }
@@ -40,8 +40,4 @@ extension APIRequest {
         urlRequest.httpBody = body
         return urlRequest
     }
-}
-
-protocol APIResponse: Decodable {
-    
 }
