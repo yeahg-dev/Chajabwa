@@ -31,37 +31,38 @@ struct AppLookupResponse: Decodable {
 
 struct AppResponse {
     
-    let screenshotUrls: [String]
-    let ipadScreenshotUrls: [String]
-    let appletvScreenshotUrls: [String]
-    let artworkUrl60, artworkUrl512, artworkUrl100: String
-    let artistViewURL: String
-    let features: [String]
-    let isGameCenterEnabled: Bool
-    let supportedDevices: [String]
-    let advisories: [String]
-    let kind: String
-    let averageUserRating: Double
-    let releaseNotes, minimumOSVersion, trackCensoredName: String
-    let languageCodesISO2A: [String]
-    let fileSizeBytes, formattedPrice, contentAdvisoryRating: String
-    let averageUserRatingForCurrentVersion: Double
-    let userRatingCountForCurrentVersion: Int
-    let trackViewURL: String
-    let trackContentRating, resultDescription: String
-    let releaseDate: Date
-    let bundleID, sellerName, currency, primaryGenreName: String
-    let primaryGenreID: Int
-    let currentVersionReleaseDate: Date
-    let isVppDeviceBasedLicensingEnabled: Bool
-    let genreIDS: [String]
-    let version, wrapperType: String
-    let artistID: Int
-    let artistName: String
-    let genres: [String]
-    let price, trackID: Int
-    let trackName: String
-    let userRatingCount: Int
+    let screenshotUrls: [String]?
+    let ipadScreenshotUrls: [String]?
+    let appletvScreenshotUrls: [String]?
+    let artworkUrl60, artworkUrl512, artworkUrl100: String?
+    let artistViewURL: String?
+    let features: [String]?
+    let isGameCenterEnabled: Bool?
+    let supportedDevices: [String]?
+    let advisories: [String]?
+    let kind: String?
+    let averageUserRating: Double?
+    let releaseNotes, minimumOSVersion, trackCensoredName: String?
+    let languageCodesISO2A: [String]?
+    let fileSizeBytes, formattedPrice, contentAdvisoryRating: String?
+    let averageUserRatingForCurrentVersion: Double?
+    let userRatingCountForCurrentVersion: Int?
+    let trackViewURL: String?
+    let trackContentRating, resultDescription: String?
+    let releaseDate: String?
+    let bundleID, sellerName, currency, primaryGenreName: String?
+    let primaryGenreID: Int?
+    let currentVersionReleaseDate: String?
+    let isVppDeviceBasedLicensingEnabled: Bool?
+    let genreIDS: [String]?
+    let version, wrapperType: String?
+    let artistID: Int?
+    let artistName: String?
+    let genres: [String]?
+    let price: Double
+    let trackID: Int?
+    let trackName: String?
+    let userRatingCount: Int?
 
 }
 
