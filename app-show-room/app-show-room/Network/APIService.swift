@@ -1,0 +1,28 @@
+//
+//  APIService.swift
+//  app-show-room
+//
+//  Created by Moon Yeji on 2022/08/13.
+//
+
+import Foundation
+
+protocol APIService {
+    
+    var session: URLSession { get set }
+    
+    func execute<T: APIRequest>(
+        _ request: T,
+        _ completion: ((Result<T.APIResponse, Error>
+        ) -> Void)? )
+    
+}
+
+extension APIService {
+    
+    func parse<T: Decodable>(response data: Data) -> T? {
+        let parsedData = try? JSONDecoder().decode(T.self, from: data)
+        return parsedData
+    }
+    
+}
