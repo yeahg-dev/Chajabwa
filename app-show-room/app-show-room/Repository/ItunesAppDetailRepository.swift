@@ -24,13 +24,18 @@ struct ItunesAppDetailRepository: AppDetailRepository {
     func fetchAppDetail(of id: Int, completion: ((Result<AppDetail, Error>) -> Void)?) {
         let lookupRequest = AppLookupAPIRequest(appID: id)
         self.service.execute(lookupRequest) { result in
-            guard let appDetail = try? result.get().toAppDetail() else {
-                completion?(.failure(DTOError.invalidTransform))
-                return
-            }
-            
             switch result {
-            case .success(_):
+            case .success(let appResponse):
+                guard let result = appResponse.results.first else {
+                    completion?(.failure(AppDetailRepositoryError.nonExistAppDetail))
+                    return
+                }
+                
+                guard let appDetail = result.toAppDetail() else {
+                    completion?(.failure(DTOError.invalidTransform))
+                    return
+                }
+                
                 completion?(.success(appDetail))
             case .failure(let error):
                 completion?(.failure(error))
@@ -38,4 +43,9 @@ struct ItunesAppDetailRepository: AppDetailRepository {
         }
     }
     
+}
+
+enum AppDetailRepositoryError: Error {
+    
+    case nonExistAppDetail
 }

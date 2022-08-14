@@ -12,9 +12,12 @@
 		633A925728A7A44A00B3435F /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633A925628A7A44A00B3435F /* APIError.swift */; };
 		633A926928A7D32300B3435F /* XCTest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633A926828A7D32300B3435F /* XCTest+Extension.swift */; };
 		633A926B28A7D38B00B3435F /* ParsingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633A926A28A7D38B00B3435F /* ParsingTest.swift */; };
-		633A926C28A7D94600B3435F /* dummyLookupAPIResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 633A926728A7D29C00B3435F /* dummyLookupAPIResponse.json */; };
+		633A926C28A7D94600B3435F /* lookupAPISuccessResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 633A926728A7D29C00B3435F /* lookupAPISuccessResponse.json */; };
 		633A927028A7DDD200B3435F /* CacheTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633A926F28A7DDD200B3435F /* CacheTest.swift */; };
 		638722D828A8D3E100A6ED7B /* ItunesAppDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638722D728A8D3E100A6ED7B /* ItunesAppDetailRepository.swift */; };
+		638722DE28A926BB00A6ED7B /* iTunesAppDetailRepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638722DD28A926BB00A6ED7B /* iTunesAppDetailRepositoryTest.swift */; };
+		638722E028A9278800A6ED7B /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638722DF28A9278800A6ED7B /* MockURLProtocol.swift */; };
+		638722E228A9363600A6ED7B /* lookupAPIEmptyResultResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 638722E128A935A900A6ED7B /* lookupAPIEmptyResultResponse.json */; };
 		6388DE3E28A6404E0011D47E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DE3D28A6404E0011D47E /* AppDelegate.swift */; };
 		6388DE4028A6404E0011D47E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DE3F28A6404E0011D47E /* SceneDelegate.swift */; };
 		6388DE4228A6404E0011D47E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DE4128A6404E0011D47E /* SearchViewController.swift */; };
@@ -44,11 +47,14 @@
 		633A925428A79E3D00B3435F /* iTunesAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesAPIService.swift; sourceTree = "<group>"; };
 		633A925628A7A44A00B3435F /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		633A925D28A7D15700B3435F /* iTunesAPITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTunesAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		633A926728A7D29C00B3435F /* dummyLookupAPIResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = dummyLookupAPIResponse.json; sourceTree = "<group>"; };
+		633A926728A7D29C00B3435F /* lookupAPISuccessResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lookupAPISuccessResponse.json; sourceTree = "<group>"; };
 		633A926828A7D32300B3435F /* XCTest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTest+Extension.swift"; sourceTree = "<group>"; };
 		633A926A28A7D38B00B3435F /* ParsingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingTest.swift; sourceTree = "<group>"; };
 		633A926F28A7DDD200B3435F /* CacheTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTest.swift; sourceTree = "<group>"; };
 		638722D728A8D3E100A6ED7B /* ItunesAppDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItunesAppDetailRepository.swift; sourceTree = "<group>"; };
+		638722DD28A926BB00A6ED7B /* iTunesAppDetailRepositoryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesAppDetailRepositoryTest.swift; sourceTree = "<group>"; };
+		638722DF28A9278800A6ED7B /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
+		638722E128A935A900A6ED7B /* lookupAPIEmptyResultResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lookupAPIEmptyResultResponse.json; sourceTree = "<group>"; };
 		6388DE3A28A6404E0011D47E /* app-show-room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "app-show-room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6388DE3D28A6404E0011D47E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6388DE3F28A6404E0011D47E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,10 +92,11 @@
 		633A925E28A7D15700B3435F /* iTunesAPITests */ = {
 			isa = PBXGroup;
 			children = (
+				638722DA28A9267100A6ED7B /* Util */,
 				633A926628A7D16900B3435F /* Resource */,
 				633A926A28A7D38B00B3435F /* ParsingTest.swift */,
 				633A926F28A7DDD200B3435F /* CacheTest.swift */,
-				633A926828A7D32300B3435F /* XCTest+Extension.swift */,
+				638722DD28A926BB00A6ED7B /* iTunesAppDetailRepositoryTest.swift */,
 			);
 			path = iTunesAPITests;
 			sourceTree = "<group>";
@@ -97,7 +104,8 @@
 		633A926628A7D16900B3435F /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				633A926728A7D29C00B3435F /* dummyLookupAPIResponse.json */,
+				633A926728A7D29C00B3435F /* lookupAPISuccessResponse.json */,
+				638722E128A935A900A6ED7B /* lookupAPIEmptyResultResponse.json */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -108,6 +116,15 @@
 				638722D728A8D3E100A6ED7B /* ItunesAppDetailRepository.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		638722DA28A9267100A6ED7B /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				633A926828A7D32300B3435F /* XCTest+Extension.swift */,
+				638722DF28A9278800A6ED7B /* MockURLProtocol.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		6388DE3128A6404E0011D47E = {
@@ -289,7 +306,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				633A926C28A7D94600B3435F /* dummyLookupAPIResponse.json in Resources */,
+				638722E228A9363600A6ED7B /* lookupAPIEmptyResultResponse.json in Resources */,
+				633A926C28A7D94600B3435F /* lookupAPISuccessResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +329,8 @@
 			files = (
 				633A926B28A7D38B00B3435F /* ParsingTest.swift in Sources */,
 				633A927028A7DDD200B3435F /* CacheTest.swift in Sources */,
+				638722E028A9278800A6ED7B /* MockURLProtocol.swift in Sources */,
+				638722DE28A926BB00A6ED7B /* iTunesAppDetailRepositoryTest.swift in Sources */,
 				633A926928A7D32300B3435F /* XCTest+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

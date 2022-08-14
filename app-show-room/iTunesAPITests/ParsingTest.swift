@@ -11,7 +11,7 @@ import XCTest
 class ParsingTest: XCTestCase {
     
     var sut: AppLookupResponse!
-    let mockJSONName = "dummyLookupAPIResponse"
+    let mockJSONName = "lookupAPISuccessResponse"
 
     override func setUpWithError() throws {
         try super.setUpWithError()
