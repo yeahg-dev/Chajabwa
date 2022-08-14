@@ -9,16 +9,16 @@ import Foundation
 
 struct AppDetail {
     
-    let appName: String
-    let iconImageURL: String
-    let sellerName: String
-    let price: Double
-    let averageUserRating: Double
-    let userRatingCount: Int
-    let appContentRating: String
-    let primaryGenreName: String
-    let languageCodesISO2A: [String]
-    let screenShotURLs: [String]
-    let description: String
+    let appName: String?
+    let iconImageURL: String?
+    let sellerName: String?
+    let price: Double?
+    let averageUserRating: Double?
+    let userRatingCount: Int?
+    let appContentRating: String?
+    let primaryGenreName: String?
+    let languageCodesISO2A: [String]?
+    let screenShotURLs: [String]?
+    let description: String?
     
 }

@@ -84,3 +84,25 @@ extension AppResponse: Decodable {
 
     }
 }
+
+extension AppLookupResponse {
+    
+    func toAppDetail() -> AppDetail? {
+        guard let appDetail = self.results.first else {
+            return nil
+        }
+        
+        return AppDetail(
+            appName: appDetail.trackName,
+            iconImageURL: appDetail.artworkUrl512,
+            sellerName: appDetail.sellerName,
+            price: appDetail.price,
+            averageUserRating: appDetail.averageUserRating,
+            userRatingCount: appDetail.userRatingCount,
+            appContentRating: appDetail.contentAdvisoryRating,
+            primaryGenreName: appDetail.primaryGenreName,
+            languageCodesISO2A: appDetail.languageCodesISO2A,
+            screenShotURLs: appDetail.screenshotUrls,
+            description: appDetail.resultDescription)
+    }
+}

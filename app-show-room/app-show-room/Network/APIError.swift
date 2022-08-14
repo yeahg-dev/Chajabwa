@@ -12,3 +12,8 @@ enum APIError: Error {
     case invalidURL
     case invalidParsedData
 }
+
+enum DTOError: Error {
+    
+    case invalidTransform
+}
