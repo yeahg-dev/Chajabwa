@@ -122,15 +122,6 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		63861EB428AA0FBC0062A8BD /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				6388DE5B28A6907C0011D47E /* SceneNamespace */,
-				63861EB528AA10990062A8BD /* AppSearchViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		63861EB728AA1ABC0062A8BD /* Entity */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,12 +131,39 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
-		63861EBC28AA1CFA0062A8BD /* Common */ = {
+		63861EBF28AA41F00062A8BD /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				63861EBD28AA1D090062A8BD /* AlertViewModel.swift */,
+				6388DE5B28A6907C0011D47E /* NamespaceCommon */,
+				63861EC028AA41F90062A8BD /* AppSearch */,
 			);
-			path = Common;
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		63861EC028AA41F90062A8BD /* AppSearch */ = {
+			isa = PBXGroup;
+			children = (
+				63861EC228AA421E0062A8BD /* ViewModel */,
+				63861EC128AA42190062A8BD /* View */,
+			);
+			path = AppSearch;
+			sourceTree = "<group>";
+		};
+		63861EC128AA42190062A8BD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6388DE4128A6404E0011D47E /* SearchViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		63861EC228AA421E0062A8BD /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				63861EB528AA10990062A8BD /* AppSearchViewModel.swift */,
+				6388DE5928A68E090011D47E /* AppSearchSceneNamespace.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		638722D928A8D3E600A6ED7B /* Repository */ = {
@@ -204,9 +222,9 @@
 			children = (
 				6388DE5228A6641E0011D47E /* App */,
 				6388DE5428A664520011D47E /* Resource */,
+				63861EBF28AA41F00062A8BD /* Scene */,
 				6388DE5328A6643D0011D47E /* View */,
 				6388DE5128A664150011D47E /* Model */,
-				63861EB428AA0FBC0062A8BD /* ViewModel */,
 				638722E628A948B700A6ED7B /* Usecase */,
 				638722D928A8D3E600A6ED7B /* Repository */,
 				6388DE5E28A6A5200011D47E /* Network */,
@@ -237,7 +255,6 @@
 		6388DE5328A6643D0011D47E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				6388DE4128A6404E0011D47E /* SearchViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -251,13 +268,12 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		6388DE5B28A6907C0011D47E /* SceneNamespace */ = {
+		6388DE5B28A6907C0011D47E /* NamespaceCommon */ = {
 			isa = PBXGroup;
 			children = (
-				63861EBC28AA1CFA0062A8BD /* Common */,
-				6388DE5928A68E090011D47E /* AppSearchSceneNamespace.swift */,
+				63861EBD28AA1D090062A8BD /* AlertViewModel.swift */,
 			);
-			path = SceneNamespace;
+			path = NamespaceCommon;
 			sourceTree = "<group>";
 		};
 		6388DE5E28A6A5200011D47E /* Network */ = {
