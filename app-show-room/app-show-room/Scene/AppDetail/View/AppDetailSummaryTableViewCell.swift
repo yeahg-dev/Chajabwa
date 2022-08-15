@@ -29,10 +29,17 @@ final class AppDetailSummaryTableViewCell: BaseAppDetailTableViewCell {
     private let priceLabel = UILabel()
     private let shareButton = UIButton()
 
-    private func configureSubviews() {
+    override func configureSubviews() {
         self.designComponents()
         self.addSubviews()
         self.setConstraintsSubviews()
+    }
+
+    override func bind(model: BaseAppDetailTableViewCellModel) {
+        self.fillIconImage(url: model.iconImageURL)
+        self.fillAppNameLabel(name: model.name)
+        self.fillProviderLabel(provider: model.provider)
+        self.fillPriceLabel(price: model.price)
     }
     
     private func designComponents() {
@@ -57,14 +64,6 @@ final class AppDetailSummaryTableViewCell: BaseAppDetailTableViewCell {
         self.setConstraintOfProviderLabel()
         self.setContstraintOfPriceLabel()
         self.setConstraintOfShareButton()
-    }
-    
-   
-    override func bind(model: BaseAppDetailTableViewCellModel) {
-        self.fillIconImage(url: model.iconImageURL)
-        self.fillAppNameLabel(name: model.name)
-        self.fillProviderLabel(provider: model.provider)
-        self.fillPriceLabel(price: model.price)
     }
     
 }

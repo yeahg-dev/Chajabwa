@@ -19,7 +19,10 @@ class BaseAppDetailTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.configureSubviews()
     }
+    
+    func configureSubviews() { }
     
     func bind(model: BaseAppDetailTableViewCellModel) { }
     
