@@ -16,6 +16,7 @@ private enum Design {
     static let iconImageViewTrailingMargin = CGFloat(10)
     static let providerLabelTopMargin = CGFloat(10)
     
+    static let defaultIconImage = UIImage(withBackground: .systemGray4)
 }
 
 final class AppDetailSummaryTableViewCell: BaseAppDetailTableViewCell {
@@ -177,7 +178,9 @@ extension AppDetailSummaryTableViewCell {
 extension AppDetailSummaryTableViewCell {
     
     private func fillIconImage(url: String?) {
-        // TODO: - UIImageView Extension에 구현
+        _ = self.iconImageView.setImage(
+            with: url,
+            defaultImage: Design.defaultIconImage)
     }
     
     private func fillAppNameLabel(name: String?) {

@@ -24,6 +24,7 @@
 		63861ECD28AA6F1D0062A8BD /* AppDetailSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861ECC28AA6F1D0062A8BD /* AppDetailSummaryTableViewCell.swift */; };
 		63861ECF28AAA2530062A8BD /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861ECE28AAA2530062A8BD /* UIImageView+Extension.swift */; };
 		63861ED228AAA3C10062A8BD /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861ED128AAA3C10062A8BD /* ImageCache.swift */; };
+		63861ED428AAA9950062A8BD /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861ED328AAA9950062A8BD /* UIImage+Extension.swift */; };
 		638722D828A8D3E100A6ED7B /* ItunesAppDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638722D728A8D3E100A6ED7B /* ItunesAppDetailRepository.swift */; };
 		638722DE28A926BB00A6ED7B /* iTunesAppDetailRepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638722DD28A926BB00A6ED7B /* iTunesAppDetailRepositoryTest.swift */; };
 		638722E028A9278800A6ED7B /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638722DF28A9278800A6ED7B /* MockURLProtocol.swift */; };
@@ -73,6 +74,7 @@
 		63861ECC28AA6F1D0062A8BD /* AppDetailSummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailSummaryTableViewCell.swift; sourceTree = "<group>"; };
 		63861ECE28AAA2530062A8BD /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		63861ED128AAA3C10062A8BD /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		63861ED328AAA9950062A8BD /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		638722D728A8D3E100A6ED7B /* ItunesAppDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItunesAppDetailRepository.swift; sourceTree = "<group>"; };
 		638722DD28A926BB00A6ED7B /* iTunesAppDetailRepositoryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesAppDetailRepositoryTest.swift; sourceTree = "<group>"; };
 		638722DF28A9278800A6ED7B /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				63861ECE28AAA2530062A8BD /* UIImageView+Extension.swift */,
+				63861ED328AAA9950062A8BD /* UIImage+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 				6388DE6728A6CAB70011D47E /* iTunesAPIRequest.swift in Sources */,
 				638722EE28A95F9800A6ED7B /* Observable.swift in Sources */,
 				6388DE4028A6404E0011D47E /* SceneDelegate.swift in Sources */,
+				63861ED428AAA9950062A8BD /* UIImage+Extension.swift in Sources */,
 				63861EBE28AA1D090062A8BD /* AlertViewModel.swift in Sources */,
 				63861EBB28AA1AF50062A8BD /* AppLookupResults.swift in Sources */,
 				6388DE6228A6A56A0011D47E /* APIRequest.swift in Sources */,

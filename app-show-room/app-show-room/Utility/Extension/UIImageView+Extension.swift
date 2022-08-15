@@ -9,9 +9,17 @@ import UIKit
 
 extension UIImageView {
     
-    func setImage(with url: URL, defaultImage: UIImage) -> CancellableTask? {
+    func setImage(with urlString: String?, defaultImage: UIImage) -> CancellableTask? {
+        guard let urlString = urlString,
+              let url = URL(string: urlString) else {
+            DispatchQueue.main.async {
+                self.image = defaultImage
+            }
+            return nil
+        }
+        
         let imageCache = ImageCache()
-        let cacheKey = url.absoluteString
+        let cacheKey = urlString
         
         if let cachedImage = imageCache.getImage(of: cacheKey) {
             self.image = cachedImage
