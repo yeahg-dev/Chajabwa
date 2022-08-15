@@ -9,10 +9,10 @@ import Foundation
 
 struct AppSearchUsecase {
     
-    private var repository: AppDetailRepository
+    private let appDetailRepository: AppDetailRepository
     
-    init(repository: AppDetailRepository = ItunesAppDetailRepository()) {
-        self.repository = repository
+    init(appDetailRepository: AppDetailRepository = ItunesAppDetailRepository()) {
+        self.appDetailRepository = appDetailRepository
     }
     
     func searchApp(
@@ -23,7 +23,7 @@ struct AppSearchUsecase {
                 return
             }
             
-            self.repository.fetchAppDetail(
+            self.appDetailRepository.fetchAppDetail(
                 of: id) { result in
                     switch result {
                     case .success(let appDetail):
