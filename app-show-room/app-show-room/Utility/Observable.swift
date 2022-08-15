@@ -26,7 +26,7 @@ final class Observable<Value> {
     
     func observe(
         on observer: AnyObject,
-        subscribeBlock: @escaping (Value) -> Void) {
+        _ subscribeBlock: @escaping (Value) -> Void) {
         observers.append(Observer(observer: observer, valueDidSet: subscribeBlock))
         subscribeBlock(self.value)
     }
