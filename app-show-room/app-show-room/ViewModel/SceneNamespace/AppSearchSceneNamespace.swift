@@ -5,7 +5,7 @@
 //  Created by Moon Yeji on 2022/08/12.
 //
 
-import UIKit
+import Foundation
 
 enum AppSearchSceneNamespace {
     
@@ -14,6 +14,7 @@ enum AppSearchSceneNamespace {
     static let searchFailureAlertViewModel = SearchFailureAlertViewModel()
 }
 
+// MARK: - InvalidInputAlertViewModel
 
 extension AppSearchSceneNamespace {
     
@@ -27,16 +28,18 @@ extension AppSearchSceneNamespace {
         
         var title: String? = "ID를 다시 확인해주세요"
         var message: String? = "숫자만 입력 할 수 있어요"
-        var preferredStyle: UIAlertController.Style = .alert
+        var preferredStyle: UIAlertControllerStyle = .alert
     }
     
     struct InvalidInputAlertActionViewModel: UIAlertActionViewModel {
         
         var title: String? = "확인"
-        var style: UIAlertAction.Style = .default
+        var style: UIAlertActionStyle = .defaults
     }
     
 }
+
+// MARK: - SearchFailureAlertViewModel
 
 extension AppSearchSceneNamespace {
     
@@ -50,13 +53,13 @@ extension AppSearchSceneNamespace {
         
         var title: String? = "검색에 실패했습니다"
         var message: String? = "다시 시도해주세요🙏🏻"
-        var preferredStyle: UIAlertController.Style = .alert
+        var preferredStyle: UIAlertControllerStyle = .alert
     }
     
     struct SearchFailureAlertActionViewModel: UIAlertActionViewModel {
         
         var title: String? = "확인"
-        var style: UIAlertAction.Style = .default
+        var style: UIAlertActionStyle = .defaults
     }
     
 }

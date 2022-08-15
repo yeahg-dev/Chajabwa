@@ -63,11 +63,11 @@ final class SearchViewController: UIViewController {
         let alertController = UIAlertController(
             title: alertViewModel.alertController.title,
             message: alertViewModel.alertController.message,
-            preferredStyle: alertViewModel.alertController.preferredStyle)
+            preferredStyle: alertViewModel.alertController.preferredStyle.value)
         if let alertActionViewModel = alertViewModel.alertAction {
             let action = UIAlertAction(
                 title: alertActionViewModel.title,
-                style: alertActionViewModel.style)
+                style: alertActionViewModel.style.value)
             alertController.addAction(action)
         }
         
@@ -82,6 +82,7 @@ extension SearchViewController: UISearchBarDelegate {
         guard let input = self.searchController.searchBar.text else {
             return
         }
+        
         self.appSearchViewModel.didTappedSearch(with: input)
     }
 }
