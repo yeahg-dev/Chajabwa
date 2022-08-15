@@ -15,4 +15,10 @@ struct BaseAppDetailTableViewCellModel {
         self.app = app
     }
     
+    var iconImageURL: String? { app.iconImageURL }
+    var name: String? { app.appName }
+    var provider: String? { app.sellerName }
+    // TODO: - price 단위 확인 및 String 변환
+    var price: String? { app.price?.description }
+    
 }
