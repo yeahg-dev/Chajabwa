@@ -20,7 +20,7 @@ protocol AppSearchViewModelOutput {
     
     var searchBarPlaceholder: Observable<String> { get }
     var searchResult: Observable<AppDetail?> { get }
-    var searchFailureAlert: Observable<AlertText?> { get }
+    var searchFailureAlert: Observable<AlertViewModel?> { get }
 }
 
 // MARK: - AppSearchViewModel
@@ -34,9 +34,9 @@ struct AppSearchViewModel: AppSearchViewModelOutput {
     }
     
     // MARK: - Output
-    var searchBarPlaceholder = Observable(AppSearchSceneText.searchBarPlaceholder)
+    var searchBarPlaceholder = Observable(AppSearchSceneNamespace.searchBarPlaceholder)
     var searchResult = Observable<AppDetail?>(.none)
-    var searchFailureAlert = Observable<AlertText?>(.none)
+    var searchFailureAlert = Observable<AlertViewModel?>(.none)
     
 }
 
@@ -59,9 +59,9 @@ extension AppSearchViewModel: AppSearchViewModelInput {
     private func handleSearchError(_ error: Error) {
         if let appSearchUseacseError = error as? AppSearchUsecaseError,
            appSearchUseacseError == AppSearchUsecaseError.invalidInputType {
-            self.searchFailureAlert.value = AppSearchSceneText.invalidInputAlertText
+            self.searchFailureAlert.value = AppSearchSceneNamespace.invalidInputAlertViewModel
         } else {
-            self.searchFailureAlert.value = AppSearchSceneText.searchFailureAlertText
+            self.searchFailureAlert.value = AppSearchSceneNamespace.searchFailureAlertViewModel
         }
     }
     

@@ -59,19 +59,21 @@ final class SearchViewController: UIViewController {
         }
     }
     
-    private func presentAlert(_ alertText: AlertText) {
+    private func presentAlert(_ alertViewModel: AlertViewModel) {
         let alertController = UIAlertController(
-            title: alertText.title,
-            message: alertText.message,
-            preferredStyle: .alert)
-        let action = UIAlertAction(
-            title: alertText.alertAction,
-            style: .default)
-        alertController.addAction(action)
+            title: alertViewModel.alertController.title,
+            message: alertViewModel.alertController.message,
+            preferredStyle: alertViewModel.alertController.preferredStyle)
+        if let alertActionViewModel = alertViewModel.alertAction {
+            let action = UIAlertAction(
+                title: alertActionViewModel.title,
+                style: alertActionViewModel.style)
+            alertController.addAction(action)
+        }
         
         self.present(alertController, animated: false)
     }
-
+    
 }
 
 extension SearchViewController: UISearchBarDelegate {
