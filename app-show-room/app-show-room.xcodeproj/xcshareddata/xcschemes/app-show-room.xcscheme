@@ -20,6 +20,20 @@
                ReferencedContainer = "container:app-show-room.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "633A925C28A7D15700B3435F"
+               BuildableName = "iTunesAPITests.xctest"
+               BlueprintName = "iTunesAPITests"
+               ReferencedContainer = "container:app-show-room.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

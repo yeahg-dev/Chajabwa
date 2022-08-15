@@ -10,13 +10,13 @@ import XCTest
 
 class ParsingTest: XCTestCase {
     
-    var sut: AppLookupResponse!
+    var sut: AppLookupResults!
     let mockJSONName = "lookupAPISuccessResponse"
 
     override func setUpWithError() throws {
         try super.setUpWithError()
         let responseData = try getData(fromJSON: mockJSONName)
-        self.sut = try JSONDecoder().decode(AppLookupResponse.self, from: responseData)
+        self.sut = try JSONDecoder().decode(AppLookupResults.self, from: responseData)
     }
     
     override func tearDownWithError() throws {
