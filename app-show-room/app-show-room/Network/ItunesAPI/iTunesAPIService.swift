@@ -29,8 +29,14 @@ struct iTunesAPIService: APIService {
                     return
                 }
                 
-                guard let data = data,
-                      let parsedData: T.APIResponse = parse(response: data) else {
+                guard let httpResponse = urlResponse as? HTTPURLResponse,
+                      (200...299).contains(httpResponse.statusCode),
+                      let data = data else {
+                    completion?(.failure(APIError.HTTPResponseFailure))
+                    return
+                }
+                
+                guard let parsedData: T.APIResponse = parse(response: data) else {
                     completion?(.failure(APIError.invalidParsedData))
                     return }
                 

@@ -10,5 +10,11 @@ import Foundation
 enum APIError: Error {
     
     case invalidURL
+    case HTTPResponseFailure
     case invalidParsedData
+}
+
+enum DTOError: Error {
+    
+    case invalidTransform
 }
