@@ -34,7 +34,7 @@ struct AppSearchViewModel: AppSearchViewModelOutput {
     }
     
     // MARK: - Output
-    var searchBarPlaceholder = Observable(AppSerachSceneText().title)
+    var searchBarPlaceholder = Observable(AppSearchSceneText.searchBarPlaceholder)
     var searchResult = Observable<AppDetail?>(.none)
     var searchFailureAlert = Observable<AlertText?>(.none)
     
@@ -59,9 +59,10 @@ extension AppSearchViewModel: AppSearchViewModelInput {
     private func handleSearchError(_ error: Error) {
         if let appSearchUseacseError = error as? AppSearchUsecaseError,
            appSearchUseacseError == AppSearchUsecaseError.invalidInputType {
-            self.searchFailureAlert.value = AppSerachSceneText.FailureAlertText()
+            self.searchFailureAlert.value = AppSearchSceneText.invalidInputAlertText
+        } else {
+            self.searchFailureAlert.value = AppSearchSceneText.searchFailureAlertText
         }
-        // TODO: - 검색 실패에 대한 오류 메시지 전달
     }
     
 }
