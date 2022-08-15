@@ -11,7 +11,7 @@ struct AppDetail {
     
     let appName: String?
     let iconImageURL: String?
-    let sellerName: String?
+    let provider: String?
     let price: Double?
     let averageUserRating: Double?
     let userRatingCount: Int?

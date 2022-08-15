@@ -70,7 +70,7 @@ extension App {
         return AppDetail(
             appName: self.trackName,
             iconImageURL: self.artworkUrl512,
-            sellerName: self.sellerName,
+            provider: self.sellerName,
             price: self.price,
             averageUserRating: self.averageUserRating,
             userRatingCount: self.userRatingCount,
