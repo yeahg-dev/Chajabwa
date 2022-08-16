@@ -9,7 +9,7 @@ import Foundation
 
 struct BaseAppDetailTableViewCellModel {
     
-    private let app: AppDetail
+    let app: AppDetail
     
     init(app: AppDetail) {
         self.app = app

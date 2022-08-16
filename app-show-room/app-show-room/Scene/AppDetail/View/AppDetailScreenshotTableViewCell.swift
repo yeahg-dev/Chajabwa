@@ -7,55 +7,48 @@
 
 import UIKit
 
-protocol ScreenShotCollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
-
-    func collectionView(_ collectionView: UICollectionView, screenShotForItemAt indexPath: IndexPath) -> String?
-}
-
 final class AppDetailScreenshotTableViewCell: BaseAppDetailTableViewCell {
     
     override var height: CGFloat { UIScreen.main.bounds.height * 0.55 }
     
-    private var screenShotCollectionViewDataSource: ScreenShotCollectionViewDataSource?
-    private let screenShotCollectionView = UICollectionView()
+    private var screenshotGalleryView: ScreenshotGalleryView!
+    
+    private var appDetail: AppDetail?
     
     override func configureSubviews() {
-       
+        self.addSubviews()
+        self.setConstraintsSubviews()
     }
 
     override func bind(model: BaseAppDetailTableViewCellModel) {
-        self.screenShotCollectionViewDataSource = model.screenShotCollectionViewDataSource
+        self.appDetail = model.app
+    }
+  
+    private func addSubviews() {
+        self.screenshotGalleryView = ScreenshotGalleryView(
+            viewModel: self,
+            style: .embeddedInAppDetailScene)
+        self.contentView.addSubview(screenshotGalleryView)
     }
     
-    private func configureScreenShotCollectionView() {
-        self.screenShotCollectionView.dataSource = self
-        self.screenShotCollectionView.delegate = self
+    private func setConstraintsSubviews() {
+        NSLayoutConstraint.activate([
+            self.screenshotGalleryView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+            self.screenshotGalleryView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+            self.screenshotGalleryView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
+            self.screenshotGalleryView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
+        ])
     }
-    
 }
 
-extension AppDetailScreenshotTableViewCell: UICollectionViewDataSource {
+extension AppDetailScreenshotTableViewCell: ScreenshotGalleryViewModel {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.screenShotCollectionViewDataSource?.collectionView(
-            self.screenShotCollectionView,
-            numberOfItemsInSection: section) ?? .zero
+    func numberOfItemsInSection(_ section: Int) -> Int {
+        return appDetail?.screenShotURLs?.count ?? .zero
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let url = self.screenShotCollectionViewDataSource?.collectionView(
-            self.screenShotCollectionView,
-            screenShotForItemAt: indexPath) else {
-            return UICollectionViewCell()
-        }
-        
-        return UICollectionViewCell()
+    func screenshotURLForCell(at indexPath: IndexPath) -> String? {
+        return appDetail?.screenShotURLs?[indexPath.row]
     }
-    
-}
-
-extension AppDetailScreenshotTableViewCell: UICollectionViewDelegate {
     
 }

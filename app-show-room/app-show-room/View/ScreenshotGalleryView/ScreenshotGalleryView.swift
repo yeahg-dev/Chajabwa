@@ -16,7 +16,7 @@ protocol ScreenshotGalleryViewModel {
     
     func numberOfItemsInSection(_ section: Int) -> Int
     
-    func ScreenshotURLForCell(at indexPath: IndexPath) -> String?
+    func screenshotURLForCell(at indexPath: IndexPath) -> String?
 }
 
 
@@ -38,19 +38,21 @@ enum ScreenshotGalleryStyle {
 final class ScreenshotGalleryView: UIView {
     
     private let screenshotCollectionView = UICollectionView()
-    
-    private var viewModel : Observable<ScreenshotGalleryViewModel>
-    weak var delegate: ScreenshotGallerViewDelegate?
-    
     private let design: ScreenshotGalleryDesign.Type
     
-    init(viewModel: Observable<ScreenshotGalleryViewModel>,
+    var viewModel: ScreenshotGalleryViewModel? {
+        didSet {
+            self.screenshotCollectionView.reloadData()
+        }
+    }
+    weak var delegate: ScreenshotGallerViewDelegate?
+    
+    init(viewModel: ScreenshotGalleryViewModel,
          style: ScreenshotGalleryStyle) {
         self.viewModel = viewModel
         self.design = style.design
         super.init(frame: .zero)
         self.configureCollectionView()
-        self.bind(viewModel)
     }
     
     required init?(coder: NSCoder) {
@@ -90,23 +92,17 @@ final class ScreenshotGalleryView: UIView {
             right: design.rightSectionInset)
         self.screenshotCollectionView.collectionViewLayout = layout
     }
-    
-    private func bind(_ viewModel: Observable<ScreenshotGalleryViewModel>) {
-        viewModel.observe(on: self) { _ in
-            self.screenshotCollectionView.reloadData()
-        }
-    }
-    
+
 }
 
 extension ScreenshotGalleryView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel.value.numberOfItemsInSection(section)
+        return self.viewModel?.numberOfItemsInSection(section) ?? .zero
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let urlString = self.viewModel.value.ScreenshotURLForCell(at: indexPath) else {
+        guard let urlString = self.viewModel?.screenshotURLForCell(at: indexPath) else {
             return ScreenShotCollectionViewCell()
         }
         
