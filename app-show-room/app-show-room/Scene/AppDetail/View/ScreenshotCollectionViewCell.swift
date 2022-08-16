@@ -1,5 +1,5 @@
 //
-//  ScreenShotCollectionViewCell.swift
+//  ScreenshotCollectionViewCell.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/08/16.
@@ -12,9 +12,9 @@ enum Design {
     static let defaultImage = UIImage(withBackground: .systemGray4)
 }
 
-final class ScreenShotCollectionViewCell: UICollectionViewCell {
+final class ScreenshotCollectionViewCell: UICollectionViewCell {
     
-    private let screenShotView = UIImageView()
+    private let screenshotView = UIImageView()
     
     private var cancellableTask: CancellableTask?
     
@@ -28,31 +28,31 @@ final class ScreenShotCollectionViewCell: UICollectionViewCell {
     }
     
     func fill(with imageURLString: String) {
-        self.cancellableTask = self.screenShotView.setImage(
+        self.cancellableTask = self.screenshotView.setImage(
             with: imageURLString,
             defaultImage: Design.defaultImage)
     }
     
     override func prepareForReuse() {
         self.cancellableTask?.cancelTask()
-        self.screenShotView.image = Design.defaultImage
+        self.screenshotView.image = Design.defaultImage
     }
     
     private func configureSubview() {
-        self.contentView.addSubview(screenShotView)
-        self.setConstraintOfScreenShotView()
+        self.contentView.addSubview(screenshotView)
+        self.setConstraintOfScreenshotView()
         self.designCell()
     }
     
-    private func setConstraintOfScreenShotView() {
+    private func setConstraintOfScreenshotView() {
         NSLayoutConstraint.activate([
-            screenShotView.leadingAnchor.constraint(
+            screenshotView.leadingAnchor.constraint(
                 equalTo: self.contentView.leadingAnchor),
-            screenShotView.topAnchor.constraint(
+            screenshotView.topAnchor.constraint(
                 equalTo: self.contentView.topAnchor),
-            screenShotView.trailingAnchor.constraint(
+            screenshotView.trailingAnchor.constraint(
                 equalTo: self.contentView.trailingAnchor),
-            screenShotView.bottomAnchor.constraint(
+            screenshotView.bottomAnchor.constraint(
                 equalTo: self.contentView.bottomAnchor)
         ])
     }
