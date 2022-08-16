@@ -1,5 +1,5 @@
 //
-//  AppDetailDescriptionTableViewCell.swift
+//  AppDetailDescriptionCollectionViewCell.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/08/16.
@@ -16,7 +16,7 @@ private enum Design {
     static let spacing = CGFloat(5)
 }
 
-final class AppDetailDescriptionTableViewCell: BaseAppDetailTableViewCell {
+final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewCell {
     
     override var height: CGFloat { UIScreen.main.bounds.height * 0.2 }
     
@@ -32,21 +32,20 @@ final class AppDetailDescriptionTableViewCell: BaseAppDetailTableViewCell {
     
     override func configureSubviews() {
         self.addSubviews()
-        self.setConstraintsSubviews()
+        self.setConstraints()
     }
-
-    override func bind(model: BaseAppDetailTableViewCellModel) {
-        self.descriptionTextView.text = model.app.description
-    }
-    
-    private func addSubviews() {
+    override func addSubviews() {
         self.contentView.addSubview(descriptionTextView)
         self.contentView.addSubview(foldingButton)
     }
     
-    private func setConstraintsSubviews() {
+    override func setConstraints() {
         self.setConstraintsOfFoldingButton()
         self.setContstraintsOfDescriptionView()
+    }
+
+    override func bind(model: BaseAppDetailCollectionViewCellModel) {
+        self.descriptionTextView.text = model.app.description
     }
     
     private func configureFoldingButton() {
@@ -77,11 +76,12 @@ final class AppDetailDescriptionTableViewCell: BaseAppDetailTableViewCell {
             self.descriptionTextView.textContainer.maximumNumberOfLines = 3
         }
     }
+    
 }
 
 // MARK: - SetConstraints UIComponents
 
-extension AppDetailDescriptionTableViewCell {
+extension AppDetailDescriptionCollectionViewCell {
     
     private func setContstraintsOfDescriptionView() {
         NSLayoutConstraint.activate([

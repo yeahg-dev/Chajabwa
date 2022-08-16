@@ -1,5 +1,5 @@
 //
-//  BaseAppDetailTableViewCellModel.swift
+//  BaseAppDetailCollectionViewCellModel.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/08/15.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BaseAppDetailTableViewCellModel {
+struct BaseAppDetailCollectionViewCellModel {
     
     let app: AppDetail
     

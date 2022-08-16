@@ -11,8 +11,8 @@ protocol AppDetailViewModelOutput {
     
     func numberOfSection() -> Int
     func numberOfRows(in section: Int) -> Int
-    func cellType(at indexPath: IndexPath) -> BaseAppDetailTableViewCell
-    func cellModel(at indexPath: IndexPath) -> BaseAppDetailTableViewCellModel
+    func cellType(at indexPath: IndexPath) -> BaseAppDetailCollectionViewCell
+    func cellModel(at indexPath: IndexPath) -> BaseAppDetailCollectionViewCellModel
     func cellHeight(at indexPath: IndexPath) -> Double
     func sectionHeaderTitle(for section: Int) -> String?
 

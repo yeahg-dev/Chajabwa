@@ -1,5 +1,5 @@
 //
-//  AppDetailSummaryTableViewCell.swift
+//  AppDetailSummaryCollectionViewCell.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/08/15.
@@ -19,7 +19,7 @@ private enum Design {
     static let defaultIconImage = UIImage(withBackground: .systemGray4)
 }
 
-final class AppDetailSummaryTableViewCell: BaseAppDetailTableViewCell {
+final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell {
     
     override var height: CGFloat { UIScreen.main.bounds.height * 0.3 }
     
@@ -33,10 +33,26 @@ final class AppDetailSummaryTableViewCell: BaseAppDetailTableViewCell {
     override func configureSubviews() {
         self.designComponents()
         self.addSubviews()
-        self.setConstraintsSubviews()
+        self.setConstraints()
+    }
+    
+    override func addSubviews() {
+        self.contentView.addSubview(iconImageView)
+        self.contentView.addSubview(appNameLabel)
+        self.contentView.addSubview(providerLabel)
+        self.contentView.addSubview(priceLabel)
+        self.contentView.addSubview(shareButton)
+    }
+    
+    override func setConstraints() {
+        self.setContratinsOfIconImageView()
+        self.setConstraintsOfAppNameLabel()
+        self.setConstraintOfProviderLabel()
+        self.setContstraintOfPriceLabel()
+        self.setConstraintOfShareButton()
     }
 
-    override func bind(model: BaseAppDetailTableViewCellModel) {
+    override func bind(model: BaseAppDetailCollectionViewCellModel) {
         self.fillIconImage(url: model.iconImageURL)
         self.fillAppNameLabel(name: model.name)
         self.fillProviderLabel(provider: model.provider)
@@ -51,27 +67,11 @@ final class AppDetailSummaryTableViewCell: BaseAppDetailTableViewCell {
         self.designShareButton()
     }
     
-    private func addSubviews() {
-        self.contentView.addSubview(iconImageView)
-        self.contentView.addSubview(appNameLabel)
-        self.contentView.addSubview(providerLabel)
-        self.contentView.addSubview(priceLabel)
-        self.contentView.addSubview(shareButton)
-    }
-    
-    private func setConstraintsSubviews() {
-        self.setContratinsOfIconImageView()
-        self.setConstraintsOfAppNameLabel()
-        self.setConstraintOfProviderLabel()
-        self.setContstraintOfPriceLabel()
-        self.setConstraintOfShareButton()
-    }
-    
 }
 
 // MARK: - Design UIComponents
 
-extension AppDetailSummaryTableViewCell {
+extension AppDetailSummaryCollectionViewCell {
     
     private func designIconImageView() {
         self.iconImageView.layer.cornerRadius = 6
@@ -114,7 +114,7 @@ extension AppDetailSummaryTableViewCell {
 
 // MARK: - Set Constraints for UIComponents
 
-extension AppDetailSummaryTableViewCell {
+extension AppDetailSummaryCollectionViewCell {
  
     private func setContratinsOfIconImageView() {
         NSLayoutConstraint.activate([
@@ -175,7 +175,7 @@ extension AppDetailSummaryTableViewCell {
     }
 }
 
-extension AppDetailSummaryTableViewCell {
+extension AppDetailSummaryCollectionViewCell {
     
     private func fillIconImage(url: String?) {
         _ = self.iconImageView.setImage(

@@ -1,5 +1,5 @@
 //
-//  AppDetailScreenshotTableViewCell.swift
+//  AppDetailScreenshotCollectionViewCell.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/08/16.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class AppDetailScreenshotTableViewCell: BaseAppDetailTableViewCell {
+final class AppDetailScreenshotCollectionViewCell: BaseAppDetailCollectionViewCell {
     
     override var height: CGFloat { UIScreen.main.bounds.height * 0.55 }
     
@@ -15,23 +15,19 @@ final class AppDetailScreenshotTableViewCell: BaseAppDetailTableViewCell {
     
     private var appDetail: AppDetail?
     
-    override func configureSubviews() {
-        self.addSubviews()
-        self.setConstraintsSubviews()
-    }
-
-    override func bind(model: BaseAppDetailTableViewCellModel) {
-        self.appDetail = model.app
-    }
-  
-    private func addSubviews() {
+    override func addSubviews() {
         self.screenshotGalleryView = ScreenshotGalleryView(
             viewModel: self,
             style: .embeddedInAppDetailScene)
         self.contentView.addSubview(screenshotGalleryView)
     }
     
-    private func setConstraintsSubviews() {
+    override func configureSubviews() {
+        self.addSubviews()
+        self.setConstraints()
+    }
+    
+    override func setConstraints() {
         NSLayoutConstraint.activate([
             self.screenshotGalleryView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
             self.screenshotGalleryView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
@@ -39,9 +35,14 @@ final class AppDetailScreenshotTableViewCell: BaseAppDetailTableViewCell {
             self.screenshotGalleryView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
         ])
     }
+    
+    override func bind(model: BaseAppDetailCollectionViewCellModel) {
+        self.appDetail = model.app
+    }
+    
 }
 
-extension AppDetailScreenshotTableViewCell: ScreenshotGalleryViewModel {
+extension AppDetailScreenshotCollectionViewCell: ScreenshotGalleryViewModel {
     
     func numberOfItemsInSection(_ section: Int) -> Int {
         return appDetail?.screenShotURLs?.count ?? .zero
