@@ -138,6 +138,22 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		6384EC4828AB2E0000D1F821 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				63861ECE28AAA2530062A8BD /* UIImageView+Extension.swift */,
+				63861ED328AAA9950062A8BD /* UIImage+Extension.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		6384EC4928AB2E0F00D1F821 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
 		63861EB728AA1ABC0062A8BD /* Entity */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,8 +230,8 @@
 		63861ED028AAA3A70062A8BD /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				63861ECE28AAA2530062A8BD /* UIImageView+Extension.swift */,
-				63861ED328AAA9950062A8BD /* UIImage+Extension.swift */,
+				6384EC4928AB2E0F00D1F821 /* Swift */,
+				6384EC4828AB2E0000D1F821 /* UIKit */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
