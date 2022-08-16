@@ -49,7 +49,7 @@ final class SearchViewController: UIViewController {
             self.searchController.searchBar.placeholder = placeholder
         }
         viewModel.searchResult.observe(on: self) { appDetail in
-            print(appDetail?.sellerName as Any)
+//            print(appDetail?.sellerName as Any)
         }
         viewModel.searchFailureAlert.observe(on: self) { alertText in
             guard let alertText = alertText else {

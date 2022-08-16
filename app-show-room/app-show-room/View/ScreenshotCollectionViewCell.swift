@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum Design {
+private enum Design {
     
     static let defaultImage = UIImage(withBackground: .systemGray4)
 }

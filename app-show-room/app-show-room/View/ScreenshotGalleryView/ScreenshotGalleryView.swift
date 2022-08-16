@@ -9,6 +9,7 @@ import UIKit
 
 protocol ScreenshotGallerViewDelegate: AnyObject {
     
+    // 셀 탭시 행동 정의
 }
 
 protocol ScreenshotGalleryViewModel {
@@ -18,6 +19,22 @@ protocol ScreenshotGalleryViewModel {
     func ScreenshotURLForCell(at indexPath: IndexPath) -> String?
 }
 
+
+enum ScreenshotGalleryStyle {
+    
+    case embeddedInAppDetailScene
+    case enlarged
+    
+    var design: ScreenshotGalleryDesign.Type {
+        switch self {
+        case .embeddedInAppDetailScene:
+            return EmbeddedInAppDetailSceneDesign.self
+        case .enlarged:
+            return EnlargedSceneDesign.self
+        }
+    }
+}
+
 final class ScreenshotGalleryView: UIView {
     
     private let screenshotCollectionView = UICollectionView()
@@ -25,8 +42,12 @@ final class ScreenshotGalleryView: UIView {
     private var viewModel : Observable<ScreenshotGalleryViewModel>
     weak var delegate: ScreenshotGallerViewDelegate?
     
-    init(viewModel: Observable<ScreenshotGalleryViewModel>) {
+    private let design: ScreenshotGalleryDesign.Type
+    
+    init(viewModel: Observable<ScreenshotGalleryViewModel>,
+         style: ScreenshotGalleryStyle) {
         self.viewModel = viewModel
+        self.design = style.design
         super.init(frame: .zero)
         self.configureCollectionView()
         self.bind(viewModel)
@@ -61,8 +82,12 @@ final class ScreenshotGalleryView: UIView {
     private func configureCollectionViewLayout() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 7
-        layout.sectionInset = UIEdgeInsets(top: 5, left: 14, bottom: 5, right: 14)
+        layout.minimumLineSpacing = design.minimumLineSpacing
+        layout.sectionInset = UIEdgeInsets(
+            top: design.topSectionInset,
+            left: design.leftSectionInset,
+            bottom: design.bottomSectionInset,
+            right: design.rightSectionInset)
         self.screenshotCollectionView.collectionViewLayout = layout
     }
     
