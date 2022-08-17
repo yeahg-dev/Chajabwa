@@ -106,11 +106,8 @@ extension AppDetailViewController: AppDetailTableViewCellDelegate {
     }
     
     func screenshotDidTapped(_ viewModel: ScreenshotGalleryViewModel) {
-        let screenshotViewController = UIViewController()
-        screenshotViewController.view.contentMode = .scaleToFill
-        screenshotViewController.view = ScreenshotGalleryView(
-            viewModel: viewModel,
-            style: .enlarged)
+        let screenshotViewController = EnlargedScreenshotGalleryViewController(
+            viewModel: viewModel)
         self.present(screenshotViewController, animated: true)
         screenshotViewController.modalPresentationStyle = .fullScreen
     }

@@ -53,6 +53,12 @@ final class AppDetailScreenshotCollectionViewCell: BaseAppDetailCollectionViewCe
 extension AppDetailScreenshotCollectionViewCell {
     
     func setConstraintOfScreenshotGalleryView() {
+        let screenshotCollectionViewHeightAchor = screenshotGalleryView.heightAnchor.constraint(
+            equalToConstant: (UIScreen.main.bounds.height * 0.55) + screenshotGalleryView.design.topSectionInset + screenshotGalleryView.design.bottomSectionInset)
+        screenshotCollectionViewHeightAchor.priority = .defaultHigh
+        let screenshotCollectionViewWidthAchor = screenshotGalleryView.widthAnchor.constraint(
+            equalToConstant: UIScreen.main.bounds.width)
+        screenshotCollectionViewWidthAchor.priority = .defaultHigh
         NSLayoutConstraint.activate([
             self.screenshotGalleryView.leadingAnchor.constraint(
                 equalTo: self.contentView.leadingAnchor),
@@ -61,7 +67,9 @@ extension AppDetailScreenshotCollectionViewCell {
             self.screenshotGalleryView.trailingAnchor.constraint(
                 equalTo: self.contentView.trailingAnchor),
             self.screenshotGalleryView.bottomAnchor.constraint(
-                equalTo: self.contentView.bottomAnchor)
+                equalTo: self.contentView.bottomAnchor),
+            screenshotCollectionViewWidthAchor,
+            screenshotCollectionViewHeightAchor
         ])
     }
 }

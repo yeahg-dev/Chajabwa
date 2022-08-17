@@ -38,14 +38,11 @@ enum ScreenshotGalleryStyle {
 
 final class ScreenshotGalleryView: UIView {
     
-    // TODO: - 코드 정리
     private lazy var screenshotCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = design.minimumLineSpacing
-        let screenshotHeight = UIScreen.main.bounds.height * 0.55
-        let screenshotWidth = screenshotHeight * 0.56
-        layout.itemSize = CGSize(width: screenshotWidth, height: screenshotHeight)
+        layout.itemSize = CGSize(width: design.cellWidth, height: design.cellHeight)
         layout.sectionInset = UIEdgeInsets(
             top: design.topSectionInset,
             left: design.leftSectionInset,
@@ -56,7 +53,7 @@ final class ScreenshotGalleryView: UIView {
             collectionViewLayout: layout)
     }()
     
-    private let design: ScreenshotGalleryDesign.Type
+    let design: ScreenshotGalleryDesign.Type
     
     var viewModel: ScreenshotGalleryViewModel? {
         didSet {
@@ -88,12 +85,6 @@ final class ScreenshotGalleryView: UIView {
     private func setConstraints() {
         self.addSubview(screenshotCollectionView)
         screenshotCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        let screenshotCollectionViewHeightAchor = screenshotCollectionView.heightAnchor.constraint(
-            equalToConstant: (UIScreen.main.bounds.height * 0.55) + design.topSectionInset + design.bottomSectionInset)
-        screenshotCollectionViewHeightAchor.priority = .defaultHigh
-        let screenshotCollectionViewWidthAchor =  screenshotCollectionView.widthAnchor.constraint(
-            equalToConstant: UIScreen.main.bounds.width)
-        screenshotCollectionViewWidthAchor.priority = .defaultHigh
         NSLayoutConstraint.activate([
             screenshotCollectionView.leadingAnchor.constraint(
                 equalTo: self.leadingAnchor),
@@ -102,9 +93,7 @@ final class ScreenshotGalleryView: UIView {
             screenshotCollectionView.trailingAnchor.constraint(
                 equalTo: self.trailingAnchor),
             screenshotCollectionView.bottomAnchor.constraint(
-                equalTo: self.bottomAnchor),
-           screenshotCollectionViewWidthAchor,
-            screenshotCollectionViewHeightAchor
+                equalTo: self.bottomAnchor)
         ])
     }
     

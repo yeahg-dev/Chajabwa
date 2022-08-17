@@ -14,6 +14,9 @@ protocol ScreenshotGalleryDesign {
     static var leftSectionInset: CGFloat { get }
     static var rightSectionInset: CGFloat { get }
     static var minimumLineSpacing: CGFloat { get }
+    
+    static var cellHeight: CGFloat { get }
+    static var cellWidth: CGFloat { get }
 }
 
 enum EmbeddedInAppDetailSceneDesign: ScreenshotGalleryDesign {
@@ -23,6 +26,9 @@ enum EmbeddedInAppDetailSceneDesign: ScreenshotGalleryDesign {
     static let leftSectionInset: CGFloat = 25
     static let rightSectionInset: CGFloat = 25
     static let minimumLineSpacing: CGFloat = 12
+    
+    static let cellWidth: CGFloat = cellHeight * 0.56
+    static let cellHeight: CGFloat = UIScreen.main.bounds.height * 0.55
 }
 
 enum EnlargedSceneDesign: ScreenshotGalleryDesign {
@@ -32,4 +38,7 @@ enum EnlargedSceneDesign: ScreenshotGalleryDesign {
     static let leftSectionInset: CGFloat = 25
     static let rightSectionInset: CGFloat = 25
     static let minimumLineSpacing: CGFloat = 6
+    
+    static let cellWidth: CGFloat = cellHeight * 0.56
+    static let cellHeight: CGFloat = 500
 }
