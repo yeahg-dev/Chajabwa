@@ -12,6 +12,7 @@ final class AppDetailViewController: UIViewController {
     private let contentCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        layout.sectionInset = UIEdgeInsets(top: 10, left:0, bottom: 10, right: 0)
         return UICollectionView(
             frame: .zero,
             collectionViewLayout: layout)

@@ -40,6 +40,8 @@ final class ScreenShotCollectionViewCell: UICollectionViewCell {
     
     private func configureSubview() {
         self.contentView.addSubview(screenShotView)
+        self.contentView.layer.cornerRadius = 6
+        self.contentView.clipsToBounds = true
         self.setConstraintOfScreenShotView()
         self.designCell()
     }

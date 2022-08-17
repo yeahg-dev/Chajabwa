@@ -42,6 +42,9 @@ final class ScreenshotGalleryView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = design.minimumLineSpacing
+        let screenshotHeight = UIScreen.main.bounds.height * 0.55
+        let screenshotWidth = screenshotHeight / 1.78
+        layout.itemSize = CGSize(width: screenshotWidth, height: screenshotHeight)
         layout.sectionInset = UIEdgeInsets(
             top: design.topSectionInset,
             left: design.leftSectionInset,
@@ -77,6 +80,7 @@ final class ScreenshotGalleryView: UIView {
         self.setConstraints()
         self.screenshotCollectionView.dataSource = self
         self.screenshotCollectionView.delegate = self
+        self.screenshotCollectionView.showsHorizontalScrollIndicator = false
         self.screenshotCollectionView.register(ScreenShotCollectionViewCell.self)
     }
     
