@@ -45,6 +45,7 @@ final class ScreenShotCollectionViewCell: UICollectionViewCell {
     }
     
     private func setConstraintOfScreenShotView() {
+        screenShotView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             screenShotView.leadingAnchor.constraint(
                 equalTo: self.contentView.leadingAnchor),

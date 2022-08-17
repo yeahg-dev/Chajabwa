@@ -69,6 +69,7 @@ final class ScreenshotGalleryView: UIView {
     
     private func setConstraints() {
         self.addSubview(screenshotCollectionView)
+        screenshotCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             screenshotCollectionView.leadingAnchor.constraint(
                 equalTo: self.leadingAnchor),

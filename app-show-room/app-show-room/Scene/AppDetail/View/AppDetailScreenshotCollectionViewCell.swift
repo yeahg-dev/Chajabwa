@@ -28,6 +28,19 @@ final class AppDetailScreenshotCollectionViewCell: BaseAppDetailCollectionViewCe
     }
     
     override func setConstraints() {
+        self.invalidateTranslateAutoResizingMasks(of: [screenshotGalleryView])
+        self.setConstraintOfScreenshotGalleryView()
+    }
+    
+    override func bind(model: BaseAppDetailCollectionViewCellModel) {
+        self.appDetail = model.app
+    }
+    
+}
+
+extension AppDetailScreenshotCollectionViewCell {
+    
+    func setConstraintOfScreenshotGalleryView() {
         NSLayoutConstraint.activate([
             self.screenshotGalleryView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
             self.screenshotGalleryView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
@@ -35,11 +48,6 @@ final class AppDetailScreenshotCollectionViewCell: BaseAppDetailCollectionViewCe
             self.screenshotGalleryView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
         ])
     }
-    
-    override func bind(model: BaseAppDetailCollectionViewCellModel) {
-        self.appDetail = model.app
-    }
-    
 }
 
 extension AppDetailScreenshotCollectionViewCell: ScreenshotGalleryViewModel {

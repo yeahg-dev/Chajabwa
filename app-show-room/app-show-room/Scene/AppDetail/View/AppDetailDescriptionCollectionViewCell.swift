@@ -40,6 +40,8 @@ final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewC
     }
     
     override func setConstraints() {
+        self.invalidateTranslateAutoResizingMasks(of: [
+            foldingButton, descriptionTextView])
         self.setConstraintsOfFoldingButton()
         self.setContstraintsOfDescriptionView()
     }

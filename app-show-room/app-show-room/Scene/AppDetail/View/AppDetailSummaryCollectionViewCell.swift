@@ -45,6 +45,9 @@ final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell 
     }
     
     override func setConstraints() {
+        self.invalidateTranslateAutoResizingMasks(of: [
+            iconImageView, appNameLabel, providerLabel, priceLabel, shareButton
+        ])
         self.setContratinsOfIconImageView()
         self.setConstraintsOfAppNameLabel()
         self.setConstraintOfProviderLabel()
