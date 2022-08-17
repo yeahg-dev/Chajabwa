@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class AppDetailViewController: UIViewController {
+final class AppDetailViewController: UIViewController, UICollectionViewDelegate {
     
     private let contentCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -89,6 +89,7 @@ extension AppDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cellType = viewModel.cellType(at: indexPath)
         let cell = collectionView.dequeueReusableCell(cellType, for: indexPath)
+        cell.appDetailTableViewCellDelegate = self
         
         let cellModel = viewModel.cellModel(at: indexPath)
         cell.bind(model: cellModel)
@@ -98,7 +99,10 @@ extension AppDetailViewController: UICollectionViewDataSource {
     
 }
 
-extension AppDetailViewController: UICollectionViewDelegate {
+extension AppDetailViewController: AppDetailTableViewCellDelegate {
     
-    
+    func foldingButtonDidTapped() {
+        self.contentCollectionView.performBatchUpdates(nil)
+    }
+
 }

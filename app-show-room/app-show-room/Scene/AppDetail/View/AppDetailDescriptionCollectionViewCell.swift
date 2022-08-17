@@ -7,26 +7,19 @@
 
 import UIKit
 
-private enum Design {
-    
-    static let leadingMargin = CGFloat(25)
-    static let topMargin = CGFloat(5)
-    static let trailingMargin = CGFloat(25)
-    static let bottomMargin = CGFloat(5)
-    static let spacing = CGFloat(5)
-    static let foldingButtonWidth = CGFloat(18)
-    static let foldingButtonHeight = CGFloat(10)
-}
-
 final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewCell {
     
+    private let design = AppDetilDescriptionDesign.self
+    
     private let descriptionTextView = UITextView()
-    private let foldingButton = UIButton()
+    private let foldingButton = UIButton(type: .custom)
     
     private var isFolded: Bool = false {
-        didSet {
+        willSet {
+            self.setFoldingButton(isFolded: newValue)
             descriptionTextView.invalidateIntrinsicContentSize()
             self.layoutIfNeeded()
+            self.appDetailTableViewCellDelegate?.foldingButtonDidTapped()
         }
     }
     
@@ -34,7 +27,9 @@ final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewC
         self.addSubviews()
         self.setConstraints()
         self.designDescrpitionTextView()
+        self.configureFoldingButton()
     }
+    
     override func addSubviews() {
         self.contentView.addSubview(descriptionTextView)
         self.contentView.addSubview(foldingButton)
@@ -65,7 +60,11 @@ final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewC
         }
     
     private func configureFoldingButton() {
-        self.setFoldedButton(isFolded: false)
+        self.foldingButton.setTitle("더 보기", for: .normal)
+        self.foldingButton.setTitleColor(.systemBlue, for: .normal)
+        self.foldingButton.setTitleColor(.systemBlue, for: .selected)
+        self.foldingButton.titleLabel?.font = design.foldingButtonFont
+        self.foldingButton.titleLabel?.textAlignment = .right
         foldingButton.addTarget(
             self,
             action: #selector(toggleFoldingButton),
@@ -73,28 +72,25 @@ final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewC
     }
     
     @objc private func toggleFoldingButton() {
-        let isFolded = !foldingButton.isSelected
-        if isFolded {
-            self.setFoldedButton(isFolded: isFolded)
-        } else {
-            self.setFoldedButton(isFolded: isFolded)
-        }
+        self.isFolded.toggle()
     }
     
-    private func setFoldedButton(isFolded: Bool) {
+    private func setFoldingButton(isFolded: Bool) {
         if isFolded {
-            self.isFolded = false
-            self.foldingButton.titleLabel?.text = "간략히"
+            self.foldingButton.setTitle("간략히", for: .normal)
             self.descriptionTextView.textContainer.maximumNumberOfLines = 0
         } else {
-            self.isFolded = true
-            self.foldingButton.titleLabel?.text = "더보기"
+            self.foldingButton.setTitle("더 보기", for: .normal)
             self.descriptionTextView.textContainer.maximumNumberOfLines = 3
         }
     }
     
     private func designDescrpitionTextView() {
+        self.descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
+        self.descriptionTextView.textContainer.maximumNumberOfLines = 3
         self.descriptionTextView.isScrollEnabled = false
+        self.descriptionTextView.isEditable = false
+        self.descriptionTextView.font = design.decriptionTextViewFont
     }
     
 }
@@ -107,27 +103,30 @@ extension AppDetailDescriptionCollectionViewCell {
         NSLayoutConstraint.activate([
             descriptionTextView.leadingAnchor.constraint(
                 equalTo: self.contentView.leadingAnchor,
-                constant: Design.leadingMargin),
+                constant: design.leadingMargin),
             descriptionTextView.topAnchor.constraint(
                 equalTo: self.contentView.topAnchor,
-                constant: Design.topMargin),
+                constant: design.topMargin),
             descriptionTextView.trailingAnchor.constraint(
                 equalTo: self.contentView.trailingAnchor,
-                constant: Design.trailingMargin),
+                constant: design.trailingMargin * -1),
             descriptionTextView.bottomAnchor.constraint(
                 equalTo: self.foldingButton.topAnchor,
-                constant: Design.spacing)
+                constant: design.spacing ),
+            descriptionTextView.widthAnchor.constraint(
+                equalToConstant: UIScreen.main.bounds.width
+                - design.leadingMargin - design.trailingMargin)
         ])
     }
     
     private func setConstraintsOfFoldingButton() {
         NSLayoutConstraint.activate([
-            foldingButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: Design.trailingMargin * -1),
-            foldingButton.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: Design.bottomMargin * -1),
-            foldingButton.widthAnchor.constraint(
-                equalToConstant: Design.foldingButtonWidth),
-            foldingButton.heightAnchor.constraint(
-                equalToConstant: Design.foldingButtonHeight)
+            foldingButton.trailingAnchor.constraint(
+                equalTo: self.contentView.trailingAnchor,
+                constant: design.trailingMargin * -1),
+            foldingButton.bottomAnchor.constraint(
+                equalTo: self.contentView.bottomAnchor,
+                constant: design.bottomMargin * -1),
         ])
     }
     

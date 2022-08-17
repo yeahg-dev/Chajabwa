@@ -34,4 +34,6 @@ class BaseAppDetailCollectionViewCell: UICollectionViewCell {
 
 protocol AppDetailTableViewCellDelegate: AnyObject {
     
+    func foldingButtonDidTapped()
+    
 }
