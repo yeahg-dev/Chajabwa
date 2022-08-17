@@ -7,37 +7,11 @@
 
 import UIKit
 
-private enum Design {
-    
-    // margin
-    static let topMargin = CGFloat(0)
-    static let bottomMargin = CGFloat(20)
-    static let trailingMargin = CGFloat(25)
-    static let iconImageViewLeadingMargin = CGFloat(25)
-    static let iconImageViewTrailingMargin = CGFloat(10)
-    static let providerLabelTopMargin = CGFloat(7)
-    static let shareButtonWidth = CGFloat(18)
-    static let shareButtonHeight = CGFloat(10)
-    
-    // size
-    static let purchaseButtonWidth = CGFloat(50)
-    static let purchaseButtonHeight = CGFloat(25)
-    
-    // font
-    static let appNameLabelFont: UIFont = .boldSystemFont(ofSize: 22)
-    static let providerLabelFont: UIFont = .preferredFont(forTextStyle: .callout)
-    static let purchaseButtonFont: UIFont = .preferredFont(forTextStyle: .callout)
-    
-    // image
-    static let shareButtonImage = UIImage(
-        systemName: "square.and.arrow.up")?.withTintColor(.systemBlue)
-    static let defaultIconImage = UIImage(withBackground: .systemGray4)
-}
-
 final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell {
     
     override class var height: CGFloat {
         UIScreen.main.bounds.height * 0.2 }
+    private let design = AppDetailSummaryDesign.self
     
     // MARK: - UIComponents
     private let iconImageView = UIImageView()
@@ -102,13 +76,13 @@ extension AppDetailSummaryCollectionViewCell {
     }
     
     private func designAppNameLabel() {
-        self.appNameLabel.font = Design.appNameLabelFont
+        self.appNameLabel.font = design.appNameLabelFont
         self.appNameLabel.lineBreakMode = .byTruncatingTail
         self.appNameLabel.numberOfLines = 2
     }
     
     private func designProviderLabel() {
-        self.providerLabel.font = Design.providerLabelFont
+        self.providerLabel.font = design.providerLabelFont
         self.providerLabel.textColor = .gray
         self.providerLabel.numberOfLines = 1
     }
@@ -117,17 +91,17 @@ extension AppDetailSummaryCollectionViewCell {
         self.purchaseButton.backgroundColor = .systemBlue
         self.purchaseButton.layer.cornerRadius = 10
         self.purchaseButton.titleLabel?.textColor = .white
-        self.purchaseButton.titleLabel?.font = Design.purchaseButtonFont
+        self.purchaseButton.titleLabel?.font = design.purchaseButtonFont
         NSLayoutConstraint.activate([
             self.purchaseButton.heightAnchor.constraint(
-                equalToConstant: Design.purchaseButtonHeight),
+                equalToConstant: design.purchaseButtonHeight),
             self.purchaseButton.widthAnchor.constraint(
-                equalToConstant: Design.purchaseButtonWidth)
+                equalToConstant: design.purchaseButtonWidth)
         ])
     }
     
     private func designShareButton() {
-        let shareImage = Design.shareButtonImage
+        let shareImage = design.shareButtonImage
         self.shareButton.titleLabel?.textColor = .white
         self.shareButton.titleLabel?.textAlignment = .center
         self.shareButton.setImage(shareImage, for: .normal)
@@ -143,13 +117,13 @@ extension AppDetailSummaryCollectionViewCell {
         NSLayoutConstraint.activate([
             iconImageView.leadingAnchor.constraint(
                 equalTo: self.contentView.leadingAnchor,
-                constant: Design.iconImageViewLeadingMargin),
+                constant: design.iconImageViewLeadingMargin),
             iconImageView.topAnchor.constraint(
                 equalTo: self.contentView.topAnchor,
-                constant: Design.topMargin),
+                constant: design.topMargin),
             iconImageView.bottomAnchor.constraint(
                 equalTo: self.contentView.bottomAnchor,
-                constant: Design.bottomMargin * -1)
+                constant: design.bottomMargin * -1)
         ])
     }
     
@@ -157,10 +131,10 @@ extension AppDetailSummaryCollectionViewCell {
         NSLayoutConstraint.activate([
             appNameLabel.leadingAnchor.constraint(
                 equalTo: self.iconImageView.trailingAnchor,
-                constant: Design.iconImageViewTrailingMargin),
+                constant: design.iconImageViewTrailingMargin),
             appNameLabel.topAnchor.constraint(
                 equalTo: self.contentView.topAnchor,
-                constant: Design.topMargin)
+                constant: design.topMargin)
         ])
     }
     
@@ -168,10 +142,10 @@ extension AppDetailSummaryCollectionViewCell {
         NSLayoutConstraint.activate([
             providerLabel.leadingAnchor.constraint(
                 equalTo: self.iconImageView.trailingAnchor,
-                constant: Design.iconImageViewTrailingMargin),
+                constant: design.iconImageViewTrailingMargin),
             providerLabel.topAnchor.constraint(
                 equalTo: appNameLabel.bottomAnchor,
-                constant: Design.providerLabelTopMargin)
+                constant: design.providerLabelTopMargin)
         ])
     }
     
@@ -179,7 +153,7 @@ extension AppDetailSummaryCollectionViewCell {
         NSLayoutConstraint.activate([
             purchaseButton.leadingAnchor.constraint(
                 equalTo: self.iconImageView.trailingAnchor,
-                constant: Design.iconImageViewTrailingMargin),
+                constant: design.iconImageViewTrailingMargin),
             purchaseButton.bottomAnchor.constraint(
                 equalTo: self.iconImageView.bottomAnchor)
         ])
@@ -189,7 +163,7 @@ extension AppDetailSummaryCollectionViewCell {
         NSLayoutConstraint.activate([
             shareButton.trailingAnchor.constraint(
                 equalTo: self.contentView.trailingAnchor,
-                constant: Design.trailingMargin * -1),
+                constant: design.trailingMargin * -1),
             shareButton.bottomAnchor.constraint(
                 equalTo: self.iconImageView.bottomAnchor)
         ])
@@ -201,7 +175,7 @@ extension AppDetailSummaryCollectionViewCell {
     private func fillIconImage(url: String?) {
         _ = self.iconImageView.setImage(
             with: url,
-            defaultImage: Design.defaultIconImage)
+            defaultImage: design.defaultIconImage)
     }
     
     private func fillAppNameLabel(name: String?) {
