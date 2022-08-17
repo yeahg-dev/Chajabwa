@@ -9,8 +9,6 @@ import UIKit
 
 class BaseAppDetailCollectionViewCell: UICollectionViewCell {
     
-    class var height: CGFloat {  return CGFloat(50) }
-    
     weak var appDetailTableViewCellDelegate: AppDetailTableViewCellDelegate?
     
     override init(frame: CGRect) {

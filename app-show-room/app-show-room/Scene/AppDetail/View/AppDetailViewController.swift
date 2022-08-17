@@ -12,6 +12,9 @@ final class AppDetailViewController: UIViewController {
     private let contentCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        layout.estimatedItemSize = CGSize(
+            width: UIScreen.main.bounds.width,
+            height: 50)
         layout.sectionInset = UIEdgeInsets(top: 10, left:0, bottom: 10, right: 0)
         return UICollectionView(
             frame: .zero,
@@ -67,19 +70,6 @@ final class AppDetailViewController: UIViewController {
             self.contentCollectionView.bottomAnchor.constraint(
                 equalTo: safeArea.bottomAnchor)
         ])
-    }
-    
-}
-
-extension AppDetailViewController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width
-        let height = self.viewModel.cellHeight(at: indexPath)
-        
-        return CGSize(width: width, height: height)
     }
     
 }

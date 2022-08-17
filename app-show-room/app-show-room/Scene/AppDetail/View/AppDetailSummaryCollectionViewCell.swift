@@ -8,9 +8,7 @@
 import UIKit
 
 final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell {
-    
-    override class var height: CGFloat {
-        UIScreen.main.bounds.height * 0.2 }
+
     private let design = AppDetailSummaryDesign.self
     
     // MARK: - UIComponents
@@ -36,8 +34,9 @@ final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell 
     
     override func setConstraints() {
         self.invalidateTranslateAutoResizingMasks(of: [
-            iconImageView, appNameLabel, providerLabel, purchaseButton, shareButton
+            iconImageView, appNameLabel, providerLabel, purchaseButton, shareButton, self.contentView
         ])
+//        self.contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
         self.setContratinsOfIconImageView()
         self.setConstraintsOfAppNameLabel()
         self.setConstraintOfProviderLabel()
@@ -51,6 +50,19 @@ final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell 
         self.fillProviderLabel(provider: model.provider)
         self.fillPurcahseButton(price: model.price)
     }
+    
+    override func systemLayoutSizeFitting(
+        _ targetSize: CGSize) -> CGSize {
+            var targetSize = targetSize
+            targetSize.height = CGFloat.greatestFiniteMagnitude
+            let size = super.systemLayoutSizeFitting(
+                targetSize,
+                withHorizontalFittingPriority: .required,
+                verticalFittingPriority: .fittingSizeLevel
+            )
+            
+            return size
+        }
     
     private func designComponents() {
         self.designIconImageView()
@@ -72,7 +84,8 @@ extension AppDetailSummaryCollectionViewCell {
         NSLayoutConstraint.activate([
             iconImageView.widthAnchor.constraint(
             equalTo: iconImageView.heightAnchor,
-            multiplier: 1)])
+            multiplier: 1),
+            iconImageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.28)])
     }
     
     private func designAppNameLabel() {

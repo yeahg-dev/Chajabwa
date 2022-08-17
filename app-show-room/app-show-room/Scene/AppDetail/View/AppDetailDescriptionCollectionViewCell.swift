@@ -20,8 +20,6 @@ private enum Design {
 
 final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewCell {
     
-    override class var height: CGFloat { UIScreen.main.bounds.height * 0.2 }
-    
     private let descriptionTextView = UITextView()
     private let foldingButton = UIButton()
     
@@ -35,6 +33,7 @@ final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewC
     override func configureSubviews() {
         self.addSubviews()
         self.setConstraints()
+        self.designDescrpitionTextView()
     }
     override func addSubviews() {
         self.contentView.addSubview(descriptionTextView)
@@ -43,7 +42,7 @@ final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewC
     
     override func setConstraints() {
         self.invalidateTranslateAutoResizingMasks(of: [
-            foldingButton, descriptionTextView])
+            foldingButton, descriptionTextView, self.contentView])
         self.setConstraintsOfFoldingButton()
         self.setContstraintsOfDescriptionView()
     }
@@ -51,6 +50,19 @@ final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewC
     override func bind(model: BaseAppDetailCollectionViewCellModel) {
         self.descriptionTextView.text = model.app.description
     }
+    
+    override func systemLayoutSizeFitting(
+        _ targetSize: CGSize) -> CGSize {
+            var targetSize = targetSize
+            targetSize.height = CGFloat.greatestFiniteMagnitude
+            let size = super.systemLayoutSizeFitting(
+                targetSize,
+                withHorizontalFittingPriority: .required,
+                verticalFittingPriority: .fittingSizeLevel
+            )
+            
+            return size
+        }
     
     private func configureFoldingButton() {
         self.setFoldedButton(isFolded: false)
@@ -79,6 +91,10 @@ final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewC
             self.foldingButton.titleLabel?.text = "더보기"
             self.descriptionTextView.textContainer.maximumNumberOfLines = 3
         }
+    }
+    
+    private func designDescrpitionTextView() {
+        self.descriptionTextView.isScrollEnabled = false
     }
     
 }

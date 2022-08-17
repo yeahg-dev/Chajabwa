@@ -9,8 +9,6 @@ import UIKit
 
 final class AppDetailScreenshotCollectionViewCell: BaseAppDetailCollectionViewCell {
     
-    override class var height: CGFloat { UIScreen.main.bounds.height * 0.55 }
-    
     private var screenshotGalleryView: ScreenshotGalleryView!
     
     private var appDetail: AppDetail?
@@ -28,7 +26,7 @@ final class AppDetailScreenshotCollectionViewCell: BaseAppDetailCollectionViewCe
     }
     
     override func setConstraints() {
-        self.invalidateTranslateAutoResizingMasks(of: [screenshotGalleryView])
+        self.invalidateTranslateAutoResizingMasks(of: [screenshotGalleryView, self.contentView])
         self.setConstraintOfScreenshotGalleryView()
     }
     
@@ -36,16 +34,33 @@ final class AppDetailScreenshotCollectionViewCell: BaseAppDetailCollectionViewCe
         self.appDetail = model.app
     }
     
+    override func systemLayoutSizeFitting(
+        _ targetSize: CGSize) -> CGSize {
+            var targetSize = targetSize
+            targetSize.height = CGFloat.greatestFiniteMagnitude
+            let size = super.systemLayoutSizeFitting(
+                targetSize,
+                withHorizontalFittingPriority: .required,
+                verticalFittingPriority: .fittingSizeLevel
+            )
+
+            return size
+        }
+    
 }
 
 extension AppDetailScreenshotCollectionViewCell {
     
     func setConstraintOfScreenshotGalleryView() {
         NSLayoutConstraint.activate([
-            self.screenshotGalleryView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
-            self.screenshotGalleryView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-            self.screenshotGalleryView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
-            self.screenshotGalleryView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
+            self.screenshotGalleryView.leadingAnchor.constraint(
+                equalTo: self.contentView.leadingAnchor),
+            self.screenshotGalleryView.topAnchor.constraint(
+                equalTo: self.contentView.topAnchor),
+            self.screenshotGalleryView.trailingAnchor.constraint(
+                equalTo: self.contentView.trailingAnchor),
+            self.screenshotGalleryView.bottomAnchor.constraint(
+                equalTo: self.contentView.bottomAnchor)
         ])
     }
 }

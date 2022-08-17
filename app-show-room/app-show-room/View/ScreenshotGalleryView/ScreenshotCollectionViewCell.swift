@@ -40,14 +40,13 @@ final class ScreenShotCollectionViewCell: UICollectionViewCell {
     
     private func configureSubview() {
         self.contentView.addSubview(screenShotView)
-        self.contentView.layer.cornerRadius = 6
-        self.contentView.clipsToBounds = true
         self.setConstraintOfScreenShotView()
         self.designCell()
     }
     
     private func setConstraintOfScreenShotView() {
-        screenShotView.translatesAutoresizingMaskIntoConstraints = false
+        invalidateTranslateAutoResizingMasks(of: [
+            screenShotView, self.contentView])
         NSLayoutConstraint.activate([
             screenShotView.leadingAnchor.constraint(
                 equalTo: self.contentView.leadingAnchor),
@@ -61,7 +60,8 @@ final class ScreenShotCollectionViewCell: UICollectionViewCell {
     }
     
     private func designCell() {
-        self.contentView.layer.cornerRadius = 5
+        self.contentView.layer.cornerRadius = 6
+        self.contentView.clipsToBounds = true
     }
     
 }

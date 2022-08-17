@@ -35,8 +35,6 @@ protocol AppDetailViewModelOutput {
     func cellType(at indexPath: IndexPath) -> BaseAppDetailCollectionViewCell.Type
     
     func cellModel(at indexPath: IndexPath) -> BaseAppDetailCollectionViewCellModel
-    
-    func cellHeight(at indexPath: IndexPath) -> CGFloat
 
 }
 
@@ -82,9 +80,9 @@ extension AppDetailViewModel: AppDetailViewModelOutput {
         return BaseAppDetailCollectionViewCellModel(app: self.app)
     }
     
-    func cellHeight(at indexPath: IndexPath) -> CGFloat {
-        let section = indexPath.section
-        return contentSections[section].cellType.height
-    }
+//    func cellHeight(at indexPath: IndexPath) -> CGFloat? {
+//        let section = indexPath.section
+//        return contentSections[section].cellType.height
+//    }
     
 }

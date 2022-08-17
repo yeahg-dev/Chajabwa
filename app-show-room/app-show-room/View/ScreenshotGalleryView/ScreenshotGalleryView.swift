@@ -43,7 +43,7 @@ final class ScreenshotGalleryView: UIView {
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = design.minimumLineSpacing
         let screenshotHeight = UIScreen.main.bounds.height * 0.55
-        let screenshotWidth = screenshotHeight / 1.78
+        let screenshotWidth = screenshotHeight * 0.56
         layout.itemSize = CGSize(width: screenshotWidth, height: screenshotHeight)
         layout.sectionInset = UIEdgeInsets(
             top: design.topSectionInset,
@@ -87,6 +87,12 @@ final class ScreenshotGalleryView: UIView {
     private func setConstraints() {
         self.addSubview(screenshotCollectionView)
         screenshotCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        let screenshotCollectionViewHeightAchor = screenshotCollectionView.heightAnchor.constraint(
+            equalToConstant: (UIScreen.main.bounds.height * 0.55) + design.topSectionInset + design.bottomSectionInset)
+        screenshotCollectionViewHeightAchor.priority = .defaultHigh
+        let screenshotCollectionViewWidthAchor =  screenshotCollectionView.widthAnchor.constraint(
+            equalToConstant: UIScreen.main.bounds.width)
+        screenshotCollectionViewWidthAchor.priority = .defaultHigh
         NSLayoutConstraint.activate([
             screenshotCollectionView.leadingAnchor.constraint(
                 equalTo: self.leadingAnchor),
@@ -95,7 +101,9 @@ final class ScreenshotGalleryView: UIView {
             screenshotCollectionView.trailingAnchor.constraint(
                 equalTo: self.trailingAnchor),
             screenshotCollectionView.bottomAnchor.constraint(
-                equalTo: self.bottomAnchor)
+                equalTo: self.bottomAnchor),
+           screenshotCollectionViewWidthAchor,
+            screenshotCollectionViewHeightAchor
         ])
     }
     
