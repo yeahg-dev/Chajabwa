@@ -100,9 +100,19 @@ extension AppDetailViewController: UICollectionViewDataSource {
 }
 
 extension AppDetailViewController: AppDetailTableViewCellDelegate {
-    
+
     func foldingButtonDidTapped() {
         self.contentCollectionView.performBatchUpdates(nil)
+    }
+    
+    func screenshotDidTapped(_ viewModel: ScreenshotGalleryViewModel) {
+        let screenshotViewController = UIViewController()
+        screenshotViewController.view.contentMode = .scaleToFill
+        screenshotViewController.view = ScreenshotGalleryView(
+            viewModel: viewModel,
+            style: .enlarged)
+        self.present(screenshotViewController, animated: true)
+        screenshotViewController.modalPresentationStyle = .fullScreen
     }
 
 }

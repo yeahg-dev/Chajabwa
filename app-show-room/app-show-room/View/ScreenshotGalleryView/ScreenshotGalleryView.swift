@@ -7,9 +7,10 @@
 
 import UIKit
 
-protocol ScreenshotGallerViewDelegate: AnyObject {
+protocol ScreenshotGalleryViewDelegate: AnyObject {
     
-    // 셀 탭시 행동 정의
+    func didTappedScreenshot(_ viewModel: ScreenshotGalleryViewModel)
+    
 }
 
 protocol ScreenshotGalleryViewModel {
@@ -62,7 +63,7 @@ final class ScreenshotGalleryView: UIView {
             self.screenshotCollectionView.reloadData()
         }
     }
-    weak var delegate: ScreenshotGallerViewDelegate?
+    weak var delegate: ScreenshotGalleryViewDelegate?
     
     init(viewModel: ScreenshotGalleryViewModel,
          style: ScreenshotGalleryStyle) {
@@ -129,5 +130,10 @@ extension ScreenshotGalleryView: UICollectionViewDataSource {
 }
 
 extension ScreenshotGalleryView: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let viewModel = self.viewModel else { return }
+        self.delegate?.didTappedScreenshot(viewModel)
+    }
     
 }

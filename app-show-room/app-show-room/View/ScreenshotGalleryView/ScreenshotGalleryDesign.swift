@@ -27,9 +27,9 @@ enum EmbeddedInAppDetailSceneDesign: ScreenshotGalleryDesign {
 
 enum EnlargedSceneDesign: ScreenshotGalleryDesign {
     
-    static let topSectionInset: CGFloat = 5
-    static let bottomSectionInset: CGFloat = 20
-    static let leftSectionInset: CGFloat = 12
-    static let rightSectionInset: CGFloat = 12
+    static let topSectionInset: CGFloat = 50
+    static let bottomSectionInset: CGFloat = 50
+    static let leftSectionInset: CGFloat = 25
+    static let rightSectionInset: CGFloat = 25
     static let minimumLineSpacing: CGFloat = 6
 }

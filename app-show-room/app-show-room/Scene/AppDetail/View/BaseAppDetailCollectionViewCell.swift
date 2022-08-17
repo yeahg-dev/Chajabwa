@@ -36,4 +36,6 @@ protocol AppDetailTableViewCellDelegate: AnyObject {
     
     func foldingButtonDidTapped()
     
+    func screenshotDidTapped(_ viewModel: ScreenshotGalleryViewModel)
+    
 }

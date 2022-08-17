@@ -23,6 +23,7 @@ final class AppDetailScreenshotCollectionViewCell: BaseAppDetailCollectionViewCe
     override func configureSubviews() {
         self.addSubviews()
         self.setConstraints()
+        self.screenshotGalleryView.delegate = self
     }
     
     override func setConstraints() {
@@ -75,4 +76,12 @@ extension AppDetailScreenshotCollectionViewCell: ScreenshotGalleryViewModel {
         return appDetail?.screenShotURLs?[indexPath.row]
     }
     
+}
+
+extension AppDetailScreenshotCollectionViewCell: ScreenshotGalleryViewDelegate {
+    
+    func didTappedScreenshot(_ viewModel: ScreenshotGalleryViewModel) {
+        appDetailTableViewCellDelegate?.screenshotDidTapped(viewModel)
+    }
+
 }

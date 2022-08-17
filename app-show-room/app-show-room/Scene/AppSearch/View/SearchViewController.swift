@@ -29,6 +29,10 @@ final class SearchViewController: UIViewController {
         self.bind(appSearchViewModel)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
     private func configureView() {
         self.view.backgroundColor = .white
     }
