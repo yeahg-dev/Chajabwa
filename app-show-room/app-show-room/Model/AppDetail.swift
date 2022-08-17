@@ -12,7 +12,7 @@ struct AppDetail {
     let appName: String?
     let iconImageURL: String?
     let provider: String?
-    let price: Double?
+    let price: String?
     let averageUserRating: Double?
     let userRatingCount: Int?
     let appContentRating: String?

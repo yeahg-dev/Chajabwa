@@ -71,7 +71,7 @@ extension App {
             appName: self.trackName,
             iconImageURL: self.artworkUrl512,
             provider: self.sellerName,
-            price: self.price,
+            price: self.formattedPrice,
             averageUserRating: self.averageUserRating,
             userRatingCount: self.userRatingCount,
             appContentRating: self.contentAdvisoryRating,
