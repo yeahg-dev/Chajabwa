@@ -29,6 +29,10 @@ final class SearchViewController: UIViewController {
         self.bind(appSearchViewModel)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
     private func configureView() {
         self.view.backgroundColor = .white
     }
@@ -49,7 +53,12 @@ final class SearchViewController: UIViewController {
             self.searchController.searchBar.placeholder = placeholder
         }
         viewModel.searchResult.observe(on: self) { appDetail in
-            print(appDetail?.sellerName as Any)
+            guard let appDetail = appDetail else {
+                return
+            }
+
+            let appDetailViewController = AppDetailViewController(appDetailViewModel: AppDetailViewModel(app: appDetail))
+            self.navigationController?.pushViewController(appDetailViewController, animated: true)
         }
         viewModel.searchFailureAlert.observe(on: self) { alertText in
             guard let alertText = alertText else {

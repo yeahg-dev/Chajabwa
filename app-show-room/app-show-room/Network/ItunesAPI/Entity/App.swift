@@ -70,8 +70,8 @@ extension App {
         return AppDetail(
             appName: self.trackName,
             iconImageURL: self.artworkUrl512,
-            sellerName: self.sellerName,
-            price: self.price,
+            provider: self.sellerName,
+            price: self.formattedPrice,
             averageUserRating: self.averageUserRating,
             userRatingCount: self.userRatingCount,
             appContentRating: self.contentAdvisoryRating,

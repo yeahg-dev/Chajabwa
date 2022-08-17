@@ -62,9 +62,9 @@ class iTunesAppDetailRepositoryTest: XCTestCase {
         
         wait(for: [expectation], timeout: 5)
         
-        XCTAssertEqual(appDetail?.sellerName, "Backpackr Inc.")
+        XCTAssertEqual(appDetail?.provider, "Backpackr Inc.")
         XCTAssertEqual(appDetail?.appName, "아이디어스(idus)")
-        XCTAssertEqual(appDetail?.price, 0)
+        XCTAssertEqual(appDetail?.price, "Free")
     }
     
     func test_유효하지않은_ID를_제공하면_페치가_실패하는지() throws {
