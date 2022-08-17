@@ -37,7 +37,21 @@ enum ScreenshotGalleryStyle {
 
 final class ScreenshotGalleryView: UIView {
     
-    private let screenshotCollectionView = UICollectionView()
+    // TODO: - 코드 정리
+    private lazy var screenshotCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = design.minimumLineSpacing
+        layout.sectionInset = UIEdgeInsets(
+            top: design.topSectionInset,
+            left: design.leftSectionInset,
+            bottom: design.bottomSectionInset,
+            right: design.rightSectionInset)
+        return UICollectionView(
+            frame: .zero,
+            collectionViewLayout: layout)
+    }()
+    
     private let design: ScreenshotGalleryDesign.Type
     
     var viewModel: ScreenshotGalleryViewModel? {
@@ -61,7 +75,6 @@ final class ScreenshotGalleryView: UIView {
     
     private func configureCollectionView() {
         self.setConstraints()
-        self.configureCollectionViewLayout()
         self.screenshotCollectionView.dataSource = self
         self.screenshotCollectionView.delegate = self
         self.screenshotCollectionView.register(ScreenShotCollectionViewCell.self)
@@ -82,18 +95,6 @@ final class ScreenshotGalleryView: UIView {
         ])
     }
     
-    private func configureCollectionViewLayout() {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = design.minimumLineSpacing
-        layout.sectionInset = UIEdgeInsets(
-            top: design.topSectionInset,
-            left: design.leftSectionInset,
-            bottom: design.bottomSectionInset,
-            right: design.rightSectionInset)
-        self.screenshotCollectionView.collectionViewLayout = layout
-    }
-
 }
 
 extension ScreenshotGalleryView: UICollectionViewDataSource {

@@ -9,7 +9,7 @@ import UIKit
 
 class BaseAppDetailCollectionViewCell: UICollectionViewCell {
     
-    var height: CGFloat {  return CGFloat(50) }
+    class var height: CGFloat {  return CGFloat(50) }
     
     weak var appDetailTableViewCellDelegate: AppDetailTableViewCellDelegate?
     

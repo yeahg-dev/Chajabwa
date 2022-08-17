@@ -23,7 +23,7 @@ private enum Design {
 
 final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell {
     
-    override var height: CGFloat { UIScreen.main.bounds.height * 0.3 }
+    override class var height: CGFloat { UIScreen.main.bounds.height * 0.2 }
     
     // MARK: - UIComponents
     private let iconImageView = UIImageView()

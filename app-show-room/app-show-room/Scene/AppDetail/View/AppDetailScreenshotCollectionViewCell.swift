@@ -9,7 +9,7 @@ import UIKit
 
 final class AppDetailScreenshotCollectionViewCell: BaseAppDetailCollectionViewCell {
     
-    override var height: CGFloat { UIScreen.main.bounds.height * 0.55 }
+    override class var height: CGFloat { UIScreen.main.bounds.height * 0.55 }
     
     private var screenshotGalleryView: ScreenshotGalleryView!
     

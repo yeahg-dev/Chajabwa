@@ -20,7 +20,7 @@ private enum Design {
 
 final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewCell {
     
-    override var height: CGFloat { UIScreen.main.bounds.height * 0.2 }
+    override class var height: CGFloat { UIScreen.main.bounds.height * 0.2 }
     
     private let descriptionTextView = UITextView()
     private let foldingButton = UIButton()
@@ -109,9 +109,9 @@ extension AppDetailDescriptionCollectionViewCell {
             foldingButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: Design.trailingMargin * -1),
             foldingButton.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: Design.bottomMargin * -1),
             foldingButton.widthAnchor.constraint(
-                equalTo: Design.foldingButtonWidth),
+                equalToConstant: Design.foldingButtonWidth),
             foldingButton.heightAnchor.constraint(
-                equalTo: Design.foldingButtonHeight)
+                equalToConstant: Design.foldingButtonHeight)
         ])
     }
     

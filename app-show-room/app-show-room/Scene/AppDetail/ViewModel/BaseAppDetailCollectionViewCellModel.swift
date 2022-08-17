@@ -21,4 +21,5 @@ struct BaseAppDetailCollectionViewCellModel {
     // TODO: - price 단위 확인 및 String 변환
     var price: String? { app.price?.description }
     
+    
 }
