@@ -14,6 +14,8 @@ private enum Design {
     static let trailingMargin = CGFloat(25)
     static let bottomMargin = CGFloat(5)
     static let spacing = CGFloat(5)
+    static let foldingButtonWidth = CGFloat(18)
+    static let foldingButtonHeight = CGFloat(10)
 }
 
 final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewCell {
@@ -104,15 +106,12 @@ extension AppDetailDescriptionCollectionViewCell {
     
     private func setConstraintsOfFoldingButton() {
         NSLayoutConstraint.activate([
-            foldingButton.leadingAnchor.constraint(
-                equalTo: self.contentView.leadingAnchor,
-                constant: Design.leadingMargin),
-            foldingButton.trailingAnchor.constraint(
-                equalTo: self.contentView.trailingAnchor,
-                constant: Design.trailingMargin),
-            foldingButton.bottomAnchor.constraint(
-                equalTo: self.contentView.bottomAnchor,
-                constant: Design.bottomMargin)
+            foldingButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: Design.trailingMargin * -1),
+            foldingButton.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: Design.bottomMargin * -1),
+            foldingButton.widthAnchor.constraint(
+                equalTo: Design.foldingButtonWidth),
+            foldingButton.heightAnchor.constraint(
+                equalTo: Design.foldingButtonHeight)
         ])
     }
     

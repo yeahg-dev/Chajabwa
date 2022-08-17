@@ -15,6 +15,8 @@ private enum Design {
     static let iconImageViewLeadingMargin = CGFloat(25)
     static let iconImageViewTrailingMargin = CGFloat(10)
     static let providerLabelTopMargin = CGFloat(10)
+    static let shareButtonWidth = CGFloat(18)
+    static let shareButtonHeight = CGFloat(10)
     
     static let defaultIconImage = UIImage(withBackground: .systemGray4)
 }
@@ -173,7 +175,11 @@ extension AppDetailSummaryCollectionViewCell {
                 constant: Design.trailingMargin * -1),
             shareButton.bottomAnchor.constraint(
                 equalTo: self.contentView.bottomAnchor,
-                constant: Design.bottomMargin)
+                constant: Design.bottomMargin),
+            shareButton.widthAnchor.constraint(
+                equalToConstant: Design.shareButtonWidth),
+            shareButton.heightAnchor.constraint(
+                equalToConstant: Design.shareButtonHeight)
         ])
     }
 }
