@@ -75,7 +75,7 @@ extension AppDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.bounds.width
+        let width = collectionView.frame.width
         let height = self.viewModel.cellHeight(at: indexPath)
         
         return CGSize(width: width, height: height)
