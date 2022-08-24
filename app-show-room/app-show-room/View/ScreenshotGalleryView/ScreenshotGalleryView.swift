@@ -45,9 +45,9 @@ final class ScreenshotGalleryView: UIView {
         layout.itemSize = CGSize(width: design.cellWidth, height: design.cellHeight)
         layout.sectionInset = UIEdgeInsets(
             top: design.topSectionInset,
-            left: design.leftSectionInset,
+            left: design.leadingSectionInset,
             bottom: design.bottomSectionInset,
-            right: design.rightSectionInset)
+            right: design.trailingSectionInset)
         return UICollectionView(
             frame: .zero,
             collectionViewLayout: layout)
@@ -93,7 +93,9 @@ final class ScreenshotGalleryView: UIView {
             screenshotCollectionView.trailingAnchor.constraint(
                 equalTo: self.trailingAnchor),
             screenshotCollectionView.bottomAnchor.constraint(
-                equalTo: self.bottomAnchor)
+                equalTo: self.bottomAnchor),
+            screenshotCollectionView.heightAnchor.constraint(
+                equalTo: self.heightAnchor)
         ])
     }
     
