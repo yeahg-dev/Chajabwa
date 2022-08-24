@@ -36,18 +36,13 @@ final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell 
         self.invalidateTranslateAutoResizingMasks(of: [
             iconImageView, appNameLabel, providerLabel, purchaseButton, shareButton, self.contentView
         ])
+        self.setConstraintsOfContentView()
         self.setContratinsOfIconImageView()
         self.setConstraintsOfAppNameLabel()
         self.setConstraintOfProviderLabel()
         self.setContstraintOfPurchaseButton()
         self.setConstraintOfShareButton()
-        NSLayoutConstraint.activate([
-            self.contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.contentView.topAnchor.constraint(equalTo: self.topAnchor),
-            self.contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            self.contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-        ])
-        self.contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
+       
     }
 
     override func bind(model: BaseAppDetailCollectionViewCellModel) {
@@ -57,19 +52,6 @@ final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell 
         self.fillPurcahseButton(price: model.price)
     }
 
-    override func systemLayoutSizeFitting(
-        _ targetSize: CGSize) -> CGSize {
-            var targetSize = targetSize
-            targetSize.height = CGFloat.greatestFiniteMagnitude
-            let size = super.systemLayoutSizeFitting(
-                targetSize,
-                withHorizontalFittingPriority: .required,
-                verticalFittingPriority: .fittingSizeLevel
-            )
-
-            return size
-        }
-    
     private func designComponents() {
         self.designIconImageView()
         self.designAppNameLabel()
@@ -120,13 +102,30 @@ extension AppDetailSummaryCollectionViewCell {
 // MARK: - Set Constraints for UIComponents
 
 extension AppDetailSummaryCollectionViewCell {
+    
+    private func setConstraintsOfContentView() {
+        let widthAnchor = self.contentView.widthAnchor.constraint(
+            equalToConstant: UIScreen.main.bounds.width)
+        widthAnchor.priority = .defaultHigh
+        NSLayoutConstraint.activate([
+            self.contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.contentView.topAnchor.constraint(equalTo: self.topAnchor),
+            self.contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            self.contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            widthAnchor
+        ])
+    }
  
     private func setContratinsOfIconImageView() {
+        let heightAnchor = iconImageView.heightAnchor.constraint(
+            equalToConstant: design.iconImageViewHeight)
+        heightAnchor.priority = .init(rawValue: 750)
+        let widthAnchor = iconImageView.widthAnchor.constraint(
+            equalToConstant: design.iconImageViewWidth)
+        widthAnchor.priority = .init(rawValue: 1000)
         NSLayoutConstraint.activate([
-            iconImageView.widthAnchor.constraint(
-                equalToConstant: design.iconImageViewWidth),
-            iconImageView.heightAnchor.constraint(
-                equalToConstant: design.iconImageViewHeight),
+            widthAnchor,
+            heightAnchor,
             iconImageView.leadingAnchor.constraint(
                 equalTo: self.contentView.leadingAnchor,
                 constant: design.leadingMargin),
@@ -148,7 +147,7 @@ extension AppDetailSummaryCollectionViewCell {
                 equalTo: self.contentView.topAnchor,
                 constant: design.topMargin),
             appNameLabel.trailingAnchor.constraint(
-                equalTo: self.contentView.trailingAnchor,
+                greaterThanOrEqualTo: self.contentView.trailingAnchor,
                 constant: design.trailingMargin * -1),
         ])
     }
@@ -162,7 +161,7 @@ extension AppDetailSummaryCollectionViewCell {
                 equalTo: appNameLabel.bottomAnchor,
                 constant: design.providerLabelTopMargin),
             providerLabel.trailingAnchor.constraint(
-                equalTo: self.contentView.trailingAnchor,
+                greaterThanOrEqualTo: self.contentView.trailingAnchor,
                 constant: design.trailingMargin * -1)
         ])
     }

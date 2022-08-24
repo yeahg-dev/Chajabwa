@@ -12,9 +12,7 @@ final class AppDetailViewController: UIViewController, UICollectionViewDelegate 
     private let contentCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.estimatedItemSize = CGSize(
-            width: UIScreen.main.bounds.width,
-            height: 50)
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         layout.sectionInset = UIEdgeInsets(top: 10, left:0, bottom: 10, right: 0)
         return UICollectionView(
             frame: .zero,

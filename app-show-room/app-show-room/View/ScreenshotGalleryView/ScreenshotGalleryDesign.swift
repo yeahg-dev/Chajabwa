@@ -9,6 +9,9 @@ import UIKit
 
 protocol ScreenshotGalleryDesign {
     
+    static var screenShotGalleryViewWidth: CGFloat { get }
+    static var screenShotGalleryViewHeight: CGFloat { get }
+    
     static var topSectionInset: CGFloat { get }
     static var bottomSectionInset: CGFloat { get }
     static var leadingSectionInset: CGFloat { get }
@@ -21,6 +24,9 @@ protocol ScreenshotGalleryDesign {
 
 enum EmbeddedInAppDetailSceneDesign: ScreenshotGalleryDesign {
     
+    static let screenShotGalleryViewWidth = UIScreen.main.bounds.width
+    static let screenShotGalleryViewHeight = topSectionInset + cellHeight + bottomSectionInset
+    
     static let topSectionInset: CGFloat = 10
     static let bottomSectionInset: CGFloat = 10
     static let leadingSectionInset: CGFloat = 25
@@ -32,6 +38,9 @@ enum EmbeddedInAppDetailSceneDesign: ScreenshotGalleryDesign {
 }
 
 enum EnlargedSceneDesign: ScreenshotGalleryDesign {
+    
+    static let screenShotGalleryViewWidth = UIScreen.main.bounds.width
+    static let screenShotGalleryViewHeight = topSectionInset + cellHeight + bottomSectionInset
     
     static let topSectionInset: CGFloat = 50
     static let bottomSectionInset: CGFloat = 50

@@ -18,6 +18,8 @@ enum AppDetailSummaryDesign {
     static let providerLabelTopMargin = CGFloat(7)
     
     // size
+    static let width = UIScreen.main.bounds.width
+    static let height = topMargin + iconImageViewHeight + bottomMargin
     static let iconImageViewWidth = UIScreen.main.bounds.width * 0.285
     static let iconImageViewHeight = UIScreen.main.bounds.width * 0.285
     static let purchaseButtonWidth = CGFloat(50)

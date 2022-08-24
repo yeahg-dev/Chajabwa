@@ -42,7 +42,9 @@ final class ScreenshotGalleryView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = design.minimumLineSpacing
-        layout.itemSize = CGSize(width: design.cellWidth, height: design.cellHeight)
+        layout.itemSize = CGSize(
+            width: design.cellWidth,
+            height: design.cellHeight)
         layout.sectionInset = UIEdgeInsets(
             top: design.topSectionInset,
             left: design.leadingSectionInset,
@@ -75,16 +77,31 @@ final class ScreenshotGalleryView: UIView {
     }
     
     private func configureCollectionView() {
-        self.setConstraints()
+        self.setConstraintsOfView()
+        self.setScreenshotCollectionViewConstraints()
         self.screenshotCollectionView.dataSource = self
         self.screenshotCollectionView.delegate = self
         self.screenshotCollectionView.showsHorizontalScrollIndicator = false
         self.screenshotCollectionView.register(ScreenShotCollectionViewCell.self)
     }
     
-    private func setConstraints() {
+    private func setConstraintsOfView() {
+        let screenShotGalleryViewWidthConstraint = self.widthAnchor.constraint(
+            equalToConstant: design.screenShotGalleryViewWidth)
+        screenShotGalleryViewWidthConstraint.priority = .defaultHigh
+        let screenShotGalleryViewHeightConstraint = self.heightAnchor.constraint(
+            equalToConstant: design.screenShotGalleryViewHeight)
+        screenShotGalleryViewHeightConstraint.priority = .defaultHigh
+        
+        NSLayoutConstraint.activate([
+            screenShotGalleryViewWidthConstraint,
+            screenShotGalleryViewHeightConstraint
+        ])
+    }
+    
+    private func setScreenshotCollectionViewConstraints() {
         self.addSubview(screenshotCollectionView)
-        screenshotCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        self.screenshotCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             screenshotCollectionView.leadingAnchor.constraint(
                 equalTo: self.leadingAnchor),
