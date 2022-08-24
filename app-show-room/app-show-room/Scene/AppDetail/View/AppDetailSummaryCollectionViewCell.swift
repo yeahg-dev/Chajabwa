@@ -36,12 +36,18 @@ final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell 
         self.invalidateTranslateAutoResizingMasks(of: [
             iconImageView, appNameLabel, providerLabel, purchaseButton, shareButton, self.contentView
         ])
-//        self.contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
         self.setContratinsOfIconImageView()
         self.setConstraintsOfAppNameLabel()
         self.setConstraintOfProviderLabel()
         self.setContstraintOfPurchaseButton()
         self.setConstraintOfShareButton()
+        NSLayoutConstraint.activate([
+            self.contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.contentView.topAnchor.constraint(equalTo: self.topAnchor),
+            self.contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            self.contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ])
+        self.contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
     }
 
     override func bind(model: BaseAppDetailCollectionViewCellModel) {
@@ -50,7 +56,7 @@ final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell 
         self.fillProviderLabel(provider: model.provider)
         self.fillPurcahseButton(price: model.price)
     }
-    
+
     override func systemLayoutSizeFitting(
         _ targetSize: CGSize) -> CGSize {
             var targetSize = targetSize
@@ -60,7 +66,7 @@ final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell 
                 withHorizontalFittingPriority: .required,
                 verticalFittingPriority: .fittingSizeLevel
             )
-            
+
             return size
         }
     
@@ -81,11 +87,6 @@ extension AppDetailSummaryCollectionViewCell {
     private func designIconImageView() {
         self.iconImageView.layer.cornerRadius = 20
         self.iconImageView.clipsToBounds = true
-        NSLayoutConstraint.activate([
-            iconImageView.widthAnchor.constraint(
-            equalTo: iconImageView.heightAnchor,
-            multiplier: 1),
-            iconImageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.28)])
     }
     
     private func designAppNameLabel() {
@@ -105,12 +106,6 @@ extension AppDetailSummaryCollectionViewCell {
         self.purchaseButton.layer.cornerRadius = 10
         self.purchaseButton.titleLabel?.textColor = .white
         self.purchaseButton.titleLabel?.font = design.purchaseButtonFont
-        NSLayoutConstraint.activate([
-            self.purchaseButton.heightAnchor.constraint(
-                equalToConstant: design.purchaseButtonHeight),
-            self.purchaseButton.widthAnchor.constraint(
-                equalToConstant: design.purchaseButtonWidth)
-        ])
     }
     
     private func designShareButton() {
@@ -128,9 +123,13 @@ extension AppDetailSummaryCollectionViewCell {
  
     private func setContratinsOfIconImageView() {
         NSLayoutConstraint.activate([
+            iconImageView.widthAnchor.constraint(
+                equalToConstant: design.iconImageViewWidth),
+            iconImageView.heightAnchor.constraint(
+                equalToConstant: design.iconImageViewHeight),
             iconImageView.leadingAnchor.constraint(
                 equalTo: self.contentView.leadingAnchor,
-                constant: design.iconImageViewLeadingMargin),
+                constant: design.leadingMargin),
             iconImageView.topAnchor.constraint(
                 equalTo: self.contentView.topAnchor,
                 constant: design.topMargin),
@@ -147,7 +146,10 @@ extension AppDetailSummaryCollectionViewCell {
                 constant: design.iconImageViewTrailingMargin),
             appNameLabel.topAnchor.constraint(
                 equalTo: self.contentView.topAnchor,
-                constant: design.topMargin)
+                constant: design.topMargin),
+            appNameLabel.trailingAnchor.constraint(
+                equalTo: self.contentView.trailingAnchor,
+                constant: design.trailingMargin * -1),
         ])
     }
     
@@ -158,12 +160,19 @@ extension AppDetailSummaryCollectionViewCell {
                 constant: design.iconImageViewTrailingMargin),
             providerLabel.topAnchor.constraint(
                 equalTo: appNameLabel.bottomAnchor,
-                constant: design.providerLabelTopMargin)
+                constant: design.providerLabelTopMargin),
+            providerLabel.trailingAnchor.constraint(
+                equalTo: self.contentView.trailingAnchor,
+                constant: design.trailingMargin * -1)
         ])
     }
     
     private func setContstraintOfPurchaseButton() {
         NSLayoutConstraint.activate([
+            purchaseButton.heightAnchor.constraint(
+                equalToConstant: design.purchaseButtonHeight),
+            purchaseButton.widthAnchor.constraint(
+                equalToConstant: design.purchaseButtonWidth),
             purchaseButton.leadingAnchor.constraint(
                 equalTo: self.iconImageView.trailingAnchor,
                 constant: design.iconImageViewTrailingMargin),
