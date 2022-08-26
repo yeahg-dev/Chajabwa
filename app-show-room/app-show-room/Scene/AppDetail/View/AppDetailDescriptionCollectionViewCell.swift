@@ -18,16 +18,8 @@ final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewC
         willSet {
             self.setFoldingButton(isFolded: newValue)
             descriptionTextView.invalidateIntrinsicContentSize()
-            self.layoutIfNeeded()
             self.appDetailTableViewCellDelegate?.foldingButtonDidTapped()
         }
-    }
-    
-    override func configureSubviews() {
-        self.addSubviews()
-        self.setConstraints()
-        self.designDescrpitionTextView()
-        self.configureFoldingButton()
     }
     
     override func addSubviews() {
@@ -35,9 +27,15 @@ final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewC
         self.contentView.addSubview(foldingButton)
     }
     
+    override func configureSubviews() {
+        self.designDescrpitionTextView()
+        self.configureFoldingButton()
+    }
+
     override func setConstraints() {
         self.invalidateTranslateAutoResizingMasks(of: [
             foldingButton, descriptionTextView, self.contentView])
+        self.setContstraintsOfContentView()
         self.setConstraintsOfFoldingButton()
         self.setContstraintsOfDescriptionView()
     }
@@ -45,20 +43,7 @@ final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewC
     override func bind(model: BaseAppDetailCollectionViewCellModel) {
         self.descriptionTextView.text = model.app.description
     }
-    
-    override func systemLayoutSizeFitting(
-        _ targetSize: CGSize) -> CGSize {
-            var targetSize = targetSize
-            targetSize.height = CGFloat.greatestFiniteMagnitude
-            let size = super.systemLayoutSizeFitting(
-                targetSize,
-                withHorizontalFittingPriority: .required,
-                verticalFittingPriority: .fittingSizeLevel
-            )
-            
-            return size
-        }
-    
+
     private func configureFoldingButton() {
         self.foldingButton.setTitle("더 보기", for: .normal)
         self.foldingButton.setTitleColor(.systemBlue, for: .normal)
@@ -95,9 +80,21 @@ final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewC
     
 }
 
-// MARK: - SetConstraints UIComponents
+// MARK: - configure layout
 
 extension AppDetailDescriptionCollectionViewCell {
+    
+    private func setContstraintsOfContentView() {
+        NSLayoutConstraint.activate([
+            self.contentView.leadingAnchor.constraint(
+                equalTo: self.leadingAnchor),
+            self.contentView.topAnchor.constraint(
+                equalTo: self.topAnchor),
+            self.contentView.trailingAnchor.constraint(
+                equalTo: self.trailingAnchor),
+            self.contentView.bottomAnchor.constraint(
+                equalTo: self.bottomAnchor)])
+    }
     
     private func setContstraintsOfDescriptionView() {
         NSLayoutConstraint.activate([

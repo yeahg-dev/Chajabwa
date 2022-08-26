@@ -1,5 +1,5 @@
 //
-//  ScreenshotGalleryDesign.swift
+//  ScreenshotGalleryViewDesign.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/08/16.
@@ -9,10 +9,13 @@ import UIKit
 
 protocol ScreenshotGalleryDesign {
     
+    static var screenShotGalleryViewWidth: CGFloat { get }
+    static var screenShotGalleryViewHeight: CGFloat { get }
+    
     static var topSectionInset: CGFloat { get }
     static var bottomSectionInset: CGFloat { get }
-    static var leftSectionInset: CGFloat { get }
-    static var rightSectionInset: CGFloat { get }
+    static var leadingSectionInset: CGFloat { get }
+    static var trailingSectionInset: CGFloat { get }
     static var minimumLineSpacing: CGFloat { get }
     
     static var cellHeight: CGFloat { get }
@@ -21,11 +24,14 @@ protocol ScreenshotGalleryDesign {
 
 enum EmbeddedInAppDetailSceneDesign: ScreenshotGalleryDesign {
     
+    static let screenShotGalleryViewWidth = UIScreen.main.bounds.width
+    static let screenShotGalleryViewHeight = topSectionInset + cellHeight + bottomSectionInset
+    
     static let topSectionInset: CGFloat = 10
     static let bottomSectionInset: CGFloat = 10
-    static let leftSectionInset: CGFloat = 25
-    static let rightSectionInset: CGFloat = 25
-    static let minimumLineSpacing: CGFloat = 12
+    static let leadingSectionInset: CGFloat = 25
+    static let trailingSectionInset: CGFloat = 25
+    static let minimumLineSpacing: CGFloat = 15
     
     static let cellWidth: CGFloat = cellHeight * 0.56
     static let cellHeight: CGFloat = UIScreen.main.bounds.height * 0.55
@@ -33,12 +39,15 @@ enum EmbeddedInAppDetailSceneDesign: ScreenshotGalleryDesign {
 
 enum EnlargedSceneDesign: ScreenshotGalleryDesign {
     
+    static let screenShotGalleryViewWidth = UIScreen.main.bounds.width
+    static let screenShotGalleryViewHeight = topSectionInset + cellHeight + bottomSectionInset
+    
     static let topSectionInset: CGFloat = 50
     static let bottomSectionInset: CGFloat = 50
-    static let leftSectionInset: CGFloat = 25
-    static let rightSectionInset: CGFloat = 25
-    static let minimumLineSpacing: CGFloat = 6
+    static let leadingSectionInset: CGFloat = 25
+    static let trailingSectionInset: CGFloat = 25
+    static let minimumLineSpacing: CGFloat = 15
     
     static let cellWidth: CGFloat = cellHeight * 0.56
-    static let cellHeight: CGFloat = 500
+    static let cellHeight: CGFloat = UIScreen.main.bounds.height * 0.8
 }

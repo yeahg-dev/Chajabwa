@@ -9,31 +9,16 @@ import UIKit
 
 protocol ScreenshotGalleryViewDelegate: AnyObject {
     
-    func didTappedScreenshot(_ viewModel: ScreenshotGalleryViewModel)
+    func didTappedScreenshot(_ viewModel: ScreenshotGalleryViewDataSource)
     
 }
 
-protocol ScreenshotGalleryViewModel {
+protocol ScreenshotGalleryViewDataSource {
     
     func numberOfItemsInSection(_ section: Int) -> Int
     
     func screenshotURLForCell(at indexPath: IndexPath) -> String?
-}
-
-
-enum ScreenshotGalleryStyle {
     
-    case embeddedInAppDetailScene
-    case enlarged
-    
-    var design: ScreenshotGalleryDesign.Type {
-        switch self {
-        case .embeddedInAppDetailScene:
-            return EmbeddedInAppDetailSceneDesign.self
-        case .enlarged:
-            return EnlargedSceneDesign.self
-        }
-    }
 }
 
 final class ScreenshotGalleryView: UIView {
@@ -42,12 +27,14 @@ final class ScreenshotGalleryView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = design.minimumLineSpacing
-        layout.itemSize = CGSize(width: design.cellWidth, height: design.cellHeight)
+        layout.itemSize = CGSize(
+            width: design.cellWidth,
+            height: design.cellHeight)
         layout.sectionInset = UIEdgeInsets(
             top: design.topSectionInset,
-            left: design.leftSectionInset,
+            left: design.leadingSectionInset,
             bottom: design.bottomSectionInset,
-            right: design.rightSectionInset)
+            right: design.trailingSectionInset)
         return UICollectionView(
             frame: .zero,
             collectionViewLayout: layout)
@@ -55,14 +42,10 @@ final class ScreenshotGalleryView: UIView {
     
     let design: ScreenshotGalleryDesign.Type
     
-    var viewModel: ScreenshotGalleryViewModel? {
-        didSet {
-            self.screenshotCollectionView.reloadData()
-        }
-    }
+    var viewModel: ScreenshotGalleryViewDataSource?
     weak var delegate: ScreenshotGalleryViewDelegate?
     
-    init(viewModel: ScreenshotGalleryViewModel,
+    init(viewModel: ScreenshotGalleryViewDataSource,
          style: ScreenshotGalleryStyle) {
         self.viewModel = viewModel
         self.design = style.design
@@ -74,17 +57,36 @@ final class ScreenshotGalleryView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func update() {
+        self.screenshotCollectionView.reloadData()
+    }
+    
     private func configureCollectionView() {
-        self.setConstraints()
+        self.setConstraintsOfView()
+        self.setScreenshotCollectionViewConstraints()
         self.screenshotCollectionView.dataSource = self
         self.screenshotCollectionView.delegate = self
         self.screenshotCollectionView.showsHorizontalScrollIndicator = false
         self.screenshotCollectionView.register(ScreenShotCollectionViewCell.self)
     }
     
-    private func setConstraints() {
+    private func setConstraintsOfView() {
+        let screenShotGalleryViewWidthConstraint = self.widthAnchor.constraint(
+            equalToConstant: design.screenShotGalleryViewWidth)
+        screenShotGalleryViewWidthConstraint.priority = .defaultHigh
+        let screenShotGalleryViewHeightConstraint = self.heightAnchor.constraint(
+            equalToConstant: design.screenShotGalleryViewHeight)
+        screenShotGalleryViewHeightConstraint.priority = .defaultHigh
+        
+        NSLayoutConstraint.activate([
+            screenShotGalleryViewWidthConstraint,
+            screenShotGalleryViewHeightConstraint
+        ])
+    }
+    
+    private func setScreenshotCollectionViewConstraints() {
         self.addSubview(screenshotCollectionView)
-        screenshotCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        self.screenshotCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             screenshotCollectionView.leadingAnchor.constraint(
                 equalTo: self.leadingAnchor),
@@ -93,11 +95,14 @@ final class ScreenshotGalleryView: UIView {
             screenshotCollectionView.trailingAnchor.constraint(
                 equalTo: self.trailingAnchor),
             screenshotCollectionView.bottomAnchor.constraint(
-                equalTo: self.bottomAnchor)
+                equalTo: self.bottomAnchor),
+            screenshotCollectionView.heightAnchor.constraint(
+                equalTo: self.heightAnchor)
         ])
     }
     
 }
+
 
 extension ScreenshotGalleryView: UICollectionViewDataSource {
     

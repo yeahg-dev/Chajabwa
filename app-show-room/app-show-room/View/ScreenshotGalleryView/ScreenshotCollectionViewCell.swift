@@ -10,6 +10,7 @@ import UIKit
 private enum Design {
     
     static let defaultImage = UIImage(withBackground: .systemGray4)
+    static let cellCornerRadius: CGFloat = 9
 }
 
 final class ScreenShotCollectionViewCell: UICollectionViewCell {
@@ -40,13 +41,27 @@ final class ScreenShotCollectionViewCell: UICollectionViewCell {
     
     private func configureSubview() {
         self.contentView.addSubview(screenShotView)
+        self.setContstraintOfContentView()
         self.setConstraintOfScreenShotView()
         self.designCell()
     }
     
+    private func setContstraintOfContentView() {
+        NSLayoutConstraint.activate([
+            self.contentView.leadingAnchor.constraint(
+                equalTo: self.leadingAnchor),
+            self.contentView.topAnchor.constraint(
+                equalTo: self.topAnchor),
+            self.contentView.trailingAnchor.constraint(
+                equalTo: self.trailingAnchor),
+            self.contentView.bottomAnchor.constraint(
+                equalTo: self.bottomAnchor)
+        ])
+    }
+    
     private func setConstraintOfScreenShotView() {
-        invalidateTranslateAutoResizingMasks(of: [
-            screenShotView, self.contentView])
+        invalidateTranslateAutoResizingMasks(
+            of: [screenShotView, self.contentView])
         NSLayoutConstraint.activate([
             screenShotView.leadingAnchor.constraint(
                 equalTo: self.contentView.leadingAnchor),
@@ -60,7 +75,7 @@ final class ScreenShotCollectionViewCell: UICollectionViewCell {
     }
     
     private func designCell() {
-        self.contentView.layer.cornerRadius = 6
+        self.contentView.layer.cornerRadius = Design.cellCornerRadius
         self.contentView.clipsToBounds = true
     }
     
