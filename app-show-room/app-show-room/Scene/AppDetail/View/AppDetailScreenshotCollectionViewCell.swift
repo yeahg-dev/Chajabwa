@@ -21,22 +21,24 @@ final class AppDetailScreenshotCollectionViewCell: BaseAppDetailCollectionViewCe
     }
     
     override func configureSubviews() {
-        self.addSubviews()
-        self.setConstraints()
         self.screenshotGalleryView.delegate = self
     }
     
     override func setConstraints() {
-        self.invalidateTranslateAutoResizingMasks(of: [screenshotGalleryView, self.contentView])
+        self.invalidateTranslateAutoResizingMasks(
+            of: [screenshotGalleryView, self.contentView])
         self.setConstraintOfContentView()
         self.setConstraintOfScreenshotGalleryView()
     }
     
     override func bind(model: BaseAppDetailCollectionViewCellModel) {
         self.appDetail = model.app
+        self.screenshotGalleryView.update()
     }
 
 }
+
+// MARK: - configure layout
 
 extension AppDetailScreenshotCollectionViewCell {
     
@@ -67,7 +69,9 @@ extension AppDetailScreenshotCollectionViewCell {
 
 }
 
-extension AppDetailScreenshotCollectionViewCell: ScreenshotGalleryViewModel {
+// MARK: - ScreenshotGalleryViewDataSource
+
+extension AppDetailScreenshotCollectionViewCell: ScreenshotGalleryViewDataSource {
     
     func numberOfItemsInSection(_ section: Int) -> Int {
         return appDetail?.screenShotURLs?.count ?? .zero
@@ -79,9 +83,11 @@ extension AppDetailScreenshotCollectionViewCell: ScreenshotGalleryViewModel {
     
 }
 
+// MARK: - ScreenshotGalleryViewDelegate
+
 extension AppDetailScreenshotCollectionViewCell: ScreenshotGalleryViewDelegate {
     
-    func didTappedScreenshot(_ viewModel: ScreenshotGalleryViewModel) {
+    func didTappedScreenshot(_ viewModel: ScreenshotGalleryViewDataSource) {
         appDetailTableViewCellDelegate?.screenshotDidTapped(viewModel)
     }
 

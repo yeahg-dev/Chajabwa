@@ -103,7 +103,7 @@ extension AppDetailViewController: AppDetailTableViewCellDelegate {
         self.contentCollectionView.performBatchUpdates(nil)
     }
     
-    func screenshotDidTapped(_ viewModel: ScreenshotGalleryViewModel) {
+    func screenshotDidTapped(_ viewModel: ScreenshotGalleryViewDataSource) {
         let screenshotViewController = EnlargedScreenshotGalleryViewController(
             viewModel: viewModel)
         self.present(screenshotViewController, animated: true)

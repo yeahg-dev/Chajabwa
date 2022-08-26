@@ -22,18 +22,16 @@ final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewC
         }
     }
     
-    override func configureSubviews() {
-        self.addSubviews()
-        self.setConstraints()
-        self.designDescrpitionTextView()
-        self.configureFoldingButton()
-    }
-    
     override func addSubviews() {
         self.contentView.addSubview(descriptionTextView)
         self.contentView.addSubview(foldingButton)
     }
     
+    override func configureSubviews() {
+        self.designDescrpitionTextView()
+        self.configureFoldingButton()
+    }
+
     override func setConstraints() {
         self.invalidateTranslateAutoResizingMasks(of: [
             foldingButton, descriptionTextView, self.contentView])
@@ -82,7 +80,7 @@ final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewC
     
 }
 
-// MARK: - SetConstraints UIComponents
+// MARK: - configure layout
 
 extension AppDetailDescriptionCollectionViewCell {
     

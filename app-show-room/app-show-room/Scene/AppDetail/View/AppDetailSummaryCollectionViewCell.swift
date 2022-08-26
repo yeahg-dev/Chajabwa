@@ -18,18 +18,16 @@ final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell 
     private let purchaseButton = UIButton(type: .custom)
     private let shareButton = UIButton(type: .system)
 
-    override func configureSubviews() {
-        self.designComponents()
-        self.addSubviews()
-        self.setConstraints()
-    }
-    
     override func addSubviews() {
         self.contentView.addSubview(iconImageView)
         self.contentView.addSubview(appNameLabel)
         self.contentView.addSubview(providerLabel)
         self.contentView.addSubview(purchaseButton)
         self.contentView.addSubview(shareButton)
+    }
+    
+    override func configureSubviews() {
+        self.designComponents()
     }
     
     override func setConstraints() {
@@ -99,7 +97,7 @@ extension AppDetailSummaryCollectionViewCell {
     
 }
 
-// MARK: - Set Constraints for UIComponents
+// MARK: - configure layout
 
 extension AppDetailSummaryCollectionViewCell {
     

@@ -9,31 +9,16 @@ import UIKit
 
 protocol ScreenshotGalleryViewDelegate: AnyObject {
     
-    func didTappedScreenshot(_ viewModel: ScreenshotGalleryViewModel)
+    func didTappedScreenshot(_ viewModel: ScreenshotGalleryViewDataSource)
     
 }
 
-protocol ScreenshotGalleryViewModel {
+protocol ScreenshotGalleryViewDataSource {
     
     func numberOfItemsInSection(_ section: Int) -> Int
     
     func screenshotURLForCell(at indexPath: IndexPath) -> String?
-}
-
-
-enum ScreenshotGalleryStyle {
     
-    case embeddedInAppDetailScene
-    case enlarged
-    
-    var design: ScreenshotGalleryDesign.Type {
-        switch self {
-        case .embeddedInAppDetailScene:
-            return EmbeddedInAppDetailSceneDesign.self
-        case .enlarged:
-            return EnlargedSceneDesign.self
-        }
-    }
 }
 
 final class ScreenshotGalleryView: UIView {
@@ -57,14 +42,10 @@ final class ScreenshotGalleryView: UIView {
     
     let design: ScreenshotGalleryDesign.Type
     
-    var viewModel: ScreenshotGalleryViewModel? {
-        didSet {
-            self.screenshotCollectionView.reloadData()
-        }
-    }
+    var viewModel: ScreenshotGalleryViewDataSource?
     weak var delegate: ScreenshotGalleryViewDelegate?
     
-    init(viewModel: ScreenshotGalleryViewModel,
+    init(viewModel: ScreenshotGalleryViewDataSource,
          style: ScreenshotGalleryStyle) {
         self.viewModel = viewModel
         self.design = style.design
@@ -74,6 +55,10 @@ final class ScreenshotGalleryView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func update() {
+        self.screenshotCollectionView.reloadData()
     }
     
     private func configureCollectionView() {
@@ -117,6 +102,7 @@ final class ScreenshotGalleryView: UIView {
     }
     
 }
+
 
 extension ScreenshotGalleryView: UICollectionViewDataSource {
     

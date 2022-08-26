@@ -11,7 +11,7 @@ final class EnlargedScreenshotGalleryViewController: UIViewController {
     
     private var screenshotGalleryView: ScreenshotGalleryView
     
-    init(viewModel: ScreenshotGalleryViewModel) {
+    init(viewModel: ScreenshotGalleryViewDataSource) {
         self.screenshotGalleryView = ScreenshotGalleryView(
             viewModel: viewModel,
             style: .enlarged)
