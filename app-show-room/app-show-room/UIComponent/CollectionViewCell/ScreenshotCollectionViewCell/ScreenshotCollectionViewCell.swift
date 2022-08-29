@@ -7,17 +7,15 @@
 
 import UIKit
 
-private enum Design {
-    
-    static let defaultImage = UIImage(withBackground: .systemGray4)
-    static let cellCornerRadius: CGFloat = 9
-}
-
-final class ScreenShotCollectionViewCell: BaseCollectionViewCell {
+class ScreenShotCollectionViewCell: BaseCollectionViewCell {
     
     private let screenShotView = UIImageView()
     
     private var cancellableTask: CancellableTask?
+    
+    var design: ScreenshotCollectionViewCellDesign.Type {
+        return ScreenShotCollectionViewCellStyle.Normal.self
+    }
 
     override func addSubviews() {
         contentView.addSubview(screenShotView)
@@ -33,13 +31,13 @@ final class ScreenShotCollectionViewCell: BaseCollectionViewCell {
     
     override func prepareForReuse() {
         cancellableTask?.cancelTask()
-        screenShotView.image = Design.defaultImage
+        screenShotView.image = design.defaultImage
     }
     
     func fill(with imageURLString: String) {
         cancellableTask = self.screenShotView.setImage(
             with: imageURLString,
-            defaultImage: Design.defaultImage)
+            defaultImage: design.defaultImage)
     }
     
     private func setConstraintOfScreenShotView() {
@@ -54,13 +52,13 @@ final class ScreenShotCollectionViewCell: BaseCollectionViewCell {
                 equalTo: contentView.trailingAnchor),
             screenShotView.bottomAnchor.constraint(
                 equalTo: contentView.bottomAnchor),
-            screenShotView.widthAnchor.constraint(equalToConstant: CGFloat(280)),
-            screenShotView.heightAnchor.constraint(equalToConstant: CGFloat(500))
+            screenShotView.widthAnchor.constraint(equalToConstant: design.width),
+            screenShotView.heightAnchor.constraint(equalToConstant: design.height)
         ])
     }
     
     private func configureUI() {
-        contentView.layer.cornerRadius = Design.cellCornerRadius
+        contentView.layer.cornerRadius = design.cornerRadius
         contentView.clipsToBounds = true
     }
     

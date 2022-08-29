@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class AppDetailViewController: UIViewController, UICollectionViewDelegate {
+final class AppDetailViewController: UIViewController {
     
     private var contentCollectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<AppDetailViewModel.Section, AppDetailViewModel.Item>!
@@ -41,6 +41,7 @@ final class AppDetailViewController: UIViewController, UICollectionViewDelegate 
         contentCollectionView = UICollectionView(
             frame: view.bounds,
             collectionViewLayout: createLayout())
+        contentCollectionView.delegate = self
     }
     
     private func addSubviews() {
@@ -191,17 +192,19 @@ final class AppDetailViewController: UIViewController, UICollectionViewDelegate 
     
 }
 
-extension AppDetailViewController: AppDetailTableViewCellDelegate {
+extension AppDetailViewController: UICollectionViewDelegate {
     
-    func foldingButtonDidTapped() {
-        self.contentCollectionView.performBatchUpdates(nil)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let section = indexPath.section
+        guard .screenshot == AppDetailViewModel.Section(rawValue: section) else {
+            return
+        }
+        
+        let screenshotGalleryViewModel = ScreenshotGalleryViewModel(
+            screenshotURLs: viewModel.screenshotURLs)
+        let screenshotGalleryVC = ScreenshotGalleryViewController(
+            viewModel: screenshotGalleryViewModel)
+        screenshotGalleryVC.modalPresentationStyle = .overFullScreen
+        present(screenshotGalleryVC, animated: true)
     }
-    
-    func screenshotDidTapped(_ viewModel: ScreenshotGalleryViewDataSource) {
-        let screenshotViewController = ScreenshotGalleryViewController(
-            viewModel: viewModel)
-        present(screenshotViewController, animated: true)
-        screenshotViewController.modalPresentationStyle = .fullScreen
-    }
-    
 }

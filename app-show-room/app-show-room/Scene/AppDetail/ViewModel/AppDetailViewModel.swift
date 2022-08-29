@@ -32,7 +32,7 @@ struct AppDetailViewModel {
             case .summary:
                 return AppDetailSummaryCollectionViewCell.self
             case .screenshot:
-                return AppDetailScreenshotCollectionViewCell.self
+                return ScreenShotCollectionViewCell.self
             case .descritption:
                 return AppDetailDescriptionCollectionViewCell.self
             }
@@ -61,6 +61,10 @@ struct AppDetailViewModel {
     
     private let app: AppDetail
     let sections: [Section] = Section.allCases
+    
+    var screenshotURLs: [String]? {
+        return app.screenShotURLs
+    }
     
     init(app: AppDetail) {
         self.app = app

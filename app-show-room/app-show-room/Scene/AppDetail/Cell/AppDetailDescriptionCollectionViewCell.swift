@@ -18,7 +18,6 @@ final class AppDetailDescriptionCollectionViewCell: BaseCollectionViewCell {
         willSet {
             setFoldingButton(isFolded: newValue)
             descriptionTextView.invalidateIntrinsicContentSize()
-            appDetailTableViewCellDelegate?.foldingButtonDidTapped()
         }
     }
     

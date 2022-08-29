@@ -9,8 +9,6 @@ import UIKit
 
 class BaseCollectionViewCell: UICollectionViewCell {
     
-    weak var appDetailTableViewCellDelegate: AppDetailTableViewCellDelegate?
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
@@ -27,13 +25,5 @@ class BaseCollectionViewCell: UICollectionViewCell {
     func configureSubviews() { }
 
     func setConstraints() { }
-    
-}
-
-protocol AppDetailTableViewCellDelegate: AnyObject {
-    
-    func foldingButtonDidTapped()
-    
-    func screenshotDidTapped(_ viewModel: ScreenshotGalleryViewDataSource)
     
 }
