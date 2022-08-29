@@ -28,7 +28,7 @@ final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewC
     }
     
     override func configureSubviews() {
-        self.designDescrpitionTextView()
+        self.configureDescrpitionTextView()
         self.configureFoldingButton()
     }
 
@@ -72,7 +72,7 @@ final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewC
         }
     }
     
-    private func designDescrpitionTextView() {
+    private func configureDescrpitionTextView() {
         self.descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
         self.descriptionTextView.textContainer.maximumNumberOfLines = 3
         self.descriptionTextView.isScrollEnabled = false

@@ -27,7 +27,7 @@ final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell 
     }
     
     override func configureSubviews() {
-        self.designComponents()
+        self.configureUI()
     }
     
     override func setConstraints() {
@@ -53,12 +53,12 @@ final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell 
        
     }
 
-    private func designComponents() {
-        self.designIconImageView()
-        self.designAppNameLabel()
-        self.designProviderLabel()
-        self.designPurchaseButton()
-        self.designShareButton()
+    private func configureUI() {
+        self.configureIconImageView()
+        self.configureAppNameLabel()
+        self.configureProviderLabel()
+        self.configurePurchaseButton()
+        self.configureShareButton()
     }
     
 }
@@ -67,31 +67,31 @@ final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell 
 
 extension AppDetailSummaryCollectionViewCell {
     
-    private func designIconImageView() {
+    private func configureIconImageView() {
         self.iconImageView.layer.cornerRadius = 20
         self.iconImageView.clipsToBounds = true
     }
     
-    private func designAppNameLabel() {
+    private func configureAppNameLabel() {
         self.appNameLabel.font = design.appNameLabelFont
         self.appNameLabel.lineBreakMode = .byTruncatingTail
         self.appNameLabel.numberOfLines = 2
     }
     
-    private func designProviderLabel() {
+    private func configureProviderLabel() {
         self.providerLabel.font = design.providerLabelFont
         self.providerLabel.textColor = .gray
         self.providerLabel.numberOfLines = 1
     }
     
-    private func designPurchaseButton() {
+    private func configurePurchaseButton() {
         self.purchaseButton.backgroundColor = .systemBlue
         self.purchaseButton.layer.cornerRadius = 10
         self.purchaseButton.titleLabel?.textColor = .white
         self.purchaseButton.titleLabel?.font = design.purchaseButtonFont
     }
     
-    private func designShareButton() {
+    private func configureShareButton() {
         let shareImage = design.shareButtonImage
         self.shareButton.titleLabel?.textColor = .white
         self.shareButton.titleLabel?.textAlignment = .center

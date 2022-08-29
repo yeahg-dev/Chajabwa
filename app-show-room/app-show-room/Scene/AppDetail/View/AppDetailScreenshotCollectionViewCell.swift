@@ -33,7 +33,6 @@ final class AppDetailScreenshotCollectionViewCell: BaseAppDetailCollectionViewCe
     
     override func bind(model: AppDetailViewModel.Item) {
         if case let .screenshot(screenshot) = model {
-//            self.screenshotURLs = screenshot
             self.screenshotGalleryView.update()
         }
     }

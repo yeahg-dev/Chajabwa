@@ -24,7 +24,7 @@ final class AppDetailViewController: UIViewController, UICollectionViewDelegate 
     }
     
     override func viewDidLoad() {
-        self.designView()
+        self.configureUI()
         self.configureContentCollectioView()
         self.configureDataSource()
         self.addSubviews()
@@ -32,7 +32,7 @@ final class AppDetailViewController: UIViewController, UICollectionViewDelegate 
         self.applyInitialSnapshot()
     }
     
-    private func designView() {
+    private func configureUI() {
         self.view.backgroundColor = .white
         self.navigationController?.navigationBar.prefersLargeTitles = false
     }
