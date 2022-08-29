@@ -68,6 +68,7 @@ extension App {
     func toAppDetail() -> AppDetail? {
         
         return AppDetail(
+            id: self.trackID,
             appName: self.trackName,
             iconImageURL: self.artworkUrl512,
             provider: self.sellerName,

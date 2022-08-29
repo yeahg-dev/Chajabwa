@@ -15,17 +15,17 @@ protocol AppDetailViewModelOutput {
     
     func cellType(at indexPath: IndexPath) -> BaseAppDetailCollectionViewCell.Type
     
-    func cellModel(at indexPath: IndexPath) -> BaseAppDetailCollectionViewCellModel
+    func cellModel(at indexPath: IndexPath) -> AppDetailItem
 
 }
 
 struct AppDetailViewModel {
     
-    enum Section: CaseIterable {
+    enum Section: Int, CaseIterable {
         
         case summary
         case screenshot
-        case descritpion
+        case descritption
         
         var cellType: BaseAppDetailCollectionViewCell.Type {
             switch self {
@@ -33,8 +33,27 @@ struct AppDetailViewModel {
                 return AppDetailSummaryCollectionViewCell.self
             case .screenshot:
                 return AppDetailScreenshotCollectionViewCell.self
-            case .descritpion:
+            case .descritption:
                 return AppDetailDescriptionCollectionViewCell.self
+            }
+        }
+    
+        func cellItem(app: AppDetail) -> [Item] {
+            switch self {
+            case .summary:
+                let info = Info(
+                    name: app.appName,
+                    iconImageURL: app.iconImageURL,
+                    provider: app.provider,
+                    price: app.price)
+                return [Item.summary(info)]
+            case .screenshot:
+                let items = app.screenShotURLs?.map { Screenshot(url: $0) }
+                                               .map{ Item.screenshot($0) }
+                return items!
+            case .descritption:
+                let description = Description(text: app.description)
+                return [Item.description(description)]
             }
         }
         
@@ -53,7 +72,7 @@ struct AppDetailViewModel {
             return 1
         case .screenshot:
             return 1
-        case .descritpion:
+        case .descritption:
             return 1
         }
     }
@@ -76,8 +95,45 @@ extension AppDetailViewModel: AppDetailViewModelOutput {
         return sections[section].cellType
     }
     
-    func cellModel(at indexPath: IndexPath) -> BaseAppDetailCollectionViewCellModel {
-        return BaseAppDetailCollectionViewCellModel(app: self.app)
+    func cellModel(at indexPath: IndexPath) -> AppDetailItem {
+        return AppDetailItem(
+            id: app.id,
+            name: app.appName,
+            iconImageURL: app.iconImageURL,
+            provider: app.provider,
+            price: app.price,
+            screenshotURLs: app.screenShotURLs,
+            description: app.description)
+    }
+    
+    func cellItems(at section: Int) -> [Item] {
+        // TODO: - 옵셔널 오류 핸들링
+        return (Section(rawValue: section)?.cellItem(app: app))!
     }
 
+}
+
+extension AppDetailViewModel {
+    
+    enum Item: Hashable {
+        case summary(Info)
+        case screenshot(Screenshot)
+        case description(Description)
+    }
+    
+    struct Info: Hashable {
+        let name: String?
+        let iconImageURL: String?
+        let provider: String?
+        let price: String?
+    }
+    
+    struct Screenshot: Hashable {
+        let url: String
+    }
+    
+    struct Description: Hashable {
+        let text: String?
+    }
+    
 }

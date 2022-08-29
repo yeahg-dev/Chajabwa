@@ -9,6 +9,7 @@ import Foundation
 
 struct AppDetail {
     
+    let id: Int?
     let appName: String?
     let iconImageURL: String?
     let provider: String?

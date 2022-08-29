@@ -43,11 +43,14 @@ final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell 
        
     }
 
-    override func bind(model: BaseAppDetailCollectionViewCellModel) {
-        self.fillIconImage(url: model.iconImageURL)
-        self.fillAppNameLabel(name: model.name)
-        self.fillProviderLabel(provider: model.provider)
-        self.fillPurcahseButton(price: model.price)
+    override func bind(model: AppDetailViewModel.Item) {
+        if case let .summary(summary) = model {
+            self.fillIconImage(url: summary.iconImageURL)
+            self.fillAppNameLabel(name: summary.name)
+            self.fillProviderLabel(provider: summary.provider)
+            self.fillPurcahseButton(price: summary.price)
+        }
+       
     }
 
     private func designComponents() {

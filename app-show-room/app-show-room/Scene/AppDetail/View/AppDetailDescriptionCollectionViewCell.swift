@@ -40,8 +40,10 @@ final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewC
         self.setContstraintsOfDescriptionView()
     }
 
-    override func bind(model: BaseAppDetailCollectionViewCellModel) {
-        self.descriptionTextView.text = model.app.description
+    override func bind(model: AppDetailViewModel.Item) {
+        if case let .description(descritpion) = model {
+            self.descriptionTextView.text = descritpion.text
+        }
     }
 
     private func configureFoldingButton() {

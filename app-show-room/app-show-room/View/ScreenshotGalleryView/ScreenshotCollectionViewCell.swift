@@ -41,27 +41,13 @@ final class ScreenShotCollectionViewCell: UICollectionViewCell {
     
     private func configureSubview() {
         self.contentView.addSubview(screenShotView)
-        self.setContstraintOfContentView()
         self.setConstraintOfScreenShotView()
         self.designCell()
     }
     
-    private func setContstraintOfContentView() {
-        NSLayoutConstraint.activate([
-            self.contentView.leadingAnchor.constraint(
-                equalTo: self.leadingAnchor),
-            self.contentView.topAnchor.constraint(
-                equalTo: self.topAnchor),
-            self.contentView.trailingAnchor.constraint(
-                equalTo: self.trailingAnchor),
-            self.contentView.bottomAnchor.constraint(
-                equalTo: self.bottomAnchor)
-        ])
-    }
-    
     private func setConstraintOfScreenShotView() {
         invalidateTranslateAutoResizingMasks(
-            of: [screenShotView, self.contentView])
+            of: [screenShotView])
         NSLayoutConstraint.activate([
             screenShotView.leadingAnchor.constraint(
                 equalTo: self.contentView.leadingAnchor),
@@ -70,7 +56,9 @@ final class ScreenShotCollectionViewCell: UICollectionViewCell {
             screenShotView.trailingAnchor.constraint(
                 equalTo: self.contentView.trailingAnchor),
             screenShotView.bottomAnchor.constraint(
-                equalTo: self.contentView.bottomAnchor)
+                equalTo: self.contentView.bottomAnchor),
+            screenShotView.widthAnchor.constraint(equalToConstant: CGFloat(280)),
+            screenShotView.heightAnchor.constraint(equalToConstant: CGFloat(500))
         ])
     }
     

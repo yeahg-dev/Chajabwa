@@ -9,15 +9,8 @@ import UIKit
 
 final class AppDetailViewController: UIViewController, UICollectionViewDelegate {
     
-    private let contentCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        layout.sectionInset = UIEdgeInsets(top: 10, left:0, bottom: 10, right: 0)
-        return UICollectionView(
-            frame: .zero,
-            collectionViewLayout: layout)
-    }()
+    private var contentCollectionView: UICollectionView!
+    private var dataSource: UICollectionViewDiffableDataSource<AppDetailViewModel.Section, AppDetailViewModel.Item>!
     
     private let viewModel: AppDetailViewModel
     
@@ -33,22 +26,21 @@ final class AppDetailViewController: UIViewController, UICollectionViewDelegate 
     override func viewDidLoad() {
         self.designView()
         self.configureContentCollectioView()
+        self.configureDataSource()
         self.addSubviews()
         self.setContstraints()
-        self.contentCollectionView.reloadData()
+        self.applyInitialSnapshot()
     }
+    
     private func designView() {
         self.view.backgroundColor = .white
         self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     private func configureContentCollectioView() {
-        self.contentCollectionView.dataSource = self
-        self.contentCollectionView.delegate = self
-        self.viewModel.contentSections.forEach { section in
-            let cellClass = section.cellType
-            self.contentCollectionView.register(cellClass)
-        }
+        self.contentCollectionView = UICollectionView(
+            frame: view.bounds,
+            collectionViewLayout: createLayout())
     }
     
     private func addSubviews() {
@@ -60,45 +52,135 @@ final class AppDetailViewController: UIViewController, UICollectionViewDelegate 
         let safeArea = self.view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             self.contentCollectionView.leadingAnchor.constraint(
-                equalTo: safeArea.leadingAnchor),
+                equalTo: view.leadingAnchor),
             self.contentCollectionView.topAnchor.constraint(
                 equalTo: safeArea.topAnchor),
             self.contentCollectionView.trailingAnchor.constraint(
-                equalTo: safeArea.trailingAnchor),
+                equalTo: view.trailingAnchor),
             self.contentCollectionView.bottomAnchor.constraint(
                 equalTo: safeArea.bottomAnchor)
         ])
     }
     
-}
-
-// MARK: - UICollectionViewDataSource
-
-extension AppDetailViewController: UICollectionViewDataSource {
+    private func createLayout() -> UICollectionViewLayout {
+        let sectionProvider = { [weak self] (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            
+            guard let sectionKind = AppDetailViewModel.Section(rawValue: sectionIndex) else { return nil }
+            
+            let section: NSCollectionLayoutSection
+            
+            if sectionKind == .summary {
+                
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(AppDetailSummaryDesign.height))
+                let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+                section = NSCollectionLayoutSection(group: group)
+                
+            } else if sectionKind == .screenshot {
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return self.viewModel.numberOfSection()
+                let itemSize = NSCollectionLayoutSize(
+                    widthDimension: .estimated(280),
+                    heightDimension: .fractionalHeight(1.0))
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                let groupSize = NSCollectionLayoutSize(
+                    widthDimension: .estimated(280),
+                    heightDimension: .estimated(500))
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: groupSize,
+                    subitems: [item])
+                section = NSCollectionLayoutSection(group: group)
+                section.interGroupSpacing = 10
+                section.orthogonalScrollingBehavior = .groupPaging
+                
+            } else if sectionKind == .descritption {
+                
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(200))
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(200))
+                let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+                section = NSCollectionLayoutSection(group: group)
+            } else {
+                fatalError("Unknown section!")
+            }
+            
+            return section
+        }
+        return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel.numberOfRows(in: section)
+    private func createSummaryCellRegistration() -> UICollectionView.CellRegistration<AppDetailSummaryCollectionViewCell, AppDetailViewModel.Item> {
+        return UICollectionView.CellRegistration<AppDetailSummaryCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
+            cell.bind(model: item)
+        }
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cellType = viewModel.cellType(at: indexPath)
-        let cell = collectionView.dequeueReusableCell(cellType, for: indexPath)
-        cell.appDetailTableViewCellDelegate = self
+    private func createScreenshotCellRegistration() -> UICollectionView.CellRegistration<ScreenShotCollectionViewCell, AppDetailViewModel.Item> {
+        return UICollectionView.CellRegistration<ScreenShotCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
+            guard case let .screenshot(screenshotData) = item else {
+               return
+            }
+            cell.fill(with: screenshotData.url)
+        }
+    }
+    
+    private func createDescriptionCellRegistration() -> UICollectionView.CellRegistration<AppDetailDescriptionCollectionViewCell, AppDetailViewModel.Item> {
+        return UICollectionView.CellRegistration<AppDetailDescriptionCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
+            cell.bind(model: item)
+        }
+    }
+    
+    private func configureDataSource() {
+        let summaryCellRegistration = createSummaryCellRegistration()
+        let screenshotCellRegistration = createScreenshotCellRegistration()
+        let descriptionCellRegistration = createDescriptionCellRegistration()
         
-        let cellModel = viewModel.cellModel(at: indexPath)
-        cell.bind(model: cellModel)
+        self.dataSource = UICollectionViewDiffableDataSource<AppDetailViewModel.Section, AppDetailViewModel.Item>(collectionView: contentCollectionView) {
+            (collectionView, indexPath, item) -> UICollectionViewCell? in
+            guard let section = AppDetailViewModel.Section(rawValue: indexPath.section) else { fatalError("Unknown section") }
+            
+            switch section {
+            case .summary:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: summaryCellRegistration,
+                    for: indexPath,
+                    item: item)
+            case .screenshot:
+                // TODO: - Type 리턴하도록
+                return collectionView.dequeueConfiguredReusableCell(
+                        using: screenshotCellRegistration,
+                        for: indexPath,
+                        item: item)
+            case .descritption:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: descriptionCellRegistration,
+                    for: indexPath,
+                    item: item)
+            }
+
+        }
+    }
+    
+    private func applyInitialSnapshot() {
+        // set the order for our sections
         
-        return cell
+        let sections = AppDetailViewModel.Section.allCases
+        var snapshot = NSDiffableDataSourceSnapshot<AppDetailViewModel.Section, AppDetailViewModel.Item>()
+        snapshot.appendSections(sections)
+        dataSource.apply(snapshot, animatingDifferences: false)
+        
+        sections.forEach { section in
+            var snapshot = NSDiffableDataSourceSectionSnapshot<AppDetailViewModel.Item>()
+            let items = viewModel.cellItems(at: section.rawValue)
+            snapshot.append(items)
+            dataSource.apply(snapshot, to: section, animatingDifferences: false)
+            }
     }
     
 }
 
 extension AppDetailViewController: AppDetailTableViewCellDelegate {
-
+    
     func foldingButtonDidTapped() {
         self.contentCollectionView.performBatchUpdates(nil)
     }
@@ -109,5 +191,5 @@ extension AppDetailViewController: AppDetailTableViewCellDelegate {
         self.present(screenshotViewController, animated: true)
         screenshotViewController.modalPresentationStyle = .fullScreen
     }
-
+    
 }

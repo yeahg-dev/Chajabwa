@@ -11,7 +11,7 @@ final class AppDetailScreenshotCollectionViewCell: BaseAppDetailCollectionViewCe
     
     private var screenshotGalleryView: ScreenshotGalleryView!
     
-    private var appDetail: AppDetail?
+    private var screenshotURLs: [String]?
     
     override func addSubviews() {
         self.screenshotGalleryView = ScreenshotGalleryView(
@@ -31,9 +31,11 @@ final class AppDetailScreenshotCollectionViewCell: BaseAppDetailCollectionViewCe
         self.setConstraintOfScreenshotGalleryView()
     }
     
-    override func bind(model: BaseAppDetailCollectionViewCellModel) {
-        self.appDetail = model.app
-        self.screenshotGalleryView.update()
+    override func bind(model: AppDetailViewModel.Item) {
+        if case let .screenshot(screenshot) = model {
+//            self.screenshotURLs = screenshot
+            self.screenshotGalleryView.update()
+        }
     }
 
 }
@@ -74,11 +76,11 @@ extension AppDetailScreenshotCollectionViewCell {
 extension AppDetailScreenshotCollectionViewCell: ScreenshotGalleryViewDataSource {
     
     func numberOfItemsInSection(_ section: Int) -> Int {
-        return appDetail?.screenShotURLs?.count ?? .zero
+        return self.screenshotURLs?.count ?? .zero
     }
     
     func screenshotURLForCell(at indexPath: IndexPath) -> String? {
-        return appDetail?.screenShotURLs?[indexPath.row]
+        return self.screenshotURLs?[indexPath.row]
     }
     
 }

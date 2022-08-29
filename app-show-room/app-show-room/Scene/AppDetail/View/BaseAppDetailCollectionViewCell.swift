@@ -28,7 +28,7 @@ class BaseAppDetailCollectionViewCell: UICollectionViewCell {
 
     func setConstraints() { }
     
-    func bind(model: BaseAppDetailCollectionViewCellModel) { }
+    func bind(model: AppDetailViewModel.Item) { }
     
 }
 
