@@ -168,7 +168,6 @@
 			isa = PBXGroup;
 			children = (
 				6384EC7D28AC83B100D1F821 /* AppDetailViewController.swift */,
-				6384EC8428AD2A5C00D1F821 /* EnlargedScreenshotGalleryViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -182,6 +181,22 @@
 				6384EC5728AB7DB900D1F821 /* AppDetailDescriptionCollectionViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		6384E5C428BCD44800563FD5 /* ScreenshotGallery */ = {
+			isa = PBXGroup;
+			children = (
+				6384E5C528BCD46100563FD5 /* ViewController */,
+			);
+			path = ScreenshotGallery;
+			sourceTree = "<group>";
+		};
+		6384E5C528BCD46100563FD5 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6384EC8428AD2A5C00D1F821 /* EnlargedScreenshotGalleryViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		6384EC4828AB2E0000D1F821 /* UIKit+Extension */ = {
@@ -235,20 +250,21 @@
 		63861EBF28AA41F00062A8BD /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				6388DE5B28A6907C0011D47E /* NamespaceCommon */,
-				63861EC028AA41F90062A8BD /* AppSearch */,
+				6388DE5B28A6907C0011D47E /* CommonNamespace */,
+				63861EC028AA41F90062A8BD /* Search */,
 				63861EC328AA432C0062A8BD /* AppDetail */,
+				6384E5C428BCD44800563FD5 /* ScreenshotGallery */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
 		};
-		63861EC028AA41F90062A8BD /* AppSearch */ = {
+		63861EC028AA41F90062A8BD /* Search */ = {
 			isa = PBXGroup;
 			children = (
 				63861EC128AA42190062A8BD /* ViewController */,
 				63861EC228AA421E0062A8BD /* ViewModel */,
 			);
-			path = AppSearch;
+			path = Search;
 			sourceTree = "<group>";
 		};
 		63861EC128AA42190062A8BD /* ViewController */ = {
@@ -395,12 +411,12 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		6388DE5B28A6907C0011D47E /* NamespaceCommon */ = {
+		6388DE5B28A6907C0011D47E /* CommonNamespace */ = {
 			isa = PBXGroup;
 			children = (
 				63861EBD28AA1D090062A8BD /* AlertViewModel.swift */,
 			);
-			path = NamespaceCommon;
+			path = CommonNamespace;
 			sourceTree = "<group>";
 		};
 		6388DE5E28A6A5200011D47E /* Network */ = {

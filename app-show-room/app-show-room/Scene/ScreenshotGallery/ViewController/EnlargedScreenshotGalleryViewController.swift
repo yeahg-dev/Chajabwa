@@ -1,5 +1,5 @@
 //
-//  EnlargedScreenshotGalleryViewController.swift
+//  ScreenshotGalleryViewController.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/08/17.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class EnlargedScreenshotGalleryViewController: UIViewController {
+final class ScreenshotGalleryViewController: UIViewController {
     
     private var screenshotGalleryView: ScreenshotGalleryView
     
