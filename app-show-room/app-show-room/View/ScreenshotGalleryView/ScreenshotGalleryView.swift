@@ -48,9 +48,9 @@ final class ScreenshotGalleryView: UIView {
     init(viewModel: ScreenshotGalleryViewDataSource,
          style: ScreenshotGalleryStyle) {
         self.viewModel = viewModel
-        self.design = style.design
+        design = style.design
         super.init(frame: .zero)
-        self.configureCollectionView()
+        configureCollectionView()
     }
     
     required init?(coder: NSCoder) {
@@ -58,16 +58,16 @@ final class ScreenshotGalleryView: UIView {
     }
     
     func update() {
-        self.screenshotCollectionView.reloadData()
+        screenshotCollectionView.reloadData()
     }
     
     private func configureCollectionView() {
-        self.setConstraintsOfView()
-        self.setScreenshotCollectionViewConstraints()
-        self.screenshotCollectionView.dataSource = self
-        self.screenshotCollectionView.delegate = self
-        self.screenshotCollectionView.showsHorizontalScrollIndicator = false
-        self.screenshotCollectionView.register(ScreenShotCollectionViewCell.self)
+        setConstraintsOfView()
+        setScreenshotCollectionViewConstraints()
+        screenshotCollectionView.dataSource = self
+        screenshotCollectionView.delegate = self
+        screenshotCollectionView.showsHorizontalScrollIndicator = false
+        screenshotCollectionView.register(ScreenShotCollectionViewCell.self)
     }
     
     private func setConstraintsOfView() {
@@ -107,15 +107,15 @@ final class ScreenshotGalleryView: UIView {
 extension ScreenshotGalleryView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel?.numberOfItemsInSection(section) ?? .zero
+        return viewModel?.numberOfItemsInSection(section) ?? .zero
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let urlString = self.viewModel?.screenshotURLForCell(at: indexPath) else {
+        guard let urlString = viewModel?.screenshotURLForCell(at: indexPath) else {
             return ScreenShotCollectionViewCell()
         }
         
-        let cell = self.screenshotCollectionView.dequeueReusableCell(ScreenShotCollectionViewCell.self, for: indexPath)
+        let cell = screenshotCollectionView.dequeueReusableCell(ScreenShotCollectionViewCell.self, for: indexPath)
         cell.fill(with: urlString)
         
         return cell
@@ -126,7 +126,7 @@ extension ScreenshotGalleryView: UICollectionViewDataSource {
 extension ScreenshotGalleryView: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let viewModel = self.viewModel else { return }
+        guard let viewModel = viewModel else { return }
         self.delegate?.didTappedScreenshot(viewModel)
     }
     

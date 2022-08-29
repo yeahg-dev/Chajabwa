@@ -49,9 +49,9 @@ extension AppSearchViewModel: AppSearchViewModelInput {
             of: input) { result in
                 switch result {
                 case .success(let appDetail):
-                    self.searchResult.value = appDetail
+                    searchResult.value = appDetail
                 case.failure(let error):
-                    self.handleSearchError(error)
+                    handleSearchError(error)
                 }
             }
     }

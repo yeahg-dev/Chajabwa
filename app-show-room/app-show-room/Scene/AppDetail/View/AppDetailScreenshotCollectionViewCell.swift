@@ -14,26 +14,26 @@ final class AppDetailScreenshotCollectionViewCell: BaseAppDetailCollectionViewCe
     private var screenshotURLs: [String]?
     
     override func addSubviews() {
-        self.screenshotGalleryView = ScreenshotGalleryView(
+        screenshotGalleryView = ScreenshotGalleryView(
             viewModel: self,
             style: .embeddedInAppDetailScene)
-        self.contentView.addSubview(screenshotGalleryView)
+        contentView.addSubview(screenshotGalleryView)
     }
     
     override func configureSubviews() {
-        self.screenshotGalleryView.delegate = self
+        screenshotGalleryView.delegate = self
     }
     
     override func setConstraints() {
-        self.invalidateTranslateAutoResizingMasks(
+        invalidateTranslateAutoResizingMasks(
             of: [screenshotGalleryView, self.contentView])
-        self.setConstraintOfContentView()
-        self.setConstraintOfScreenshotGalleryView()
+        setConstraintOfContentView()
+        setConstraintOfScreenshotGalleryView()
     }
     
     override func bind(model: AppDetailViewModel.Item) {
-        if case let .screenshot(screenshot) = model {
-            self.screenshotGalleryView.update()
+        if case let .screenshot(_) = model {
+            screenshotGalleryView.update()
         }
     }
 
@@ -45,26 +45,26 @@ extension AppDetailScreenshotCollectionViewCell {
     
     private func setConstraintOfContentView() {
         NSLayoutConstraint.activate([
-            self.contentView.leadingAnchor.constraint(
+            contentView.leadingAnchor.constraint(
                 equalTo: self.leadingAnchor),
-            self.contentView.topAnchor.constraint(
+            contentView.topAnchor.constraint(
                 equalTo: self.topAnchor),
-            self.contentView.trailingAnchor.constraint(
+            contentView.trailingAnchor.constraint(
                 equalTo: self.trailingAnchor),
-            self.contentView.bottomAnchor.constraint(
+            contentView.bottomAnchor.constraint(
                 equalTo: self.bottomAnchor)])
     }
     
     private func setConstraintOfScreenshotGalleryView() {
         NSLayoutConstraint.activate([
-            self.screenshotGalleryView.leadingAnchor.constraint(
-                equalTo: self.contentView.leadingAnchor),
-            self.screenshotGalleryView.topAnchor.constraint(
-                equalTo: self.contentView.topAnchor),
-            self.screenshotGalleryView.trailingAnchor.constraint(
-                equalTo: self.contentView.trailingAnchor),
-            self.screenshotGalleryView.bottomAnchor.constraint(
-                equalTo: self.contentView.bottomAnchor)
+            screenshotGalleryView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor),
+            screenshotGalleryView.topAnchor.constraint(
+                equalTo: contentView.topAnchor),
+            screenshotGalleryView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor),
+            screenshotGalleryView.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor)
         ])
     }
 
@@ -75,11 +75,11 @@ extension AppDetailScreenshotCollectionViewCell {
 extension AppDetailScreenshotCollectionViewCell: ScreenshotGalleryViewDataSource {
     
     func numberOfItemsInSection(_ section: Int) -> Int {
-        return self.screenshotURLs?.count ?? .zero
+        return screenshotURLs?.count ?? .zero
     }
     
     func screenshotURLForCell(at indexPath: IndexPath) -> String? {
-        return self.screenshotURLs?[indexPath.row]
+        return screenshotURLs?[indexPath.row]
     }
     
 }

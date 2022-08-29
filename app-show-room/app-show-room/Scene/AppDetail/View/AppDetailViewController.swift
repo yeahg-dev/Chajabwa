@@ -15,7 +15,7 @@ final class AppDetailViewController: UIViewController, UICollectionViewDelegate 
     private let viewModel: AppDetailViewModel
     
     init(appDetailViewModel: AppDetailViewModel) {
-        self.viewModel = appDetailViewModel
+        viewModel = appDetailViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -24,57 +24,64 @@ final class AppDetailViewController: UIViewController, UICollectionViewDelegate 
     }
     
     override func viewDidLoad() {
-        self.configureUI()
-        self.configureContentCollectioView()
-        self.configureDataSource()
-        self.addSubviews()
-        self.setContstraints()
-        self.applyInitialSnapshot()
+        configureUI()
+        configureContentCollectioView()
+        configureDataSource()
+        addSubviews()
+        setContstraints()
+        applyInitialSnapshot()
     }
     
     private func configureUI() {
-        self.view.backgroundColor = .white
-        self.navigationController?.navigationBar.prefersLargeTitles = false
+        view.backgroundColor = .white
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     private func configureContentCollectioView() {
-        self.contentCollectionView = UICollectionView(
+        contentCollectionView = UICollectionView(
             frame: view.bounds,
             collectionViewLayout: createLayout())
     }
     
     private func addSubviews() {
-        self.view.addSubview(contentCollectionView)
+        view.addSubview(contentCollectionView)
     }
     
     private func setContstraints() {
-        self.contentCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        let safeArea = self.view.safeAreaLayoutGuide
+        contentCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            self.contentCollectionView.leadingAnchor.constraint(
+            contentCollectionView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor),
-            self.contentCollectionView.topAnchor.constraint(
+            contentCollectionView.topAnchor.constraint(
                 equalTo: safeArea.topAnchor),
-            self.contentCollectionView.trailingAnchor.constraint(
+            contentCollectionView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor),
-            self.contentCollectionView.bottomAnchor.constraint(
+            contentCollectionView.bottomAnchor.constraint(
                 equalTo: safeArea.bottomAnchor)
         ])
     }
     
     private func createLayout() -> UICollectionViewLayout {
-        let sectionProvider = { [weak self] (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+        let sectionProvider = { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
             
-            guard let sectionKind = AppDetailViewModel.Section(rawValue: sectionIndex) else { return nil }
+            guard let sectionKind = AppDetailViewModel.Section(rawValue: sectionIndex) else {
+                return nil }
             
             let section: NSCollectionLayoutSection
             
             if sectionKind == .summary {
                 
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+                let itemSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .fractionalHeight(1.0))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(AppDetailSummaryDesign.height))
-                let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+                let groupSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .absolute(AppDetailSummaryDesign.height))
+                let group = NSCollectionLayoutGroup.vertical(
+                    layoutSize: groupSize,
+                    subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
                 
             } else if sectionKind == .screenshot {
@@ -95,11 +102,18 @@ final class AppDetailViewController: UIViewController, UICollectionViewDelegate 
                 
             } else if sectionKind == .descritption {
                 
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(200))
+                let itemSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .estimated(200))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(200))
-                let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+                let groupSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .estimated(200))
+                let group = NSCollectionLayoutGroup.vertical(
+                    layoutSize: groupSize,
+                    subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
+                
             } else {
                 fatalError("Unknown section!")
             }
@@ -162,8 +176,6 @@ final class AppDetailViewController: UIViewController, UICollectionViewDelegate 
     }
     
     private func applyInitialSnapshot() {
-        // set the order for our sections
-        
         let sections = AppDetailViewModel.Section.allCases
         var snapshot = NSDiffableDataSourceSnapshot<AppDetailViewModel.Section, AppDetailViewModel.Item>()
         snapshot.appendSections(sections)
@@ -188,7 +200,7 @@ extension AppDetailViewController: AppDetailTableViewCellDelegate {
     func screenshotDidTapped(_ viewModel: ScreenshotGalleryViewDataSource) {
         let screenshotViewController = EnlargedScreenshotGalleryViewController(
             viewModel: viewModel)
-        self.present(screenshotViewController, animated: true)
+        present(screenshotViewController, animated: true)
         screenshotViewController.modalPresentationStyle = .fullScreen
     }
     

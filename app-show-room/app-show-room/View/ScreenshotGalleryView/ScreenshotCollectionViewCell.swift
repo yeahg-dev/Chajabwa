@@ -21,7 +21,7 @@ final class ScreenShotCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.configureSubview()
+        configureSubview()
     }
     
     required init?(coder: NSCoder) {
@@ -29,20 +29,20 @@ final class ScreenShotCollectionViewCell: UICollectionViewCell {
     }
     
     func fill(with imageURLString: String) {
-        self.cancellableTask = self.screenShotView.setImage(
+        cancellableTask = self.screenShotView.setImage(
             with: imageURLString,
             defaultImage: Design.defaultImage)
     }
     
     override func prepareForReuse() {
-        self.cancellableTask?.cancelTask()
-        self.screenShotView.image = Design.defaultImage
+        cancellableTask?.cancelTask()
+        screenShotView.image = Design.defaultImage
     }
     
     private func configureSubview() {
-        self.contentView.addSubview(screenShotView)
-        self.setConstraintOfScreenShotView()
-        self.configureUI()
+        contentView.addSubview(screenShotView)
+        setConstraintOfScreenShotView()
+        configureUI()
     }
     
     private func setConstraintOfScreenShotView() {
@@ -50,21 +50,21 @@ final class ScreenShotCollectionViewCell: UICollectionViewCell {
             of: [screenShotView])
         NSLayoutConstraint.activate([
             screenShotView.leadingAnchor.constraint(
-                equalTo: self.contentView.leadingAnchor),
+                equalTo: contentView.leadingAnchor),
             screenShotView.topAnchor.constraint(
-                equalTo: self.contentView.topAnchor),
+                equalTo: contentView.topAnchor),
             screenShotView.trailingAnchor.constraint(
-                equalTo: self.contentView.trailingAnchor),
+                equalTo: contentView.trailingAnchor),
             screenShotView.bottomAnchor.constraint(
-                equalTo: self.contentView.bottomAnchor),
+                equalTo: contentView.bottomAnchor),
             screenShotView.widthAnchor.constraint(equalToConstant: CGFloat(280)),
             screenShotView.heightAnchor.constraint(equalToConstant: CGFloat(500))
         ])
     }
     
     private func configureUI() {
-        self.contentView.layer.cornerRadius = Design.cellCornerRadius
-        self.contentView.clipsToBounds = true
+        contentView.layer.cornerRadius = Design.cellCornerRadius
+        contentView.clipsToBounds = true
     }
     
 }

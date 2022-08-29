@@ -23,48 +23,48 @@ final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureView()
-        self.configureNavigationController()
-        self.configureSearchController()
-        self.bind(appSearchViewModel)
+        configureView()
+        configureNavigationController()
+        configureSearchController()
+        bind(appSearchViewModel)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func configureView() {
-        self.view.backgroundColor = .white
+        view.backgroundColor = .white
     }
     
     private func configureNavigationController() {
-        self.navigationItem.searchController = self.searchController
-        self.navigationItem.title = "Search App"
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.searchController = self.searchController
+        navigationItem.title = "Search App"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func configureSearchController() {
-        self.searchController.hidesNavigationBarDuringPresentation = true
-        self.searchController.searchBar.delegate = self
+        searchController.hidesNavigationBarDuringPresentation = true
+        searchController.searchBar.delegate = self
     }
     
     private func bind(_ viewModel: AppSearchViewModel) {
-        viewModel.searchBarPlaceholder.observe(on: self) { placeholder in
-            self.searchController.searchBar.placeholder = placeholder
+        viewModel.searchBarPlaceholder.observe(on: self) { [weak self] placeholder in
+            self?.searchController.searchBar.placeholder = placeholder
         }
-        viewModel.searchResult.observe(on: self) { appDetail in
+        viewModel.searchResult.observe(on: self) { [weak self] appDetail in
             guard let appDetail = appDetail else {
                 return
             }
 
             let appDetailViewController = AppDetailViewController(appDetailViewModel: AppDetailViewModel(app: appDetail))
-            self.navigationController?.pushViewController(appDetailViewController, animated: true)
+            self?.navigationController?.pushViewController(appDetailViewController, animated: true)
         }
-        viewModel.searchFailureAlert.observe(on: self) { alertText in
+        viewModel.searchFailureAlert.observe(on: self) { [weak self] alertText in
             guard let alertText = alertText else {
                 return
             }
-            self.presentAlert(alertText)
+            self?.presentAlert(alertText)
         }
     }
     
@@ -80,7 +80,7 @@ final class SearchViewController: UIViewController {
             alertController.addAction(action)
         }
         
-        self.present(alertController, animated: false)
+        present(alertController, animated: false)
     }
     
 }
@@ -88,10 +88,10 @@ final class SearchViewController: UIViewController {
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let input = self.searchController.searchBar.text else {
+        guard let input = searchController.searchBar.text else {
             return
         }
         
-        self.appSearchViewModel.didTappedSearch(with: input)
+        appSearchViewModel.didTappedSearch(with: input)
     }
 }

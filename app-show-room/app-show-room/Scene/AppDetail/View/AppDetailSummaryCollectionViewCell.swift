@@ -8,7 +8,7 @@
 import UIKit
 
 final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell {
-
+    
     private let design = AppDetailSummaryDesign.self
     
     // MARK: - UIComponents
@@ -17,48 +17,47 @@ final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell 
     private let providerLabel = UILabel()
     private let purchaseButton = UIButton(type: .custom)
     private let shareButton = UIButton(type: .system)
-
+    
     override func addSubviews() {
-        self.contentView.addSubview(iconImageView)
-        self.contentView.addSubview(appNameLabel)
-        self.contentView.addSubview(providerLabel)
-        self.contentView.addSubview(purchaseButton)
-        self.contentView.addSubview(shareButton)
+        contentView.addSubview(iconImageView)
+        contentView.addSubview(appNameLabel)
+        contentView.addSubview(providerLabel)
+        contentView.addSubview(purchaseButton)
+        contentView.addSubview(shareButton)
     }
     
     override func configureSubviews() {
-        self.configureUI()
+        configureUI()
     }
     
     override func setConstraints() {
-        self.invalidateTranslateAutoResizingMasks(of: [
+        invalidateTranslateAutoResizingMasks(of: [
             iconImageView, appNameLabel, providerLabel, purchaseButton, shareButton, self.contentView
         ])
-        self.setConstraintsOfContentView()
-        self.setContratinsOfIconImageView()
-        self.setConstraintsOfAppNameLabel()
-        self.setConstraintOfProviderLabel()
-        self.setContstraintOfPurchaseButton()
-        self.setConstraintOfShareButton()
-       
+        setConstraintsOfContentView()
+        setContratinsOfIconImageView()
+        setConstraintsOfAppNameLabel()
+        setConstraintOfProviderLabel()
+        setContstraintOfPurchaseButton()
+        setConstraintOfShareButton()
     }
-
+    
     override func bind(model: AppDetailViewModel.Item) {
         if case let .summary(summary) = model {
-            self.fillIconImage(url: summary.iconImageURL)
-            self.fillAppNameLabel(name: summary.name)
-            self.fillProviderLabel(provider: summary.provider)
-            self.fillPurcahseButton(price: summary.price)
+            fillIconImage(url: summary.iconImageURL)
+            fillAppNameLabel(name: summary.name)
+            fillProviderLabel(provider: summary.provider)
+            fillPurcahseButton(price: summary.price)
         }
-       
+        
     }
-
+    
     private func configureUI() {
-        self.configureIconImageView()
-        self.configureAppNameLabel()
-        self.configureProviderLabel()
-        self.configurePurchaseButton()
-        self.configureShareButton()
+        configureIconImageView()
+        configureAppNameLabel()
+        configureProviderLabel()
+        configurePurchaseButton()
+        configureShareButton()
     }
     
 }
@@ -68,34 +67,34 @@ final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell 
 extension AppDetailSummaryCollectionViewCell {
     
     private func configureIconImageView() {
-        self.iconImageView.layer.cornerRadius = 20
-        self.iconImageView.clipsToBounds = true
+        iconImageView.layer.cornerRadius = 20
+        iconImageView.clipsToBounds = true
     }
     
     private func configureAppNameLabel() {
-        self.appNameLabel.font = design.appNameLabelFont
-        self.appNameLabel.lineBreakMode = .byTruncatingTail
-        self.appNameLabel.numberOfLines = 2
+        appNameLabel.font = design.appNameLabelFont
+        appNameLabel.lineBreakMode = .byTruncatingTail
+        appNameLabel.numberOfLines = 2
     }
     
     private func configureProviderLabel() {
-        self.providerLabel.font = design.providerLabelFont
-        self.providerLabel.textColor = .gray
-        self.providerLabel.numberOfLines = 1
+        providerLabel.font = design.providerLabelFont
+        providerLabel.textColor = .gray
+        providerLabel.numberOfLines = 1
     }
     
     private func configurePurchaseButton() {
-        self.purchaseButton.backgroundColor = .systemBlue
-        self.purchaseButton.layer.cornerRadius = 10
-        self.purchaseButton.titleLabel?.textColor = .white
-        self.purchaseButton.titleLabel?.font = design.purchaseButtonFont
+        purchaseButton.backgroundColor = .systemBlue
+        purchaseButton.layer.cornerRadius = 10
+        purchaseButton.titleLabel?.textColor = .white
+        purchaseButton.titleLabel?.font = design.purchaseButtonFont
     }
     
     private func configureShareButton() {
         let shareImage = design.shareButtonImage
-        self.shareButton.titleLabel?.textColor = .white
-        self.shareButton.titleLabel?.textAlignment = .center
-        self.shareButton.setImage(shareImage, for: .normal)
+        shareButton.titleLabel?.textColor = .white
+        shareButton.titleLabel?.textAlignment = .center
+        shareButton.setImage(shareImage, for: .normal)
     }
     
 }
@@ -105,18 +104,18 @@ extension AppDetailSummaryCollectionViewCell {
 extension AppDetailSummaryCollectionViewCell {
     
     private func setConstraintsOfContentView() {
-        let widthAnchor = self.contentView.widthAnchor.constraint(
+        let widthAnchor = contentView.widthAnchor.constraint(
             equalToConstant: UIScreen.main.bounds.width)
         widthAnchor.priority = .defaultHigh
         NSLayoutConstraint.activate([
-            self.contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.contentView.topAnchor.constraint(equalTo: self.topAnchor),
-            self.contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            self.contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            contentView.topAnchor.constraint(equalTo: self.topAnchor),
+            contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             widthAnchor
         ])
     }
- 
+    
     private func setContratinsOfIconImageView() {
         let heightAnchor = iconImageView.heightAnchor.constraint(
             equalToConstant: design.iconImageViewHeight)
@@ -128,13 +127,13 @@ extension AppDetailSummaryCollectionViewCell {
             widthAnchor,
             heightAnchor,
             iconImageView.leadingAnchor.constraint(
-                equalTo: self.contentView.leadingAnchor,
+                equalTo: contentView.leadingAnchor,
                 constant: design.leadingMargin),
             iconImageView.topAnchor.constraint(
-                equalTo: self.contentView.topAnchor,
+                equalTo: contentView.topAnchor,
                 constant: design.topMargin),
             iconImageView.bottomAnchor.constraint(
-                equalTo: self.contentView.bottomAnchor,
+                equalTo: contentView.bottomAnchor,
                 constant: design.bottomMargin * -1)
         ])
     }
@@ -142,13 +141,13 @@ extension AppDetailSummaryCollectionViewCell {
     private func setConstraintsOfAppNameLabel() {
         NSLayoutConstraint.activate([
             appNameLabel.leadingAnchor.constraint(
-                equalTo: self.iconImageView.trailingAnchor,
+                equalTo: iconImageView.trailingAnchor,
                 constant: design.iconImageViewTrailingMargin),
             appNameLabel.topAnchor.constraint(
-                equalTo: self.contentView.topAnchor,
+                equalTo: contentView.topAnchor,
                 constant: design.topMargin),
             appNameLabel.trailingAnchor.constraint(
-                greaterThanOrEqualTo: self.contentView.trailingAnchor,
+                greaterThanOrEqualTo: contentView.trailingAnchor,
                 constant: design.trailingMargin * -1),
         ])
     }
@@ -156,13 +155,13 @@ extension AppDetailSummaryCollectionViewCell {
     private func setConstraintOfProviderLabel() {
         NSLayoutConstraint.activate([
             providerLabel.leadingAnchor.constraint(
-                equalTo: self.iconImageView.trailingAnchor,
+                equalTo: iconImageView.trailingAnchor,
                 constant: design.iconImageViewTrailingMargin),
             providerLabel.topAnchor.constraint(
                 equalTo: appNameLabel.bottomAnchor,
                 constant: design.providerLabelTopMargin),
             providerLabel.trailingAnchor.constraint(
-                greaterThanOrEqualTo: self.contentView.trailingAnchor,
+                greaterThanOrEqualTo: contentView.trailingAnchor,
                 constant: design.trailingMargin * -1)
         ])
     }
@@ -174,20 +173,20 @@ extension AppDetailSummaryCollectionViewCell {
             purchaseButton.widthAnchor.constraint(
                 equalToConstant: design.purchaseButtonWidth),
             purchaseButton.leadingAnchor.constraint(
-                equalTo: self.iconImageView.trailingAnchor,
+                equalTo: iconImageView.trailingAnchor,
                 constant: design.iconImageViewTrailingMargin),
             purchaseButton.bottomAnchor.constraint(
-                equalTo: self.iconImageView.bottomAnchor)
+                equalTo: iconImageView.bottomAnchor)
         ])
     }
     
     private func setConstraintOfShareButton() {
         NSLayoutConstraint.activate([
             shareButton.trailingAnchor.constraint(
-                equalTo: self.contentView.trailingAnchor,
+                equalTo: contentView.trailingAnchor,
                 constant: design.trailingMargin * -1),
             shareButton.bottomAnchor.constraint(
-                equalTo: self.iconImageView.bottomAnchor)
+                equalTo: iconImageView.bottomAnchor)
         ])
     }
 }
@@ -195,21 +194,21 @@ extension AppDetailSummaryCollectionViewCell {
 extension AppDetailSummaryCollectionViewCell {
     
     private func fillIconImage(url: String?) {
-        _ = self.iconImageView.setImage(
+        _ = iconImageView.setImage(
             with: url,
             defaultImage: design.defaultIconImage)
     }
     
     private func fillAppNameLabel(name: String?) {
-        self.appNameLabel.text = name
+        appNameLabel.text = name
     }
     
     private func fillProviderLabel(provider: String?) {
-        self.providerLabel.text = provider
+        providerLabel.text = provider
     }
     
     private func fillPurcahseButton(price: String?) {
-        self.purchaseButton.setTitle(price, for: .normal)
+        purchaseButton.setTitle(price, for: .normal)
     }
-
+    
 }

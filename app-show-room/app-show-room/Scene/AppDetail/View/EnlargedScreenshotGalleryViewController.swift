@@ -24,22 +24,22 @@ final class EnlargedScreenshotGalleryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(screenshotGalleryView)
-        self.setConstraints()
+        view.addSubview(screenshotGalleryView)
+        setConstraints()
     }
 
     private func setConstraints() {
-        self.view.translatesAutoresizingMaskIntoConstraints = false
-        self.screenshotGalleryView.translatesAutoresizingMaskIntoConstraints = false
+        view.translatesAutoresizingMaskIntoConstraints = false
+        screenshotGalleryView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             screenshotGalleryView.leadingAnchor.constraint(
-                equalTo: self.view.leadingAnchor),
+                equalTo: view.leadingAnchor),
             screenshotGalleryView.topAnchor.constraint(
-                equalTo: self.view.topAnchor),
+                equalTo: view.topAnchor),
             screenshotGalleryView.trailingAnchor.constraint(
-                equalTo: self.view.trailingAnchor),
+                equalTo: view.trailingAnchor),
             screenshotGalleryView.bottomAnchor.constraint(
-                equalTo: self.view.bottomAnchor)
+                equalTo: view.bottomAnchor)
         ])
 
     }

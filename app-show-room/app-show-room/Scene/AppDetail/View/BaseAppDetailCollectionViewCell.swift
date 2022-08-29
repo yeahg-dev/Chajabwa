@@ -13,9 +13,9 @@ class BaseAppDetailCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.addSubviews()
-        self.configureSubviews()
-        self.setConstraints()
+        addSubviews()
+        configureSubviews()
+        setConstraints()
     }
     
     required init?(coder: NSCoder) {
