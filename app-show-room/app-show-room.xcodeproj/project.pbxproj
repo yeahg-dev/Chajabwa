@@ -164,7 +164,27 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		6384EC4828AB2E0000D1F821 /* UIKit */ = {
+		6384E5C228BCD2B400563FD5 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6384EC7D28AC83B100D1F821 /* AppDetailViewController.swift */,
+				6384EC8428AD2A5C00D1F821 /* EnlargedScreenshotGalleryViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		6384E5C328BCD2CD00563FD5 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				63861EC828AA55630062A8BD /* BaseAppDetailCollectionViewCell.swift */,
+				63861ECC28AA6F1D0062A8BD /* AppDetailSummaryCollectionViewCell.swift */,
+				6384EC5528AB693300D1F821 /* AppDetailScreenshotCollectionViewCell.swift */,
+				6384EC5728AB7DB900D1F821 /* AppDetailDescriptionCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		6384EC4828AB2E0000D1F821 /* UIKit+Extension */ = {
 			isa = PBXGroup;
 			children = (
 				63861ECE28AAA2530062A8BD /* UIImageView+Extension.swift */,
@@ -172,18 +192,18 @@
 				6384EC4C28AB2E7C00D1F821 /* UICollectionView+Extension.swift */,
 				6384EC7B28AC800A00D1F821 /* UIView+Extension.swift */,
 			);
-			path = UIKit;
+			path = "UIKit+Extension";
 			sourceTree = "<group>";
 		};
-		6384EC4928AB2E0F00D1F821 /* Swift */ = {
+		6384EC4928AB2E0F00D1F821 /* Swift+Extension */ = {
 			isa = PBXGroup;
 			children = (
 				6384EC4A28AB2E6300D1F821 /* NSObject+Extension.swift */,
 			);
-			path = Swift;
+			path = "Swift+Extension";
 			sourceTree = "<group>";
 		};
-		6384EC5228AB47FD00D1F821 /* ScreenshotGalleryView */ = {
+		6384EC5228AB47FD00D1F821 /* ScreenshotCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				6384EC5328AB481400D1F821 /* ScreenshotGalleryDesign.swift */,
@@ -191,7 +211,7 @@
 				6384EC4E28AB2ED300D1F821 /* ScreenshotGalleryView.swift */,
 				6384EC4628AB2D2800D1F821 /* ScreenshotCollectionViewCell.swift */,
 			);
-			path = ScreenshotGalleryView;
+			path = ScreenshotCollectionViewCell;
 			sourceTree = "<group>";
 		};
 		6384EC7F28ACC59A00D1F821 /* Design */ = {
@@ -225,18 +245,18 @@
 		63861EC028AA41F90062A8BD /* AppSearch */ = {
 			isa = PBXGroup;
 			children = (
+				63861EC128AA42190062A8BD /* ViewController */,
 				63861EC228AA421E0062A8BD /* ViewModel */,
-				63861EC128AA42190062A8BD /* View */,
 			);
 			path = AppSearch;
 			sourceTree = "<group>";
 		};
-		63861EC128AA42190062A8BD /* View */ = {
+		63861EC128AA42190062A8BD /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				6388DE4128A6404E0011D47E /* SearchViewController.swift */,
 			);
-			path = View;
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		63861EC228AA421E0062A8BD /* ViewModel */ = {
@@ -251,8 +271,10 @@
 		63861EC328AA432C0062A8BD /* AppDetail */ = {
 			isa = PBXGroup;
 			children = (
-				63861EC728AA55470062A8BD /* View */,
+				6384E5C228BCD2B400563FD5 /* ViewController */,
+				6384E5C328BCD2CD00563FD5 /* Cell */,
 				63861EC428AA43360062A8BD /* ViewModel */,
+				6384EC7F28ACC59A00D1F821 /* Design */,
 			);
 			path = AppDetail;
 			sourceTree = "<group>";
@@ -265,29 +287,6 @@
 				63A9BD4028B918AE0052A767 /* AppDetailItem.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		63861EC728AA55470062A8BD /* View */ = {
-			isa = PBXGroup;
-			children = (
-				6384EC7F28ACC59A00D1F821 /* Design */,
-				6384EC7D28AC83B100D1F821 /* AppDetailViewController.swift */,
-				63861EC828AA55630062A8BD /* BaseAppDetailCollectionViewCell.swift */,
-				63861ECC28AA6F1D0062A8BD /* AppDetailSummaryCollectionViewCell.swift */,
-				6384EC5528AB693300D1F821 /* AppDetailScreenshotCollectionViewCell.swift */,
-				6384EC5728AB7DB900D1F821 /* AppDetailDescriptionCollectionViewCell.swift */,
-				6384EC8428AD2A5C00D1F821 /* EnlargedScreenshotGalleryViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		63861ED028AAA3A70062A8BD /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				6384EC4928AB2E0F00D1F821 /* Swift */,
-				6384EC4828AB2E0000D1F821 /* UIKit */,
-			);
-			path = Extension;
 			sourceTree = "<group>";
 		};
 		638722D928A8D3E600A6ED7B /* Repository */ = {
@@ -318,7 +317,8 @@
 		638722EC28A95F8500A6ED7B /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				63861ED028AAA3A70062A8BD /* Extension */,
+				6384EC4928AB2E0F00D1F821 /* Swift+Extension */,
+				6384EC4828AB2E0000D1F821 /* UIKit+Extension */,
 				638722ED28A95F9800A6ED7B /* Observable.swift */,
 				63861ED128AAA3C10062A8BD /* ImageCache.swift */,
 			);
@@ -349,7 +349,7 @@
 				6388DE5228A6641E0011D47E /* App */,
 				6388DE5428A664520011D47E /* Resource */,
 				63861EBF28AA41F00062A8BD /* Scene */,
-				6388DE5328A6643D0011D47E /* View */,
+				6388DE5328A6643D0011D47E /* UIComponent */,
 				6388DE5128A664150011D47E /* Model */,
 				638722E628A948B700A6ED7B /* Usecase */,
 				638722D928A8D3E600A6ED7B /* Repository */,
@@ -378,12 +378,12 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		6388DE5328A6643D0011D47E /* View */ = {
+		6388DE5328A6643D0011D47E /* UIComponent */ = {
 			isa = PBXGroup;
 			children = (
-				6384EC5228AB47FD00D1F821 /* ScreenshotGalleryView */,
+				6384EC5228AB47FD00D1F821 /* ScreenshotCollectionViewCell */,
 			);
-			path = View;
+			path = UIComponent;
 			sourceTree = "<group>";
 		};
 		6388DE5428A664520011D47E /* Resource */ = {
