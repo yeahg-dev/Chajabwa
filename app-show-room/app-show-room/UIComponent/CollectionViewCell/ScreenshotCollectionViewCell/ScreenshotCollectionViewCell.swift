@@ -13,25 +13,22 @@ private enum Design {
     static let cellCornerRadius: CGFloat = 9
 }
 
-final class ScreenShotCollectionViewCell: UICollectionViewCell {
+final class ScreenShotCollectionViewCell: BaseCollectionViewCell {
     
     private let screenShotView = UIImageView()
     
     private var cancellableTask: CancellableTask?
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureSubview()
+
+    override func addSubviews() {
+        contentView.addSubview(screenShotView)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func configureSubviews() {
+        configureUI()
     }
-    
-    func fill(with imageURLString: String) {
-        cancellableTask = self.screenShotView.setImage(
-            with: imageURLString,
-            defaultImage: Design.defaultImage)
+
+    override func setConstraints() {
+        setConstraintOfScreenShotView()
     }
     
     override func prepareForReuse() {
@@ -39,10 +36,10 @@ final class ScreenShotCollectionViewCell: UICollectionViewCell {
         screenShotView.image = Design.defaultImage
     }
     
-    private func configureSubview() {
-        contentView.addSubview(screenShotView)
-        setConstraintOfScreenShotView()
-        configureUI()
+    func fill(with imageURLString: String) {
+        cancellableTask = self.screenShotView.setImage(
+            with: imageURLString,
+            defaultImage: Design.defaultImage)
     }
     
     private func setConstraintOfScreenShotView() {

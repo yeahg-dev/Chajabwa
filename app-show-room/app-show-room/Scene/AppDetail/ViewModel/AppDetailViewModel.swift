@@ -13,7 +13,7 @@ protocol AppDetailViewModelOutput {
     
     func numberOfRows(in section: Int) -> Int
     
-    func cellType(at indexPath: IndexPath) -> BaseAppDetailCollectionViewCell.Type
+    func cellType(at indexPath: IndexPath) -> BaseCollectionViewCell.Type
     
     func cellModel(at indexPath: IndexPath) -> AppDetailItem
 
@@ -27,7 +27,7 @@ struct AppDetailViewModel {
         case screenshot
         case descritption
         
-        var cellType: BaseAppDetailCollectionViewCell.Type {
+        var cellType: BaseCollectionViewCell.Type {
             switch self {
             case .summary:
                 return AppDetailSummaryCollectionViewCell.self
@@ -90,7 +90,7 @@ extension AppDetailViewModel: AppDetailViewModelOutput {
         return numberOfRows(in: section)
     }
     
-    func cellType(at indexPath: IndexPath) -> BaseAppDetailCollectionViewCell.Type {
+    func cellType(at indexPath: IndexPath) -> BaseCollectionViewCell.Type {
         let section = indexPath.section
         return sections[section].cellType
     }

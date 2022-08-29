@@ -1,5 +1,5 @@
 //
-//  BaseAppDetailCollectionViewCell.swift
+//  BaseCollectionViewCell.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/08/15.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BaseAppDetailCollectionViewCell: UICollectionViewCell {
+class BaseCollectionViewCell: UICollectionViewCell {
     
     weak var appDetailTableViewCellDelegate: AppDetailTableViewCellDelegate?
     
@@ -27,8 +27,6 @@ class BaseAppDetailCollectionViewCell: UICollectionViewCell {
     func configureSubviews() { }
 
     func setConstraints() { }
-    
-    func bind(model: AppDetailViewModel.Item) { }
     
 }
 

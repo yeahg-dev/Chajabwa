@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewCell {
+final class AppDetailDescriptionCollectionViewCell: BaseCollectionViewCell {
     
     private let design = AppDetilDescriptionDesign.self
     
@@ -40,7 +40,7 @@ final class AppDetailDescriptionCollectionViewCell: BaseAppDetailCollectionViewC
         setContstraintsOfDescriptionView()
     }
     
-    override func bind(model: AppDetailViewModel.Item) {
+    func bind(model: AppDetailViewModel.Item) {
         if case let .description(descritpion) = model {
             descriptionTextView.text = descritpion.text
         }

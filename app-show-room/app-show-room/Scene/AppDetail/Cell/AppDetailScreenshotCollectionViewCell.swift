@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class AppDetailScreenshotCollectionViewCell: BaseAppDetailCollectionViewCell {
+final class AppDetailScreenshotCollectionViewCell: BaseCollectionViewCell {
     
     private var screenshotGalleryView: ScreenshotGalleryView!
     
@@ -31,7 +31,7 @@ final class AppDetailScreenshotCollectionViewCell: BaseAppDetailCollectionViewCe
         setConstraintOfScreenshotGalleryView()
     }
     
-    override func bind(model: AppDetailViewModel.Item) {
+    func bind(model: AppDetailViewModel.Item) {
         if case let .screenshot(_) = model {
             screenshotGalleryView.update()
         }

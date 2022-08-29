@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell {
+final class AppDetailSummaryCollectionViewCell: BaseCollectionViewCell {
     
     private let design = AppDetailSummaryDesign.self
     
@@ -42,7 +42,7 @@ final class AppDetailSummaryCollectionViewCell: BaseAppDetailCollectionViewCell 
         setConstraintOfShareButton()
     }
     
-    override func bind(model: AppDetailViewModel.Item) {
+   func bind(model: AppDetailViewModel.Item) {
         if case let .summary(summary) = model {
             fillIconImage(url: summary.iconImageURL)
             fillAppNameLabel(name: summary.name)

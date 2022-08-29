@@ -31,7 +31,7 @@
 		63861EBB28AA1AF50062A8BD /* AppLookupResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861EBA28AA1AF50062A8BD /* AppLookupResults.swift */; };
 		63861EBE28AA1D090062A8BD /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861EBD28AA1D090062A8BD /* AlertViewModel.swift */; };
 		63861EC628AA43450062A8BD /* AppDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861EC528AA43450062A8BD /* AppDetailViewModel.swift */; };
-		63861EC928AA55630062A8BD /* BaseAppDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861EC828AA55630062A8BD /* BaseAppDetailCollectionViewCell.swift */; };
+		63861EC928AA55630062A8BD /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861EC828AA55630062A8BD /* BaseCollectionViewCell.swift */; };
 		63861ECB28AA558B0062A8BD /* BaseAppDetailCollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861ECA28AA558B0062A8BD /* BaseAppDetailCollectionViewCellModel.swift */; };
 		63861ECD28AA6F1D0062A8BD /* AppDetailSummaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861ECC28AA6F1D0062A8BD /* AppDetailSummaryCollectionViewCell.swift */; };
 		63861ECF28AAA2530062A8BD /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861ECE28AAA2530062A8BD /* UIImageView+Extension.swift */; };
@@ -95,7 +95,7 @@
 		63861EBA28AA1AF50062A8BD /* AppLookupResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLookupResults.swift; sourceTree = "<group>"; };
 		63861EBD28AA1D090062A8BD /* AlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewModel.swift; sourceTree = "<group>"; };
 		63861EC528AA43450062A8BD /* AppDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailViewModel.swift; sourceTree = "<group>"; };
-		63861EC828AA55630062A8BD /* BaseAppDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAppDetailCollectionViewCell.swift; sourceTree = "<group>"; };
+		63861EC828AA55630062A8BD /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		63861ECA28AA558B0062A8BD /* BaseAppDetailCollectionViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAppDetailCollectionViewCellModel.swift; sourceTree = "<group>"; };
 		63861ECC28AA6F1D0062A8BD /* AppDetailSummaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailSummaryCollectionViewCell.swift; sourceTree = "<group>"; };
 		63861ECE28AAA2530062A8BD /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
@@ -175,7 +175,6 @@
 		6384E5C328BCD2CD00563FD5 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				63861EC828AA55630062A8BD /* BaseAppDetailCollectionViewCell.swift */,
 				63861ECC28AA6F1D0062A8BD /* AppDetailSummaryCollectionViewCell.swift */,
 				6384EC5528AB693300D1F821 /* AppDetailScreenshotCollectionViewCell.swift */,
 				6384EC5728AB7DB900D1F821 /* AppDetailDescriptionCollectionViewCell.swift */,
@@ -197,6 +196,15 @@
 				6384EC8428AD2A5C00D1F821 /* EnlargedScreenshotGalleryViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		6384E5C728BCDA6000563FD5 /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				63861EC828AA55630062A8BD /* BaseCollectionViewCell.swift */,
+				6384EC5228AB47FD00D1F821 /* ScreenshotCollectionViewCell */,
+			);
+			path = CollectionViewCell;
 			sourceTree = "<group>";
 		};
 		6384EC4828AB2E0000D1F821 /* UIKit+Extension */ = {
@@ -397,7 +405,7 @@
 		6388DE5328A6643D0011D47E /* UIComponent */ = {
 			isa = PBXGroup;
 			children = (
-				6384EC5228AB47FD00D1F821 /* ScreenshotCollectionViewCell */,
+				6384E5C728BCDA6000563FD5 /* CollectionViewCell */,
 			);
 			path = UIComponent;
 			sourceTree = "<group>";
@@ -580,7 +588,7 @@
 				6384EC5628AB693300D1F821 /* AppDetailScreenshotCollectionViewCell.swift in Sources */,
 				63861EB928AA1ACB0062A8BD /* App.swift in Sources */,
 				63861ED228AAA3C10062A8BD /* ImageCache.swift in Sources */,
-				63861EC928AA55630062A8BD /* BaseAppDetailCollectionViewCell.swift in Sources */,
+				63861EC928AA55630062A8BD /* BaseCollectionViewCell.swift in Sources */,
 				6388DE5828A66BF70011D47E /* AppDetail.swift in Sources */,
 				638722E828A948C900A6ED7B /* AppSearchUsecase.swift in Sources */,
 				6384EC4728AB2D2800D1F821 /* ScreenshotCollectionViewCell.swift in Sources */,
