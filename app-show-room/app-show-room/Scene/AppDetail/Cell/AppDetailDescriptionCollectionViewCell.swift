@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol AppDetailDescriptionCollectionViewCellDelegate: AnyObject {
+    
+    func foldingButtonDidTapped()
+    
+}
+
 final class AppDetailDescriptionCollectionViewCell: BaseCollectionViewCell {
     
     private let design = AppDetilDescriptionDesign.self
@@ -14,12 +20,9 @@ final class AppDetailDescriptionCollectionViewCell: BaseCollectionViewCell {
     private let descriptionTextView = UITextView()
     private let foldingButton = UIButton(type: .custom)
     
-    private var isFolded: Bool = false {
-        willSet {
-            setFoldingButton(isFolded: newValue)
-            descriptionTextView.invalidateIntrinsicContentSize()
-        }
-    }
+    weak var delegate: AppDetailDescriptionCollectionViewCellDelegate?
+    
+    private var isFolded: Bool = true
     
     override func addSubviews() {
         contentView.addSubview(descriptionTextView)
@@ -42,11 +45,16 @@ final class AppDetailDescriptionCollectionViewCell: BaseCollectionViewCell {
     func bind(model: AppDetailViewModel.Item) {
         if case let .description(descritpion) = model {
             descriptionTextView.text = descritpion.text
+            foldingButton.setTitle(descritpion.buttonTitle, for: .normal)
+            if descritpion.isTrucated {
+                descriptionTextView.textContainer.maximumNumberOfLines = 3
+            } else {
+                descriptionTextView.textContainer.maximumNumberOfLines = 0
+            }
         }
     }
     
     private func configureFoldingButton() {
-        foldingButton.setTitle("더 보기", for: .normal)
         foldingButton.setTitleColor(.systemBlue, for: .normal)
         foldingButton.setTitleColor(.systemBlue, for: .selected)
         foldingButton.titleLabel?.font = design.foldingButtonFont
@@ -58,19 +66,9 @@ final class AppDetailDescriptionCollectionViewCell: BaseCollectionViewCell {
     }
     
     @objc private func toggleFoldingButton() {
-        isFolded.toggle()
+        delegate?.foldingButtonDidTapped()
     }
-    
-    private func setFoldingButton(isFolded: Bool) {
-        if isFolded {
-            foldingButton.setTitle("간략히", for: .normal)
-            descriptionTextView.textContainer.maximumNumberOfLines = 0
-        } else {
-            foldingButton.setTitle("더 보기", for: .normal)
-            descriptionTextView.textContainer.maximumNumberOfLines = 3
-        }
-    }
-    
+
     private func configureDescrpitionTextView() {
         descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
         descriptionTextView.textContainer.maximumNumberOfLines = 3

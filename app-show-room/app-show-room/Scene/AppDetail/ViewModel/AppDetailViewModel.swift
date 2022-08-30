@@ -52,7 +52,8 @@ struct AppDetailViewModel {
                                                .map{ Item.screenshot($0) }
                 return items!
             case .descritption:
-                let description = Description(text: app.description)
+                let truncatedDescription = app.description
+                let description = Description(text: truncatedDescription)
                 return [Item.description(description)]
             }
         }
@@ -68,6 +69,16 @@ struct AppDetailViewModel {
     
     var iconImageURL: String? {
         return app.iconImageURL
+    }
+    
+    func description(isTruncated: Bool ) -> Item {
+        if isTruncated {
+            let fullDescription = Description(text: app.description, isTrucated: isTruncated)
+            return Item.description(fullDescription)
+        } else {
+            let fullDescription = Description(text: app.description, isTrucated: isTruncated)
+            return Item.description(fullDescription)
+        }
     }
     
     init(app: AppDetail) {
@@ -142,6 +153,9 @@ extension AppDetailViewModel {
     
     struct Description: Hashable {
         let text: String?
+        var isTrucated: Bool = true
+        var buttonTitle: String {
+            return isTrucated ? "더보기" : "간략히"
+        }
     }
-    
 }

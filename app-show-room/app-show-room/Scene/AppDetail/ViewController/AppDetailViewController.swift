@@ -21,6 +21,7 @@ final class AppDetailViewController: UIViewController {
     }()
     
     private var isNavigationItemHidden: Bool = true
+    private var isDescriptionViewFolded: Bool = true
     
     init(appDetailViewModel: AppDetailViewModel) {
         viewModel = appDetailViewModel
@@ -158,6 +159,7 @@ final class AppDetailViewController: UIViewController {
     private func createDescriptionCellRegistration() -> UICollectionView.CellRegistration<AppDetailDescriptionCollectionViewCell, AppDetailViewModel.Item> {
         return UICollectionView.CellRegistration<AppDetailDescriptionCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
             cell.bind(model: item)
+            cell.delegate = self
         }
     }
     
@@ -204,6 +206,19 @@ final class AppDetailViewController: UIViewController {
             snapshot.append(items)
             dataSource.apply(snapshot, to: section, animatingDifferences: false)
             }
+    }
+    
+}
+
+extension AppDetailViewController: AppDetailDescriptionCollectionViewCellDelegate {
+    
+    func foldingButtonDidTapped() {
+        isDescriptionViewFolded.toggle()
+        var snapshot = NSDiffableDataSourceSectionSnapshot<AppDetailViewModel.Item>()
+        let description = viewModel.description(isTruncated: isDescriptionViewFolded)
+        snapshot.append([description])
+        
+        dataSource.apply(snapshot, to: .descritption)
     }
     
 }
