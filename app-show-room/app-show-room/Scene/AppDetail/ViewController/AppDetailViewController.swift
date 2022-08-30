@@ -14,6 +14,20 @@ final class AppDetailViewController: UIViewController {
     
     private let viewModel: AppDetailViewModel
     
+    private lazy var iconImage: IconView = {
+       let iconIamge = IconView()
+        iconIamge.setImage(withURL: viewModel.iconImageURL)
+        return iconIamge
+    }()
+    
+    private var isNavigationItemHidden: Bool {
+        guard let isTitileViewHidden = navigationItem.titleView?.isHidden,
+              let isButtonHidden = navigationItem.rightBarButtonItem?.customView?.isHidden else {
+            return true
+        }
+        return isTitileViewHidden && isButtonHidden
+    }
+    
     init(appDetailViewModel: AppDetailViewModel) {
         viewModel = appDetailViewModel
         super.init(nibName: nil, bundle: nil)
@@ -35,6 +49,11 @@ final class AppDetailViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.titleView = iconImage
+        navigationItem.titleView?.isHidden = true
+        let downloadButton =  UIBarButtonItem(customView: DownloadButtonView())
+        navigationItem.setRightBarButton(downloadButton, animated: false)
+        navigationItem.rightBarButtonItem?.customView?.isHidden = true
     }
     
     private func configureContentCollectioView() {
@@ -50,16 +69,15 @@ final class AppDetailViewController: UIViewController {
     
     private func setContstraints() {
         contentCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             contentCollectionView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor),
             contentCollectionView.topAnchor.constraint(
-                equalTo: safeArea.topAnchor),
+                equalTo: view.topAnchor),
             contentCollectionView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor),
             contentCollectionView.bottomAnchor.constraint(
-                equalTo: safeArea.bottomAnchor)
+                equalTo: view.bottomAnchor)
         ])
     }
     
@@ -86,19 +104,22 @@ final class AppDetailViewController: UIViewController {
                 section = NSCollectionLayoutSection(group: group)
                 
             } else if sectionKind == .screenshot {
-    
+                
+                let cellDesign = ScreenShotCollectionViewCellStyle.Normal.self
                 let itemSize = NSCollectionLayoutSize(
-                    widthDimension: .estimated(280),
+                    widthDimension: .estimated(cellDesign.width),
                     heightDimension: .fractionalHeight(1.0))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 let groupSize = NSCollectionLayoutSize(
-                    widthDimension: .estimated(280),
-                    heightDimension: .estimated(500))
+                    widthDimension: .estimated(cellDesign.width),
+                    heightDimension: .estimated(cellDesign.height))
                 let group = NSCollectionLayoutGroup.horizontal(
                     layoutSize: groupSize,
                     subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
                 section.interGroupSpacing = 10
+                section.contentInsets = NSDirectionalEdgeInsets(
+                    top: 20, leading: 25, bottom: 20, trailing: 25)
                 section.orthogonalScrollingBehavior = .groupPaging
                 
             } else if sectionKind == .descritption {
@@ -207,4 +228,20 @@ extension AppDetailViewController: UICollectionViewDelegate {
         screenshotGalleryVC.modalPresentationStyle = .overFullScreen
         present(screenshotGalleryVC, animated: true)
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if contentCollectionView.contentOffset.y > 45 && isNavigationItemHidden {
+            UIView.animate(
+                withDuration: 0.3,
+                animations: {
+                    self.navigationItem.titleView?.isHidden = false
+                    self.navigationItem.rightBarButtonItem?.customView?.isHidden = false
+                } ,
+                completion: nil)
+        } else if contentCollectionView.contentOffset.y < 45 && isNavigationItemHidden == false {
+            self.navigationItem.titleView?.isHidden = true
+            self.navigationItem.rightBarButtonItem?.customView?.isHidden = true
+        }
+    }
+    
 }

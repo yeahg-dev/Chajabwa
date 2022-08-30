@@ -21,8 +21,8 @@ enum ScreenShotCollectionViewCellStyle {
         
         static let defaultImage = UIImage(withBackground: .systemGray4)
         static let cornerRadius: CGFloat = 9
-        static let width: CGFloat = 280
-        static let height: CGFloat = 500
+        static let width: CGFloat = 224
+        static let height: CGFloat = 400
     }
     
     enum Large: ScreenshotCollectionViewCellDesign {

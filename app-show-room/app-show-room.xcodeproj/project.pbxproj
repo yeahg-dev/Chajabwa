@@ -55,6 +55,8 @@
 		6388DE6228A6A56A0011D47E /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DE6128A6A56A0011D47E /* APIRequest.swift */; };
 		6388DE6528A6C71E0011D47E /* AppLookupAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DE6428A6C71E0011D47E /* AppLookupAPIRequest.swift */; };
 		6388DE6728A6CAB70011D47E /* iTunesAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DE6628A6CAB70011D47E /* iTunesAPIRequest.swift */; };
+		63A764F828BDFF8C003B1EAA /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A764F728BDFF8C003B1EAA /* IconView.swift */; };
+		63A764FC28BE0C6E003B1EAA /* DownloadButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A764FB28BE0C6E003B1EAA /* DownloadButtonView.swift */; };
 		63A9BD4128B918AE0052A767 /* AppDetailItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A9BD4028B918AE0052A767 /* AppDetailItem.swift */; };
 /* End PBXBuildFile section */
 
@@ -120,6 +122,8 @@
 		6388DE6128A6A56A0011D47E /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		6388DE6428A6C71E0011D47E /* AppLookupAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLookupAPIRequest.swift; sourceTree = "<group>"; };
 		6388DE6628A6CAB70011D47E /* iTunesAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesAPIRequest.swift; sourceTree = "<group>"; };
+		63A764F728BDFF8C003B1EAA /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
+		63A764FB28BE0C6E003B1EAA /* DownloadButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadButtonView.swift; sourceTree = "<group>"; };
 		63A9BD4028B918AE0052A767 /* AppDetailItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -411,6 +415,8 @@
 			isa = PBXGroup;
 			children = (
 				6384E5C728BCDA6000563FD5 /* CollectionViewCell */,
+				63A764F728BDFF8C003B1EAA /* IconView.swift */,
+				63A764FB28BE0C6E003B1EAA /* DownloadButtonView.swift */,
 			);
 			path = UIComponent;
 			sourceTree = "<group>";
@@ -578,6 +584,7 @@
 				63861ECD28AA6F1D0062A8BD /* AppDetailSummaryCollectionViewCell.swift in Sources */,
 				6388DE6528A6C71E0011D47E /* AppLookupAPIRequest.swift in Sources */,
 				6384EC8328AD221700D1F821 /* AppDetilDescriptionDesign.swift in Sources */,
+				63A764F828BDFF8C003B1EAA /* IconView.swift in Sources */,
 				6384EC4D28AB2E7C00D1F821 /* UICollectionView+Extension.swift in Sources */,
 				6388DE6028A6A5430011D47E /* HTTPMethod.swift in Sources */,
 				63861ECB28AA558B0062A8BD /* BaseAppDetailCollectionViewCellModel.swift in Sources */,
@@ -591,6 +598,7 @@
 				638722D828A8D3E100A6ED7B /* ItunesAppDetailRepository.swift in Sources */,
 				63861EB928AA1ACB0062A8BD /* App.swift in Sources */,
 				63861ED228AAA3C10062A8BD /* ImageCache.swift in Sources */,
+				63A764FC28BE0C6E003B1EAA /* DownloadButtonView.swift in Sources */,
 				63861EC928AA55630062A8BD /* BaseCollectionViewCell.swift in Sources */,
 				6388DE5828A66BF70011D47E /* AppDetail.swift in Sources */,
 				638722E828A948C900A6ED7B /* AppSearchUsecase.swift in Sources */,

@@ -66,6 +66,10 @@ struct AppDetailViewModel {
         return app.screenShotURLs
     }
     
+    var iconImageURL: String? {
+        return app.iconImageURL
+    }
+    
     init(app: AppDetail) {
         self.app = app
     }
