@@ -20,13 +20,7 @@ final class AppDetailViewController: UIViewController {
         return iconIamge
     }()
     
-    private var isNavigationItemHidden: Bool {
-        guard let isTitileViewHidden = navigationItem.titleView?.isHidden,
-              let isButtonHidden = navigationItem.rightBarButtonItem?.customView?.isHidden else {
-            return true
-        }
-        return isTitileViewHidden && isButtonHidden
-    }
+    private var isNavigationItemHidden: Bool = true
     
     init(appDetailViewModel: AppDetailViewModel) {
         viewModel = appDetailViewModel
@@ -50,10 +44,11 @@ final class AppDetailViewController: UIViewController {
         view.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.titleView = iconImage
+        navigationItem.titleView?.alpha = 0
         navigationItem.titleView?.isHidden = true
         let downloadButton =  UIBarButtonItem(customView: DownloadButtonView())
         navigationItem.setRightBarButton(downloadButton, animated: false)
-        navigationItem.rightBarButtonItem?.customView?.isHidden = true
+        navigationItem.rightBarButtonItem?.customView?.alpha = 0
     }
     
     private func configureContentCollectioView() {
@@ -231,16 +226,19 @@ extension AppDetailViewController: UICollectionViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if contentCollectionView.contentOffset.y > 45 && isNavigationItemHidden {
+            isNavigationItemHidden.toggle()
+            navigationItem.titleView?.isHidden = false
             UIView.animate(
                 withDuration: 0.3,
                 animations: {
-                    self.navigationItem.titleView?.isHidden = false
-                    self.navigationItem.rightBarButtonItem?.customView?.isHidden = false
+                    self.navigationItem.titleView?.alpha = 1
+                    self.navigationItem.rightBarButtonItem?.customView?.alpha = 1
                 } ,
                 completion: nil)
         } else if contentCollectionView.contentOffset.y < 45 && isNavigationItemHidden == false {
-            self.navigationItem.titleView?.isHidden = true
-            self.navigationItem.rightBarButtonItem?.customView?.isHidden = true
+            isNavigationItemHidden.toggle()
+            self.navigationItem.titleView?.alpha = 0
+            self.navigationItem.rightBarButtonItem?.customView?.alpha = 0
         }
     }
     
