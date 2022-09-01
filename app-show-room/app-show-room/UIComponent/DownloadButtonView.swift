@@ -52,7 +52,7 @@ final class DownloadButtonView: UIView {
         ])
         titleLabel.backgroundColor = Design.backgroundColor
         titleLabel.textColor = Design.textColor
-        titleLabel.text = "받기"
+        titleLabel.text = Text.download.value
         titleLabel.textAlignment = .center
         titleLabel.font = Design.font
     }

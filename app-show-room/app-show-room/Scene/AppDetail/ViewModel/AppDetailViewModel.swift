@@ -9,13 +9,6 @@ import UIKit
 
 protocol AppDetailViewModelOutput {
     
-    func numberOfSection() -> Int
-    
-    func numberOfRows(in section: Int) -> Int
-    
-    func cellType(at indexPath: IndexPath) -> BaseCollectionViewCell.Type
-    
-    func cellModel(at indexPath: IndexPath) -> AppDetailItem
 
 }
 
@@ -26,17 +19,7 @@ struct AppDetailViewModel {
         case summary
         case screenshot
         case descritption
-        
-        var cellType: BaseCollectionViewCell.Type {
-            switch self {
-            case .summary:
-                return AppDetailSummaryCollectionViewCell.self
-            case .screenshot:
-                return ScreenShotCollectionViewCell.self
-            case .descritption:
-                return AppDetailDescriptionCollectionViewCell.self
-            }
-        }
+        case information
     
         func cellItem(app: AppDetail) -> [Item] {
             switch self {
@@ -55,6 +38,27 @@ struct AppDetailViewModel {
                 let truncatedDescription = app.description
                 let description = Description(text: truncatedDescription)
                 return [Item.description(description)]
+            case .information:
+                let provider = Information(
+                    category: Text.provider.value,
+                    value: app.provider)
+                let size = Information(
+                    category: Text.fileSize.value,
+                    value: app.fileSize?.formattedByte)
+                let genre = Information(
+                    category: Text.genre.value,
+                    value: app.primaryGenreName)
+                let contentAdvisoryRating = Information(
+                    category: Text.contentAdvisoryRating.value,
+                    value: app.contentAdvisoryRating)
+                let minimumOSVersion = Information(
+                    category: Text.minimumOSVersion.value,
+                    value: app.minimumOSVersion)
+                let sellerURL = Information(
+                    category: Text.developerWebsite.value,
+                    value: app.sellerURL)
+                let informations = [provider, size, genre, contentAdvisoryRating, minimumOSVersion, sellerURL]
+                return informations.map { Item.information($0) }
             }
         }
         
@@ -93,37 +97,14 @@ struct AppDetailViewModel {
             return 1
         case .descritption:
             return 1
+        case .information:
+            return 6
         }
     }
     
 }
 
 extension AppDetailViewModel: AppDetailViewModelOutput {
-    
-    func numberOfSection() -> Int {
-        return sections.count
-    }
-    
-    func numberOfRows(in section: Int) -> Int {
-        let section = sections[section]
-        return numberOfRows(in: section)
-    }
-    
-    func cellType(at indexPath: IndexPath) -> BaseCollectionViewCell.Type {
-        let section = indexPath.section
-        return sections[section].cellType
-    }
-    
-    func cellModel(at indexPath: IndexPath) -> AppDetailItem {
-        return AppDetailItem(
-            id: app.id,
-            name: app.appName,
-            iconImageURL: app.iconImageURL,
-            provider: app.provider,
-            price: app.price,
-            screenshotURLs: app.screenShotURLs,
-            description: app.description)
-    }
     
     func cellItems(at section: Int) -> [Item] {
         // TODO: - 옵셔널 오류 핸들링
@@ -138,6 +119,7 @@ extension AppDetailViewModel {
         case summary(Info)
         case screenshot(Screenshot)
         case description(Description)
+        case information(Information)
     }
     
     struct Info: Hashable {
@@ -155,7 +137,13 @@ extension AppDetailViewModel {
         let text: String?
         var isTrucated: Bool = true
         var buttonTitle: String {
-            return isTrucated ? "더보기" : "간략히"
+            return isTrucated ? Text.moreDetails.value : Text.preview.value
         }
     }
+    
+    struct Information: Hashable {
+        let category: String
+        let value: String?
+    }
+    
 }

@@ -22,7 +22,8 @@ struct App {
     let averageUserRating: Double?
     let releaseNotes, minimumOSVersion, trackCensoredName: String?
     let languageCodesISO2A: [String]?
-    let fileSizeBytes, formattedPrice, contentAdvisoryRating: String?
+    let fileSizeBytes: String?
+    let formattedPrice, contentAdvisoryRating: String?
     let averageUserRatingForCurrentVersion: Double?
     let userRatingCountForCurrentVersion: Int?
     let trackViewURL: String?
@@ -41,6 +42,7 @@ struct App {
     let trackID: Int?
     let trackName: String?
     let userRatingCount: Int?
+    let sellerURL: String?
 
 }
 
@@ -59,6 +61,7 @@ extension App: Decodable {
         case genreIDS = "genreIds"
         case artistID = "artistId"
         case trackID = "trackId"
+        case sellerURL = "sellerUrl"
 
     }
 }
@@ -79,6 +82,10 @@ extension App {
             primaryGenreName: self.primaryGenreName,
             languageCodesISO2A: self.languageCodesISO2A,
             screenShotURLs: self.screenshotUrls,
-            description: self.resultDescription)
+            description: self.resultDescription,
+            fileSize: self.fileSizeBytes,
+            contentAdvisoryRating: self.contentAdvisoryRating,
+            minimumOSVersion: self.minimumOSVersion,
+            sellerURL: self.sellerURL)
     }
 }

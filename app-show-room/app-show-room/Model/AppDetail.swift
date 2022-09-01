@@ -21,5 +21,8 @@ struct AppDetail {
     let languageCodesISO2A: [String]?
     let screenShotURLs: [String]?
     let description: String?
-    
+    let fileSize: String?
+    let contentAdvisoryRating: String?
+    let minimumOSVersion: String?
+    let sellerURL: String?
 }

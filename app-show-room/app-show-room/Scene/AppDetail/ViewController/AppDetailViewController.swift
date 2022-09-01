@@ -132,6 +132,11 @@ final class AppDetailViewController: UIViewController {
                     subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
                 
+            } else if sectionKind == .information {
+                
+                let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+                section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
+                
             } else {
                 fatalError("Unknown section!")
             }
@@ -156,6 +161,22 @@ final class AppDetailViewController: UIViewController {
         }
     }
     
+    private func createInformationCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewCell, AppDetailViewModel.Item> {
+        return UICollectionView.CellRegistration<UICollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
+            guard case let .information(information) = item else {
+               return
+            }
+            var content = UIListContentConfiguration.valueCell()
+            content.text = information.category
+            content.textProperties.font = .preferredFont(forTextStyle: .callout)
+            content.textProperties.color = .systemGray
+            content.secondaryText = information.value
+            content.secondaryTextProperties.font = .preferredFont(forTextStyle: .callout)
+            content.secondaryTextProperties.color = .label
+            cell.contentConfiguration = content
+        }
+    }
+    
     private func createDescriptionCellRegistration() -> UICollectionView.CellRegistration<AppDetailDescriptionCollectionViewCell, AppDetailViewModel.Item> {
         return UICollectionView.CellRegistration<AppDetailDescriptionCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
             cell.bind(model: item)
@@ -167,6 +188,7 @@ final class AppDetailViewController: UIViewController {
         let summaryCellRegistration = createSummaryCellRegistration()
         let screenshotCellRegistration = createScreenshotCellRegistration()
         let descriptionCellRegistration = createDescriptionCellRegistration()
+        let informationCellRegistration = createInformationCellRegistration()
         
         self.dataSource = UICollectionViewDiffableDataSource<AppDetailViewModel.Section, AppDetailViewModel.Item>(collectionView: contentCollectionView) {
             (collectionView, indexPath, item) -> UICollectionViewCell? in
@@ -187,6 +209,11 @@ final class AppDetailViewController: UIViewController {
             case .descritption:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: descriptionCellRegistration,
+                    for: indexPath,
+                    item: item)
+            case .information:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: informationCellRegistration,
                     for: indexPath,
                     item: item)
             }
