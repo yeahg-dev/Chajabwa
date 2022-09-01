@@ -55,6 +55,7 @@
 		6388DE6528A6C71E0011D47E /* AppLookupAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DE6428A6C71E0011D47E /* AppLookupAPIRequest.swift */; };
 		6388DE6728A6CAB70011D47E /* iTunesAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DE6628A6CAB70011D47E /* iTunesAPIRequest.swift */; };
 		63A66F4C28C0889900F3B4D0 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A66F4B28C0889900F3B4D0 /* Text.swift */; };
+		63A66F4E28C0C1FE00F3B4D0 /* AppDetailInformationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A66F4D28C0C1FE00F3B4D0 /* AppDetailInformationCollectionViewCell.swift */; };
 		63A764F828BDFF8C003B1EAA /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A764F728BDFF8C003B1EAA /* IconView.swift */; };
 		63A764FC28BE0C6E003B1EAA /* DownloadButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A764FB28BE0C6E003B1EAA /* DownloadButtonView.swift */; };
 		63A9BD4128B918AE0052A767 /* AppDetailItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A9BD4028B918AE0052A767 /* AppDetailItem.swift */; };
@@ -131,6 +132,7 @@
 		6388DE6428A6C71E0011D47E /* AppLookupAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLookupAPIRequest.swift; sourceTree = "<group>"; };
 		6388DE6628A6CAB70011D47E /* iTunesAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesAPIRequest.swift; sourceTree = "<group>"; };
 		63A66F4B28C0889900F3B4D0 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
+		63A66F4D28C0C1FE00F3B4D0 /* AppDetailInformationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailInformationCollectionViewCell.swift; sourceTree = "<group>"; };
 		63A764F728BDFF8C003B1EAA /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		63A764FB28BE0C6E003B1EAA /* DownloadButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadButtonView.swift; sourceTree = "<group>"; };
 		63A9BD4028B918AE0052A767 /* AppDetailItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailItem.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 			children = (
 				63861ECC28AA6F1D0062A8BD /* AppDetailSummaryCollectionViewCell.swift */,
 				6384EC5728AB7DB900D1F821 /* AppDetailDescriptionCollectionViewCell.swift */,
+				63A66F4D28C0C1FE00F3B4D0 /* AppDetailInformationCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -684,6 +687,7 @@
 				63861EBE28AA1D090062A8BD /* AlertViewModel.swift in Sources */,
 				6384EC8128ACC5B200D1F821 /* AppDetailSummaryDesign.swift in Sources */,
 				63861EBB28AA1AF50062A8BD /* AppLookupResults.swift in Sources */,
+				63A66F4E28C0C1FE00F3B4D0 /* AppDetailInformationCollectionViewCell.swift in Sources */,
 				6388DE6228A6A56A0011D47E /* APIRequest.swift in Sources */,
 				6388DE5D28A691820011D47E /* AppCategory.swift in Sources */,
 				633A925728A7A44A00B3435F /* APIError.swift in Sources */,

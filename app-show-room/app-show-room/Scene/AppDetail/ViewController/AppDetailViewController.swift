@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 final class AppDetailViewController: UIViewController {
     
@@ -15,7 +16,7 @@ final class AppDetailViewController: UIViewController {
     private let viewModel: AppDetailViewModel
     
     private lazy var iconImage: IconView = {
-       let iconIamge = IconView()
+        let iconIamge = IconView()
         iconIamge.setImage(withURL: viewModel.iconImageURL)
         return iconIamge
     }()
@@ -155,18 +156,19 @@ final class AppDetailViewController: UIViewController {
     private func createScreenshotCellRegistration() -> UICollectionView.CellRegistration<ScreenShotCollectionViewCell, AppDetailViewModel.Item> {
         return UICollectionView.CellRegistration<ScreenShotCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
             guard case let .screenshot(screenshotData) = item else {
-               return
+                return
             }
             cell.fill(with: screenshotData.url)
         }
     }
     
-    private func createInformationCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewCell, AppDetailViewModel.Item> {
+    private func createTextInformationCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewCell, AppDetailViewModel.Item> {
         return UICollectionView.CellRegistration<UICollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
             guard case let .information(information) = item else {
-               return
+                return
             }
             var content = UIListContentConfiguration.valueCell()
+            
             content.text = information.category
             content.textProperties.font = .preferredFont(forTextStyle: .callout)
             content.textProperties.color = .systemGray
@@ -174,6 +176,16 @@ final class AppDetailViewController: UIViewController {
             content.secondaryTextProperties.font = .preferredFont(forTextStyle: .callout)
             content.secondaryTextProperties.color = .label
             cell.contentConfiguration = content
+        }
+    }
+    
+    private func createHyperLinkInformationCellRegistration() -> UICollectionView.CellRegistration<AppDetailInformationCollectionViewCell, AppDetailViewModel.Item> {
+        return UICollectionView.CellRegistration<AppDetailInformationCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
+            guard case let .information(information) = item else {
+                return
+            }
+      
+            cell.bind(image: information.image, category: information.category)
         }
     }
     
@@ -188,7 +200,8 @@ final class AppDetailViewController: UIViewController {
         let summaryCellRegistration = createSummaryCellRegistration()
         let screenshotCellRegistration = createScreenshotCellRegistration()
         let descriptionCellRegistration = createDescriptionCellRegistration()
-        let informationCellRegistration = createInformationCellRegistration()
+        let textInformationCellRegistration = createTextInformationCellRegistration()
+        let hyperLinkInformationCellRegistration = createHyperLinkInformationCellRegistration()
         
         self.dataSource = UICollectionViewDiffableDataSource<AppDetailViewModel.Section, AppDetailViewModel.Item>(collectionView: contentCollectionView) {
             (collectionView, indexPath, item) -> UICollectionViewCell? in
@@ -201,23 +214,29 @@ final class AppDetailViewController: UIViewController {
                     for: indexPath,
                     item: item)
             case .screenshot:
-                // TODO: - Type 리턴하도록
                 return collectionView.dequeueConfiguredReusableCell(
-                        using: screenshotCellRegistration,
-                        for: indexPath,
-                        item: item)
+                    using: screenshotCellRegistration,
+                    for: indexPath,
+                    item: item)
             case .descritption:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: descriptionCellRegistration,
                     for: indexPath,
                     item: item)
             case .information:
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: informationCellRegistration,
-                    for: indexPath,
-                    item: item)
+                
+                if self.viewModel.hyperlinkInformationsIndexPaths.contains(indexPath) {
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: hyperLinkInformationCellRegistration,
+                        for: indexPath,
+                        item: item)
+                } else {
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: textInformationCellRegistration,
+                        for: indexPath,
+                        item: item)
+                }
             }
-
         }
     }
     
@@ -232,7 +251,7 @@ final class AppDetailViewController: UIViewController {
             let items = viewModel.cellItems(at: section.rawValue)
             snapshot.append(items)
             dataSource.apply(snapshot, to: section, animatingDifferences: false)
-            }
+        }
     }
     
 }
@@ -254,16 +273,28 @@ extension AppDetailViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let section = indexPath.section
-        guard .screenshot == AppDetailViewModel.Section(rawValue: section) else {
-            return
+        
+        if .screenshot == AppDetailViewModel.Section(rawValue: section) {
+            let screenshotGalleryViewModel = ScreenshotGalleryViewModel(
+                screenshotURLs: viewModel.screenshotURLs)
+            let screenshotGalleryVC = ScreenshotGalleryViewController(
+                viewModel: screenshotGalleryViewModel)
+            screenshotGalleryVC.modalPresentationStyle = .overFullScreen
+            present(screenshotGalleryVC, animated: true)
         }
         
-        let screenshotGalleryViewModel = ScreenshotGalleryViewModel(
-            screenshotURLs: viewModel.screenshotURLs)
-        let screenshotGalleryVC = ScreenshotGalleryViewController(
-            viewModel: screenshotGalleryViewModel)
-        screenshotGalleryVC.modalPresentationStyle = .overFullScreen
-        present(screenshotGalleryVC, animated: true)
+        if .information == AppDetailViewModel.Section(rawValue: section) && viewModel.hyperlinkInformationsIndexPaths.contains(indexPath) {
+            
+            guard let item: AppDetailViewModel.Item = dataSource.itemIdentifier(for: indexPath),
+                  case let .information(information) = item,
+                  let urlString = information.value else {
+                return
+            }
+            let developerWebsiteURL = NSURL(string: urlString)
+            let developerWebsiteView = SFSafariViewController(url: developerWebsiteURL as! URL)
+            self.present(developerWebsiteView, animated: true, completion: nil)
+        }
+     
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
