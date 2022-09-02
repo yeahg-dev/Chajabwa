@@ -30,7 +30,6 @@ struct LinkInformationContentConfiguration: UIContentConfiguration, Hashable {
     
     var category: String?
     var image: UIImage?
-    var tintColor: UIColor? = .systemBlue
     
     func makeContentView() -> UIView & UIContentView {
         return LinkInformationContentView(configuration: self)
@@ -42,6 +41,8 @@ struct LinkInformationContentConfiguration: UIContentConfiguration, Hashable {
 }
 
 final class LinkInformationContentView: UIView, UIContentView {
+    
+    private let design = LinkInformationCollectionViewCellDesign.self
     
     private let imageView = UIImageView()
     private let categoryLabel = UILabel()
@@ -76,16 +77,16 @@ final class LinkInformationContentView: UIView, UIContentView {
         NSLayoutConstraint.activate([
             categoryLabel.topAnchor.constraint(
                 equalTo: layoutMarginsGuide.topAnchor,
-                constant: 5),
+                constant: design.paddingTop),
             categoryLabel.leadingAnchor.constraint(
                 equalTo: layoutMarginsGuide.leadingAnchor,
-                constant: 7),
+                constant: design.paddingLeading),
             categoryLabel.bottomAnchor.constraint(
                 equalTo: layoutMarginsGuide.bottomAnchor,
-                constant: -5),
+                constant: -design.paddingBottom),
             imageView.trailingAnchor.constraint(
                 equalTo: layoutMarginsGuide.trailingAnchor,
-                constant: -7),
+                constant: -design.paddingTrailing),
             imageView.topAnchor.constraint(
                 equalTo: categoryLabel.topAnchor),
             imageView.bottomAnchor.constraint(
@@ -101,10 +102,11 @@ final class LinkInformationContentView: UIView, UIContentView {
         
         imageView.isHidden = configuration.image == nil
         imageView.image = configuration.image
-        imageView.tintColor = configuration.tintColor
+        imageView.tintColor = design.tintColor
+        
         categoryLabel.text = configuration.category
-        categoryLabel.font = .preferredFont(forTextStyle: .callout)
-        categoryLabel.textColor = .systemBlue
+        categoryLabel.font = design.categoryLabelFont
+        categoryLabel.textColor = design.categoryLabelTextColor
     }
     
 }
