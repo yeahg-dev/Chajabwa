@@ -10,7 +10,7 @@ import UIKit
 struct AppDetailViewModel {
     
     enum Section: Int, CaseIterable {
-        case summary
+        case signBoard
         case releaseNote
         case screenshot
         case descritption
@@ -81,13 +81,13 @@ struct AppDetailViewModel {
     
     private func cellItems(at section: Section) -> [Item] {
         switch section {
-        case .summary:
-            let info = Info(
+        case .signBoard:
+            let info = AppSignBoard(
                 name: app.appName,
                 iconImageURL: app.iconImageURL,
                 provider: app.provider,
                 price: app.price)
-            return [Item.summary(info)]
+            return [Item.signBoard(info)]
         case .releaseNote:
             let releaseNote = ReleaseNote(
                 version: app.version,
@@ -171,14 +171,14 @@ extension AppDetailViewModel {
     }()
     
     enum Item: Hashable {
-        case summary(Info)
+        case signBoard(AppSignBoard)
         case releaseNote(ReleaseNote)
         case screenshot(Screenshot)
         case description(Description)
         case information(Information)
     }
     
-    struct Info: Hashable {
+    struct AppSignBoard: Hashable {
         let name: String?
         let iconImageURL: String?
         let provider: String?

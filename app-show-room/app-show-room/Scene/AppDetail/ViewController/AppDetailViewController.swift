@@ -88,7 +88,7 @@ final class AppDetailViewController: UIViewController {
             let section: NSCollectionLayoutSection
             
             // TODO: Switch 로 리팩터링
-            if sectionKind == .summary {
+            if sectionKind == .signBoard {
                 
                 let itemSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
@@ -232,7 +232,7 @@ final class AppDetailViewController: UIViewController {
             guard let section = AppDetailViewModel.Section(rawValue: indexPath.section) else { fatalError("Unknown section") }
             
             switch section {
-            case .summary:
+            case .signBoard:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: summaryCellRegistration,
                     for: indexPath,

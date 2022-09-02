@@ -43,11 +43,11 @@ final class SummaryCollectionViewCell: BaseCollectionViewCell {
     }
     
    func bind(model: AppDetailViewModel.Item) {
-        if case let .summary(summary) = model {
-            fillIconImage(url: summary.iconImageURL)
-            fillAppNameLabel(name: summary.name)
-            fillProviderLabel(provider: summary.provider)
-            fillPurcahseButton(price: summary.price)
+        if case let .signBoard(signBoard) = model {
+            fillIconImage(url: signBoard.iconImageURL)
+            fillAppNameLabel(name: signBoard.name)
+            fillProviderLabel(provider: signBoard.provider)
+            fillPurcahseButton(price: signBoard.price)
         }
         
     }
