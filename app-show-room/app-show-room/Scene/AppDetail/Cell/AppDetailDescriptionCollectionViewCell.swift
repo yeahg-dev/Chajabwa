@@ -71,7 +71,9 @@ final class AppDetailDescriptionCollectionViewCell: BaseCollectionViewCell {
 
     private func configureDescrpitionTextView() {
         descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
+        descriptionTextView.textContainer.lineBreakMode = .byCharWrapping
         descriptionTextView.textContainer.maximumNumberOfLines = 3
+        descriptionTextView.textContainerInset = UIEdgeInsets(top: 0, left: -5, bottom: 0, right:  -5)
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.isEditable = false
         descriptionTextView.font = design.decriptionTextViewFont
