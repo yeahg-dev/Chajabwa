@@ -15,6 +15,7 @@ enum Text: String {
     case genre = "카테고리"
     case minimumOSVersion = "최소 OS 버전"
     case developerWebsite = "개발자 웹 사이트"
+    case version = "버전"
     
     case download = "받기"
     case moreDetails = "더 보기"

@@ -12,6 +12,7 @@ struct AppDetailViewModel {
     enum Section: Int, CaseIterable {
         
         case summary
+        case releaseNote
         case screenshot
         case descritption
         case information
@@ -48,6 +49,24 @@ struct AppDetailViewModel {
         let section = Section(rawValue: section)
         
         return cellItem(at: section!)
+    }
+    
+    func releaseNote(isTruncated: Bool) -> Item {
+        if isTruncated {
+            let fullReleaseNote = ReleaseNote(
+                version: versionText(app.version),
+                currentVersionReleaseDate: app.currentVersionReleaseDate,
+                description: app.releaseDescription,
+                isTrucated: isTruncated)
+            return Item.releaseNote(fullReleaseNote)
+        } else {
+            let previewReleaseNote = ReleaseNote(
+                version: versionText(app.version),
+                currentVersionReleaseDate: app.currentVersionReleaseDate,
+                description: app.releaseDescription,
+                isTrucated: isTruncated)
+            return Item.releaseNote(previewReleaseNote)
+        }
     }
     
     func description(isTruncated: Bool) -> Item {
@@ -124,7 +143,14 @@ struct AppDetailViewModel {
                 provider: app.provider,
                 price: app.price)
             return [Item.summary(info)]
+        case .releaseNote:
+            let releaseNote = ReleaseNote(
+                version: versionText(app.version),
+                currentVersionReleaseDate: app.currentVersionReleaseDate,
+                description: app.releaseDescription)
+            return [Item.releaseNote(releaseNote)]
         case .screenshot:
+            // TODO: - 강제 언래핑 제거
             let items = app.screenShotURLs?.map { Screenshot(url: $0) }
                 .map{ Item.screenshot($0) }
             return items!
@@ -136,6 +162,14 @@ struct AppDetailViewModel {
            return textInformations + hyperLinkInformations
         }
     }
+    
+    private func versionText(_ version: String?) -> String? {
+        guard let version = version else {
+            return nil
+        }
+        
+        return Text.version.value + " " + version
+    }
 
 }
 
@@ -143,6 +177,7 @@ extension AppDetailViewModel {
     
     enum Item: Hashable {
         case summary(Info)
+        case releaseNote(ReleaseNote)
         case screenshot(Screenshot)
         case description(Description)
         case information(Information)
@@ -153,6 +188,17 @@ extension AppDetailViewModel {
         let iconImageURL: String?
         let provider: String?
         let price: String?
+    }
+    
+    struct ReleaseNote: Hashable {
+        let version: String?
+        let currentVersionReleaseDate: String?
+        let description: String?
+        var isTrucated: Bool = true
+        
+        var buttonTitle: String {
+            return isTrucated ? Text.moreDetails.value : Text.preview.value
+        }
     }
     
     struct Screenshot: Hashable {

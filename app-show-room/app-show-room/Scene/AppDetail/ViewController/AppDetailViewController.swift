@@ -22,6 +22,7 @@ final class AppDetailViewController: UIViewController {
     }()
     
     private var isNavigationItemHidden: Bool = true
+    private var isReleaseNoteFolded: Bool = true
     private var isDescriptionViewFolded: Bool = true
     
     init(appDetailViewModel: AppDetailViewModel) {
@@ -86,6 +87,7 @@ final class AppDetailViewController: UIViewController {
             
             let section: NSCollectionLayoutSection
             
+            // TODO: Switch 로 리팩터링
             if sectionKind == .summary {
                 
                 let itemSize = NSCollectionLayoutSize(
@@ -95,6 +97,20 @@ final class AppDetailViewController: UIViewController {
                 let groupSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
                     heightDimension: .absolute(AppDetailSummaryDesign.height))
+                let group = NSCollectionLayoutGroup.vertical(
+                    layoutSize: groupSize,
+                    subitems: [item])
+                section = NSCollectionLayoutSection(group: group)
+                
+            } else if sectionKind == .releaseNote {
+                
+                let itemSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .estimated(200))
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                let groupSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .estimated(200))
                 let group = NSCollectionLayoutGroup.vertical(
                     layoutSize: groupSize,
                     subitems: [item])
@@ -153,6 +169,13 @@ final class AppDetailViewController: UIViewController {
         }
     }
     
+    private func createReleaseNoteCellRegistration() -> UICollectionView.CellRegistration<AppDetailReleaseNoteCollectionViewCell, AppDetailViewModel.Item> {
+        return UICollectionView.CellRegistration<AppDetailReleaseNoteCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
+            cell.bind(model: item)
+            cell.delegate = self
+        }
+    }
+    
     private func createScreenshotCellRegistration() -> UICollectionView.CellRegistration<ScreenShotCollectionViewCell, AppDetailViewModel.Item> {
         return UICollectionView.CellRegistration<ScreenShotCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
             guard case let .screenshot(screenshotData) = item else {
@@ -184,7 +207,7 @@ final class AppDetailViewController: UIViewController {
             guard case let .information(information) = item else {
                 return
             }
-      
+            
             cell.bind(image: information.image, category: information.category)
         }
     }
@@ -198,6 +221,7 @@ final class AppDetailViewController: UIViewController {
     
     private func configureDataSource() {
         let summaryCellRegistration = createSummaryCellRegistration()
+        let releaseNoteCellRegistration = createReleaseNoteCellRegistration()
         let screenshotCellRegistration = createScreenshotCellRegistration()
         let descriptionCellRegistration = createDescriptionCellRegistration()
         let textInformationCellRegistration = createTextInformationCellRegistration()
@@ -211,6 +235,11 @@ final class AppDetailViewController: UIViewController {
             case .summary:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: summaryCellRegistration,
+                    for: indexPath,
+                    item: item)
+            case .releaseNote:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: releaseNoteCellRegistration,
                     for: indexPath,
                     item: item)
             case .screenshot:
@@ -269,6 +298,19 @@ extension AppDetailViewController: AppDetailDescriptionCollectionViewCellDelegat
     
 }
 
+extension AppDetailViewController: AppDetailReleaseNoteCollectionViewCellDelegate {
+    
+    func foldingButtonDidTapped(_: AppDetailReleaseNoteCollectionViewCell) {
+        isReleaseNoteFolded.toggle()
+        var snapshot = NSDiffableDataSourceSectionSnapshot<AppDetailViewModel.Item>()
+        let releaseNote = viewModel.releaseNote(isTruncated: isReleaseNoteFolded)
+        snapshot.append([releaseNote])
+        
+        dataSource.apply(snapshot, to: .releaseNote)
+    }
+    
+}
+
 extension AppDetailViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -294,7 +336,7 @@ extension AppDetailViewController: UICollectionViewDelegate {
             let developerWebsiteView = SFSafariViewController(url: developerWebsiteURL as! URL)
             self.present(developerWebsiteView, animated: true, completion: nil)
         }
-     
+        
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

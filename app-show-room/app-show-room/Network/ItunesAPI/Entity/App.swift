@@ -86,6 +86,9 @@ extension App {
             fileSize: self.fileSizeBytes,
             contentAdvisoryRating: self.contentAdvisoryRating,
             minimumOSVersion: self.minimumOSVersion,
-            sellerURL: self.sellerURL)
+            sellerURL: self.sellerURL,
+            version: self.version,
+            currentVersionReleaseDate: self.currentVersionReleaseDate,
+            releaseDescription: self.releaseNotes)
     }
 }

@@ -25,4 +25,8 @@ struct AppDetail {
     let contentAdvisoryRating: String?
     let minimumOSVersion: String?
     let sellerURL: String?
+    let version: String?
+    let currentVersionReleaseDate: String?
+    let releaseDescription: String?
+    
 }
