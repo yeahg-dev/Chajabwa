@@ -59,6 +59,8 @@ class ScreenShotCollectionViewCell: BaseCollectionViewCell {
     
     private func configureUI() {
         contentView.layer.cornerRadius = design.cornerRadius
+        contentView.layer.borderColor = design.borderColor
+        contentView.layer.borderWidth = design.borderWidth
         contentView.clipsToBounds = true
     }
     
