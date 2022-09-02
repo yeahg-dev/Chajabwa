@@ -1,5 +1,5 @@
 //
-//  AppDetilDescriptionDesign.swift
+//  DescriptionCollectionViewCellDesign.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/08/17.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum AppDetilDescriptionDesign {
+enum DescriptionCollectionViewCellDesign {
     
     // margin, spacing
     static let leadingMargin = CGFloat(25)

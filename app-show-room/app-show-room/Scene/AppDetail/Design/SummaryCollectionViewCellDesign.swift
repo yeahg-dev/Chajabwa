@@ -1,5 +1,5 @@
 //
-//  AppDetailSummaryDesign.swift
+//  SummaryCollectionViewCellDesign.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/08/17.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum AppDetailSummaryDesign {
+enum SummaryCollectionViewCellDesign {
     
     // margin
     static let leadingMargin = CGFloat(25)

@@ -1,5 +1,5 @@
 //
-//  AppDetailInformationCollectionViewCell.swift
+//  LinkInformationCollectionViewCell.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/09/01.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class AppDetailInformationCollectionViewCell: UICollectionViewCell {
+final class LinkInformationCollectionViewCell: UICollectionViewCell {
     
     var image: UIImage?
     var category: String?
@@ -19,21 +19,21 @@ final class AppDetailInformationCollectionViewCell: UICollectionViewCell {
     }
     
     override func updateConfiguration(using state: UICellConfigurationState) {
-        var content = InformationContentConfiguration().updated(for: state)
+        var content = LinkInformationContentConfiguration().updated(for: state)
         content.image = image
         content.category = category
         contentConfiguration = content
     }
 }
 
-struct InformationContentConfiguration: UIContentConfiguration, Hashable {
+struct LinkInformationContentConfiguration: UIContentConfiguration, Hashable {
     
     var category: String?
     var image: UIImage?
     var tintColor: UIColor? = .systemBlue
     
     func makeContentView() -> UIView & UIContentView {
-        return InformationContentView(configuration: self)
+        return LinkInformationContentView(configuration: self)
     }
     
     func updated(for state: UIConfigurationState) -> Self {
@@ -41,14 +41,14 @@ struct InformationContentConfiguration: UIContentConfiguration, Hashable {
     }
 }
 
-final class InformationContentView: UIView, UIContentView {
+final class LinkInformationContentView: UIView, UIContentView {
     
     private let imageView = UIImageView()
     private let categoryLabel = UILabel()
     
-    private var appliedConfiguration: InformationContentConfiguration!
+    private var appliedConfiguration: LinkInformationContentConfiguration!
     
-    init(configuration: InformationContentConfiguration) {
+    init(configuration: LinkInformationContentConfiguration) {
         super.init(frame: .zero)
         setSubviews()
         apply(configuration: configuration)
@@ -63,7 +63,7 @@ final class InformationContentView: UIView, UIContentView {
             return appliedConfiguration
         }
         set {
-            guard let newConfig = newValue as? InformationContentConfiguration else { return }
+            guard let newConfig = newValue as? LinkInformationContentConfiguration else { return }
             apply(configuration: newConfig)
         }
     }
@@ -95,7 +95,7 @@ final class InformationContentView: UIView, UIContentView {
         imageView.isHidden = true
     }
     
-    private func apply(configuration: InformationContentConfiguration) {
+    private func apply(configuration: LinkInformationContentConfiguration) {
         guard appliedConfiguration != configuration else { return }
         appliedConfiguration = configuration
         

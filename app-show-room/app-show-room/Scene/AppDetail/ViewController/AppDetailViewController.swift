@@ -96,7 +96,7 @@ final class AppDetailViewController: UIViewController {
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 let groupSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .absolute(AppDetailSummaryDesign.height))
+                    heightDimension: .absolute(SummaryCollectionViewCellDesign.height))
                 let group = NSCollectionLayoutGroup.vertical(
                     layoutSize: groupSize,
                     subitems: [item])
@@ -163,14 +163,14 @@ final class AppDetailViewController: UIViewController {
         return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
     }
     
-    private func createSummaryCellRegistration() -> UICollectionView.CellRegistration<AppDetailSummaryCollectionViewCell, AppDetailViewModel.Item> {
-        return UICollectionView.CellRegistration<AppDetailSummaryCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
+    private func createSummaryCellRegistration() -> UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> {
+        return UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
             cell.bind(model: item)
         }
     }
     
-    private func createReleaseNoteCellRegistration() -> UICollectionView.CellRegistration<AppDetailReleaseNoteCollectionViewCell, AppDetailViewModel.Item> {
-        return UICollectionView.CellRegistration<AppDetailReleaseNoteCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
+    private func createReleaseNoteCellRegistration() -> UICollectionView.CellRegistration<ReleaseNoteCollectionViewCell, AppDetailViewModel.Item> {
+        return UICollectionView.CellRegistration<ReleaseNoteCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
             cell.bind(model: item)
             cell.delegate = self
         }
@@ -202,8 +202,8 @@ final class AppDetailViewController: UIViewController {
         }
     }
     
-    private func createHyperLinkInformationCellRegistration() -> UICollectionView.CellRegistration<AppDetailInformationCollectionViewCell, AppDetailViewModel.Item> {
-        return UICollectionView.CellRegistration<AppDetailInformationCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
+    private func createLinkInformationCellRegistration() -> UICollectionView.CellRegistration<LinkInformationCollectionViewCell, AppDetailViewModel.Item> {
+        return UICollectionView.CellRegistration<LinkInformationCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
             guard case let .information(information) = item else {
                 return
             }
@@ -212,8 +212,8 @@ final class AppDetailViewController: UIViewController {
         }
     }
     
-    private func createDescriptionCellRegistration() -> UICollectionView.CellRegistration<AppDetailDescriptionCollectionViewCell, AppDetailViewModel.Item> {
-        return UICollectionView.CellRegistration<AppDetailDescriptionCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
+    private func createDescriptionCellRegistration() -> UICollectionView.CellRegistration<DescriptionCollectionViewCell, AppDetailViewModel.Item> {
+        return UICollectionView.CellRegistration<DescriptionCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
             cell.bind(model: item)
             cell.delegate = self
         }
@@ -225,7 +225,7 @@ final class AppDetailViewController: UIViewController {
         let screenshotCellRegistration = createScreenshotCellRegistration()
         let descriptionCellRegistration = createDescriptionCellRegistration()
         let textInformationCellRegistration = createTextInformationCellRegistration()
-        let hyperLinkInformationCellRegistration = createHyperLinkInformationCellRegistration()
+        let linkInformationCellRegistration = createLinkInformationCellRegistration()
         
         self.dataSource = UICollectionViewDiffableDataSource<AppDetailViewModel.Section, AppDetailViewModel.Item>(collectionView: contentCollectionView) {
             (collectionView, indexPath, item) -> UICollectionViewCell? in
@@ -256,7 +256,7 @@ final class AppDetailViewController: UIViewController {
                 
                 if self.viewModel.hyperlinkInformationsIndexPaths.contains(indexPath) {
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: hyperLinkInformationCellRegistration,
+                        using: linkInformationCellRegistration,
                         for: indexPath,
                         item: item)
                 } else {
@@ -285,9 +285,9 @@ final class AppDetailViewController: UIViewController {
     
 }
 
-extension AppDetailViewController: AppDetailDescriptionCollectionViewCellDelegate {
+extension AppDetailViewController: DescriptionCollectionViewCellDelegate {
     
-    func foldingButtonDidTapped() {
+    func foldingButtonDidTapped(_ : DescriptionCollectionViewCell) {
         isDescriptionViewFolded.toggle()
         var snapshot = NSDiffableDataSourceSectionSnapshot<AppDetailViewModel.Item>()
         let description = viewModel.description(isTruncated: isDescriptionViewFolded)
@@ -298,9 +298,9 @@ extension AppDetailViewController: AppDetailDescriptionCollectionViewCellDelegat
     
 }
 
-extension AppDetailViewController: AppDetailReleaseNoteCollectionViewCellDelegate {
+extension AppDetailViewController: ReleaseNoteCollectionViewCellDelegate {
     
-    func foldingButtonDidTapped(_: AppDetailReleaseNoteCollectionViewCell) {
+    func foldingButtonDidTapped(_ : ReleaseNoteCollectionViewCell) {
         isReleaseNoteFolded.toggle()
         var snapshot = NSDiffableDataSourceSectionSnapshot<AppDetailViewModel.Item>()
         let releaseNote = viewModel.releaseNote(isTruncated: isReleaseNoteFolded)

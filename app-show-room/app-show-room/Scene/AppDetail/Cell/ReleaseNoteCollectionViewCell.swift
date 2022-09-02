@@ -1,5 +1,5 @@
 //
-//  AppDetailReleaseNoteCollectionViewCell.swift
+//  ReleaseNoteCollectionViewCell.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/09/02.
@@ -7,22 +7,22 @@
 
 import UIKit
 
-protocol AppDetailReleaseNoteCollectionViewCellDelegate: AnyObject {
+protocol ReleaseNoteCollectionViewCellDelegate: AnyObject {
     
-    func foldingButtonDidTapped(_ : AppDetailReleaseNoteCollectionViewCell)
+    func foldingButtonDidTapped(_ : ReleaseNoteCollectionViewCell)
     
 }
 
-final class AppDetailReleaseNoteCollectionViewCell: BaseCollectionViewCell {
+final class ReleaseNoteCollectionViewCell: BaseCollectionViewCell {
     
-    private let design = AppDetailReleaseNoteDesign.self
+    private let design = ReleaseNoteCollectionViewCellDesign.self
     
     private let versionLabel = UILabel()
     private let currentVersionReleaseDateLabel = UILabel()
     private let descriptionTextView = UITextView()
     private let foldingButton = UIButton(type: .custom)
     
-    weak var delegate: AppDetailReleaseNoteCollectionViewCellDelegate?
+    weak var delegate: ReleaseNoteCollectionViewCellDelegate?
     
     private var isFolded: Bool = true
     
@@ -105,7 +105,7 @@ final class AppDetailReleaseNoteCollectionViewCell: BaseCollectionViewCell {
 
 // MARK: - configure layout
 
-extension AppDetailReleaseNoteCollectionViewCell {
+extension ReleaseNoteCollectionViewCell {
     
     private func setContstraintsOfContentView() {
         NSLayoutConstraint.activate([

@@ -1,5 +1,5 @@
 //
-//  AppDetailReleaseNoteDesign.swift
+//  ReleaseNoteCollectionViewCellDesign.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/09/02.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum AppDetailReleaseNoteDesign {
+enum ReleaseNoteCollectionViewCellDesign {
     
     // margin, spacing
     static let leadingMargin = CGFloat(25)

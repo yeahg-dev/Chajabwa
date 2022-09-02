@@ -1,5 +1,5 @@
 //
-//  AppDetailSummaryCollectionViewCell.swift
+//  SummaryCollectionViewCell.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/08/15.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class AppDetailSummaryCollectionViewCell: BaseCollectionViewCell {
+final class SummaryCollectionViewCell: BaseCollectionViewCell {
     
-    private let design = AppDetailSummaryDesign.self
+    private let design = SummaryCollectionViewCellDesign.self
     
     // MARK: - UIComponents
     private let iconImageView = UIImageView()
@@ -64,7 +64,7 @@ final class AppDetailSummaryCollectionViewCell: BaseCollectionViewCell {
 
 // MARK: - Design UIComponents
 
-extension AppDetailSummaryCollectionViewCell {
+extension SummaryCollectionViewCell {
     
     private func configureIconImageView() {
         iconImageView.layer.cornerRadius = 20
@@ -101,7 +101,7 @@ extension AppDetailSummaryCollectionViewCell {
 
 // MARK: - configure layout
 
-extension AppDetailSummaryCollectionViewCell {
+extension SummaryCollectionViewCell {
     
     private func setConstraintsOfContentView() {
         let widthAnchor = contentView.widthAnchor.constraint(
@@ -191,7 +191,7 @@ extension AppDetailSummaryCollectionViewCell {
     }
 }
 
-extension AppDetailSummaryCollectionViewCell {
+extension SummaryCollectionViewCell {
     
     private func fillIconImage(url: String?) {
         _ = iconImageView.setImage(

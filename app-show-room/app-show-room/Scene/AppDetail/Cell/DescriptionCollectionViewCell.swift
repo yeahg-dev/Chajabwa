@@ -1,5 +1,5 @@
 //
-//  AppDetailDescriptionCollectionViewCell.swift
+//  DescriptionCollectionViewCell.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/08/16.
@@ -7,20 +7,20 @@
 
 import UIKit
 
-protocol AppDetailDescriptionCollectionViewCellDelegate: AnyObject {
+protocol DescriptionCollectionViewCellDelegate: AnyObject {
     
-    func foldingButtonDidTapped()
+    func foldingButtonDidTapped(_ : DescriptionCollectionViewCell)
     
 }
 
-final class AppDetailDescriptionCollectionViewCell: BaseCollectionViewCell {
+final class DescriptionCollectionViewCell: BaseCollectionViewCell {
     
-    private let design = AppDetilDescriptionDesign.self
+    private let design = DescriptionCollectionViewCellDesign.self
     
     private let descriptionTextView = UITextView()
     private let foldingButton = UIButton(type: .custom)
     
-    weak var delegate: AppDetailDescriptionCollectionViewCellDelegate?
+    weak var delegate: DescriptionCollectionViewCellDelegate?
     
     private var isFolded: Bool = true
     
@@ -66,7 +66,7 @@ final class AppDetailDescriptionCollectionViewCell: BaseCollectionViewCell {
     }
     
     @objc private func toggleFoldingButton() {
-        delegate?.foldingButtonDidTapped()
+        delegate?.foldingButtonDidTapped(self)
     }
 
     private func configureDescrpitionTextView() {
@@ -83,7 +83,7 @@ final class AppDetailDescriptionCollectionViewCell: BaseCollectionViewCell {
 
 // MARK: - configure layout
 
-extension AppDetailDescriptionCollectionViewCell {
+extension DescriptionCollectionViewCell {
     
     private func setContstraintsOfContentView() {
         NSLayoutConstraint.activate([
