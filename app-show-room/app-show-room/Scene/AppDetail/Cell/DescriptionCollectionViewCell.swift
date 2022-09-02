@@ -47,16 +47,16 @@ final class DescriptionCollectionViewCell: BaseCollectionViewCell {
             descriptionTextView.text = descritpion.text
             foldingButton.setTitle(descritpion.buttonTitle, for: .normal)
             if descritpion.isTrucated {
-                descriptionTextView.textContainer.maximumNumberOfLines = 3
+                descriptionTextView.textContainer.maximumNumberOfLines = design.textContainerMinimumNumberOfLines
             } else {
-                descriptionTextView.textContainer.maximumNumberOfLines = 0
+                descriptionTextView.textContainer.maximumNumberOfLines = design.textContainerMaximumNumberOfLines
             }
         }
     }
     
     private func configureFoldingButton() {
-        foldingButton.setTitleColor(.systemBlue, for: .normal)
-        foldingButton.setTitleColor(.systemBlue, for: .selected)
+        foldingButton.setTitleColor(design.foldingButtonTextColor, for: .normal)
+        foldingButton.setTitleColor(design.foldingButtonTextColor, for: .selected)
         foldingButton.titleLabel?.font = design.foldingButtonFont
         foldingButton.titleLabel?.textAlignment = .right
         foldingButton.addTarget(
@@ -72,8 +72,12 @@ final class DescriptionCollectionViewCell: BaseCollectionViewCell {
     private func configureDescrpitionTextView() {
         descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
         descriptionTextView.textContainer.lineBreakMode = .byCharWrapping
-        descriptionTextView.textContainer.maximumNumberOfLines = 3
-        descriptionTextView.textContainerInset = UIEdgeInsets(top: 0, left: -5, bottom: 0, right:  -5)
+        descriptionTextView.textContainer.maximumNumberOfLines = design.textContainerMinimumNumberOfLines
+        descriptionTextView.textContainerInset = UIEdgeInsets(
+            top: design.textContainerInsetTop,
+            left: design.textContainerInsetLeft,
+            bottom: design.textContainerInsetBottom,
+            right:  design.textContainerInsetRight)
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.isEditable = false
         descriptionTextView.font = design.decriptionTextViewFont
@@ -107,7 +111,7 @@ extension DescriptionCollectionViewCell {
                 constant: design.paddingTop),
             descriptionTextView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: design.paddingTrailing * -1),
+                constant: -design.paddingTrailing),
             descriptionTextView.bottomAnchor.constraint(
                 equalTo: foldingButton.topAnchor,
                 constant: design.spacing ),
@@ -121,10 +125,10 @@ extension DescriptionCollectionViewCell {
         NSLayoutConstraint.activate([
             foldingButton.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: design.paddingTrailing * -1),
+                constant: -design.paddingTrailing),
             foldingButton.bottomAnchor.constraint(
                 equalTo: contentView.bottomAnchor,
-                constant: design.paddingBottom * -1),
+                constant: -design.paddingBottom),
         ])
     }
     

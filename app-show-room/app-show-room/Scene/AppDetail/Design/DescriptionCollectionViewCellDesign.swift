@@ -20,7 +20,20 @@ enum DescriptionCollectionViewCellDesign {
     static let foldingButtonWidth = CGFloat(100)
     static let foldingButtonHeight = CGFloat(25)
     
+    // textContainer
+    static let textContainerInsetTop: CGFloat = 0
+    static let textContainerInsetLeft: CGFloat = -5
+    static let textContainerInsetBottom: CGFloat = 0
+    static let textContainerInsetRight: CGFloat = -5
+    
     // font
     static let foldingButtonFont: UIFont = .preferredFont(forTextStyle: .callout)
     static let decriptionTextViewFont: UIFont = .preferredFont(forTextStyle: .callout)
+    
+    // numberOfLines
+    static let textContainerMaximumNumberOfLines = 0
+    static let textContainerMinimumNumberOfLines = 3
+
+    // textColor
+    static let foldingButtonTextColor: UIColor = .systemBlue
 }
