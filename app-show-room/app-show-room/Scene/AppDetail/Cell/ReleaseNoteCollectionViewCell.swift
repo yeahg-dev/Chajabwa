@@ -57,9 +57,9 @@ final class ReleaseNoteCollectionViewCell: BaseCollectionViewCell {
             descriptionTextView.text = releaseNote.description
             foldingButton.setTitle(releaseNote.buttonTitle, for: .normal)
             if releaseNote.isTrucated {
-                descriptionTextView.textContainer.maximumNumberOfLines = 3
+                descriptionTextView.textContainer.maximumNumberOfLines = design.textContainerMaximumNumberOfLines
             } else {
-                descriptionTextView.textContainer.maximumNumberOfLines = 0
+                descriptionTextView.textContainer.maximumNumberOfLines = design.textContainerMaximumNumberOfLines
             }
         }
     }
@@ -92,9 +92,12 @@ final class ReleaseNoteCollectionViewCell: BaseCollectionViewCell {
 
     private func configureDescrpitionTextView() {
         descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
-        descriptionTextView.textContainer.maximumNumberOfLines = 3
-        descriptionTextView.contentInset = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: -5)
-        descriptionTextView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        descriptionTextView.textContainer.maximumNumberOfLines = design.textContainerMaximumNumberOfLines
+        descriptionTextView.textContainerInset = UIEdgeInsets(
+            top: design.textContainerInsetTop,
+            left: design.textContainerInsetLeft,
+            bottom: design.textContainerInsetBottom,
+            right: design.textContainerInsetRight)
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.isEditable = false
         descriptionTextView.textColor = design.descriptionTextColor
@@ -129,7 +132,7 @@ extension ReleaseNoteCollectionViewCell {
                 constant: design.paddingTop),
             versionLabel.bottomAnchor.constraint(
                 equalTo: descriptionTextView.topAnchor,
-                constant: -10)
+                constant: -design.descriptionTextViewMarginTop)
         ])
     }
     
@@ -140,10 +143,10 @@ extension ReleaseNoteCollectionViewCell {
                 constant: design.paddingTop),
             currentVersionReleaseDateLabel.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: design.paddingTrailing * -1),
+                constant: -design.paddingTrailing),
             currentVersionReleaseDateLabel.bottomAnchor.constraint(
                 equalTo: descriptionTextView.topAnchor,
-                constant: -10)
+                constant: -design.descriptionTextViewMarginTop)
         ])
     }
     
@@ -154,10 +157,10 @@ extension ReleaseNoteCollectionViewCell {
                 constant: design.paddingLeading),
             descriptionTextView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: design.paddingTrailing * -1),
+                constant: -design.paddingTrailing),
             descriptionTextView.bottomAnchor.constraint(
                 equalTo: foldingButton.topAnchor,
-                constant: design.spacing ),
+                constant: design.desciptionTextViewMarginBottom ),
             descriptionTextView.widthAnchor.constraint(
                 equalToConstant: UIScreen.main.bounds.width
                 - design.paddingLeading - design.paddingTrailing)
@@ -168,10 +171,10 @@ extension ReleaseNoteCollectionViewCell {
         NSLayoutConstraint.activate([
             foldingButton.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: design.paddingTrailing * -1),
+                constant: -design.paddingTrailing),
             foldingButton.bottomAnchor.constraint(
                 equalTo: contentView.bottomAnchor,
-                constant: design.paddingBottom * -1),
+                constant: -design.paddingBottom),
         ])
     }
     

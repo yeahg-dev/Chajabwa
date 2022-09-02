@@ -208,8 +208,8 @@
 			children = (
 				63861ECC28AA6F1D0062A8BD /* SummaryCollectionViewCell.swift */,
 				63075FBE28C1D7590094E117 /* ReleaseNoteCollectionViewCell.swift */,
-				6384EC5728AB7DB900D1F821 /* DescriptionCollectionViewCell.swift */,
 				63A66F4D28C0C1FE00F3B4D0 /* LinkInformationCollectionViewCell.swift */,
+				6384EC5728AB7DB900D1F821 /* DescriptionCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
