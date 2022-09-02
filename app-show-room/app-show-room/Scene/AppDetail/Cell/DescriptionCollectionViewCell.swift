@@ -114,7 +114,7 @@ extension DescriptionCollectionViewCell {
                 constant: -design.paddingTrailing),
             descriptionTextView.bottomAnchor.constraint(
                 equalTo: foldingButton.topAnchor,
-                constant: design.spacing ),
+                constant: design.descriptionTextViewMarginBottom ),
             descriptionTextView.widthAnchor.constraint(
                 equalToConstant: UIScreen.main.bounds.width
                 - design.paddingLeading - design.paddingTrailing)

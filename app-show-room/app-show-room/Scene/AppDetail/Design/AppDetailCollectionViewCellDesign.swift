@@ -9,6 +9,7 @@ import UIKit
 
 enum AppDetailCollectionViewCellDesign {
 
+    // common padding
     static let paddingLeading: CGFloat = 25
     static let paddingTop: CGFloat = 10
     static let paddingTrailing: CGFloat = 25

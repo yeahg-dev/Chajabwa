@@ -14,11 +14,12 @@ enum DescriptionCollectionViewCellDesign {
     static let paddingTop = AppDetailCollectionViewCellDesign.paddingTop
     static let paddingTrailing = AppDetailCollectionViewCellDesign.paddingTrailing
     static let paddingBottom = AppDetailCollectionViewCellDesign.paddingBottom
-    static let spacing = CGFloat(5)
+    
+    static let descriptionTextViewMarginBottom: CGFloat = 5
     
     // size
-    static let foldingButtonWidth = CGFloat(100)
-    static let foldingButtonHeight = CGFloat(25)
+    static let foldingButtonWidth: CGFloat = 100
+    static let foldingButtonHeight: CGFloat = 25
     
     // textContainer
     static let textContainerInsetTop: CGFloat = 0

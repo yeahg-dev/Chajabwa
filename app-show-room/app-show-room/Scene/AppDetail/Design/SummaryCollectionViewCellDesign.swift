@@ -14,6 +14,7 @@ enum SummaryCollectionViewCellDesign {
     static let paddingTop: CGFloat = 0
     static let paddingBottom = AppDetailCollectionViewCellDesign.paddingBottom
     static let paddingTrailing = AppDetailCollectionViewCellDesign.paddingTrailing
+    
     static let iconImageViewTrailingMargin = CGFloat(13)
     static let providerLabelTopMargin = CGFloat(7)
     
