@@ -128,13 +128,13 @@ extension SummaryCollectionViewCell {
             heightAnchor,
             iconImageView.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor,
-                constant: design.leadingMargin),
+                constant: design.paddingLeading),
             iconImageView.topAnchor.constraint(
                 equalTo: contentView.topAnchor,
-                constant: design.topMargin),
+                constant: design.paddingTop),
             iconImageView.bottomAnchor.constraint(
                 equalTo: contentView.bottomAnchor,
-                constant: design.bottomMargin * -1)
+                constant: -design.paddingBottom)
         ])
     }
     
@@ -145,10 +145,10 @@ extension SummaryCollectionViewCell {
                 constant: design.iconImageViewTrailingMargin),
             appNameLabel.topAnchor.constraint(
                 equalTo: contentView.topAnchor,
-                constant: design.topMargin),
+                constant: design.paddingTop),
             appNameLabel.trailingAnchor.constraint(
                 greaterThanOrEqualTo: contentView.trailingAnchor,
-                constant: design.trailingMargin * -1),
+                constant: design.paddingTrailing * -1),
         ])
     }
     
@@ -162,7 +162,7 @@ extension SummaryCollectionViewCell {
                 constant: design.providerLabelTopMargin),
             providerLabel.trailingAnchor.constraint(
                 greaterThanOrEqualTo: contentView.trailingAnchor,
-                constant: design.trailingMargin * -1)
+                constant: -design.paddingTrailing)
         ])
     }
     
@@ -184,7 +184,7 @@ extension SummaryCollectionViewCell {
         NSLayoutConstraint.activate([
             shareButton.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: design.trailingMargin * -1),
+                constant: -design.paddingTrailing),
             shareButton.bottomAnchor.constraint(
                 equalTo: iconImageView.bottomAnchor)
         ])

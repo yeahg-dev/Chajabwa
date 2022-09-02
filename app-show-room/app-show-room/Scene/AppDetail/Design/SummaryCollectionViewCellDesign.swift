@@ -9,17 +9,17 @@ import UIKit
 
 enum SummaryCollectionViewCellDesign {
     
-    // margin
-    static let leadingMargin = CGFloat(25)
-    static let topMargin = CGFloat(0)
-    static let bottomMargin = CGFloat(20)
-    static let trailingMargin = CGFloat(25)
+    // padding, margin
+    static let paddingLeading = AppDetailCollectionViewCellDesign.paddingLeading
+    static let paddingTop = CGFloat(0)
+    static let paddingBottom = AppDetailCollectionViewCellDesign.paddingBottom
+    static let paddingTrailing = AppDetailCollectionViewCellDesign.paddingTrailing
     static let iconImageViewTrailingMargin = CGFloat(13)
     static let providerLabelTopMargin = CGFloat(7)
     
     // size
     static let width = UIScreen.main.bounds.width
-    static let height = topMargin + iconImageViewHeight + bottomMargin
+    static let height = paddingTop + iconImageViewHeight + paddingBottom
     static let iconImageViewWidth = UIScreen.main.bounds.width * 0.285
     static let iconImageViewHeight = UIScreen.main.bounds.width * 0.285
     static let purchaseButtonWidth = CGFloat(50)

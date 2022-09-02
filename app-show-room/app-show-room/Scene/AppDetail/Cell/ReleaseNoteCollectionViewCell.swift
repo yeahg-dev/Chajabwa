@@ -123,10 +123,10 @@ extension ReleaseNoteCollectionViewCell {
         NSLayoutConstraint.activate([
             versionLabel.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor,
-                constant: design.leadingMargin),
+                constant: design.paddingLeading),
             versionLabel.topAnchor.constraint(
                 equalTo: contentView.topAnchor,
-                constant: design.topMargin),
+                constant: design.paddingTop),
             versionLabel.bottomAnchor.constraint(
                 equalTo: descriptionTextView.topAnchor,
                 constant: -10)
@@ -137,10 +137,10 @@ extension ReleaseNoteCollectionViewCell {
         NSLayoutConstraint.activate([
             currentVersionReleaseDateLabel.topAnchor.constraint(
                 equalTo: contentView.topAnchor,
-                constant: design.topMargin),
+                constant: design.paddingTop),
             currentVersionReleaseDateLabel.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: design.trailingMargin * -1),
+                constant: design.paddingTrailing * -1),
             currentVersionReleaseDateLabel.bottomAnchor.constraint(
                 equalTo: descriptionTextView.topAnchor,
                 constant: -10)
@@ -151,16 +151,16 @@ extension ReleaseNoteCollectionViewCell {
         NSLayoutConstraint.activate([
             descriptionTextView.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor,
-                constant: design.leadingMargin),
+                constant: design.paddingLeading),
             descriptionTextView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: design.trailingMargin * -1),
+                constant: design.paddingTrailing * -1),
             descriptionTextView.bottomAnchor.constraint(
                 equalTo: foldingButton.topAnchor,
                 constant: design.spacing ),
             descriptionTextView.widthAnchor.constraint(
                 equalToConstant: UIScreen.main.bounds.width
-                - design.leadingMargin - design.trailingMargin)
+                - design.paddingLeading - design.paddingTrailing)
         ])
     }
     
@@ -168,10 +168,10 @@ extension ReleaseNoteCollectionViewCell {
         NSLayoutConstraint.activate([
             foldingButton.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: design.trailingMargin * -1),
+                constant: design.paddingTrailing * -1),
             foldingButton.bottomAnchor.constraint(
                 equalTo: contentView.bottomAnchor,
-                constant: design.bottomMargin * -1),
+                constant: design.paddingBottom * -1),
         ])
     }
     

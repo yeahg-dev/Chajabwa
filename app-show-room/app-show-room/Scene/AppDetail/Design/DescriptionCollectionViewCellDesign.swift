@@ -9,11 +9,11 @@ import UIKit
 
 enum DescriptionCollectionViewCellDesign {
     
-    // margin, spacing
-    static let leadingMargin = CGFloat(25)
-    static let topMargin = CGFloat(5)
-    static let trailingMargin = CGFloat(25)
-    static let bottomMargin = CGFloat(5)
+    // padding, spacing
+    static let paddingLeading = AppDetailCollectionViewCellDesign.paddingLeading
+    static let paddingTop = AppDetailCollectionViewCellDesign.paddingTop
+    static let paddingTrailing = AppDetailCollectionViewCellDesign.paddingTrailing
+    static let paddingBottom = AppDetailCollectionViewCellDesign.paddingBottom
     static let spacing = CGFloat(5)
     
     // size
