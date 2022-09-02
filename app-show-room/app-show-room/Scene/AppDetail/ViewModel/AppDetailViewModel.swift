@@ -10,21 +10,20 @@ import UIKit
 struct AppDetailViewModel {
     
     enum Section: Int, CaseIterable {
-        
         case summary
         case releaseNote
         case screenshot
         case descritption
         case information
-        
     }
     
     private let app: AppDetail
-    let sections: [Section] = Section.allCases
     
     init(app: AppDetail) {
         self.app = app
     }
+    
+    let sections: [Section] = Section.allCases
    
     var screenshotURLs: [String]? {
         return app.screenShotURLs
@@ -34,9 +33,9 @@ struct AppDetailViewModel {
         return app.iconImageURL
     }
     
-    var hyperlinkInformationsIndexPaths: [IndexPath] {
+    var linkInformationsIndexPaths: [IndexPath] {
         var indexPaths = [IndexPath]()
-        let totalInforationItem = textInformations.count + hyperLinkInformations.count
+        let totalInforationItem = textInformations.count + linkInformations.count
         for index in textInformations.count ..< totalInforationItem {
             let hyperlinkInformationIndexPath = IndexPath(row: index, section: Section.information.rawValue)
             indexPaths.append(hyperlinkInformationIndexPath)
@@ -44,27 +43,20 @@ struct AppDetailViewModel {
         return indexPaths
     }
     
-    func cellItems(at section: Int) -> [Item] {
-        // TODO: - 옵셔널 오류 핸들링
-        let section = Section(rawValue: section)
-        
-        return cellItem(at: section!)
-    }
-    
     func releaseNote(isTruncated: Bool) -> Item {
         if isTruncated {
             let fullReleaseNote = ReleaseNote(
-                version: versionText(app.version),
-                currentVersionReleaseDate: releaseDateRepresentation(app.currentVersionReleaseDate),
-                description: app.releaseDescription,
-                isTrucated: isTruncated)
+                version: app.version,
+                currentVersionReleaseDate: app.currentVersionReleaseDate,
+                description: app.description,
+                isTruncated: isTruncated)
             return Item.releaseNote(fullReleaseNote)
         } else {
             let previewReleaseNote = ReleaseNote(
-                version: versionText(app.version),
-                currentVersionReleaseDate: releaseDateRepresentation(app.currentVersionReleaseDate),
-                description: app.releaseDescription,
-                isTrucated: isTruncated)
+                version: app.version,
+                currentVersionReleaseDate: app.currentVersionReleaseDate,
+                description: app.description,
+                isTruncated: isTruncated)
             return Item.releaseNote(previewReleaseNote)
         }
     }
@@ -79,6 +71,41 @@ struct AppDetailViewModel {
         }
     }
     
+    func cellItems(at section: Int) -> [Item] {
+        guard let section = Section(rawValue: section) else {
+            return []
+        }
+        
+        return cellItems(at: section)
+    }
+    
+    private func cellItems(at section: Section) -> [Item] {
+        switch section {
+        case .summary:
+            let info = Info(
+                name: app.appName,
+                iconImageURL: app.iconImageURL,
+                provider: app.provider,
+                price: app.price)
+            return [Item.summary(info)]
+        case .releaseNote:
+            let releaseNote = ReleaseNote(
+                version: app.version,
+                currentVersionReleaseDate: app.currentVersionReleaseDate,
+                description: app.description)
+            return [Item.releaseNote(releaseNote)]
+        case .screenshot:
+            let items = app.screenShotURLs?.map { Screenshot(url: $0) }
+                .map{ Item.screenshot($0) }
+            return items ?? []
+        case .descritption:
+            let description = Description(text: app.description)
+            return [Item.description(description)]
+        case .information:
+           return textInformations + linkInformations
+        }
+    }
+  
     private var textInformations: [Item] {
         var inforamtions = [Information]()
         
@@ -118,10 +145,9 @@ struct AppDetailViewModel {
         }
         
         return inforamtions.map { Item.information($0) }
-        
     }
     
-    private var hyperLinkInformations: [Item] {
+    private var linkInformations: [Item] {
         var inforamtions = [Information]()
         
         if let sellerURL = app.sellerURL {
@@ -133,59 +159,16 @@ struct AppDetailViewModel {
 
         return inforamtions.map { Item.information($0) }
     }
-    
-    private func cellItem(at section: Section) -> [Item] {
-        switch section {
-        case .summary:
-            let info = Info(
-                name: app.appName,
-                iconImageURL: app.iconImageURL,
-                provider: app.provider,
-                price: app.price)
-            return [Item.summary(info)]
-        case .releaseNote:
-            let releaseNote = ReleaseNote(
-                version: versionText(app.version),
-                currentVersionReleaseDate: releaseDateRepresentation(app.currentVersionReleaseDate),
-                description: app.releaseDescription)
-            return [Item.releaseNote(releaseNote)]
-        case .screenshot:
-            // TODO: - 강제 언래핑 제거
-            let items = app.screenShotURLs?.map { Screenshot(url: $0) }
-                .map{ Item.screenshot($0) }
-            return items!
-        case .descritption:
-            let truncatedDescription = app.description
-            let description = Description(text: truncatedDescription)
-            return [Item.description(description)]
-        case .information:
-           return textInformations + hyperLinkInformations
-        }
-    }
-    
-    private func versionText(_ version: String?) -> String? {
-        guard let version = version else {
-            return nil
-        }
-        
-        return Text.version.value + " " + version
-    }
-    
-    private func releaseDateRepresentation(_ string: String?) -> String? {
-        guard let string = string,
-              let releaseDate = ISO8601DateFormatter().date(from: string) else {
-            return nil
-        }
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        return dateFormatter.string(from: releaseDate)
-    }
-
+ 
 }
 
 extension AppDetailViewModel {
+    static let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        return dateFormatter
+    }()
     
     enum Item: Hashable {
         case summary(Info)
@@ -203,14 +186,43 @@ extension AppDetailViewModel {
     }
     
     struct ReleaseNote: Hashable {
-        let version: String?
-        let currentVersionReleaseDate: String?
+        private let versionValue: String?
+        private let currentVersionReleaseDateValue: String?
+        
         let description: String?
         var isTrucated: Bool = true
+        
+        var version: String? {
+            if let versionValue = versionValue {
+                return Text.version.value + " " + versionValue
+            }
+            return nil
+        }
+        
+        var currentVersionReleaseDate: String? {
+            return releaseDateRepresentation(currentVersionReleaseDateValue)
+        }
         
         var buttonTitle: String {
             return isTrucated ? Text.moreDetails.value : Text.preview.value
         }
+        
+        init(version: String?, currentVersionReleaseDate: String?, description: String?,
+             isTruncated: Bool = true) {
+            self.versionValue = version
+            self.currentVersionReleaseDateValue = currentVersionReleaseDate
+            self.description = description
+        }
+        
+        private func releaseDateRepresentation(_ string: String?) -> String? {
+            guard let string = string,
+                  let releaseDate = ISO8601DateFormatter().date(from: string) else {
+                return nil
+            }
+   
+            return AppDetailViewModel.dateFormatter.string(from: releaseDate)
+        }
+        
     }
     
     struct Screenshot: Hashable {

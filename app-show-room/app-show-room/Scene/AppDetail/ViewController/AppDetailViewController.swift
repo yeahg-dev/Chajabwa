@@ -254,7 +254,7 @@ final class AppDetailViewController: UIViewController {
                     item: item)
             case .information:
                 
-                if self.viewModel.hyperlinkInformationsIndexPaths.contains(indexPath) {
+                if self.viewModel.linkInformationsIndexPaths.contains(indexPath) {
                     return collectionView.dequeueConfiguredReusableCell(
                         using: linkInformationCellRegistration,
                         for: indexPath,
@@ -325,7 +325,7 @@ extension AppDetailViewController: UICollectionViewDelegate {
             present(screenshotGalleryVC, animated: true)
         }
         
-        if .information == AppDetailViewModel.Section(rawValue: section) && viewModel.hyperlinkInformationsIndexPaths.contains(indexPath) {
+        if .information == AppDetailViewModel.Section(rawValue: section) && viewModel.linkInformationsIndexPaths.contains(indexPath) {
             
             guard let item: AppDetailViewModel.Item = dataSource.itemIdentifier(for: indexPath),
                   case let .information(information) = item,
