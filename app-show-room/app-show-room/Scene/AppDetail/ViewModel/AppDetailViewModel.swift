@@ -73,7 +73,7 @@ struct AppDetailViewModel {
         if let fileSize = app.fileSize {
             inforamtions.append(Information(
                 category: Text.fileSize.value,
-                value: fileSize,
+                value: fileSize.formattedByte,
                 image: nil))
         }
         
