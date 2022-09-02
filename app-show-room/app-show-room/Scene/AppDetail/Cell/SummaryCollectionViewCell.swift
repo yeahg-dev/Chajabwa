@@ -67,33 +67,33 @@ final class SummaryCollectionViewCell: BaseCollectionViewCell {
 extension SummaryCollectionViewCell {
     
     private func configureIconImageView() {
-        iconImageView.layer.cornerRadius = 20
+        iconImageView.layer.cornerRadius = design.iconImageViewCornerRadius
+        iconImageView.layer.borderColor = design.icomImageViewBorderColor
+        iconImageView.layer.borderWidth = design.iconImageViewBorderWidth
         iconImageView.clipsToBounds = true
     }
     
     private func configureAppNameLabel() {
         appNameLabel.font = design.appNameLabelFont
         appNameLabel.lineBreakMode = .byTruncatingTail
-        appNameLabel.numberOfLines = 2
+        appNameLabel.numberOfLines = design.appNameLabelNumberOfLines
     }
     
     private func configureProviderLabel() {
         providerLabel.font = design.providerLabelFont
-        providerLabel.textColor = .gray
-        providerLabel.numberOfLines = 1
+        providerLabel.textColor = design.appNameLabelTextColor
+        providerLabel.numberOfLines = design.providerLabelNumberOfLines
     }
     
     private func configurePurchaseButton() {
-        purchaseButton.backgroundColor = .systemBlue
-        purchaseButton.layer.cornerRadius = 10
-        purchaseButton.titleLabel?.textColor = .white
+        purchaseButton.backgroundColor = design.purchaseButtonBackgroundColor
+        purchaseButton.layer.cornerRadius = design.purchaseButtonCornerRadius
+        purchaseButton.titleLabel?.textColor = design.purchaseButtonTextColor
         purchaseButton.titleLabel?.font = design.purchaseButtonFont
     }
     
     private func configureShareButton() {
         let shareImage = design.shareButtonImage
-        shareButton.titleLabel?.textColor = .white
-        shareButton.titleLabel?.textAlignment = .center
         shareButton.setImage(shareImage, for: .normal)
     }
     
@@ -148,7 +148,7 @@ extension SummaryCollectionViewCell {
                 constant: design.paddingTop),
             appNameLabel.trailingAnchor.constraint(
                 greaterThanOrEqualTo: contentView.trailingAnchor,
-                constant: design.paddingTrailing * -1),
+                constant: -design.paddingTrailing),
         ])
     }
     
