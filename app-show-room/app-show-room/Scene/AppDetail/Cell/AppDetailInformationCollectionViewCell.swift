@@ -74,12 +74,22 @@ final class InformationContentView: UIView, UIContentView {
         categoryLabel.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            categoryLabel.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 5),
-            categoryLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: 7),
-            categoryLabel.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -5),
-            imageView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-            imageView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 5),
-            imageView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -5)
+            categoryLabel.topAnchor.constraint(
+                equalTo: layoutMarginsGuide.topAnchor,
+                constant: 5),
+            categoryLabel.leadingAnchor.constraint(
+                equalTo: layoutMarginsGuide.leadingAnchor,
+                constant: 7),
+            categoryLabel.bottomAnchor.constraint(
+                equalTo: layoutMarginsGuide.bottomAnchor,
+                constant: -5),
+            imageView.trailingAnchor.constraint(
+                equalTo: layoutMarginsGuide.trailingAnchor,
+                constant: -7),
+            imageView.topAnchor.constraint(
+                equalTo: categoryLabel.topAnchor),
+            imageView.bottomAnchor.constraint(
+                equalTo: categoryLabel.bottomAnchor)
         ])
         imageView.preferredSymbolConfiguration = .init(font: .preferredFont(forTextStyle: .callout), scale: .large)
         imageView.isHidden = true
