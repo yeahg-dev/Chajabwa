@@ -55,14 +55,14 @@ struct AppDetailViewModel {
         if isTruncated {
             let fullReleaseNote = ReleaseNote(
                 version: versionText(app.version),
-                currentVersionReleaseDate: app.currentVersionReleaseDate,
+                currentVersionReleaseDate: releaseDateRepresentation(app.currentVersionReleaseDate),
                 description: app.releaseDescription,
                 isTrucated: isTruncated)
             return Item.releaseNote(fullReleaseNote)
         } else {
             let previewReleaseNote = ReleaseNote(
                 version: versionText(app.version),
-                currentVersionReleaseDate: app.currentVersionReleaseDate,
+                currentVersionReleaseDate: releaseDateRepresentation(app.currentVersionReleaseDate),
                 description: app.releaseDescription,
                 isTrucated: isTruncated)
             return Item.releaseNote(previewReleaseNote)
@@ -146,7 +146,7 @@ struct AppDetailViewModel {
         case .releaseNote:
             let releaseNote = ReleaseNote(
                 version: versionText(app.version),
-                currentVersionReleaseDate: app.currentVersionReleaseDate,
+                currentVersionReleaseDate: releaseDateRepresentation(app.currentVersionReleaseDate),
                 description: app.releaseDescription)
             return [Item.releaseNote(releaseNote)]
         case .screenshot:
@@ -169,6 +169,18 @@ struct AppDetailViewModel {
         }
         
         return Text.version.value + " " + version
+    }
+    
+    private func releaseDateRepresentation(_ string: String?) -> String? {
+        guard let string = string,
+              let releaseDate = ISO8601DateFormatter().date(from: string) else {
+            return nil
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        return dateFormatter.string(from: releaseDate)
     }
 
 }
