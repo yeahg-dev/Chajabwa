@@ -1,5 +1,5 @@
 //
-//  SummaryCollectionViewCellDesign.swift
+//  SignboardCollectionViewCellDesign.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/08/17.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum SummaryCollectionViewCellDesign {
+enum SignboardCollectionViewCellDesign {
     
     // padding, margin
     static let paddingLeading = AppDetailCollectionViewCellDesign.paddingLeading

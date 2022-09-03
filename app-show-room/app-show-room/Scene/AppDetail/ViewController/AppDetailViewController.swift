@@ -96,7 +96,7 @@ final class AppDetailViewController: UIViewController {
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 let groupSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .absolute(SummaryCollectionViewCellDesign.height))
+                    heightDimension: .absolute(SignboardCollectionViewCellDesign.height))
                 let group = NSCollectionLayoutGroup.vertical(
                     layoutSize: groupSize,
                     subitems: [item])
@@ -163,8 +163,8 @@ final class AppDetailViewController: UIViewController {
         return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
     }
     
-    private func createSummaryCellRegistration() -> UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> {
-        return UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
+    private func createSummaryCellRegistration() -> UICollectionView.CellRegistration<SignboardCollectionViewCell, AppDetailViewModel.Item> {
+        return UICollectionView.CellRegistration<SignboardCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
             cell.bind(model: item)
         }
     }

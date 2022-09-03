@@ -1,5 +1,5 @@
 //
-//  SummaryCollectionViewCell.swift
+//  SignboardCollectionViewCell.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/08/15.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class SummaryCollectionViewCell: BaseCollectionViewCell {
+final class SignboardCollectionViewCell: BaseCollectionViewCell {
     
-    private let design = SummaryCollectionViewCellDesign.self
+    private let design = SignboardCollectionViewCellDesign.self
     
     // MARK: - UIComponents
     private let iconImageView = UIImageView()
@@ -64,7 +64,7 @@ final class SummaryCollectionViewCell: BaseCollectionViewCell {
 
 // MARK: - Design UIComponents
 
-extension SummaryCollectionViewCell {
+extension SignboardCollectionViewCell {
     
     private func configureIconImageView() {
         iconImageView.layer.cornerRadius = design.iconImageViewCornerRadius
@@ -101,7 +101,7 @@ extension SummaryCollectionViewCell {
 
 // MARK: - configure layout
 
-extension SummaryCollectionViewCell {
+extension SignboardCollectionViewCell {
     
     private func setConstraintsOfContentView() {
         let widthAnchor = contentView.widthAnchor.constraint(
@@ -191,7 +191,7 @@ extension SummaryCollectionViewCell {
     }
 }
 
-extension SummaryCollectionViewCell {
+extension SignboardCollectionViewCell {
     
     private func fillIconImage(url: String?) {
         _ = iconImageView.setImage(

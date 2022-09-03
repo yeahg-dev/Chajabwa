@@ -28,7 +28,7 @@
 		6384EC5828AB7DB900D1F821 /* DescriptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6384EC5728AB7DB900D1F821 /* DescriptionCollectionViewCell.swift */; };
 		6384EC7C28AC800A00D1F821 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6384EC7B28AC800A00D1F821 /* UIView+Extension.swift */; };
 		6384EC7E28AC83B100D1F821 /* AppDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6384EC7D28AC83B100D1F821 /* AppDetailViewController.swift */; };
-		6384EC8128ACC5B200D1F821 /* SummaryCollectionViewCellDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6384EC8028ACC5B200D1F821 /* SummaryCollectionViewCellDesign.swift */; };
+		6384EC8128ACC5B200D1F821 /* SignboardCollectionViewCellDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6384EC8028ACC5B200D1F821 /* SignboardCollectionViewCellDesign.swift */; };
 		6384EC8328AD221700D1F821 /* DescriptionCollectionViewCellDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6384EC8228AD221700D1F821 /* DescriptionCollectionViewCellDesign.swift */; };
 		6384EC8528AD2A5C00D1F821 /* ScreenshotGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6384EC8428AD2A5C00D1F821 /* ScreenshotGalleryViewController.swift */; };
 		63861EB628AA10990062A8BD /* AppSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861EB528AA10990062A8BD /* AppSearchViewModel.swift */; };
@@ -37,7 +37,7 @@
 		63861EBE28AA1D090062A8BD /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861EBD28AA1D090062A8BD /* AlertViewModel.swift */; };
 		63861EC628AA43450062A8BD /* AppDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861EC528AA43450062A8BD /* AppDetailViewModel.swift */; };
 		63861EC928AA55630062A8BD /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861EC828AA55630062A8BD /* BaseCollectionViewCell.swift */; };
-		63861ECD28AA6F1D0062A8BD /* SummaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861ECC28AA6F1D0062A8BD /* SummaryCollectionViewCell.swift */; };
+		63861ECD28AA6F1D0062A8BD /* SignboardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861ECC28AA6F1D0062A8BD /* SignboardCollectionViewCell.swift */; };
 		63861ECF28AAA2530062A8BD /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861ECE28AAA2530062A8BD /* UIImageView+Extension.swift */; };
 		63861ED228AAA3C10062A8BD /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861ED128AAA3C10062A8BD /* ImageCache.swift */; };
 		63861ED428AAA9950062A8BD /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63861ED328AAA9950062A8BD /* UIImage+Extension.swift */; };
@@ -107,7 +107,7 @@
 		6384EC5728AB7DB900D1F821 /* DescriptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCollectionViewCell.swift; sourceTree = "<group>"; };
 		6384EC7B28AC800A00D1F821 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		6384EC7D28AC83B100D1F821 /* AppDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailViewController.swift; sourceTree = "<group>"; };
-		6384EC8028ACC5B200D1F821 /* SummaryCollectionViewCellDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCollectionViewCellDesign.swift; sourceTree = "<group>"; };
+		6384EC8028ACC5B200D1F821 /* SignboardCollectionViewCellDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignboardCollectionViewCellDesign.swift; sourceTree = "<group>"; };
 		6384EC8228AD221700D1F821 /* DescriptionCollectionViewCellDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCollectionViewCellDesign.swift; sourceTree = "<group>"; };
 		6384EC8428AD2A5C00D1F821 /* ScreenshotGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotGalleryViewController.swift; sourceTree = "<group>"; };
 		63861EB528AA10990062A8BD /* AppSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSearchViewModel.swift; sourceTree = "<group>"; };
@@ -116,7 +116,7 @@
 		63861EBD28AA1D090062A8BD /* AlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewModel.swift; sourceTree = "<group>"; };
 		63861EC528AA43450062A8BD /* AppDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailViewModel.swift; sourceTree = "<group>"; };
 		63861EC828AA55630062A8BD /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
-		63861ECC28AA6F1D0062A8BD /* SummaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCollectionViewCell.swift; sourceTree = "<group>"; };
+		63861ECC28AA6F1D0062A8BD /* SignboardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignboardCollectionViewCell.swift; sourceTree = "<group>"; };
 		63861ECE28AAA2530062A8BD /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		63861ED128AAA3C10062A8BD /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		63861ED328AAA9950062A8BD /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
@@ -206,7 +206,7 @@
 		6384E5C328BCD2CD00563FD5 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				63861ECC28AA6F1D0062A8BD /* SummaryCollectionViewCell.swift */,
+				63861ECC28AA6F1D0062A8BD /* SignboardCollectionViewCell.swift */,
 				63075FBE28C1D7590094E117 /* ReleaseNoteCollectionViewCell.swift */,
 				63A66F4D28C0C1FE00F3B4D0 /* LinkInformationCollectionViewCell.swift */,
 				6384EC5728AB7DB900D1F821 /* DescriptionCollectionViewCell.swift */,
@@ -282,7 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				63075FC428C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift */,
-				6384EC8028ACC5B200D1F821 /* SummaryCollectionViewCellDesign.swift */,
+				6384EC8028ACC5B200D1F821 /* SignboardCollectionViewCellDesign.swift */,
 				6384EC8228AD221700D1F821 /* DescriptionCollectionViewCellDesign.swift */,
 				63075FC028C1D8590094E117 /* ReleaseNoteCollectionViewCellDesign.swift */,
 				63075FC228C1F01C0094E117 /* LinkInformationCollectionViewCellDesign.swift */,
@@ -667,7 +667,7 @@
 				6384EC5828AB7DB900D1F821 /* DescriptionCollectionViewCell.swift in Sources */,
 				63075FC128C1D8590094E117 /* ReleaseNoteCollectionViewCellDesign.swift in Sources */,
 				6388DE5A28A68E090011D47E /* AppSearchSceneNamespace.swift in Sources */,
-				63861ECD28AA6F1D0062A8BD /* SummaryCollectionViewCell.swift in Sources */,
+				63861ECD28AA6F1D0062A8BD /* SignboardCollectionViewCell.swift in Sources */,
 				6388DE6528A6C71E0011D47E /* AppLookupAPIRequest.swift in Sources */,
 				6384EC8328AD221700D1F821 /* DescriptionCollectionViewCellDesign.swift in Sources */,
 				63A764F828BDFF8C003B1EAA /* IconView.swift in Sources */,
@@ -700,7 +700,7 @@
 				6384EC8528AD2A5C00D1F821 /* ScreenshotGalleryViewController.swift in Sources */,
 				63861ED428AAA9950062A8BD /* UIImage+Extension.swift in Sources */,
 				63861EBE28AA1D090062A8BD /* AlertViewModel.swift in Sources */,
-				6384EC8128ACC5B200D1F821 /* SummaryCollectionViewCellDesign.swift in Sources */,
+				6384EC8128ACC5B200D1F821 /* SignboardCollectionViewCellDesign.swift in Sources */,
 				63861EBB28AA1AF50062A8BD /* AppLookupResults.swift in Sources */,
 				63A66F4E28C0C1FE00F3B4D0 /* LinkInformationCollectionViewCell.swift in Sources */,
 				6388DE6228A6A56A0011D47E /* APIRequest.swift in Sources */,
