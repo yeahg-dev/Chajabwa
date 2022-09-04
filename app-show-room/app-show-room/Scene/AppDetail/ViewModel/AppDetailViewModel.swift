@@ -125,7 +125,7 @@ struct AppDetailViewModel {
                 primaryText: Text.ratingCount.value(with: userRatingCount),
                 secnondaryText: "일단 비움",
                 symbolImage: nil,
-                symbolTextView: TextImageView(averageUserRatingText ?? "_"))
+                symbolTextView: TextSymbolView(averageUserRatingText ?? "_"))
             summarys.append(averageUserRatingSummary)
         }
         
@@ -134,7 +134,7 @@ struct AppDetailViewModel {
                 primaryText: Text.age.value,
                 secnondaryText: Text.old.value,
                 symbolImage: nil,
-                symbolTextView: TextImageView(contentAdvisoryRating))
+                symbolTextView: TextSymbolView(contentAdvisoryRating))
             summarys.append(contentAdvisoryRatingSummary)
         }
         
@@ -149,7 +149,7 @@ struct AppDetailViewModel {
         }
         
         if let genre = app.primaryGenreName {
-            let genreImage = AppCategory(rawValue: genre)?.image
+            let genreImage = AppGenre(rawValue: genre)?.symbolImage
             let genreSummary = Summary(
                 primaryText: Text.genre.value,
                 secnondaryText: genre,
@@ -164,7 +164,7 @@ struct AppDetailViewModel {
                 primaryText: Text.language.value,
                 secnondaryText: Text.languageCount.value(with: languageCodes.count),
                 symbolImage: nil,
-                symbolTextView: TextImageView(firstLanguageCode))
+                symbolTextView: TextSymbolView(firstLanguageCode))
             summarys.append(languageSummary)
         }
         

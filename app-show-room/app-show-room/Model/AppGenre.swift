@@ -1,5 +1,5 @@
 //
-//  AppCategory.swift
+//  AppGenre.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/08/12.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum AppCategory: String, Codable {
+enum AppGenre: String, Codable {
     
     case books = "Books"
     case business = "Business"
@@ -37,7 +37,7 @@ enum AppCategory: String, Codable {
     case utilities = "Utilities"
     case weahter = "Weather"
     
-    var image: UIImage? {
+    var symbolImage: UIImage? {
         switch self {
         case .books:
             return UIImage(systemName: "books.vertical.fill")

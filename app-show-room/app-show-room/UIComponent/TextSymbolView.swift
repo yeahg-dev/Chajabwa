@@ -1,5 +1,5 @@
 //
-//  TextImageView.swift
+//  TextSymbolView.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/09/03.
@@ -13,7 +13,7 @@ private enum Design {
     static let color: UIColor = .gray
 }
 
-final class TextImageView: UIView {
+final class TextSymbolView: UIView {
     
     private let text: String
     
