@@ -9,8 +9,8 @@ import UIKit
 
 private enum Design {
     
-    static let font: UIFont = .boldSystemFont(ofSize: 30)
-    static let color: UIColor = .systemGray3
+    static let font: UIFont = .boldSystemFont(ofSize: 25)
+    static let color: UIColor = .gray
 }
 
 final class TextImageView: UIView {

@@ -78,7 +78,6 @@ extension App {
             price: self.formattedPrice,
             averageUserRating: self.averageUserRating,
             userRatingCount: self.userRatingCount,
-            appContentRating: self.contentAdvisoryRating,
             primaryGenreName: self.primaryGenreName,
             languageCodesISO2A: self.languageCodesISO2A,
             screenShotURLs: self.screenshotUrls,

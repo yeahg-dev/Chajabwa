@@ -29,8 +29,8 @@ enum AppCategory: String, Codable {
     case photoAndVideo = "Photo & Video"
     case productivity = "Productivity"
     case reference = "Reference"
-    case safariExtension
-    case shopping
+    case safariExtension = "Safari Extension"
+    case shopping = "Shopping"
     case socialNetworking = "Social Networking"
     case sports = "Sports"
     case travel = "Travel"

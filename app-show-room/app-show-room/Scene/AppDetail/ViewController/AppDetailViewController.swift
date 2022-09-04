@@ -102,6 +102,24 @@ final class AppDetailViewController: UIViewController {
                     subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
                 
+            } else if sectionKind == .summary {
+                
+                let cellDesign = SummaryCollectionViewCellDesign.self
+                let itemSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .fractionalHeight(1.0))
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                let groupSize = NSCollectionLayoutSize(
+                    widthDimension: .absolute(cellDesign.width),
+                    heightDimension: .absolute(cellDesign.height))
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: groupSize,
+                    subitems: [item])
+                section = NSCollectionLayoutSection(group: group)
+                section.contentInsets = NSDirectionalEdgeInsets(
+                    top: 20, leading: 25, bottom: 20, trailing: 25)
+                section.orthogonalScrollingBehavior = .groupPaging
+                
             } else if sectionKind == .releaseNote {
                 
                 let itemSize = NSCollectionLayoutSize(
@@ -133,7 +151,7 @@ final class AppDetailViewController: UIViewController {
                 section.interGroupSpacing = 10
                 section.contentInsets = NSDirectionalEdgeInsets(
                     top: 20, leading: 25, bottom: 20, trailing: 25)
-                section.orthogonalScrollingBehavior = .groupPaging
+                section.orthogonalScrollingBehavior = .continuous
                 
             } else if sectionKind == .descritption {
                 
@@ -163,9 +181,29 @@ final class AppDetailViewController: UIViewController {
         return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
     }
     
-    private func createSummaryCellRegistration() -> UICollectionView.CellRegistration<SignboardCollectionViewCell, AppDetailViewModel.Item> {
+    private func createSignboardCellRegistration() -> UICollectionView.CellRegistration<SignboardCollectionViewCell, AppDetailViewModel.Item> {
         return UICollectionView.CellRegistration<SignboardCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
             cell.bind(model: item)
+        }
+    }
+    
+    private func createSummaryCellRegistration() -> UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> {
+        return UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> { [weak self] (cell, indexPath, item) in
+            guard case let .summary(summary) = item else {
+                return
+            }
+            cell.bind(
+                primaryText: summary.primaryText,
+                secondaryText: summary.secnondaryText,
+                symbolImage: summary.symbolImage,
+                symbolTextView: summary.symbolTextView)
+            
+            if indexPath.row == (self?.viewModel.summaryCollectionViewCellCount ?? 0) - 1 {
+                cell.showsSeparator = false
+            } else {
+                cell.showsSeparator = true
+            }
+            
         }
     }
     
@@ -220,6 +258,7 @@ final class AppDetailViewController: UIViewController {
     }
     
     private func configureDataSource() {
+        let signboardCellRegistration = createSignboardCellRegistration()
         let summaryCellRegistration = createSummaryCellRegistration()
         let releaseNoteCellRegistration = createReleaseNoteCellRegistration()
         let screenshotCellRegistration = createScreenshotCellRegistration()
@@ -233,6 +272,11 @@ final class AppDetailViewController: UIViewController {
             
             switch section {
             case .signBoard:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: signboardCellRegistration,
+                    for: indexPath,
+                    item: item)
+            case .summary:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: summaryCellRegistration,
                     for: indexPath,

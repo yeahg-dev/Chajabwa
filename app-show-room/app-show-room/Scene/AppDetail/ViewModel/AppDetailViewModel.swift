@@ -11,6 +11,7 @@ struct AppDetailViewModel {
     
     enum Section: Int, CaseIterable {
         case signBoard
+        case summary
         case releaseNote
         case screenshot
         case descritption
@@ -31,6 +32,10 @@ struct AppDetailViewModel {
     
     var iconImageURL: String? {
         return app.iconImageURL
+    }
+    
+    var summaryCollectionViewCellCount: Int {
+        return summaryItems.count
     }
     
     var linkInformationsIndexPaths: [IndexPath] {
@@ -88,6 +93,8 @@ struct AppDetailViewModel {
                 provider: app.provider,
                 price: app.price)
             return [Item.signBoard(info)]
+        case .summary:
+            return summaryItems
         case .releaseNote:
             let releaseNote = ReleaseNote(
                 version: app.version,
@@ -104,6 +111,64 @@ struct AppDetailViewModel {
         case .information:
            return textInformations + linkInformations
         }
+    }
+    
+    private var summaryItems: [Item] {
+        var summarys = [Summary]()
+        
+        if let averageUserRating = app.averageUserRating,
+           let userRatingCount = app.userRatingCount {
+            let numberFormatter = NumberFormatter()
+            numberFormatter.maximumFractionDigits = 1
+            let averageUserRatingText = numberFormatter.string(from: averageUserRating as NSNumber)
+            let averageUserRatingSummary = Summary(
+                primaryText: Text.ratingCount.value(with: userRatingCount),
+                secnondaryText: "일단 비움",
+                symbolImage: nil,
+                symbolTextView: TextImageView(averageUserRatingText ?? "_"))
+            summarys.append(averageUserRatingSummary)
+        }
+        
+        if let contentAdvisoryRating = app.contentAdvisoryRating {
+            let contentAdvisoryRatingSummary = Summary(
+                primaryText: Text.age.value,
+                secnondaryText: Text.old.value,
+                symbolImage: nil,
+                symbolTextView: TextImageView(contentAdvisoryRating))
+            summarys.append(contentAdvisoryRatingSummary)
+        }
+        
+        if let provider = app.provider {
+            let developerImage = UIImage(systemName: "person.crop.square")
+            let providerSummary = Summary(
+                primaryText: Text.developer.value,
+                secnondaryText: provider,
+                symbolImage: developerImage,
+                symbolTextView: nil)
+            summarys.append(providerSummary)
+        }
+        
+        if let genre = app.primaryGenreName {
+            let genreImage = AppCategory(rawValue: genre)?.image
+            let genreSummary = Summary(
+                primaryText: Text.genre.value,
+                secnondaryText: genre,
+                symbolImage: genreImage,
+                symbolTextView: nil)
+            summarys.append(genreSummary)
+        }
+        
+        if let languageCodes = app.languageCodesISO2A,
+           let firstLanguageCode = languageCodes.first {
+            let languageSummary = Summary(
+                primaryText: Text.language.value,
+                secnondaryText: Text.languageCount.value(with: languageCodes.count),
+                symbolImage: nil,
+                symbolTextView: TextImageView(firstLanguageCode))
+            summarys.append(languageSummary)
+        }
+        
+        return summarys.map { Item.summary($0) }
     }
   
     private var textInformations: [Item] {
@@ -172,6 +237,7 @@ extension AppDetailViewModel {
     
     enum Item: Hashable {
         case signBoard(AppSignBoard)
+        case summary(Summary)
         case releaseNote(ReleaseNote)
         case screenshot(Screenshot)
         case description(Description)
@@ -183,6 +249,13 @@ extension AppDetailViewModel {
         let iconImageURL: String?
         let provider: String?
         let price: String?
+    }
+    
+    struct Summary: Hashable {
+        let primaryText: String?
+        let secnondaryText: String?
+        let symbolImage: UIImage?
+        let symbolTextView: UIView?
     }
     
     struct ReleaseNote: Hashable {
