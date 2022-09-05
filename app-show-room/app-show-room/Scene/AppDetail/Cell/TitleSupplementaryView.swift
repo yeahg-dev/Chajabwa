@@ -7,7 +7,13 @@
 
 import UIKit
 
-final class TitleSupplementaryView: UICollectionReusableView {
+// MARK: - TitleSupplementaryView
+
+class TitleSupplementaryView: UICollectionReusableView {
+    
+    var padding: CGFloat {
+        return 0
+    }
     
     private let label = UILabel()
 
@@ -33,11 +39,20 @@ extension TitleSupplementaryView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             label.topAnchor.constraint(equalTo: topAnchor),
             label.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         label.font = .boldSystemFont(ofSize: 22)
     }
+}
+
+// MARK: - PaddingTitleSupplementaryView
+
+final class PaddingTitleSupplementaryView: TitleSupplementaryView {
+    
+    override var padding: CGFloat {
+        return 25 }
+   
 }

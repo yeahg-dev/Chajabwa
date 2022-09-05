@@ -14,6 +14,7 @@ final class AppDetailViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<AppDetailViewModel.Section, AppDetailViewModel.Item>!
     
     private let viewModel: AppDetailViewModel
+    private let elementKind = AppDetailViewModel.SupplementaryElementKind.self
     
     private lazy var iconImage: IconView = {
         let iconIamge = IconView()
@@ -132,6 +133,13 @@ final class AppDetailViewController: UIViewController {
                     layoutSize: groupSize,
                     subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
+                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                      heightDimension: .estimated(44)),
+                    elementKind: self.elementKind.paddingTitleHeaderView.rawValue,
+                    alignment: .top)
+                section.boundarySupplementaryItems = [sectionHeader]
+                
             case .screenshot:
                 
                 let cellDesign = ScreenShotCollectionViewCellStyle.Normal.self
@@ -149,9 +157,8 @@ final class AppDetailViewController: UIViewController {
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                       heightDimension: .estimated(44)),
-                    elementKind: "Header",
+                    elementKind: self.elementKind.titleHeaderView.rawValue,
                     alignment: .top)
-               
                 section.boundarySupplementaryItems = [sectionHeader]
                 section.interGroupSpacing = 10
                 section.contentInsets = NSDirectionalEdgeInsets(
@@ -176,6 +183,12 @@ final class AppDetailViewController: UIViewController {
                 
                 let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
                 section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
+                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                      heightDimension: .estimated(44)),
+                    elementKind: self.elementKind.paddingTitleHeaderView.rawValue,
+                    alignment: .top)
+                section.boundarySupplementaryItems = [sectionHeader]
             }
 
             return section
@@ -261,7 +274,17 @@ final class AppDetailViewController: UIViewController {
     private func createHeaderSupplemantryRegistration() -> UICollectionView.SupplementaryRegistration
     <TitleSupplementaryView> {
         return UICollectionView.SupplementaryRegistration
-        <TitleSupplementaryView>(elementKind: "Header") {
+        <TitleSupplementaryView>(elementKind: elementKind.titleHeaderView.rawValue) {
+            [weak self] (supplementaryView, string, indexPath) in
+            let sectionTitle = self?.viewModel.sections[indexPath.section].title
+            supplementaryView.bind(title: sectionTitle)
+        }
+    }
+    
+    private func createPaddingHeaderSupplemantryRegistration() -> UICollectionView.SupplementaryRegistration
+    <PaddingTitleSupplementaryView> {
+        return UICollectionView.SupplementaryRegistration
+        <PaddingTitleSupplementaryView>(elementKind: elementKind.paddingTitleHeaderView.rawValue) {
             [weak self] (supplementaryView, string, indexPath) in
             let sectionTitle = self?.viewModel.sections[indexPath.section].title
             supplementaryView.bind(title: sectionTitle)
@@ -277,6 +300,7 @@ final class AppDetailViewController: UIViewController {
         let textInformationCellRegistration = createTextInformationCellRegistration()
         let linkInformationCellRegistration = createLinkInformationCellRegistration()
         let headerSupplemantryRegistration = createHeaderSupplemantryRegistration()
+        let paddingHeaderSupplementaryRegistration = createPaddingHeaderSupplemantryRegistration()
         
         self.dataSource = UICollectionViewDiffableDataSource<AppDetailViewModel.Section, AppDetailViewModel.Item>(collectionView: contentCollectionView) {
             (collectionView, indexPath, item) -> UICollectionViewCell? in
@@ -324,8 +348,14 @@ final class AppDetailViewController: UIViewController {
             }
         }
         self.dataSource.supplementaryViewProvider = { [weak self] (view, kind, index) in
+            if kind == self?.elementKind.titleHeaderView.rawValue {
             return self?.contentCollectionView.dequeueConfiguredReusableSupplementary(
                 using: headerSupplemantryRegistration, for: index)
+            } else if kind == self?.elementKind.paddingTitleHeaderView.rawValue {
+                return self?.contentCollectionView.dequeueConfiguredReusableSupplementary(
+                    using: paddingHeaderSupplementaryRegistration, for: index)
+            }
+            return nil
         }
     }
     

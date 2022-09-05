@@ -35,6 +35,12 @@ struct AppDetailViewModel {
         }
     }
     
+    enum SupplementaryElementKind: String {
+        case titleHeaderView
+        case paddingTitleHeaderView
+        
+    }
+    
     private let app: AppDetail
     let sections: [Section] = Section.allCases
     
