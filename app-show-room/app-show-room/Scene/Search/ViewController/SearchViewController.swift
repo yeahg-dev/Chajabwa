@@ -34,7 +34,7 @@ final class SearchViewController: UIViewController {
     }
     
     private func configureView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
     }
     
     private func configureNavigationController() {
