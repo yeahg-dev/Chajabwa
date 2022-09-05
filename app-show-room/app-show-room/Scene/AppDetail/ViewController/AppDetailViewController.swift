@@ -148,6 +148,13 @@ final class AppDetailViewController: UIViewController {
                     layoutSize: groupSize,
                     subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
+                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                      heightDimension: .estimated(44)),
+                    elementKind: "Header",
+                    alignment: .top)
+               
+                section.boundarySupplementaryItems = [sectionHeader]
                 section.interGroupSpacing = 10
                 section.contentInsets = NSDirectionalEdgeInsets(
                     top: 20, leading: 25, bottom: 20, trailing: 25)
@@ -256,6 +263,16 @@ final class AppDetailViewController: UIViewController {
         }
     }
     
+    private func createHeaderSupplemantryRegistration() -> UICollectionView.SupplementaryRegistration
+    <TitleSupplementaryView> {
+        return UICollectionView.SupplementaryRegistration
+        <TitleSupplementaryView>(elementKind: "Header") {
+            [weak self] (supplementaryView, string, indexPath) in
+            let sectionTitle = self?.viewModel.sections[indexPath.section].title
+            supplementaryView.bind(title: sectionTitle)
+        }
+    }
+        
     private func configureDataSource() {
         let signboardCellRegistration = createSignboardCellRegistration()
         let summaryCellRegistration = createSummaryCellRegistration()
@@ -264,6 +281,7 @@ final class AppDetailViewController: UIViewController {
         let descriptionCellRegistration = createDescriptionCellRegistration()
         let textInformationCellRegistration = createTextInformationCellRegistration()
         let linkInformationCellRegistration = createLinkInformationCellRegistration()
+        let headerSupplemantryRegistration = createHeaderSupplemantryRegistration()
         
         self.dataSource = UICollectionViewDiffableDataSource<AppDetailViewModel.Section, AppDetailViewModel.Item>(collectionView: contentCollectionView) {
             (collectionView, indexPath, item) -> UICollectionViewCell? in
@@ -309,6 +327,10 @@ final class AppDetailViewController: UIViewController {
                         item: item)
                 }
             }
+        }
+        self.dataSource.supplementaryViewProvider = { [weak self] (view, kind, index) in
+            return self?.contentCollectionView.dequeueConfiguredReusableSupplementary(
+                using: headerSupplemantryRegistration, for: index)
         }
     }
     

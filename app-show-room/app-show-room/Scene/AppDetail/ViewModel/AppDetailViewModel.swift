@@ -16,6 +16,23 @@ struct AppDetailViewModel {
         case screenshot
         case descritption
         case information
+        
+        var title: String? {
+            switch self {
+            case .signBoard:
+                return nil
+            case .summary:
+                return nil
+            case .releaseNote:
+                return "새로운 기능"
+            case .screenshot:
+                return "미리보기"
+            case .descritption:
+                return nil
+            case .information:
+                return "정보"
+            }
+        }
     }
     
     private let app: AppDetail
