@@ -22,10 +22,30 @@ final class ReleaseNoteCollectionViewCell: BaseCollectionViewCell {
     private let descriptionTextView = UITextView()
     private let foldingButton = UIButton(type: .custom)
     
-    weak var delegate: ReleaseNoteCollectionViewCellDelegate?
-    
     private var isFolded: Bool = true
     
+    weak var delegate: ReleaseNoteCollectionViewCellDelegate?
+    
+    private lazy var showFoldingButton: [NSLayoutConstraint] = {
+        return [
+            foldingButton.topAnchor.constraint(
+                equalTo: descriptionTextView.bottomAnchor,
+                constant: design.desciptionTextViewMarginBottom),
+            foldingButton.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -design.paddingTrailing),
+            foldingButton.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -design.paddingBottom)
+        ]
+    }()
+    
+    private lazy var hideFoldingButton: NSLayoutConstraint = {
+        descriptionTextView.bottomAnchor.constraint(
+            equalTo: contentView.bottomAnchor,
+            constant: -design.desciptionTextViewMarginBottom)
+    }()
+  
     override func addSubviews() {
         contentView.addSubview(versionLabel)
         contentView.addSubview(currentVersionReleaseDateLabel)
@@ -55,12 +75,20 @@ final class ReleaseNoteCollectionViewCell: BaseCollectionViewCell {
             versionLabel.text = releaseNote.version
             currentVersionReleaseDateLabel.text = releaseNote.currentVersionReleaseDate
             descriptionTextView.text = releaseNote.description
-            foldingButton.setTitle(releaseNote.buttonTitle, for: .normal)
+            
             if releaseNote.isTrucated {
                 descriptionTextView.textContainer.maximumNumberOfLines = design.textContainerMaximumNumberOfLines
             } else {
                 descriptionTextView.textContainer.maximumNumberOfLines = design.textContainerMaximumNumberOfLines
             }
+            
+            guard let button = releaseNote.buttonTitle else {
+                NSLayoutConstraint.deactivate(showFoldingButton)
+                hideFoldingButton.isActive = true
+                return
+            }
+            
+            foldingButton.setTitle(button, for: .normal)
         }
     }
     
@@ -158,9 +186,6 @@ extension ReleaseNoteCollectionViewCell {
             descriptionTextView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
                 constant: -design.paddingTrailing),
-            descriptionTextView.bottomAnchor.constraint(
-                equalTo: foldingButton.topAnchor,
-                constant: design.desciptionTextViewMarginBottom ),
             descriptionTextView.widthAnchor.constraint(
                 equalToConstant: UIScreen.main.bounds.width
                 - design.paddingLeading - design.paddingTrailing)
@@ -168,14 +193,7 @@ extension ReleaseNoteCollectionViewCell {
     }
     
     private func setConstraintsOfFoldingButton() {
-        NSLayoutConstraint.activate([
-            foldingButton.trailingAnchor.constraint(
-                equalTo: contentView.trailingAnchor,
-                constant: -design.paddingTrailing),
-            foldingButton.bottomAnchor.constraint(
-                equalTo: contentView.bottomAnchor,
-                constant: -design.paddingBottom),
-        ])
+        NSLayoutConstraint.activate(showFoldingButton)
     }
     
 }

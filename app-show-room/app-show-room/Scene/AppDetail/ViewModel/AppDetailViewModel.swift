@@ -19,12 +19,11 @@ struct AppDetailViewModel {
     }
     
     private let app: AppDetail
+    let sections: [Section] = Section.allCases
     
     init(app: AppDetail) {
         self.app = app
     }
-    
-    let sections: [Section] = Section.allCases
    
     var screenshotURLs: [String]? {
         return app.screenShotURLs
@@ -49,21 +48,12 @@ struct AppDetailViewModel {
     }
     
     func releaseNote(isTruncated: Bool) -> Item {
-        if isTruncated {
-            let fullReleaseNote = ReleaseNote(
-                version: app.version,
-                currentVersionReleaseDate: app.currentVersionReleaseDate,
-                description: app.description,
-                isTruncated: isTruncated)
-            return Item.releaseNote(fullReleaseNote)
-        } else {
-            let previewReleaseNote = ReleaseNote(
-                version: app.version,
-                currentVersionReleaseDate: app.currentVersionReleaseDate,
-                description: app.description,
-                isTruncated: isTruncated)
-            return Item.releaseNote(previewReleaseNote)
-        }
+        let releaseNote = ReleaseNote(
+            version: app.version,
+            currentVersionReleaseDate: app.currentVersionReleaseDate,
+            description: app.releaseDescription,
+            isTruncated: isTruncated)
+        return Item.releaseNote(releaseNote)
     }
     
     func description(isTruncated: Bool) -> Item {
@@ -99,7 +89,7 @@ struct AppDetailViewModel {
             let releaseNote = ReleaseNote(
                 version: app.version,
                 currentVersionReleaseDate: app.currentVersionReleaseDate,
-                description: app.description)
+                description: app.releaseDescription, isTruncated: true)
             return [Item.releaseNote(releaseNote)]
         case .screenshot:
             let items = app.screenShotURLs?.map { Screenshot(url: $0) }
@@ -261,9 +251,28 @@ extension AppDetailViewModel {
     struct ReleaseNote: Hashable {
         private let versionValue: String?
         private let currentVersionReleaseDateValue: String?
+        private let fullDescription: String?
+        var isTrucated: Bool
         
-        let description: String?
-        var isTrucated: Bool = true
+        init(version: String?, currentVersionReleaseDate: String?, description: String?,
+             isTruncated: Bool) {
+            self.versionValue = version
+            self.currentVersionReleaseDateValue = currentVersionReleaseDate
+            self.fullDescription = description
+            self.isTrucated = isTruncated
+        }
+
+        var description: String? {
+            if isTrucated {
+                return previewDescription
+            } else {
+                return fullDescription
+            }
+        }
+        
+        private var previewDescription: String? {
+            return fullDescription?.previewText
+        }
         
         var version: String? {
             if let versionValue = versionValue {
@@ -276,15 +285,12 @@ extension AppDetailViewModel {
             return releaseDateRepresentation(currentVersionReleaseDateValue)
         }
         
-        var buttonTitle: String {
-            return isTrucated ? Text.moreDetails.value : Text.preview.value
-        }
-        
-        init(version: String?, currentVersionReleaseDate: String?, description: String?,
-             isTruncated: Bool = true) {
-            self.versionValue = version
-            self.currentVersionReleaseDateValue = currentVersionReleaseDate
-            self.description = description
+        var buttonTitle: String? {
+            if fullDescription ==  previewDescription {
+                return nil
+            } else {
+                return isTrucated ? Text.moreDetails.value : Text.preview.value
+            }
         }
         
         private func releaseDateRepresentation(_ string: String?) -> String? {
