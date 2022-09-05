@@ -114,8 +114,7 @@ struct AppDetailViewModel {
             let averageUserRatingSummary = Summary(
                 primaryText: Text.ratingCount.value(with: userRatingCount),
                 secnondaryText: "일단 비움",
-                symbolImage: nil,
-                symbolTextView: TextSymbolView(averageUserRatingText ?? "_"))
+                symbolImage: TextSymbolView(averageUserRatingText ?? "_").image)
             summarys.append(averageUserRatingSummary)
         }
         
@@ -123,8 +122,7 @@ struct AppDetailViewModel {
             let contentAdvisoryRatingSummary = Summary(
                 primaryText: Text.age.value,
                 secnondaryText: Text.old.value,
-                symbolImage: nil,
-                symbolTextView: TextSymbolView(contentAdvisoryRating))
+                symbolImage: TextSymbolView(contentAdvisoryRating).image)
             summarys.append(contentAdvisoryRatingSummary)
         }
         
@@ -133,8 +131,7 @@ struct AppDetailViewModel {
             let providerSummary = Summary(
                 primaryText: Text.developer.value,
                 secnondaryText: provider,
-                symbolImage: developerImage,
-                symbolTextView: nil)
+                symbolImage: developerImage)
             summarys.append(providerSummary)
         }
         
@@ -143,8 +140,7 @@ struct AppDetailViewModel {
             let genreSummary = Summary(
                 primaryText: Text.genre.value,
                 secnondaryText: genre,
-                symbolImage: genreImage,
-                symbolTextView: nil)
+                symbolImage: genreImage)
             summarys.append(genreSummary)
         }
         
@@ -153,8 +149,7 @@ struct AppDetailViewModel {
             let languageSummary = Summary(
                 primaryText: Text.language.value,
                 secnondaryText: Text.languageCount.value(with: languageCodes.count),
-                symbolImage: nil,
-                symbolTextView: TextSymbolView(firstLanguageCode))
+                symbolImage: TextSymbolView(firstLanguageCode).image)
             summarys.append(languageSummary)
         }
         
@@ -245,7 +240,6 @@ extension AppDetailViewModel {
         let primaryText: String?
         let secnondaryText: String?
         let symbolImage: UIImage?
-        let symbolTextView: UIView?
     }
     
     struct ReleaseNote: Hashable {

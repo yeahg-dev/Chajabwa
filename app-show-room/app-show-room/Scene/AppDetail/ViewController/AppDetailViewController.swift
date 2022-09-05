@@ -195,8 +195,7 @@ final class AppDetailViewController: UIViewController {
             cell.bind(
                 primaryText: summary.primaryText,
                 secondaryText: summary.secnondaryText,
-                symbolImage: summary.symbolImage,
-                symbolTextView: summary.symbolTextView)
+                symbolImage: summary.symbolImage)
             
             if indexPath.row == (self?.viewModel.summaryCollectionViewCellCount ?? 0) - 1 {
                 cell.showsSeparator = false

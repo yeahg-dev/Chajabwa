@@ -43,12 +43,6 @@ final class SummaryCollectionViewCell: BaseCollectionViewCell {
         return imageView
     }()
     
-    private var symbolTextView: UIView? {
-        didSet {
-            setConstraintsOfSymbolTextView()
-        }
-    }
-    
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             primaryTextLabel, symbolImageView, secondaryTextLabel,
@@ -87,41 +81,18 @@ final class SummaryCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func prepareForReuse() {
-        self.symbolTextView = nil
-        self.symbolImageView.image = nil
-        self.showsSeparator = true
+        symbolImageView.image = nil
+        showsSeparator = true
     }
     
     func bind(
         primaryText: String?,
         secondaryText: String?,
-        symbolImage: UIImage?,
-        symbolTextView: UIView?) {
+        symbolImage: UIImage?) {
             primaryTextLabel.text = primaryText
             secondaryTextLabel.text = secondaryText
-            
-            if let symbolImage = symbolImage {
-                self.symbolImageView.image = symbolImage
-            }
-
-            if let symbolTextView = symbolTextView {
-                self.symbolTextView = symbolTextView
-            }
+            symbolImageView.image = symbolImage
         }
-    
-    private func setConstraintsOfSymbolTextView() {
-        guard let symbolTextView = symbolTextView else {
-            return
-        }
-        symbolImageView.addSubview(symbolTextView)
-        symbolTextView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            symbolTextView.leadingAnchor.constraint(equalTo: symbolImageView.leadingAnchor),
-            symbolTextView.topAnchor.constraint(equalTo: symbolImageView.topAnchor),
-            symbolTextView.trailingAnchor.constraint(equalTo: symbolImageView.trailingAnchor),
-            symbolTextView.bottomAnchor.constraint(equalTo: symbolImageView.bottomAnchor)
-        ])
-    }
     
     private func updateSeparator() {
         separatorLayer.isHidden = !showsSeparator

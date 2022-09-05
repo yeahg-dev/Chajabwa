@@ -11,6 +11,8 @@ private enum Design {
     
     static let font: UIFont = .boldSystemFont(ofSize: 25)
     static let color: UIColor = .gray
+    static let width: CGFloat = 90
+    static let height: CGFloat = 33
 }
 
 final class TextSymbolView: UIView {
@@ -24,14 +26,18 @@ final class TextSymbolView: UIView {
         label.font = Design.font
         label.textColor = Design.color
         label.numberOfLines = 1
-        // TODO: - lineBreakStrategy
-        label.lineBreakStrategy = .pushOut
+        label.lineBreakMode = .byTruncatingTail
+        label.sizeToFit()
         return label
     }()
     
+    var image: UIImage {
+        return self.toImage()
+    }
+    
     init(_ text: String) {
         self.text = text
-        super.init(frame: .zero)
+        super.init(frame: CGRect(x: 0, y: 0, width: Design.width, height: Design.height))
         configureSubview()
     }
     
@@ -42,11 +48,10 @@ final class TextSymbolView: UIView {
     private func configureSubview(){
         addSubview(label)
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            label.topAnchor.constraint(equalTo: self.topAnchor),
-            label.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            label.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            label.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
+        
     }
     
 }
