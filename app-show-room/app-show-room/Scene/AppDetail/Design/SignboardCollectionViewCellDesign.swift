@@ -15,14 +15,14 @@ enum SignboardCollectionViewCellDesign {
     static let paddingBottom = AppDetailCollectionViewCellDesign.paddingBottom
     static let paddingTrailing = AppDetailCollectionViewCellDesign.paddingTrailing
     
-    static let iconImageViewTrailingMargin = CGFloat(13)
-    static let providerLabelTopMargin = CGFloat(7)
+    static let iconImageViewTrailingMargin: CGFloat = 15
+    static let providerLabelTopMargin: CGFloat = 5
     
     // size
     static let width = UIScreen.main.bounds.width
     static let height = paddingTop + iconImageViewHeight + paddingBottom
-    static let iconImageViewWidth = UIScreen.main.bounds.width * 0.285
-    static let iconImageViewHeight = UIScreen.main.bounds.width * 0.285
+    static let iconImageViewWidth = UIScreen.main.bounds.width * 0.3
+    static let iconImageViewHeight = iconImageViewWidth
     static let purchaseButtonWidth: CGFloat = 70
     static let purchaseButtonHeight: CGFloat = 25
     static let shareButtonWidth: CGFloat = 18

@@ -147,7 +147,7 @@ extension SignboardCollectionViewCell {
                 equalTo: contentView.topAnchor,
                 constant: design.paddingTop),
             appNameLabel.trailingAnchor.constraint(
-                greaterThanOrEqualTo: contentView.trailingAnchor,
+                equalTo: contentView.trailingAnchor,
                 constant: -design.paddingTrailing),
         ])
     }
