@@ -8,7 +8,7 @@
 import Foundation
 
 enum Text: String {
-    
+
     case provider = "제공자"
     case fileSize = "크기"
     case contentAdvisoryRating = "등급"
@@ -20,6 +20,10 @@ enum Text: String {
     case old = "세"
     case developer = "개발자"
     case language = "언어"
+    
+    case newFeature = "새로운 기능"
+    case screenshotView = "미리보기"
+    case information = "정보"
     
     case download = "받기"
     case moreDetails = "더 보기"

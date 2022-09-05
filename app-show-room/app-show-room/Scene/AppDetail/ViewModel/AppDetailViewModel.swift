@@ -24,13 +24,13 @@ struct AppDetailViewModel {
             case .summary:
                 return nil
             case .releaseNote:
-                return "새로운 기능"
+                return Text.newFeature.value
             case .screenshot:
-                return "미리보기"
+                return Text.screenshotView.value
             case .descritption:
                 return nil
             case .information:
-                return "정보"
+                return Text.information.value
             }
         }
     }
