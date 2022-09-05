@@ -71,9 +71,9 @@ final class SummaryCollectionViewCell: BaseCollectionViewCell {
 
     override func setConstraints() {
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: design.paddingLeading),
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -design.paddingTrailing),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             stackView.widthAnchor.constraint(equalToConstant: design.width),
             stackView.heightAnchor.constraint(equalToConstant: design.height)

@@ -9,6 +9,10 @@ import UIKit
 
 enum SummaryCollectionViewCellDesign {
     
+    // padding
+    static let paddingLeading: CGFloat = 5
+    static let paddingTrailing: CGFloat = 5
+    
     // size
     static let width: CGFloat = 100
     static let height: CGFloat = 70
