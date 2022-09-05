@@ -87,8 +87,8 @@ final class AppDetailViewController: UIViewController {
             
             let section: NSCollectionLayoutSection
             
-            // TODO: Switch 로 리팩터링
-            if sectionKind == .signBoard {
+            switch sectionKind {
+            case .signBoard:
                 
                 let itemSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
@@ -101,8 +101,7 @@ final class AppDetailViewController: UIViewController {
                     layoutSize: groupSize,
                     subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
-                
-            } else if sectionKind == .summary {
+            case .summary:
                 
                 let cellDesign = SummaryCollectionViewCellDesign.self
                 let itemSize = NSCollectionLayoutSize(
@@ -118,9 +117,9 @@ final class AppDetailViewController: UIViewController {
                 section = NSCollectionLayoutSection(group: group)
                 section.contentInsets = NSDirectionalEdgeInsets(
                     top: 20, leading: 25, bottom: 20, trailing: 25)
-                section.orthogonalScrollingBehavior = .groupPaging
+                section.orthogonalScrollingBehavior = .continuous
                 
-            } else if sectionKind == .releaseNote {
+            case .releaseNote:
                 
                 let itemSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
@@ -133,8 +132,7 @@ final class AppDetailViewController: UIViewController {
                     layoutSize: groupSize,
                     subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
-                
-            } else if sectionKind == .screenshot {
+            case .screenshot:
                 
                 let cellDesign = ScreenShotCollectionViewCellStyle.Normal.self
                 let itemSize = NSCollectionLayoutSize(
@@ -158,9 +156,9 @@ final class AppDetailViewController: UIViewController {
                 section.interGroupSpacing = 10
                 section.contentInsets = NSDirectionalEdgeInsets(
                     top: 20, leading: 25, bottom: 20, trailing: 25)
-                section.orthogonalScrollingBehavior = .continuous
+                section.orthogonalScrollingBehavior = .groupPaging
                 
-            } else if sectionKind == .descritption {
+            case .descritption:
                 
                 let itemSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
@@ -174,15 +172,12 @@ final class AppDetailViewController: UIViewController {
                     subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
                 
-            } else if sectionKind == .information {
+            case .information:
                 
                 let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
                 section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
-                
-            } else {
-                fatalError("Unknown section!")
             }
-            
+
             return section
         }
         return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
