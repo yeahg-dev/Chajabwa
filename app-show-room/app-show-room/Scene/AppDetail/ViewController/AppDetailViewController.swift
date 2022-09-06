@@ -33,6 +33,8 @@ final class AppDetailViewController: UIViewController {
     private var isReleaseNoteFolded: Bool = true
     private var isDescriptionViewFolded: Bool = true
     
+    private let design = AppDetailViewDesign.self
+    
     // MARK: - Initializer
     
     init(appDetailViewModel: AppDetailViewModel) {
@@ -59,7 +61,7 @@ final class AppDetailViewController: UIViewController {
     
     private func configureUI() {
         view.addSubview(contentCollectionView)
-        view.backgroundColor = .white
+        view.backgroundColor = design.backgroundColor
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.titleView = iconImage
         navigationItem.titleView?.alpha = 0
@@ -127,7 +129,10 @@ final class AppDetailViewController: UIViewController {
                     subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
                 section.contentInsets = NSDirectionalEdgeInsets(
-                    top: 20, leading: 25, bottom: 20, trailing: 25)
+                    top: self.design.sectionContentInsetTop,
+                    leading: self.design.sectionContentInsetLeading,
+                    bottom: self.design.sectionContentInsetBottom,
+                    trailing: self.design.sectionContentInsetTrailing)
                 section.orthogonalScrollingBehavior = .continuous
                 
             case .releaseNote:
@@ -172,7 +177,10 @@ final class AppDetailViewController: UIViewController {
                 section.boundarySupplementaryItems = [sectionHeader]
                 section.interGroupSpacing = 10
                 section.contentInsets = NSDirectionalEdgeInsets(
-                    top: 20, leading: 25, bottom: 20, trailing: 25)
+                    top: self.design.sectionContentInsetTop,
+                    leading: self.design.sectionContentInsetLeading,
+                    bottom: self.design.sectionContentInsetBottom,
+                    trailing: self.design.sectionContentInsetTrailing)
                 section.orthogonalScrollingBehavior = .groupPaging
                 
             case .descritption:

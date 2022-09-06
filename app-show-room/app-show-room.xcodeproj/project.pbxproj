@@ -68,6 +68,7 @@
 		63AA535F28BEFD45000FB5DD /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AA535E28BEFD45000FB5DD /* String+Extension.swift */; };
 		63AA537128BF3E15000FB5DD /* ByteFormattingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AA537028BF3E15000FB5DD /* ByteFormattingTest.swift */; };
 		63AE68BE28C48477003068DD /* SummaryCollectionViewCellDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AE68BD28C48477003068DD /* SummaryCollectionViewCellDesign.swift */; };
+		63F72DD828C79164000C789B /* AppDetailViewDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F72DD728C79164000C789B /* AppDetailViewDesign.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +154,7 @@
 		63AA536428BF3DBA000FB5DD /* app-show-room-unitTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "app-show-room-unitTest.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63AA537028BF3E15000FB5DD /* ByteFormattingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByteFormattingTest.swift; sourceTree = "<group>"; };
 		63AE68BD28C48477003068DD /* SummaryCollectionViewCellDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCollectionViewCellDesign.swift; sourceTree = "<group>"; };
+		63F72DD728C79164000C789B /* AppDetailViewDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailViewDesign.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				6384EC7D28AC83B100D1F821 /* AppDetailViewController.swift */,
+				63F72DD728C79164000C789B /* AppDetailViewDesign.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 		6384E5C328BCD2CD00563FD5 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				6384EC7F28ACC59A00D1F821 /* Design */,
 				63861ECC28AA6F1D0062A8BD /* SignboardCollectionViewCell.swift */,
 				635D696328C32FED0002C755 /* SummaryCollectionViewCell.swift */,
 				63075FBE28C1D7590094E117 /* ReleaseNoteCollectionViewCell.swift */,
@@ -351,7 +355,6 @@
 				6384E5C228BCD2B400563FD5 /* ViewController */,
 				6384E5C328BCD2CD00563FD5 /* Cell */,
 				63861EC428AA43360062A8BD /* ViewModel */,
-				6384EC7F28ACC59A00D1F821 /* Design */,
 			);
 			path = AppDetail;
 			sourceTree = "<group>";
@@ -705,6 +708,7 @@
 				6388DE6728A6CAB70011D47E /* iTunesAPIRequest.swift in Sources */,
 				6384EC7E28AC83B100D1F821 /* AppDetailViewController.swift in Sources */,
 				635D696028C321900002C755 /* TextSymbolView.swift in Sources */,
+				63F72DD828C79164000C789B /* AppDetailViewDesign.swift in Sources */,
 				638722EE28A95F9800A6ED7B /* Observable.swift in Sources */,
 				6384E5CA28BCDD3800563FD5 /* ScreenshotGalleryViewModel.swift in Sources */,
 				6388DE4028A6404E0011D47E /* SceneDelegate.swift in Sources */,
