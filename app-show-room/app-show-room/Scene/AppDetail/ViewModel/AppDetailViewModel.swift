@@ -223,7 +223,7 @@ struct AppDetailViewModel {
     private var linkInformations: [Item] {
         var inforamtions = [Information]()
         
-        if let sellerURL = app.sellerURL {
+        if let sellerURL = app.providerURL {
             inforamtions.append(Information(
                 category: Text.developerWebsite.value,
                 value: sellerURL,

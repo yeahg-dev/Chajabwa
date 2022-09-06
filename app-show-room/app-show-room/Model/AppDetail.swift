@@ -23,7 +23,7 @@ struct AppDetail {
     let fileSize: String?
     let contentAdvisoryRating: String?
     let minimumOSVersion: String?
-    let sellerURL: String?
+    let providerURL: String?
     let version: String?
     let currentVersionReleaseDate: String?
     let releaseDescription: String?
