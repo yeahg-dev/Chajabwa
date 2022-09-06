@@ -10,11 +10,7 @@ import SafariServices
 
 final class AppDetailViewController: UIViewController {
     
-    private var contentCollectionView: UICollectionView!
-    private var dataSource: UICollectionViewDiffableDataSource<AppDetailViewModel.Section, AppDetailViewModel.Item>!
-    
-    private let viewModel: AppDetailViewModel
-    private let elementKind = AppDetailViewModel.SupplementaryElementKind.self
+    // MARK: - UI Components
     
     private lazy var iconImage: IconView = {
         let iconIamge = IconView()
@@ -22,9 +18,22 @@ final class AppDetailViewController: UIViewController {
         return iconIamge
     }()
     
+    private var contentCollectionView: UICollectionView!
+    
+    // MARK: - ViewModel Properties
+    
+    private var dataSource: UICollectionViewDiffableDataSource<AppDetailViewModel.Section, AppDetailViewModel.Item>!
+    
+    private let viewModel: AppDetailViewModel
+    private let elementKind = AppDetailViewModel.SupplementaryElementKind.self
+    
+    // MARK: - UI Properties
+    
     private var isNavigationItemHidden: Bool = true
     private var isReleaseNoteFolded: Bool = true
     private var isDescriptionViewFolded: Bool = true
+    
+    // MARK: - Initializer
     
     init(appDetailViewModel: AppDetailViewModel) {
         viewModel = appDetailViewModel
@@ -35,16 +44,21 @@ final class AppDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Override
+    
     override func viewDidLoad() {
+        super.viewDidLoad()
         configureUI()
+        setContstraints()
         configureContentCollectioView()
         configureDataSource()
-        addSubviews()
-        setContstraints()
         applyInitialSnapshot()
     }
     
+    // MARK: - Private Methods
+    
     private func configureUI() {
+        view.addSubview(contentCollectionView)
         view.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.titleView = iconImage
@@ -53,17 +67,6 @@ final class AppDetailViewController: UIViewController {
         let downloadButton =  UIBarButtonItem(customView: DownloadButtonView())
         navigationItem.setRightBarButton(downloadButton, animated: false)
         navigationItem.rightBarButtonItem?.customView?.alpha = 0
-    }
-    
-    private func configureContentCollectioView() {
-        contentCollectionView = UICollectionView(
-            frame: view.bounds,
-            collectionViewLayout: createLayout())
-        contentCollectionView.delegate = self
-    }
-    
-    private func addSubviews() {
-        view.addSubview(contentCollectionView)
     }
     
     private func setContstraints() {
@@ -78,6 +81,13 @@ final class AppDetailViewController: UIViewController {
             contentCollectionView.bottomAnchor.constraint(
                 equalTo: view.bottomAnchor)
         ])
+    }
+    
+    private func configureContentCollectioView() {
+        contentCollectionView = UICollectionView(
+            frame: view.bounds,
+            collectionViewLayout: createLayout())
+        contentCollectionView.delegate = self
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -196,6 +206,89 @@ final class AppDetailViewController: UIViewController {
         return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
     }
     
+    private func configureDataSource() {
+        let signboardCellRegistration = createSignboardCellRegistration()
+        let summaryCellRegistration = createSummaryCellRegistration()
+        let releaseNoteCellRegistration = createReleaseNoteCellRegistration()
+        let screenshotCellRegistration = createScreenshotCellRegistration()
+        let descriptionCellRegistration = createDescriptionCellRegistration()
+        let textInformationCellRegistration = createTextInformationCellRegistration()
+        let linkInformationCellRegistration = createLinkInformationCellRegistration()
+        let headerSupplemantryRegistration = createHeaderSupplemantryRegistration()
+        let paddingHeaderSupplementaryRegistration = createPaddingHeaderSupplemantryRegistration()
+        
+        self.dataSource = UICollectionViewDiffableDataSource<AppDetailViewModel.Section, AppDetailViewModel.Item>(collectionView: contentCollectionView) {
+            (collectionView, indexPath, item) -> UICollectionViewCell? in
+            guard let section = AppDetailViewModel.Section(rawValue: indexPath.section) else { fatalError("Unknown section") }
+            
+            switch section {
+            case .signBoard:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: signboardCellRegistration,
+                    for: indexPath,
+                    item: item)
+            case .summary:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: summaryCellRegistration,
+                    for: indexPath,
+                    item: item)
+            case .releaseNote:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: releaseNoteCellRegistration,
+                    for: indexPath,
+                    item: item)
+            case .screenshot:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: screenshotCellRegistration,
+                    for: indexPath,
+                    item: item)
+            case .descritption:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: descriptionCellRegistration,
+                    for: indexPath,
+                    item: item)
+            case .information:
+                
+                if self.viewModel.linkInformationsIndexPaths.contains(indexPath) {
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: linkInformationCellRegistration,
+                        for: indexPath,
+                        item: item)
+                } else {
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: textInformationCellRegistration,
+                        for: indexPath,
+                        item: item)
+                }
+            }
+        }
+        
+        self.dataSource.supplementaryViewProvider = { [weak self] (view, kind, index) in
+            if kind == self?.elementKind.titleHeaderView.rawValue {
+            return self?.contentCollectionView.dequeueConfiguredReusableSupplementary(
+                using: headerSupplemantryRegistration, for: index)
+            } else if kind == self?.elementKind.paddingTitleHeaderView.rawValue {
+                return self?.contentCollectionView.dequeueConfiguredReusableSupplementary(
+                    using: paddingHeaderSupplementaryRegistration, for: index)
+            }
+            return nil
+        }
+    }
+    
+    private func applyInitialSnapshot() {
+        let sections = AppDetailViewModel.Section.allCases
+        var snapshot = NSDiffableDataSourceSnapshot<AppDetailViewModel.Section, AppDetailViewModel.Item>()
+        snapshot.appendSections(sections)
+        dataSource.apply(snapshot, animatingDifferences: false)
+        
+        sections.forEach { section in
+            var snapshot = NSDiffableDataSourceSectionSnapshot<AppDetailViewModel.Item>()
+            let items = viewModel.cellItems(at: section.rawValue)
+            snapshot.append(items)
+            dataSource.apply(snapshot, to: section, animatingDifferences: false)
+        }
+    }
+    
     private func createSignboardCellRegistration() -> UICollectionView.CellRegistration<SignboardCollectionViewCell, AppDetailViewModel.Item> {
         return UICollectionView.CellRegistration<SignboardCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
             cell.bind(model: item)
@@ -290,90 +383,10 @@ final class AppDetailViewController: UIViewController {
             supplementaryView.bind(title: sectionTitle)
         }
     }
-        
-    private func configureDataSource() {
-        let signboardCellRegistration = createSignboardCellRegistration()
-        let summaryCellRegistration = createSummaryCellRegistration()
-        let releaseNoteCellRegistration = createReleaseNoteCellRegistration()
-        let screenshotCellRegistration = createScreenshotCellRegistration()
-        let descriptionCellRegistration = createDescriptionCellRegistration()
-        let textInformationCellRegistration = createTextInformationCellRegistration()
-        let linkInformationCellRegistration = createLinkInformationCellRegistration()
-        let headerSupplemantryRegistration = createHeaderSupplemantryRegistration()
-        let paddingHeaderSupplementaryRegistration = createPaddingHeaderSupplemantryRegistration()
-        
-        self.dataSource = UICollectionViewDiffableDataSource<AppDetailViewModel.Section, AppDetailViewModel.Item>(collectionView: contentCollectionView) {
-            (collectionView, indexPath, item) -> UICollectionViewCell? in
-            guard let section = AppDetailViewModel.Section(rawValue: indexPath.section) else { fatalError("Unknown section") }
-            
-            switch section {
-            case .signBoard:
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: signboardCellRegistration,
-                    for: indexPath,
-                    item: item)
-            case .summary:
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: summaryCellRegistration,
-                    for: indexPath,
-                    item: item)
-            case .releaseNote:
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: releaseNoteCellRegistration,
-                    for: indexPath,
-                    item: item)
-            case .screenshot:
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: screenshotCellRegistration,
-                    for: indexPath,
-                    item: item)
-            case .descritption:
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: descriptionCellRegistration,
-                    for: indexPath,
-                    item: item)
-            case .information:
-                
-                if self.viewModel.linkInformationsIndexPaths.contains(indexPath) {
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: linkInformationCellRegistration,
-                        for: indexPath,
-                        item: item)
-                } else {
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: textInformationCellRegistration,
-                        for: indexPath,
-                        item: item)
-                }
-            }
-        }
-        self.dataSource.supplementaryViewProvider = { [weak self] (view, kind, index) in
-            if kind == self?.elementKind.titleHeaderView.rawValue {
-            return self?.contentCollectionView.dequeueConfiguredReusableSupplementary(
-                using: headerSupplemantryRegistration, for: index)
-            } else if kind == self?.elementKind.paddingTitleHeaderView.rawValue {
-                return self?.contentCollectionView.dequeueConfiguredReusableSupplementary(
-                    using: paddingHeaderSupplementaryRegistration, for: index)
-            }
-            return nil
-        }
-    }
-    
-    private func applyInitialSnapshot() {
-        let sections = AppDetailViewModel.Section.allCases
-        var snapshot = NSDiffableDataSourceSnapshot<AppDetailViewModel.Section, AppDetailViewModel.Item>()
-        snapshot.appendSections(sections)
-        dataSource.apply(snapshot, animatingDifferences: false)
-        
-        sections.forEach { section in
-            var snapshot = NSDiffableDataSourceSectionSnapshot<AppDetailViewModel.Item>()
-            let items = viewModel.cellItems(at: section.rawValue)
-            snapshot.append(items)
-            dataSource.apply(snapshot, to: section, animatingDifferences: false)
-        }
-    }
     
 }
+
+// MARK: - DescriptionCollectionViewCellDelegate
 
 extension AppDetailViewController: DescriptionCollectionViewCellDelegate {
     
@@ -388,6 +401,8 @@ extension AppDetailViewController: DescriptionCollectionViewCellDelegate {
     
 }
 
+// MARK: - ReleaseNoteCollectionViewCellDelegate
+
 extension AppDetailViewController: ReleaseNoteCollectionViewCellDelegate {
     
     func foldingButtonDidTapped(_ : ReleaseNoteCollectionViewCell) {
@@ -400,6 +415,8 @@ extension AppDetailViewController: ReleaseNoteCollectionViewCellDelegate {
     }
     
 }
+
+// MARK: - UICollectionViewDelegate
 
 extension AppDetailViewController: UICollectionViewDelegate {
     

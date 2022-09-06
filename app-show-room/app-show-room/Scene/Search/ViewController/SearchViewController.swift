@@ -9,8 +9,15 @@ import UIKit
 
 final class SearchViewController: UIViewController {
 
+    // MARK: - UIComponents
+    
     private let searchController = UISearchController(searchResultsController: nil)
+    
+    // MARK: - ViewModel
+    
     private let appSearchViewModel: AppSearchViewModel
+    
+    // MARK: - Initializer
     
     init(appSearchViewModel: AppSearchViewModel) {
         self.appSearchViewModel = appSearchViewModel
@@ -21,10 +28,11 @@ final class SearchViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Overrides
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        configureNavigationController()
         configureSearchController()
         bind(appSearchViewModel)
     }
@@ -33,16 +41,15 @@ final class SearchViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
+    // MARK: - Private Methods
+    
     private func configureView() {
         view.backgroundColor = .systemBackground
-    }
-    
-    private func configureNavigationController() {
         navigationItem.searchController = self.searchController
         navigationItem.title = "Search App"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
-    
+
     private func configureSearchController() {
         searchController.hidesNavigationBarDuringPresentation = true
         searchController.searchBar.delegate = self
@@ -52,6 +59,7 @@ final class SearchViewController: UIViewController {
         viewModel.searchBarPlaceholder.observe(on: self) { [weak self] placeholder in
             self?.searchController.searchBar.placeholder = placeholder
         }
+        
         viewModel.searchResult.observe(on: self) { [weak self] appDetail in
             guard let appDetail = appDetail else {
                 return
@@ -60,6 +68,7 @@ final class SearchViewController: UIViewController {
             let appDetailViewController = AppDetailViewController(appDetailViewModel: AppDetailViewModel(app: appDetail))
             self?.navigationController?.pushViewController(appDetailViewController, animated: true)
         }
+        
         viewModel.searchFailureAlert.observe(on: self) { [weak self] alertText in
             guard let alertText = alertText else {
                 return
@@ -84,6 +93,8 @@ final class SearchViewController: UIViewController {
     }
     
 }
+
+// MARK: - UISearchBarDelegate
 
 extension SearchViewController: UISearchBarDelegate {
     
