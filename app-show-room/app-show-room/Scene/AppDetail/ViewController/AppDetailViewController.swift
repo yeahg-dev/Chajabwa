@@ -18,7 +18,11 @@ final class AppDetailViewController: UIViewController {
         return iconIamge
     }()
     
-    private var contentCollectionView: UICollectionView!
+    private lazy var contentCollectionView: UICollectionView = {
+        return UICollectionView(
+           frame: view.bounds,
+           collectionViewLayout: createLayout())
+    }()
     
     // MARK: - ViewModel Properties
     
@@ -86,14 +90,11 @@ final class AppDetailViewController: UIViewController {
     }
     
     private func configureContentCollectioView() {
-        contentCollectionView = UICollectionView(
-            frame: view.bounds,
-            collectionViewLayout: createLayout())
         contentCollectionView.delegate = self
     }
     
     private func createLayout() -> UICollectionViewLayout {
-        let sectionProvider = { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+        let sectionProvider = { [unowned self] (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
             
             guard let sectionKind = AppDetailViewModel.Section(rawValue: sectionIndex) else {
                 return nil }
@@ -271,12 +272,12 @@ final class AppDetailViewController: UIViewController {
             }
         }
         
-        self.dataSource.supplementaryViewProvider = { [weak self] (view, kind, index) in
-            if kind == self?.elementKind.titleHeaderView.rawValue {
-            return self?.contentCollectionView.dequeueConfiguredReusableSupplementary(
+        self.dataSource.supplementaryViewProvider = { [unowned self] (view, kind, index) in
+            if kind == self.elementKind.titleHeaderView.rawValue {
+            return self.contentCollectionView.dequeueConfiguredReusableSupplementary(
                 using: headerSupplemantryRegistration, for: index)
-            } else if kind == self?.elementKind.paddingTitleHeaderView.rawValue {
-                return self?.contentCollectionView.dequeueConfiguredReusableSupplementary(
+            } else if kind == self.elementKind.paddingTitleHeaderView.rawValue {
+                return self.contentCollectionView.dequeueConfiguredReusableSupplementary(
                     using: paddingHeaderSupplementaryRegistration, for: index)
             }
             return nil
@@ -304,7 +305,7 @@ final class AppDetailViewController: UIViewController {
     }
     
     private func createSummaryCellRegistration() -> UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> {
-        return UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> { [weak self] (cell, indexPath, item) in
+        return UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> { [unowned self] (cell, indexPath, item) in
             guard case let .summary(summary) = item else {
                 return
             }
@@ -313,7 +314,7 @@ final class AppDetailViewController: UIViewController {
                 secondaryText: summary.secnondaryText,
                 symbolImage: summary.symbolImage)
             
-            if indexPath.row == (self?.viewModel.summaryCollectionViewCellCount ?? 0) - 1 {
+            if indexPath.row == self.viewModel.summaryCollectionViewCellCount - 1 {
                 cell.showsSeparator = false
             } else {
                 cell.showsSeparator = true
@@ -376,8 +377,8 @@ final class AppDetailViewController: UIViewController {
     <TitleSupplementaryView> {
         return UICollectionView.SupplementaryRegistration
         <TitleSupplementaryView>(elementKind: elementKind.titleHeaderView.rawValue) {
-            [weak self] (supplementaryView, string, indexPath) in
-            let sectionTitle = self?.viewModel.sections[indexPath.section].title
+            [unowned self] (supplementaryView, string, indexPath) in
+            let sectionTitle = self.viewModel.sections[indexPath.section].title
             supplementaryView.bind(title: sectionTitle)
         }
     }
@@ -386,8 +387,8 @@ final class AppDetailViewController: UIViewController {
     <PaddingTitleSupplementaryView> {
         return UICollectionView.SupplementaryRegistration
         <PaddingTitleSupplementaryView>(elementKind: elementKind.paddingTitleHeaderView.rawValue) {
-            [weak self] (supplementaryView, string, indexPath) in
-            let sectionTitle = self?.viewModel.sections[indexPath.section].title
+            [unowned self] (supplementaryView, string, indexPath) in
+            let sectionTitle = self.viewModel.sections[indexPath.section].title
             supplementaryView.bind(title: sectionTitle)
         }
     }
@@ -460,7 +461,7 @@ extension AppDetailViewController: UICollectionViewDelegate {
             navigationItem.titleView?.isHidden = false
             UIView.animate(
                 withDuration: 0.3,
-                animations: {
+                animations: { [unowned self] in
                     self.navigationItem.titleView?.alpha = 1
                     self.navigationItem.rightBarButtonItem?.customView?.alpha = 1
                 } ,
