@@ -12,10 +12,12 @@ final class LinkInformationCollectionViewCell: UICollectionViewCell {
     var image: UIImage?
     var category: String?
 
-    func bind(image: UIImage?, category: String?) {
-        self.image = image
-        self.category = category
-        setNeedsUpdateConfiguration()
+    func bind(model: AppDetailViewModel.Item) {
+        if case let .information(information) = model {
+            self.image = information.image
+            self.category = information.category
+            setNeedsUpdateConfiguration()
+        }
     }
     
     override func updateConfiguration(using state: UICellConfigurationState) {

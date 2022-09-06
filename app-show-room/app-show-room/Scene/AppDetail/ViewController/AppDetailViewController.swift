@@ -306,20 +306,13 @@ final class AppDetailViewController: UIViewController {
     
     private func createSummaryCellRegistration() -> UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> {
         return UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> { [unowned self] (cell, indexPath, item) in
-            guard case let .summary(summary) = item else {
-                return
-            }
-            cell.bind(
-                primaryText: summary.primaryText,
-                secondaryText: summary.secnondaryText,
-                symbolImage: summary.symbolImage)
+            cell.bind(model: item)
             
             if indexPath.row == self.viewModel.summaryCollectionViewCellCount - 1 {
                 cell.showsSeparator = false
             } else {
                 cell.showsSeparator = true
             }
-            
         }
     }
     
@@ -345,7 +338,6 @@ final class AppDetailViewController: UIViewController {
                 return
             }
             var content = UIListContentConfiguration.valueCell()
-            
             content.text = information.category
             content.textProperties.font = .preferredFont(forTextStyle: .callout)
             content.textProperties.color = .systemGray
@@ -358,11 +350,7 @@ final class AppDetailViewController: UIViewController {
     
     private func createLinkInformationCellRegistration() -> UICollectionView.CellRegistration<LinkInformationCollectionViewCell, AppDetailViewModel.Item> {
         return UICollectionView.CellRegistration<LinkInformationCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
-            guard case let .information(information) = item else {
-                return
-            }
-            
-            cell.bind(image: information.image, category: information.category)
+            cell.bind(model: item)
         }
     }
     

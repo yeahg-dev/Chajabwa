@@ -83,14 +83,13 @@ final class SummaryCollectionViewCell: BaseCollectionViewCell {
         showsSeparator = true
     }
     
-    func bind(
-        primaryText: String?,
-        secondaryText: String?,
-        symbolImage: UIImage?) {
-            primaryTextLabel.text = primaryText
-            secondaryTextLabel.text = secondaryText
-            symbolImageView.image = symbolImage
+    func bind(model: AppDetailViewModel.Item) {
+        if case let .summary(summary) = model {
+            primaryTextLabel.text = summary.primaryText
+            secondaryTextLabel.text = summary.secnondaryText
+            symbolImageView.image = summary.symbolImage
         }
+    }
     
     private func updateSeparator() {
         separatorLayer.isHidden = !showsSeparator
