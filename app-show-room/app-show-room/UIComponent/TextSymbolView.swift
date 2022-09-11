@@ -25,6 +25,7 @@ final class TextSymbolView: UIView {
         label.text = self.text
         label.font = Design.font
         label.textColor = Design.color
+        label.textAlignment = .center
         label.numberOfLines = 1
         label.lineBreakMode = .byTruncatingTail
         label.sizeToFit()
@@ -37,7 +38,7 @@ final class TextSymbolView: UIView {
     
     init(_ text: String) {
         self.text = text
-        super.init(frame: CGRect(x: 0, y: 0, width: Design.width, height: Design.height))
+        super.init(frame: CGRect(origin: .zero, size: CGSize(width: Design.width, height: Design.height)))
         configureSubview()
     }
     
@@ -46,12 +47,9 @@ final class TextSymbolView: UIView {
     }
     
     private func configureSubview(){
+        self.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)
-        NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-        ])
-        
+        label.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
     }
     
 }
