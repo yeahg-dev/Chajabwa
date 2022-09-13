@@ -37,11 +37,12 @@ enum Text: String {
     }
     
     func value(with number: Int) -> String? {
+        let formattedNumber = number.formattedNumber
         switch self {
         case .ratingCount:
-            return "\(number)개의 평가"
+            return "\(formattedNumber)개의 평가"
         case .languageCount:
-            return "\(number)개의 언어"
+            return "\(formattedNumber)개의 언어"
         default :
             return nil
         }
