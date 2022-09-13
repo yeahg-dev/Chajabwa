@@ -42,7 +42,7 @@ enum Text: String {
         case .ratingCount:
             return "\(formattedNumber)개의 평가"
         case .languageCount:
-            return "\(formattedNumber)개의 언어"
+            return "\(number)개의 언어"
         default :
             return nil
         }
