@@ -49,6 +49,8 @@ extension TitleSupplementaryView {
 }
 
 // MARK: - PaddingTitleSupplementaryView
+// inset을 적용하지 못하는 Section을 위한 TitleSupplementaryView
+// leading, trailing에 padding을 적용함으로써 inset을 적용한 것과 같은 효과를 줌
 
 final class PaddingTitleSupplementaryView: TitleSupplementaryView {
     
