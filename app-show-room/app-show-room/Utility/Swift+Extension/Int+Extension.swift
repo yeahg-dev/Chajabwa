@@ -11,7 +11,7 @@ extension Int {
     
     var formattedNumber: String {
         switch Locale.preferredLanguages.first {
-        case "KR":
+        case "ko":
             return koreanFormattedNumber
         default:
             return englishFormattedNumber
@@ -41,21 +41,21 @@ extension Int {
             return self.description
         } else if digitCount < 9 {
             symbol = .tenThousand
-            let rangeToDelete = number.endIndex..<number.index(number.endIndex, offsetBy: -4)
+            let rangeToDelete = number.index(number.endIndex, offsetBy: -4)..<number.endIndex
             number.removeSubrange(rangeToDelete)
             let Intcoefficient = Int(number)!
             let coefficient = numberFormatter.string(from: NSNumber(value: Intcoefficient))!
             return symbol.representation(value: coefficient)
         } else if digitCount < 13 {
             symbol = .hundredMillion
-            let rangeToDelete = number.endIndex..<number.index(number.endIndex, offsetBy: -8)
+            let rangeToDelete = number.index(number.endIndex, offsetBy: -8)..<number.endIndex
             number.removeSubrange(rangeToDelete)
             let Intcoefficient = Int(number)!
             let coefficient = numberFormatter.string(from: NSNumber(value: Intcoefficient))!
             return symbol.representation(value: coefficient)
         } else {
             symbol = .hundredMillion
-            let rangeToDelete = number.endIndex..<number.index(number.endIndex, offsetBy: -12)
+            let rangeToDelete = number.index(number.endIndex, offsetBy: -12)..<number.endIndex
             number.removeSubrange(rangeToDelete)
             let Intcoefficient = Int(number)!
             let coefficient = numberFormatter.string(from: NSNumber(value: Intcoefficient))!
@@ -85,25 +85,25 @@ extension Int {
             return self.description
         } else if digitCount < 7 {
             symbol = .thousand
-            let rangeToDelete = number.endIndex..<number.index(number.endIndex, offsetBy: -3)
+            let rangeToDelete = number.index(number.endIndex, offsetBy: -3)..<number.endIndex
             number.removeSubrange(rangeToDelete)
             let coefficient = number
             return symbol.representation(value: coefficient)
         } else if digitCount < 10 {
             symbol = .million
-            let rangeToDelete = number.endIndex..<number.index(number.endIndex, offsetBy: -6)
+            let rangeToDelete = number.index(number.endIndex, offsetBy: -6)..<number.endIndex
             number.removeSubrange(rangeToDelete)
             let coefficient = number
             return symbol.representation(value: coefficient)
         } else if digitCount < 13 {
             symbol = .billion
-            let rangeToDelete = number.endIndex..<number.index(number.endIndex, offsetBy: -9)
+            let rangeToDelete = number.index(number.endIndex, offsetBy: -9)..<number.endIndex
             number.removeSubrange(rangeToDelete)
             let coefficient = number
             return symbol.representation(value: coefficient)
         } else {
             symbol = .trillion
-            let rangeToDelete = number.endIndex..<number.index(number.endIndex, offsetBy: -12)
+            let rangeToDelete = number.index(number.endIndex, offsetBy: -12)..<number.endIndex
             number.removeSubrange(rangeToDelete)
             let coefficient = number
             return symbol.representation(value: coefficient)
