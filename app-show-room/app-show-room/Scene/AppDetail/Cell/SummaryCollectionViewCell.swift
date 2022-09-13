@@ -14,6 +14,7 @@ final class SummaryCollectionViewCell: BaseCollectionViewCell {
             updateSeparator()
         }
     }
+
     private let design = SummaryCollectionViewCellDesign.self
     
     private lazy var primaryTextLabel: UILabel = {
@@ -67,6 +68,7 @@ final class SummaryCollectionViewCell: BaseCollectionViewCell {
     override func addSubviews() {
         contentView.addSubview(stackView)
         self.layer.addSublayer(separatorLayer)
+        accessibilityIdentifier = "SummaryCollectionViewCell"
     }
 
     override func setConstraints() {

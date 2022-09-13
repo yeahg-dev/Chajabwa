@@ -11,6 +11,8 @@
 		63075FC128C1D8590094E117 /* ReleaseNoteCollectionViewCellDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63075FC028C1D8590094E117 /* ReleaseNoteCollectionViewCellDesign.swift */; };
 		63075FC328C1F01C0094E117 /* LinkInformationCollectionViewCellDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63075FC228C1F01C0094E117 /* LinkInformationCollectionViewCellDesign.swift */; };
 		63075FC528C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63075FC428C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift */; };
+		633500AE28CF5CA700398265 /* app_show_roomUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633500AD28CF5CA700398265 /* app_show_roomUITests.swift */; };
+		633500B028CF5CA700398265 /* app_show_roomUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633500AF28CF5CA700398265 /* app_show_roomUITestsLaunchTests.swift */; };
 		633A925328A79C2500B3435F /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633A925228A79C2500B3435F /* APIService.swift */; };
 		633A925528A79E3D00B3435F /* iTunesAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633A925428A79E3D00B3435F /* iTunesAPIService.swift */; };
 		633A925728A7A44A00B3435F /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633A925628A7A44A00B3435F /* APIError.swift */; };
@@ -72,6 +74,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		633500B128CF5CA700398265 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6388DE3228A6404E0011D47E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6388DE3928A6404E0011D47E;
+			remoteInfo = "app-show-room";
+		};
 		633A926128A7D15700B3435F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6388DE3228A6404E0011D47E /* Project object */;
@@ -93,6 +102,9 @@
 		63075FC028C1D8590094E117 /* ReleaseNoteCollectionViewCellDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseNoteCollectionViewCellDesign.swift; sourceTree = "<group>"; };
 		63075FC228C1F01C0094E117 /* LinkInformationCollectionViewCellDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkInformationCollectionViewCellDesign.swift; sourceTree = "<group>"; };
 		63075FC428C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailCollectionViewCellDesign.swift; sourceTree = "<group>"; };
+		633500AB28CF5CA700398265 /* app-show-roomUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "app-show-roomUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		633500AD28CF5CA700398265 /* app_show_roomUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = app_show_roomUITests.swift; sourceTree = "<group>"; };
+		633500AF28CF5CA700398265 /* app_show_roomUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = app_show_roomUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		633A925228A79C2500B3435F /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		633A925428A79E3D00B3435F /* iTunesAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesAPIService.swift; sourceTree = "<group>"; };
 		633A925628A7A44A00B3435F /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
@@ -158,6 +170,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		633500A828CF5CA700398265 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		633A925A28A7D15700B3435F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -182,6 +201,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		633500AC28CF5CA700398265 /* app-show-roomUITests */ = {
+			isa = PBXGroup;
+			children = (
+				633500AD28CF5CA700398265 /* app_show_roomUITests.swift */,
+				633500AF28CF5CA700398265 /* app_show_roomUITestsLaunchTests.swift */,
+			);
+			path = "app-show-roomUITests";
+			sourceTree = "<group>";
+		};
 		633A925E28A7D15700B3435F /* iTunesAPITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,6 +437,7 @@
 				6388DE3C28A6404E0011D47E /* app-show-room */,
 				633A925E28A7D15700B3435F /* iTunesAPITests */,
 				63AA536528BF3DBA000FB5DD /* app-show-room-unitTest */,
+				633500AC28CF5CA700398265 /* app-show-roomUITests */,
 				6388DE3B28A6404E0011D47E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -419,6 +448,7 @@
 				6388DE3A28A6404E0011D47E /* app-show-room.app */,
 				633A925D28A7D15700B3435F /* iTunesAPITests.xctest */,
 				63AA536428BF3DBA000FB5DD /* app-show-room-unitTest.xctest */,
+				633500AB28CF5CA700398265 /* app-show-roomUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -529,6 +559,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		633500AA28CF5CA700398265 /* app-show-roomUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 633500B528CF5CA700398265 /* Build configuration list for PBXNativeTarget "app-show-roomUITests" */;
+			buildPhases = (
+				633500A728CF5CA700398265 /* Sources */,
+				633500A828CF5CA700398265 /* Frameworks */,
+				633500A928CF5CA700398265 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				633500B228CF5CA700398265 /* PBXTargetDependency */,
+			);
+			name = "app-show-roomUITests";
+			productName = "app-show-roomUITests";
+			productReference = 633500AB28CF5CA700398265 /* app-show-roomUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		633A925C28A7D15700B3435F /* iTunesAPITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 633A926328A7D15700B3435F /* Build configuration list for PBXNativeTarget "iTunesAPITests" */;
@@ -592,6 +640,10 @@
 				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
+					633500AA28CF5CA700398265 = {
+						CreatedOnToolsVersion = 13.4;
+						TestTargetID = 6388DE3928A6404E0011D47E;
+					};
 					633A925C28A7D15700B3435F = {
 						CreatedOnToolsVersion = 13.4;
 						TestTargetID = 6388DE3928A6404E0011D47E;
@@ -622,11 +674,19 @@
 				6388DE3928A6404E0011D47E /* app-show-room */,
 				633A925C28A7D15700B3435F /* iTunesAPITests */,
 				63AA536328BF3DBA000FB5DD /* app-show-room-unitTest */,
+				633500AA28CF5CA700398265 /* app-show-roomUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		633500A928CF5CA700398265 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		633A925B28A7D15700B3435F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -655,6 +715,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		633500A728CF5CA700398265 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				633500B028CF5CA700398265 /* app_show_roomUITestsLaunchTests.swift in Sources */,
+				633500AE28CF5CA700398265 /* app_show_roomUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		633A925928A7D15700B3435F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -737,6 +806,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		633500B228CF5CA700398265 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6388DE3928A6404E0011D47E /* app-show-room */;
+			targetProxy = 633500B128CF5CA700398265 /* PBXContainerItemProxy */;
+		};
 		633A926228A7D15700B3435F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6388DE3928A6404E0011D47E /* app-show-room */;
@@ -761,6 +835,40 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		633500B328CF5CA700398265 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3LTF5F2YL4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.YeahgDev.app-show-roomUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "app-show-room";
+			};
+			name = Debug;
+		};
+		633500B428CF5CA700398265 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3LTF5F2YL4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.YeahgDev.app-show-roomUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "app-show-room";
+			};
+			name = Release;
+		};
 		633A926428A7D15700B3435F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1017,6 +1125,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		633500B528CF5CA700398265 /* Build configuration list for PBXNativeTarget "app-show-roomUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				633500B328CF5CA700398265 /* Debug */,
+				633500B428CF5CA700398265 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		633A926328A7D15700B3435F /* Build configuration list for PBXNativeTarget "iTunesAPITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
