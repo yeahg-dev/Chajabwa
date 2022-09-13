@@ -34,6 +34,20 @@
                ReferencedContainer = "container:app-show-room.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "63AA536328BF3DBA000FB5DD"
+               BuildableName = "app-show-room-unitTest.xctest"
+               BlueprintName = "app-show-room-unitTest"
+               ReferencedContainer = "container:app-show-room.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
