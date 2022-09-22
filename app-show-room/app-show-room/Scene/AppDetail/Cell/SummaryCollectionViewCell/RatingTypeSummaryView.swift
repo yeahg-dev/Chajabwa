@@ -41,7 +41,7 @@ final class RatingTypeSummaryView: UIView {
         let stackView = UIStackView(arrangedSubviews: [primaryTextLabel, symbolImageView, starRatingView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.alignment = .fill
+        stackView.alignment = .center
         stackView.distribution = .fill
         return stackView
     }()
@@ -53,6 +53,7 @@ final class RatingTypeSummaryView: UIView {
         label.textAlignment = .center
         label.textColor = .gray
         label.numberOfLines = 1
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return label
     }()
     
@@ -62,14 +63,15 @@ final class RatingTypeSummaryView: UIView {
         imageView.contentMode = .scaleAspectFit
         imageView.preferredSymbolConfiguration = .init(font: .preferredFont(forTextStyle: .title2), scale: .large)
         imageView.tintColor = .gray
+        imageView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return imageView
     }()
     
     private let starRatingView: StarRatingView = {
         let configuration = StarRatingViewConfiguration(
-            starSize: CGSize(width: 15, height: 15),
+            starSize: 15,
             starMargin: 3,
-            tintColor: .blue)
+            tintColor: .gray)
         let starRatingView = StarRatingView(rating: 0.0, configuration: configuration)
         return starRatingView
     }()
