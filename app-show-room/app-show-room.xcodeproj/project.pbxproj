@@ -265,8 +265,6 @@
 				63075FBE28C1D7590094E117 /* ReleaseNoteCollectionViewCell.swift */,
 				63A66F4D28C0C1FE00F3B4D0 /* LinkInformationCollectionViewCell.swift */,
 				6384EC5728AB7DB900D1F821 /* DescriptionCollectionViewCell.swift */,
-				6395706028C624D6002D56CF /* TitleSupplementaryView.swift */,
-				631F096A28D0D05C002419B7 /* PaddingTitleSupplementaryView.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -286,15 +284,6 @@
 				6384EC8428AD2A5C00D1F821 /* ScreenshotGalleryViewController.swift */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		6384E5C728BCDA6000563FD5 /* CollectionViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				63861EC828AA55630062A8BD /* BaseCollectionViewCell.swift */,
-				6384EC5228AB47FD00D1F821 /* ScreenshotCollectionViewCell */,
-			);
-			path = CollectionViewCell;
 			sourceTree = "<group>";
 		};
 		6384E5C828BCDD2100563FD5 /* ViewModel */ = {
@@ -364,7 +353,6 @@
 				6388DE5B28A6907C0011D47E /* CommonNamespace */,
 				63861EC028AA41F90062A8BD /* Search */,
 				63861EC328AA432C0062A8BD /* AppDetail */,
-				6384E5C428BCD44800563FD5 /* ScreenshotGallery */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -398,9 +386,10 @@
 		63861EC328AA432C0062A8BD /* AppDetail */ = {
 			isa = PBXGroup;
 			children = (
+				63AFB9B728DCA56B008E13A4 /* View */,
 				6384E5C228BCD2B400563FD5 /* ViewController */,
-				6384E5C328BCD2CD00563FD5 /* Cell */,
 				63861EC428AA43360062A8BD /* ViewModel */,
+				6384E5C428BCD44800563FD5 /* ScreenshotGallery */,
 			);
 			path = AppDetail;
 			sourceTree = "<group>";
@@ -509,8 +498,9 @@
 		6388DE5328A6643D0011D47E /* UIComponent */ = {
 			isa = PBXGroup;
 			children = (
+				63AFB9B828DCA5C5008E13A4 /* CommonUIBaseClass */,
+				6384EC5228AB47FD00D1F821 /* ScreenshotCollectionViewCell */,
 				63F0342128D8A5DB003F1751 /* StarRatingView */,
-				6384E5C728BCDA6000563FD5 /* CollectionViewCell */,
 				63A764F728BDFF8C003B1EAA /* IconView.swift */,
 				63A764FB28BE0C6E003B1EAA /* DownloadButtonView.swift */,
 				635D695F28C321900002C755 /* TextSymbolView.swift */,
@@ -574,6 +564,24 @@
 				631F096828D0C539002419B7 /* numberFormattingTest.swift */,
 			);
 			path = UtilityTest;
+			sourceTree = "<group>";
+		};
+		63AFB9B728DCA56B008E13A4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6395706028C624D6002D56CF /* TitleSupplementaryView.swift */,
+				631F096A28D0D05C002419B7 /* PaddingTitleSupplementaryView.swift */,
+				6384E5C328BCD2CD00563FD5 /* Cell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		63AFB9B828DCA5C5008E13A4 /* CommonUIBaseClass */ = {
+			isa = PBXGroup;
+			children = (
+				63861EC828AA55630062A8BD /* BaseCollectionViewCell.swift */,
+			);
+			path = CommonUIBaseClass;
 			sourceTree = "<group>";
 		};
 		63F0342128D8A5DB003F1751 /* StarRatingView */ = {
