@@ -123,7 +123,7 @@ final class AppDetailViewController: UIViewController {
                     heightDimension: .fractionalHeight(1.0))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 let groupSize = NSCollectionLayoutSize(
-                    widthDimension: .absolute(cellDesign.width),
+                    widthDimension: .estimated(cellDesign.width),
                     heightDimension: .absolute(cellDesign.height))
                 let group = NSCollectionLayoutGroup.horizontal(
                     layoutSize: groupSize,
@@ -308,11 +308,11 @@ final class AppDetailViewController: UIViewController {
         return UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> { [unowned self] (cell, indexPath, item) in
             cell.bind(model: item)
             
-            if indexPath.row == self.viewModel.summaryCollectionViewCellCount - 1 {
-                cell.showsSeparator = false
-            } else {
-                cell.showsSeparator = true
-            }
+//            if indexPath.row == self.viewModel.summaryCollectionViewCellCount - 1 {
+//                cell.showsSeparator = false
+//            } else {
+//                cell.showsSeparator = true
+//            }
         }
     }
     

@@ -14,7 +14,7 @@ enum SummaryCollectionViewCellDesign {
     static let paddingTrailing: CGFloat = 5
     
     // size
-    static let width: CGFloat = 100
+    static let width: CGFloat = 500
     static let height: CGFloat = 70
     static let separatorWidth: CGFloat = 0.3
     static let separatorHeight: CGFloat = height * 0.6

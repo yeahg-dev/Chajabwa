@@ -7,54 +7,87 @@
 
 import UIKit
 
+struct StarRatingViewConfiguration {
+    
+    let starSize: CGSize
+    let starMargin: CGFloat
+    let tintColor: UIColor
+    
+    func starRatingViewSize(of totalStarCount: Int) -> CGSize {
+        let width: CGFloat = (starSize.width * CGFloat(totalStarCount)) + starMargin * CGFloat(4)
+        let height = starSize.height
+        return CGSize(width: width, height: height)
+    }
+    
+}
+
 class StarRatingView: UIView {
     
-    private let starStackView: UIStackView = {
+    private lazy var starStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .fill
-        stackView.distribution = .fill
+        stackView.spacing = configuration.starMargin
+        stackView.distribution = .equalSpacing
         return stackView
     }()
     
-    private let rate: Double
-    private let color: UIColor
+    private let configuration: StarRatingViewConfiguration
+    private var rating: Double
+
     private let totalStarCount = 5
+    private var starViews: [StarView] = []
     
-    init(frame: CGRect, rate: Double, color: UIColor) {
-        self.rate = rate
-        self.color = color
-        super.init(frame: frame)
-        configureViews()
+    init(rating: Double, configuration: StarRatingViewConfiguration) {
+        self.rating = rating
+        self.configuration = configuration
+        super.init(frame: .zero)
+        updateStarViews()
+        configureConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureViews() {
-        let starViews = makeStarViews(rate: rate, color: color)
-        starViews.forEach { starView in
-            starStackView.addSubview(starView)
+    func update(rating: Double) {
+        if self.rating != rating {
+            self.rating = rating
+            starViews.forEach { starView in
+                starStackView.removeArrangedSubview(starView)
+            }
+            updateStarViews()
         }
+    }
     
+    private func updateStarViews() {
+        starViews = makeStarViews(rate: rating, configuration: configuration)
+        starViews.forEach { starView in
+            starStackView.addArrangedSubview(starView)
+        }
+        self.frame.size = configuration.starRatingViewSize(of: totalStarCount)
+        self.bounds.size = configuration.starRatingViewSize(of: totalStarCount)
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        return configuration.starRatingViewSize(of: totalStarCount)
+    }
+    
+    private func configureConstraints() {
         addSubview(starStackView)
-        
         NSLayoutConstraint.activate([
-            starStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            starStackView.topAnchor.constraint(equalTo: self.topAnchor),
-            starStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            starStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            starStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            starStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }
     
-    private func makeStarViews(rate: Double, color: UIColor) -> [StarView] {
+    private func makeStarViews(rate: Double, configuration: StarRatingViewConfiguration) -> [StarView] {
         var starViews: [StarView] = []
         let filledStarCount = Int(rate)
         
         for _ in 0..<filledStarCount {
-            let filledStar = StarView(frame: .zero, size: 1, color: color)
+            let filledStar = StarView(frame: CGRect(origin: .zero, size: configuration.starSize), proportionOfFill: 1, color: configuration.tintColor)
             starViews.append(filledStar)
         }
         
@@ -65,12 +98,12 @@ class StarRatingView: UIView {
         } else {
             emptyStarCount = totalStarCount - filledStarCount - 1
             
-            let partialStar = StarView(frame: .zero, size: fractionalPart, color: color)
+            let partialStar = StarView(frame: CGRect(origin: .zero, size: configuration.starSize), proportionOfFill: fractionalPart, color: configuration.tintColor)
             starViews.append(partialStar)
         }
         
         for _ in 0..<emptyStarCount {
-            let emptyStar = StarView(frame: .zero, size: 0, color: color)
+            let emptyStar = StarView(frame: CGRect(origin: .zero, size: configuration.starSize), proportionOfFill: 0, color: configuration.tintColor)
             starViews.append(emptyStar)
         }
         

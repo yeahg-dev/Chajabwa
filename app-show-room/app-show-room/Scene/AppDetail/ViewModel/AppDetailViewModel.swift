@@ -56,9 +56,9 @@ struct AppDetailViewModel {
         return app.iconImageURL
     }
     
-    var summaryCollectionViewCellCount: Int {
-        return summaryItems.count
-    }
+//    var summaryCollectionViewCellCount: Int {
+//        return summaryItems.count
+//    }
     
     var linkInformationsIndexPaths: [IndexPath] {
         var indexPaths = [IndexPath]()
@@ -107,7 +107,7 @@ struct AppDetailViewModel {
                 price: app.price)
             return [Item.signBoard(info)]
         case .summary:
-            return summaryItems
+            return [summary]
         case .releaseNote:
             let releaseNote = ReleaseNote(
                 version: app.version,
@@ -126,58 +126,110 @@ struct AppDetailViewModel {
         }
     }
     
-    private var summaryItems: [Item] {
-        var summarys = [Summary]()
+    private var summary: Item {
+        var userRatingPrimaryText: String?
+        var userRatingSymbolImage: UIImage?
+        var contentAdivisoryRatingSymbolImage: UIImage?
+        var providerSymbolImage = UIImage(systemName: "person.crop.square")
+        var genreSymbolImage: UIImage?
+        var languageSymbolImage: UIImage?
+        var languageSecondaryText: String?
         
         if let averageUserRating = app.averageUserRating,
            let userRatingCount = app.userRatingCount {
             let numberFormatter = NumberFormatter()
             numberFormatter.maximumFractionDigits = 1
             let averageUserRatingText = numberFormatter.string(from: averageUserRating as NSNumber)
-            let averageUserRatingSummary = Summary(
-                primaryText: Text.ratingCount.value(with: userRatingCount),
-                secnondaryText: "일단 비움",
-                symbolImage: TextSymbolView(averageUserRatingText ?? "_").image)
-            summarys.append(averageUserRatingSummary)
+            
+            userRatingPrimaryText = Text.ratingCount.value(with: userRatingCount)
+            userRatingSymbolImage = TextSymbolView(averageUserRatingText ?? "_").image
         }
-        
+    
         if let contentAdvisoryRating = app.contentAdvisoryRating {
-            let contentAdvisoryRatingSummary = Summary(
-                primaryText: Text.age.value,
-                secnondaryText: Text.old.value,
-                symbolImage: TextSymbolView(contentAdvisoryRating).image)
-            summarys.append(contentAdvisoryRatingSummary)
+            contentAdivisoryRatingSymbolImage =  TextSymbolView(contentAdvisoryRating).image
         }
-        
-        if let provider = app.provider {
-            let developerImage = UIImage(systemName: "person.crop.square")
-            let providerSummary = Summary(
-                primaryText: Text.developer.value,
-                secnondaryText: provider,
-                symbolImage: developerImage)
-            summarys.append(providerSummary)
-        }
-        
+      
         if let genre = app.primaryGenreName {
-            let genreImage = AppGenre(rawValue: genre)?.symbolImage
-            let genreSummary = Summary(
-                primaryText: Text.genre.value,
-                secnondaryText: genre,
-                symbolImage: genreImage)
-            summarys.append(genreSummary)
+            genreSymbolImage = AppGenre(rawValue: genre)?.symbolImage
         }
+        
         
         if let languageCodes = app.languageCodesISO2A,
            let firstLanguageCode = languageCodes.first {
-            let languageSummary = Summary(
-                primaryText: Text.language.value,
-                secnondaryText: Text.languageCount.value(with: languageCodes.count),
-                symbolImage: TextSymbolView(firstLanguageCode).image)
-            summarys.append(languageSummary)
+            languageSymbolImage = TextSymbolView(firstLanguageCode).image
+            languageSecondaryText = Text.languageCount.value(with: languageCodes.count)
         }
         
-        return summarys.map { Item.summary($0) }
+        let summary = Summary(
+            userRatingPrimaryText: userRatingPrimaryText,
+            userRatingSymbolImage: userRatingSymbolImage,
+            userRatingSecondaryValue: app.averageUserRating,
+            contentAdivisoryRatingPrimaryText: Text.age.value,
+            contentAdivisoryRatingSymbolImage: contentAdivisoryRatingSymbolImage,
+            contentAdivisoryRatingSecondaryText: Text.old.value,
+            providerPrimaryText: Text.developer.value,
+            providerSymbolImage: providerSymbolImage,
+            providerSecondaryText: app.provider,
+            genrePrimaryText: Text.genre.value,
+            genreSymbolImage: genreSymbolImage,
+            genreSecondaryText: app.primaryGenreName,
+            languagePrimaryText: Text.language.value,
+            languageSymbolImage: languageSymbolImage,
+            languageSecondaryText: languageSecondaryText)
+        return Item.summary(summary)
     }
+//    private var summaryItems: [Item] {
+//        var summarys = [Summary]()
+//
+//        if let averageUserRating = app.averageUserRating,
+//           let userRatingCount = app.userRatingCount {
+//            let numberFormatter = NumberFormatter()
+//            numberFormatter.maximumFractionDigits = 1
+//            let averageUserRatingText = numberFormatter.string(from: averageUserRating as NSNumber)
+//            let averageUserRatingSummary = Summary(
+//                primaryText: Text.ratingCount.value(with: userRatingCount),
+//                secnondaryText: "일단 비움",
+//                symbolImage: TextSymbolView(averageUserRatingText ?? "_").image)
+//            summarys.append(averageUserRatingSummary)
+//        }
+//
+//        if let contentAdvisoryRating = app.contentAdvisoryRating {
+//            let contentAdvisoryRatingSummary = Summary(
+//                primaryText: Text.age.value,
+//                secnondaryText: Text.old.value,
+//                symbolImage: TextSymbolView(contentAdvisoryRating).image)
+//            summarys.append(contentAdvisoryRatingSummary)
+//        }
+//
+//        if let provider = app.provider {
+//            let developerImage = UIImage(systemName: "person.crop.square")
+//            let providerSummary = Summary(
+//                primaryText: Text.developer.value,
+//                secnondaryText: provider,
+//                symbolImage: developerImage)
+//            summarys.append(providerSummary)
+//        }
+//
+//        if let genre = app.primaryGenreName {
+//            let genreImage = AppGenre(rawValue: genre)?.symbolImage
+//            let genreSummary = Summary(
+//                primaryText: Text.genre.value,
+//                secnondaryText: genre,
+//                symbolImage: genreImage)
+//            summarys.append(genreSummary)
+//        }
+//
+//        if let languageCodes = app.languageCodesISO2A,
+//           let firstLanguageCode = languageCodes.first {
+//            let languageSummary = Summary(
+//                primaryText: Text.language.value,
+//                secnondaryText: Text.languageCount.value(with: languageCodes.count),
+//                symbolImage: TextSymbolView(firstLanguageCode).image)
+//            summarys.append(languageSummary)
+//        }
+//
+//        return summarys.map { Item.summary($0) }
+//    }
   
     private var textInformations: [Item] {
         var inforamtions = [Information]()
@@ -260,9 +312,26 @@ extension AppDetailViewModel {
     }
     
     struct Summary: Hashable {
-        let primaryText: String?
-        let secnondaryText: String?
-        let symbolImage: UIImage?
+        
+        let userRatingPrimaryText: String?
+        let userRatingSymbolImage: UIImage?
+        let userRatingSecondaryValue: Double?
+        
+        let contentAdivisoryRatingPrimaryText: String?
+        let contentAdivisoryRatingSymbolImage: UIImage?
+        let contentAdivisoryRatingSecondaryText: String?
+        
+        let providerPrimaryText: String?
+        let providerSymbolImage: UIImage?
+        let providerSecondaryText: String?
+        
+        let genrePrimaryText: String?
+        let genreSymbolImage: UIImage?
+        let genreSecondaryText: String?
+        
+        let languagePrimaryText: String?
+        let languageSymbolImage: UIImage?
+        let languageSecondaryText: String?
     }
     
     struct ReleaseNote: Hashable {

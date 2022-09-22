@@ -7,20 +7,16 @@
 
 import UIKit
 
-// filledStar.mask = maskLayer
-// outlinedStar
-// maskLayer
-
 class StarView: UIView {
     
-    private let size: Double
+    private let proportionOfFill: Double
     private let color: UIColor
     
     private let filledStarLayer = CALayer()
     private let outlinedStarLayer = CALayer()
     
-    init(frame: CGRect, size: Double, color: UIColor) {
-        self.size = size
+    init(frame: CGRect, proportionOfFill: Double, color: UIColor) {
+        self.proportionOfFill = proportionOfFill
         self.color = color
         super.init(frame: frame)
         configureLayers()
@@ -32,20 +28,52 @@ class StarView: UIView {
     }
     
     private func configureLayers() {
-        layer.addSublayer(outlinedStarLayer)
-        layer.addSublayer(filledStarLayer)
-        
-//        outlinedStarLayer.frame = bounds
+        layer.bounds = bounds
+
         outlinedStarLayer.contents = UIImage(
-            named: "star")?
+            systemName: "star")?
             .withTintColor(color)
             .cgImage
+        outlinedStarLayer.anchorPoint = CGPoint()
+        outlinedStarLayer.position = CGPoint()
+        outlinedStarLayer.contentsGravity = CALayerContentsGravity.resizeAspect
+        outlinedStarLayer.contentsScale = UIScreen.main.scale
+        outlinedStarLayer.masksToBounds = true
+        outlinedStarLayer.bounds = CGRect(origin: .zero, size: bounds.size)
+        outlinedStarLayer.isOpaque = true
         
-//        filledStarLayer.frame = bounds
+        filledStarLayer.contentsScale = UIScreen.main.scale
+        filledStarLayer.position = CGPoint()
+        filledStarLayer.anchorPoint = CGPoint()
+        filledStarLayer.masksToBounds = true
+        filledStarLayer.bounds = CGRect(origin: .zero, size: bounds.size)
+        filledStarLayer.isOpaque = true
         filledStarLayer.contents = UIImage(
-            named: "star.fill")?
+            systemName: "star.fill")?
             .withTintColor(color)
             .cgImage
-        filledStarLayer.bounds.size.width = CGFloat(size)
+        filledStarLayer.contentsGravity = CALayerContentsGravity.resizeAspect
+        
+        let filledStarContainerLayer = CALayer()
+        filledStarContainerLayer.contentsScale = UIScreen.main.scale
+        filledStarContainerLayer.anchorPoint = CGPoint()
+        filledStarContainerLayer.masksToBounds = true
+        filledStarContainerLayer.position = CGPoint()
+        filledStarContainerLayer.bounds = CGRect(origin: .zero, size: bounds.size)
+        filledStarContainerLayer.isOpaque = true
+        filledStarContainerLayer.addSublayer(filledStarLayer)
+        
+        let parentLayer = CALayer()
+        parentLayer.position = CGPoint()
+        parentLayer.anchorPoint = CGPoint()
+        parentLayer.contentsScale = UIScreen.main.scale
+        parentLayer.bounds = CGRect(origin: .zero, size: bounds.size)
+
+        parentLayer.addSublayer(outlinedStarLayer)
+        parentLayer.addSublayer(filledStarContainerLayer)
+        
+        filledStarContainerLayer.bounds.size.width *= CGFloat(proportionOfFill)
+        
+        layer.addSublayer(parentLayer)
     }
 }
