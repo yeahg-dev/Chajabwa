@@ -42,7 +42,8 @@ final class RatingTypeSummaryView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.distribution = .fill
+        stackView.spacing = 3
+        stackView.distribution = .equalSpacing
         return stackView
     }()
     
@@ -53,7 +54,6 @@ final class RatingTypeSummaryView: UIView {
         label.textAlignment = .center
         label.textColor = .gray
         label.numberOfLines = 1
-        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return label
     }()
     
@@ -63,7 +63,6 @@ final class RatingTypeSummaryView: UIView {
         imageView.contentMode = .scaleAspectFit
         imageView.preferredSymbolConfiguration = .init(font: .preferredFont(forTextStyle: .title2), scale: .large)
         imageView.tintColor = .gray
-        imageView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return imageView
     }()
     

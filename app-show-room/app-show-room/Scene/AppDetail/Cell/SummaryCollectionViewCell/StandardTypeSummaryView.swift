@@ -14,7 +14,8 @@ final class StandardTypeSummaryView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.distribution = .fill
+        stackView.spacing = 3
+        stackView.distribution = .equalSpacing
         return stackView
     }()
     
