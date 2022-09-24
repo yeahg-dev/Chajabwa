@@ -7,16 +7,6 @@
 
 import UIKit
 
-private enum Design {
-
-    static let paddingTop: CGFloat = 15
-    
-    static let separatorWidth: CGFloat = 0.5
-    static let separatorColor: CGColor = UIColor.systemGray3.cgColor
-    
-    static let titleFontSize: CGFloat = 22
-}
-
 // MARK: - TitleSupplementaryView
 
 final class TitleSupplementaryView: UICollectionReusableView {
@@ -61,3 +51,20 @@ final class TitleSupplementaryView: UICollectionReusableView {
     
 }
 
+// MARK: - Design
+
+private enum Design {
+
+    // padding
+    static let paddingTop: CGFloat = 15
+    
+    // size
+    static let separatorWidth: CGFloat = 0.5
+    
+    // color
+    static let separatorColor: CGColor = UIColor.systemGray3.cgColor
+    
+    // font
+    static let titleFontSize: CGFloat = 22
+    
+}

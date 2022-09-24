@@ -15,8 +15,6 @@ protocol ReleaseNoteCollectionViewCellDelegate: AnyObject {
 
 final class ReleaseNoteCollectionViewCell: BaseCollectionViewCell {
     
-    private let design = ReleaseNoteCollectionViewCellDesign.self
-    
     private let versionLabel = UILabel()
     private let currentVersionReleaseDateLabel = UILabel()
     private let descriptionTextView = UITextView()
@@ -30,20 +28,20 @@ final class ReleaseNoteCollectionViewCell: BaseCollectionViewCell {
         return [
             foldingButton.topAnchor.constraint(
                 equalTo: descriptionTextView.bottomAnchor,
-                constant: design.desciptionTextViewMarginBottom),
+                constant: Design.desciptionTextViewMarginBottom),
             foldingButton.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: -design.paddingTrailing),
+                constant: -Design.paddingTrailing),
             foldingButton.bottomAnchor.constraint(
                 equalTo: contentView.bottomAnchor,
-                constant: -design.paddingBottom)
+                constant: -Design.paddingBottom)
         ]
     }()
     
     private lazy var hideFoldingButton: NSLayoutConstraint = {
         descriptionTextView.bottomAnchor.constraint(
             equalTo: contentView.bottomAnchor,
-            constant: -design.desciptionTextViewMarginBottom)
+            constant: -Design.desciptionTextViewMarginBottom)
     }()
   
     override func addSubviews() {
@@ -77,9 +75,9 @@ final class ReleaseNoteCollectionViewCell: BaseCollectionViewCell {
             descriptionTextView.text = releaseNote.description
             
             if releaseNote.isTrucated {
-                descriptionTextView.textContainer.maximumNumberOfLines = design.textContainerMaximumNumberOfLines
+                descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMaximumNumberOfLines
             } else {
-                descriptionTextView.textContainer.maximumNumberOfLines = design.textContainerMaximumNumberOfLines
+                descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMaximumNumberOfLines
             }
             
             guard let button = releaseNote.buttonTitle else {
@@ -93,9 +91,9 @@ final class ReleaseNoteCollectionViewCell: BaseCollectionViewCell {
     }
     
     private func configureFoldingButton() {
-        foldingButton.setTitleColor(design.foldingButtonTextColor, for: .normal)
-        foldingButton.setTitleColor(design.foldingButtonTextColor, for: .selected)
-        foldingButton.titleLabel?.font = design.foldingButtonFont
+        foldingButton.setTitleColor(Design.foldingButtonTextColor, for: .normal)
+        foldingButton.setTitleColor(Design.foldingButtonTextColor, for: .selected)
+        foldingButton.titleLabel?.font = Design.foldingButtonFont
         foldingButton.titleLabel?.textAlignment = .right
         foldingButton.addTarget(
             self,
@@ -108,28 +106,28 @@ final class ReleaseNoteCollectionViewCell: BaseCollectionViewCell {
     }
     
     private func configureVersionLabel() {
-        versionLabel.font = design.decriptionTextViewFont
-        versionLabel.textColor = design.versionTextColor
+        versionLabel.font = Design.decriptionTextViewFont
+        versionLabel.textColor = Design.versionTextColor
     }
     
     private func configureCurrentVersionReleaseDateLabel() {
-        currentVersionReleaseDateLabel.font = design.currentVersionReleaseDateFont
-        currentVersionReleaseDateLabel.textColor = design.currentVersionReleaseDateTextColor
+        currentVersionReleaseDateLabel.font = Design.currentVersionReleaseDateFont
+        currentVersionReleaseDateLabel.textColor = Design.currentVersionReleaseDateTextColor
         currentVersionReleaseDateLabel.textAlignment = .right
     }
 
     private func configureDescrpitionTextView() {
         descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
-        descriptionTextView.textContainer.maximumNumberOfLines = design.textContainerMaximumNumberOfLines
+        descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMaximumNumberOfLines
         descriptionTextView.textContainerInset = UIEdgeInsets(
-            top: design.textContainerInsetTop,
-            left: design.textContainerInsetLeft,
-            bottom: design.textContainerInsetBottom,
-            right: design.textContainerInsetRight)
+            top: Design.textContainerInsetTop,
+            left: Design.textContainerInsetLeft,
+            bottom: Design.textContainerInsetBottom,
+            right: Design.textContainerInsetRight)
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.isEditable = false
-        descriptionTextView.textColor = design.descriptionTextColor
-        descriptionTextView.font = design.decriptionTextViewFont
+        descriptionTextView.textColor = Design.descriptionTextColor
+        descriptionTextView.font = Design.decriptionTextViewFont
     }
     
 }
@@ -154,13 +152,13 @@ extension ReleaseNoteCollectionViewCell {
         NSLayoutConstraint.activate([
             versionLabel.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor,
-                constant: design.paddingLeading),
+                constant: Design.paddingLeading),
             versionLabel.topAnchor.constraint(
                 equalTo: contentView.topAnchor,
-                constant: design.paddingTop),
+                constant: Design.paddingTop),
             versionLabel.bottomAnchor.constraint(
                 equalTo: descriptionTextView.topAnchor,
-                constant: -design.descriptionTextViewMarginTop)
+                constant: -Design.descriptionTextViewMarginTop)
         ])
     }
     
@@ -168,13 +166,13 @@ extension ReleaseNoteCollectionViewCell {
         NSLayoutConstraint.activate([
             currentVersionReleaseDateLabel.topAnchor.constraint(
                 equalTo: contentView.topAnchor,
-                constant: design.paddingTop),
+                constant: Design.paddingTop),
             currentVersionReleaseDateLabel.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: -design.paddingTrailing),
+                constant: -Design.paddingTrailing),
             currentVersionReleaseDateLabel.bottomAnchor.constraint(
                 equalTo: descriptionTextView.topAnchor,
-                constant: -design.descriptionTextViewMarginTop)
+                constant: -Design.descriptionTextViewMarginTop)
         ])
     }
     
@@ -182,18 +180,59 @@ extension ReleaseNoteCollectionViewCell {
         NSLayoutConstraint.activate([
             descriptionTextView.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor,
-                constant: design.paddingLeading),
+                constant: Design.paddingLeading),
             descriptionTextView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: -design.paddingTrailing),
+                constant: -Design.paddingTrailing),
             descriptionTextView.widthAnchor.constraint(
                 equalToConstant: UIScreen.main.bounds.width
-                - design.paddingLeading - design.paddingTrailing)
+                - Design.paddingLeading - Design.paddingTrailing)
         ])
     }
     
     private func setConstraintsOfFoldingButton() {
         NSLayoutConstraint.activate(showFoldingButton)
     }
+    
+}
+
+// MARK: - Design
+
+private enum Design {
+    
+    // padding
+    static let paddingLeading = AppDetailCollectionViewCellDesign.paddingLeading
+    static let paddingTop = AppDetailCollectionViewCellDesign.paddingTop
+    static let paddingTrailing = AppDetailCollectionViewCellDesign.paddingTrailing
+    static let paddingBottom = AppDetailCollectionViewCellDesign.paddingBottom
+    
+    // margin
+    static let desciptionTextViewMarginBottom: CGFloat = 5
+    static let descriptionTextViewMarginTop: CGFloat = 10
+    
+    // textContainer
+    static let textContainerInsetTop: CGFloat = 0
+    static let textContainerInsetLeft: CGFloat = -5
+    static let textContainerInsetRight: CGFloat = -5
+    static let textContainerInsetBottom: CGFloat = 0
+    
+    static let textContainerMaximumNumberOfLines: Int = 3
+    static let textContainerMinimumNumberOfLines: Int = 0
+    
+    // size
+    static let foldingButtonWidth: CGFloat = 100
+    static let foldingButtonHeight: CGFloat = 25
+    
+    // font
+    static let versionFont: UIFont = .preferredFont(forTextStyle: .callout)
+    static let currentVersionReleaseDateFont: UIFont = .preferredFont(forTextStyle: .callout)
+    static let foldingButtonFont: UIFont = .preferredFont(forTextStyle: .callout)
+    static let decriptionTextViewFont: UIFont = .preferredFont(forTextStyle: .callout)
+    
+    // text color
+    static let versionTextColor: UIColor = .systemGray
+    static let currentVersionReleaseDateTextColor: UIColor = .systemGray
+    static let foldingButtonTextColor: UIColor = .systemBlue
+    static let descriptionTextColor: UIColor = .label
     
 }

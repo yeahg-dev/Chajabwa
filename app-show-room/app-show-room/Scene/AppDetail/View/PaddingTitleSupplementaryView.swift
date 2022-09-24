@@ -7,20 +7,6 @@
 
 import UIKit
 
-private enum Design {
-    
-    static let paddingLeading: CGFloat = 25
-    static let paddingTop: CGFloat = 15
-    static let paddingTrailing: CGFloat = 25
-    
-    static let separatorWidth: CGFloat = 0.5
-    static let separatorColor: CGColor = UIColor.systemGray3.cgColor
-    
-    static let titleFontSize: CGFloat = 22
-   
-}
-
-// MARK: - PaddingTitleSupplementaryView
 // inset을 적용하지 못하는 Section을 위한 TitleSupplementaryView
 // leading, trailing에 padding을 적용함으로써 inset을 적용한 것과 같은 효과를 줌
 
@@ -63,4 +49,19 @@ final class PaddingTitleSupplementaryView: UICollectionReusableView {
         ])
         titleLabel.font = .boldSystemFont(ofSize: Design.titleFontSize)
     }
+}
+
+// MARK: - Design
+
+private enum Design {
+    
+    static let paddingLeading: CGFloat = 25
+    static let paddingTop: CGFloat = 15
+    static let paddingTrailing: CGFloat = 25
+    
+    static let separatorWidth: CGFloat = 0.5
+    static let separatorColor: CGColor = UIColor.systemGray3.cgColor
+    
+    static let titleFontSize: CGFloat = 22
+   
 }

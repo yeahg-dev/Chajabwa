@@ -56,10 +56,6 @@ struct AppDetailViewModel {
         return app.iconImageURL
     }
     
-//    var summaryCollectionViewCellCount: Int {
-//        return summaryItems.count
-//    }
-    
     var linkInformationsIndexPaths: [IndexPath] {
         var indexPaths = [IndexPath]()
         let totalInforationItem = textInformations.count + linkInformations.count
@@ -81,8 +77,8 @@ struct AppDetailViewModel {
     
     func description(isTruncated: Bool) -> Item {
         if isTruncated {
-            let fullDescription = Description(text: app.description, isTrucated: isTruncated)
-            return Item.description(fullDescription)
+            let previewDescription = Description(text: app.description, isTrucated: isTruncated)
+            return Item.description(previewDescription)
         } else {
             let fullDescription = Description(text: app.description, isTrucated: isTruncated)
             return Item.description(fullDescription)
@@ -178,59 +174,7 @@ struct AppDetailViewModel {
             languageSecondaryText: languageSecondaryText)
         return Item.summary(summary)
     }
-//    private var summaryItems: [Item] {
-//        var summarys = [Summary]()
-//
-//        if let averageUserRating = app.averageUserRating,
-//           let userRatingCount = app.userRatingCount {
-//            let numberFormatter = NumberFormatter()
-//            numberFormatter.maximumFractionDigits = 1
-//            let averageUserRatingText = numberFormatter.string(from: averageUserRating as NSNumber)
-//            let averageUserRatingSummary = Summary(
-//                primaryText: Text.ratingCount.value(with: userRatingCount),
-//                secnondaryText: "일단 비움",
-//                symbolImage: TextSymbolView(averageUserRatingText ?? "_").image)
-//            summarys.append(averageUserRatingSummary)
-//        }
-//
-//        if let contentAdvisoryRating = app.contentAdvisoryRating {
-//            let contentAdvisoryRatingSummary = Summary(
-//                primaryText: Text.age.value,
-//                secnondaryText: Text.old.value,
-//                symbolImage: TextSymbolView(contentAdvisoryRating).image)
-//            summarys.append(contentAdvisoryRatingSummary)
-//        }
-//
-//        if let provider = app.provider {
-//            let developerImage = UIImage(systemName: "person.crop.square")
-//            let providerSummary = Summary(
-//                primaryText: Text.developer.value,
-//                secnondaryText: provider,
-//                symbolImage: developerImage)
-//            summarys.append(providerSummary)
-//        }
-//
-//        if let genre = app.primaryGenreName {
-//            let genreImage = AppGenre(rawValue: genre)?.symbolImage
-//            let genreSummary = Summary(
-//                primaryText: Text.genre.value,
-//                secnondaryText: genre,
-//                symbolImage: genreImage)
-//            summarys.append(genreSummary)
-//        }
-//
-//        if let languageCodes = app.languageCodesISO2A,
-//           let firstLanguageCode = languageCodes.first {
-//            let languageSummary = Summary(
-//                primaryText: Text.language.value,
-//                secnondaryText: Text.languageCount.value(with: languageCodes.count),
-//                symbolImage: TextSymbolView(firstLanguageCode).image)
-//            summarys.append(languageSummary)
-//        }
-//
-//        return summarys.map { Item.summary($0) }
-//    }
-  
+    
     private var textInformations: [Item] {
         var inforamtions = [Information]()
         
@@ -335,29 +279,19 @@ extension AppDetailViewModel {
     }
     
     struct ReleaseNote: Hashable {
+        
         private let versionValue: String?
         private let currentVersionReleaseDateValue: String?
-        private let fullDescription: String?
+        
+        var description: String?
         var isTrucated: Bool
         
         init(version: String?, currentVersionReleaseDate: String?, description: String?,
              isTruncated: Bool) {
             self.versionValue = version
             self.currentVersionReleaseDateValue = currentVersionReleaseDate
-            self.fullDescription = description
+            self.description = description
             self.isTrucated = isTruncated
-        }
-
-        var description: String? {
-            if isTrucated {
-                return previewDescription
-            } else {
-                return fullDescription
-            }
-        }
-        
-        private var previewDescription: String? {
-            return fullDescription?.previewText
         }
         
         var version: String? {
@@ -372,11 +306,7 @@ extension AppDetailViewModel {
         }
         
         var buttonTitle: String? {
-            if fullDescription ==  previewDescription {
-                return nil
-            } else {
-                return isTrucated ? Text.moreDetails.value : Text.preview.value
-            }
+            return isTrucated ? Text.moreDetails.value : Text.preview.value
         }
         
         private func releaseDateRepresentation(_ string: String?) -> String? {

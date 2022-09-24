@@ -15,8 +15,6 @@ protocol DescriptionCollectionViewCellDelegate: AnyObject {
 
 final class DescriptionCollectionViewCell: BaseCollectionViewCell {
     
-    private let design = DescriptionCollectionViewCellDesign.self
-    
     private let descriptionTextView = UITextView()
     private let foldingButton = UIButton(type: .custom)
     
@@ -47,17 +45,17 @@ final class DescriptionCollectionViewCell: BaseCollectionViewCell {
             descriptionTextView.text = descritpion.text
             foldingButton.setTitle(descritpion.buttonTitle, for: .normal)
             if descritpion.isTrucated {
-                descriptionTextView.textContainer.maximumNumberOfLines = design.textContainerMinimumNumberOfLines
+                descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMinimumNumberOfLines
             } else {
-                descriptionTextView.textContainer.maximumNumberOfLines = design.textContainerMaximumNumberOfLines
+                descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMaximumNumberOfLines
             }
         }
     }
     
     private func configureFoldingButton() {
-        foldingButton.setTitleColor(design.foldingButtonTextColor, for: .normal)
-        foldingButton.setTitleColor(design.foldingButtonTextColor, for: .selected)
-        foldingButton.titleLabel?.font = design.foldingButtonFont
+        foldingButton.setTitleColor(Design.foldingButtonTextColor, for: .normal)
+        foldingButton.setTitleColor(Design.foldingButtonTextColor, for: .selected)
+        foldingButton.titleLabel?.font = Design.foldingButtonFont
         foldingButton.titleLabel?.textAlignment = .right
         foldingButton.addTarget(
             self,
@@ -72,15 +70,15 @@ final class DescriptionCollectionViewCell: BaseCollectionViewCell {
     private func configureDescrpitionTextView() {
         descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
         descriptionTextView.textContainer.lineBreakMode = .byCharWrapping
-        descriptionTextView.textContainer.maximumNumberOfLines = design.textContainerMinimumNumberOfLines
+        descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMinimumNumberOfLines
         descriptionTextView.textContainerInset = UIEdgeInsets(
-            top: design.textContainerInsetTop,
-            left: design.textContainerInsetLeft,
-            bottom: design.textContainerInsetBottom,
-            right:  design.textContainerInsetRight)
+            top: Design.textContainerInsetTop,
+            left: Design.textContainerInsetLeft,
+            bottom: Design.textContainerInsetBottom,
+            right:  Design.textContainerInsetRight)
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.isEditable = false
-        descriptionTextView.font = design.decriptionTextViewFont
+        descriptionTextView.font = Design.decriptionTextViewFont
     }
     
 }
@@ -105,19 +103,19 @@ extension DescriptionCollectionViewCell {
         NSLayoutConstraint.activate([
             descriptionTextView.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor,
-                constant: design.paddingLeading),
+                constant: Design.paddingLeading),
             descriptionTextView.topAnchor.constraint(
                 equalTo: contentView.topAnchor,
-                constant: design.paddingTop),
+                constant: Design.paddingTop),
             descriptionTextView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: -design.paddingTrailing),
+                constant: -Design.paddingTrailing),
             descriptionTextView.bottomAnchor.constraint(
                 equalTo: foldingButton.topAnchor,
-                constant: design.descriptionTextViewMarginBottom ),
+                constant: Design.descriptionTextViewMarginBottom ),
             descriptionTextView.widthAnchor.constraint(
                 equalToConstant: UIScreen.main.bounds.width
-                - design.paddingLeading - design.paddingTrailing)
+                - Design.paddingLeading - Design.paddingTrailing)
         ])
     }
     
@@ -125,11 +123,46 @@ extension DescriptionCollectionViewCell {
         NSLayoutConstraint.activate([
             foldingButton.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: -design.paddingTrailing),
+                constant: -Design.paddingTrailing),
             foldingButton.bottomAnchor.constraint(
                 equalTo: contentView.bottomAnchor,
-                constant: -design.paddingBottom),
+                constant: -Design.paddingBottom),
         ])
     }
+    
+}
+
+// MARK: - Design
+
+private enum Design {
+    
+    // padding, spacing
+    static let paddingLeading = AppDetailCollectionViewCellDesign.paddingLeading
+    static let paddingTop = AppDetailCollectionViewCellDesign.paddingTop
+    static let paddingTrailing = AppDetailCollectionViewCellDesign.paddingTrailing
+    static let paddingBottom = AppDetailCollectionViewCellDesign.paddingBottom
+    
+    static let descriptionTextViewMarginBottom: CGFloat = 5
+    
+    // size
+    static let foldingButtonWidth: CGFloat = 100
+    static let foldingButtonHeight: CGFloat = 25
+    
+    // textContainer
+    static let textContainerInsetTop: CGFloat = 0
+    static let textContainerInsetLeft: CGFloat = -5
+    static let textContainerInsetBottom: CGFloat = 0
+    static let textContainerInsetRight: CGFloat = -5
+    
+    // font
+    static let foldingButtonFont: UIFont = .preferredFont(forTextStyle: .callout)
+    static let decriptionTextViewFont: UIFont = .preferredFont(forTextStyle: .callout)
+    
+    // numberOfLines
+    static let textContainerMaximumNumberOfLines = 0
+    static let textContainerMinimumNumberOfLines = 3
+
+    // textColor
+    static let foldingButtonTextColor: UIColor = .systemBlue
     
 }

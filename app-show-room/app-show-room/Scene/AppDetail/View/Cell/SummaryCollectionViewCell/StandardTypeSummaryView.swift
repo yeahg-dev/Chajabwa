@@ -14,7 +14,7 @@ final class StandardTypeSummaryView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.spacing = 3
+        stackView.spacing = Design.stackViewSpacing
         stackView.distribution = .equalSpacing
         return stackView
     }()
@@ -22,8 +22,8 @@ final class StandardTypeSummaryView: UIView {
     private let primaryTextLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .caption1)
-        label.textColor = .gray
+        label.font = Design.primaryTextFont
+        label.textColor = Design.primaryTextColor
         label.numberOfLines = 1
         return label
     }()
@@ -32,16 +32,16 @@ final class StandardTypeSummaryView: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.preferredSymbolConfiguration = .init(font: .preferredFont(forTextStyle: .title2), scale: .large)
-        imageView.tintColor = .gray
+        imageView.preferredSymbolConfiguration = Design.symbolImageViewSymbolConfiguration
+        imageView.tintColor = Design.symbolImageTintColor
         return imageView
     }()
     
     private let secondaryTextLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .caption1)
-        label.textColor = .gray
+        label.font = Design.secondaryTextFont
+        label.textColor = Design.secondaryTextColor
         label.numberOfLines = 1
         return label
     }()
@@ -70,5 +70,24 @@ final class StandardTypeSummaryView: UIView {
             containerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
+    
+}
+
+// MARK: - Design
+
+private enum Design {
+    
+    // spacing
+    static let stackViewSpacing: CGFloat = 3
+    
+    // color
+    static let primaryTextColor: UIColor = .gray
+    static let symbolImageTintColor: UIColor = .gray
+    static let secondaryTextColor: UIColor = .gray
+    
+    // font
+    static let primaryTextFont: UIFont = .preferredFont(forTextStyle: .caption1)
+    static let secondaryTextFont: UIFont = .preferredFont(forTextStyle: .caption1)
+    static let symbolImageViewSymbolConfiguration = UIImage.SymbolConfiguration.init(font: .preferredFont(forTextStyle: .title2), scale: .large)
     
 }

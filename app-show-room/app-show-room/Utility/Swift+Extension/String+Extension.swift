@@ -9,18 +9,6 @@ import Foundation
 
 extension String {
     
-    var previewText: String {
-        let previewTextCount: Int = 50
-        let fullText = self
-        guard fullText.count > 50 else {
-            return self
-        }
-        let lastIndex = fullText.index(fullText.startIndex, offsetBy: previewTextCount)
-        let previewText: Substring = fullText[fullText.startIndex..<lastIndex]
-        
-        return String(previewText)
-    }
-    
     enum DataUnit: String {
         
         case byte = "Byte"

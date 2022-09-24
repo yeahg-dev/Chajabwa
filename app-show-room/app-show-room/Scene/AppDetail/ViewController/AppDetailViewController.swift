@@ -37,8 +37,6 @@ final class AppDetailViewController: UIViewController {
     private var isReleaseNoteFolded: Bool = true
     private var isDescriptionViewFolded: Bool = true
     
-    private let design = AppDetailViewDesign.self
-    
     // MARK: - Initializer
     
     init(appDetailViewModel: AppDetailViewModel) {
@@ -65,7 +63,7 @@ final class AppDetailViewController: UIViewController {
     
     private func configureUI() {
         view.addSubview(contentCollectionView)
-        view.backgroundColor = design.backgroundColor
+        view.backgroundColor = Design.backgroundColor
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.titleView = iconImage
         navigationItem.titleView?.alpha = 0
@@ -110,30 +108,29 @@ final class AppDetailViewController: UIViewController {
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 let groupSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .absolute(SignboardCollectionViewCellDesign.height))
+                    heightDimension: .absolute(SignboardCollectionViewCell.cellHeight))
                 let group = NSCollectionLayoutGroup.vertical(
                     layoutSize: groupSize,
                     subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
             case .summary:
                 
-                let cellDesign = SummaryCollectionViewCellDesign.self
                 let itemSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
                     heightDimension: .fractionalHeight(1.0))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 let groupSize = NSCollectionLayoutSize(
-                    widthDimension: .estimated(cellDesign.width),
-                    heightDimension: .absolute(cellDesign.height))
+                    widthDimension: .estimated(SummaryCollectionViewCell.cellWidth),
+                    heightDimension: .absolute(SummaryCollectionViewCell.cellHeight))
                 let group = NSCollectionLayoutGroup.horizontal(
                     layoutSize: groupSize,
                     subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
                 section.contentInsets = NSDirectionalEdgeInsets(
-                    top: self.design.sectionContentInsetTop,
-                    leading: self.design.sectionContentInsetLeading,
-                    bottom: self.design.sectionContentInsetBottom,
-                    trailing: self.design.sectionContentInsetTrailing)
+                    top: Design.sectionPaddingTop,
+                    leading: Design.sectionPaddingLeading,
+                    bottom: Design.sectionBottomPadding,
+                    trailing: Design.sectionPaddingTrailing)
                 section.orthogonalScrollingBehavior = .continuous
                 
             case .releaseNote:
@@ -178,10 +175,10 @@ final class AppDetailViewController: UIViewController {
                 section.boundarySupplementaryItems = [sectionHeader]
                 section.interGroupSpacing = 10
                 section.contentInsets = NSDirectionalEdgeInsets(
-                    top: self.design.sectionContentInsetTop,
-                    leading: self.design.sectionContentInsetLeading,
-                    bottom: self.design.sectionContentInsetBottom,
-                    trailing: self.design.sectionContentInsetTrailing)
+                    top: Design.sectionPaddingTop,
+                    leading: Design.sectionPaddingLeading,
+                    bottom: Design.sectionBottomPadding,
+                    trailing: Design.sectionPaddingTrailing)
                 section.orthogonalScrollingBehavior = .groupPaging
                 
             case .descritption:
@@ -307,12 +304,6 @@ final class AppDetailViewController: UIViewController {
     private func createSummaryCellRegistration() -> UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> {
         return UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> { [unowned self] (cell, indexPath, item) in
             cell.bind(model: item)
-            
-//            if indexPath.row == self.viewModel.summaryCollectionViewCellCount - 1 {
-//                cell.showsSeparator = false
-//            } else {
-//                cell.showsSeparator = true
-//            }
         }
     }
     
@@ -460,5 +451,20 @@ extension AppDetailViewController: UICollectionViewDelegate {
             self.navigationItem.rightBarButtonItem?.customView?.alpha = 0
         }
     }
+    
+}
+
+// MARK: - Design
+
+private enum Design {
+    
+    // color
+    static let backgroundColor: UIColor = .systemBackground
+    
+    // padding
+    static let sectionPaddingTop: CGFloat = 20
+    static let sectionPaddingLeading: CGFloat = 25
+    static let sectionBottomPadding: CGFloat = 20
+    static let sectionPaddingTrailing: CGFloat = 25
     
 }

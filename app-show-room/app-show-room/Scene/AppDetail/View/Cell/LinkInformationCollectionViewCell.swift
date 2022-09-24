@@ -44,8 +44,6 @@ struct LinkInformationContentConfiguration: UIContentConfiguration, Hashable {
 
 final class LinkInformationContentView: UIView, UIContentView {
     
-    private let design = LinkInformationCollectionViewCellDesign.self
-    
     private let imageView = UIImageView()
     private let categoryLabel = UILabel()
     
@@ -79,16 +77,16 @@ final class LinkInformationContentView: UIView, UIContentView {
         NSLayoutConstraint.activate([
             categoryLabel.topAnchor.constraint(
                 equalTo: layoutMarginsGuide.topAnchor,
-                constant: design.paddingTop),
+                constant: Design.paddingTop),
             categoryLabel.leadingAnchor.constraint(
                 equalTo: layoutMarginsGuide.leadingAnchor,
-                constant: design.paddingLeading),
+                constant: Design.paddingLeading),
             categoryLabel.bottomAnchor.constraint(
                 equalTo: layoutMarginsGuide.bottomAnchor,
-                constant: -design.paddingBottom),
+                constant: -Design.paddingBottom),
             imageView.trailingAnchor.constraint(
                 equalTo: layoutMarginsGuide.trailingAnchor,
-                constant: -design.paddingTrailing),
+                constant: -Design.paddingTrailing),
             imageView.topAnchor.constraint(
                 equalTo: categoryLabel.topAnchor),
             imageView.bottomAnchor.constraint(
@@ -104,11 +102,30 @@ final class LinkInformationContentView: UIView, UIContentView {
         
         imageView.isHidden = configuration.image == nil
         imageView.image = configuration.image
-        imageView.tintColor = design.tintColor
+        imageView.tintColor = Design.tintColor
         
         categoryLabel.text = configuration.category
-        categoryLabel.font = design.categoryLabelFont
-        categoryLabel.textColor = design.categoryLabelTextColor
+        categoryLabel.font = Design.categoryLabelFont
+        categoryLabel.textColor = Design.categoryLabelTextColor
     }
+    
+}
+
+// MARK: - Design
+
+private enum Design {
+    
+    // padding
+    static let paddingTop: CGFloat = 5
+    static let paddingLeading: CGFloat = 7
+    static let paddingTrailing: CGFloat = 7
+    static let paddingBottom: CGFloat = 5
+    
+    // font
+    static let categoryLabelFont: UIFont = .preferredFont(forTextStyle: .callout)
+    
+    // text color
+    static let categoryLabelTextColor: UIColor = .systemBlue
+    static let tintColor: UIColor = .systemBlue
     
 }

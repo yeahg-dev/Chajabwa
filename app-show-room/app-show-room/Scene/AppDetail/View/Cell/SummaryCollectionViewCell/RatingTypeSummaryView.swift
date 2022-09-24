@@ -7,34 +7,6 @@
 
 import UIKit
 
-enum SecondaryImageTypeSummaryViewDesign {
-    
-    // padding
-    static let paddingLeading: CGFloat = 5
-    static let paddingTrailing: CGFloat = 5
-    
-    // size
-    static let width: CGFloat = 100
-    static let height: CGFloat = 70
-    static let separatorWidth: CGFloat = 0.3
-    static let separatorHeight: CGFloat = height * 0.6
-    
-    // font
-    static let primaryTextLabelFont: UIFont = .preferredFont(forTextStyle: .caption1)
-    static let secondaryTextLaelFont: UIFont = .preferredFont(forTextStyle: .caption1)
-    
-    // color
-    static let primaryTextColor: UIColor = .gray
-    static let secondaryTextColor: UIColor = .gray
-    static let symbolImageTintColor: UIColor = .gray
-    static let separatorColor: CGColor = UIColor.systemGray3.cgColor
-    
-    // symbolConfiguration
-    static let preferredSymbolConfiguration: UIImage.SymbolConfiguration = .init(font: .preferredFont(forTextStyle: .title2), scale: .large)
-    
-}
-
-
 final class RatingTypeSummaryView: UIView {
     
     private lazy var containerStackView: UIStackView = {
@@ -42,7 +14,7 @@ final class RatingTypeSummaryView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.spacing = 3
+        stackView.spacing = Design.stackViewSpacing
         stackView.distribution = .equalSpacing
         return stackView
     }()
@@ -52,7 +24,7 @@ final class RatingTypeSummaryView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .caption1)
         label.textAlignment = .center
-        label.textColor = .gray
+        label.textColor = Design.primaryTextColor
         label.numberOfLines = 1
         return label
     }()
@@ -61,16 +33,16 @@ final class RatingTypeSummaryView: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.preferredSymbolConfiguration = .init(font: .preferredFont(forTextStyle: .title2), scale: .large)
-        imageView.tintColor = .gray
+        imageView.preferredSymbolConfiguration = Design.symbolImageSymbolConfigruation
+        imageView.tintColor = Design.symbolImageTintColor
         return imageView
     }()
     
     private let starRatingView: StarRatingView = {
         let configuration = StarRatingViewConfiguration(
-            starSize: 15,
-            starMargin: 3,
-            tintColor: .gray)
+            starSize: Design.starSize,
+            starMargin: Design.starMargin,
+            tintColor: Design.starColor)
         let starRatingView = StarRatingView(rating: 0.0, configuration: configuration)
         return starRatingView
     }()
@@ -99,5 +71,27 @@ final class RatingTypeSummaryView: UIView {
             containerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
+    
+}
+
+// MARK: - Design
+
+private enum Design {
+    
+    // spacing
+    static let stackViewSpacing: CGFloat = 3
+    
+    // color
+    static let primaryTextColor: UIColor = .gray
+    static let symbolImageTintColor: UIColor = .gray
+    static let starColor: UIColor = .gray
+    
+    // font
+    static let primaryTextFont: UIFont = .preferredFont(forTextStyle: .caption1)
+    static let symbolImageSymbolConfigruation = UIImage.SymbolConfiguration.init(font: .preferredFont(forTextStyle: .title2), scale: .large)
+    
+    // star
+    static let starSize: CGFloat = 15
+    static let starMargin: CGFloat = 3
     
 }

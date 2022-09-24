@@ -9,22 +9,61 @@ import UIKit
 
 final class SummaryCollectionViewCell: UICollectionViewCell {
     
+    // MARK: - Design used in DetailView
+    
+    static let cellWidth = Design.summaryViewWidth * 5 + Design.stackViewSpacing * 4
+    static let cellHeight = Design.summaryViewHeight
+    
+    // MARK: - UI Components
+    
     private lazy var containerStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
         userRatingView, contentAdvisoryView, providerView, genreView, languageView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .fill
-        stackView.spacing = 5
+        stackView.spacing = Design.stackViewSpacing
         stackView.distribution = .fillEqually
         return stackView
     }()
     
-    private let userRatingView = RatingTypeSummaryView(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 70)))
-    private let contentAdvisoryView = StandardTypeSummaryView(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 70)))
-    private let providerView = StandardTypeSummaryView(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 70)))
-    private let genreView = StandardTypeSummaryView(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 70)))
-    private let languageView = StandardTypeSummaryView(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 70)))
+    private let userRatingView = RatingTypeSummaryView(
+        frame: CGRect(
+            origin: .zero,
+            size: CGSize(
+                width: Design.summaryViewWidth,
+                height: Design.summaryViewHeight)))
+    
+    private let contentAdvisoryView = StandardTypeSummaryView(
+        frame: CGRect(
+            origin: .zero,
+            size: CGSize(
+                width: Design.summaryViewWidth,
+                height: Design.summaryViewHeight)))
+    
+    private let providerView = StandardTypeSummaryView(
+        frame: CGRect(
+            origin: .zero,
+            size: CGSize(
+                width: Design.summaryViewWidth,
+                height: Design.summaryViewHeight)))
+    
+    private let genreView = StandardTypeSummaryView(
+        frame: CGRect(
+            origin: .zero,
+            size: CGSize(
+                width: Design.summaryViewWidth,
+                height: Design.summaryViewHeight)))
+    
+    private let languageView = StandardTypeSummaryView(
+        frame: CGRect(
+            origin: .zero,
+            size: CGSize(
+                width: Design.summaryViewWidth,
+                height: Design.summaryViewHeight)))
+    
+    // MARK: - Initializer
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         confiugreConstraints()
@@ -33,6 +72,8 @@ final class SummaryCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Methods
     
     func bind(model: AppDetailViewModel.Item) {
         if case let .summary(summary) = model {
@@ -63,6 +104,8 @@ final class SummaryCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    // MARK: - Layout
+    
     private func confiugreConstraints() {
         addSubview(containerStackView)
         NSLayoutConstraint.activate([
@@ -72,5 +115,18 @@ final class SummaryCollectionViewCell: UICollectionViewCell {
             containerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
+    
+}
+
+// MARK: - Design
+
+private enum Design {
+    
+    // size
+    static let summaryViewWidth: CGFloat = 100
+    static let summaryViewHeight: CGFloat = 70
+    
+    // spacing
+    static let stackViewSpacing: CGFloat = 5
     
 }

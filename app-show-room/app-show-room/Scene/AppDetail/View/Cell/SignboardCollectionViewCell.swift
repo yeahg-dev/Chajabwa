@@ -9,7 +9,9 @@ import UIKit
 
 final class SignboardCollectionViewCell: BaseCollectionViewCell {
     
-    private let design = SignboardCollectionViewCellDesign.self
+    // MARK: - Design used in AppDetialView
+    
+    static let cellHeight = Design.height
     
     // MARK: - UIComponents
     private let iconImageView = UIImageView()
@@ -67,33 +69,33 @@ final class SignboardCollectionViewCell: BaseCollectionViewCell {
 extension SignboardCollectionViewCell {
     
     private func configureIconImageView() {
-        iconImageView.layer.cornerRadius = design.iconImageViewCornerRadius
-        iconImageView.layer.borderColor = design.icomImageViewBorderColor
-        iconImageView.layer.borderWidth = design.iconImageViewBorderWidth
+        iconImageView.layer.cornerRadius = Design.iconImageViewCornerRadius
+        iconImageView.layer.borderColor = Design.icomImageViewBorderColor
+        iconImageView.layer.borderWidth = Design.iconImageViewBorderWidth
         iconImageView.clipsToBounds = true
     }
     
     private func configureAppNameLabel() {
-        appNameLabel.font = design.appNameLabelFont
+        appNameLabel.font = Design.appNameLabelFont
         appNameLabel.lineBreakMode = .byTruncatingTail
-        appNameLabel.numberOfLines = design.appNameLabelNumberOfLines
+        appNameLabel.numberOfLines = Design.appNameLabelNumberOfLines
     }
     
     private func configureProviderLabel() {
-        providerLabel.font = design.providerLabelFont
-        providerLabel.textColor = design.appNameLabelTextColor
-        providerLabel.numberOfLines = design.providerLabelNumberOfLines
+        providerLabel.font = Design.providerLabelFont
+        providerLabel.textColor = Design.appNameLabelTextColor
+        providerLabel.numberOfLines = Design.providerLabelNumberOfLines
     }
     
     private func configurePurchaseButton() {
-        purchaseButton.backgroundColor = design.purchaseButtonBackgroundColor
-        purchaseButton.layer.cornerRadius = design.purchaseButtonCornerRadius
-        purchaseButton.titleLabel?.textColor = design.purchaseButtonTextColor
-        purchaseButton.titleLabel?.font = design.purchaseButtonFont
+        purchaseButton.backgroundColor = Design.purchaseButtonBackgroundColor
+        purchaseButton.layer.cornerRadius = Design.purchaseButtonCornerRadius
+        purchaseButton.titleLabel?.textColor = Design.purchaseButtonTextColor
+        purchaseButton.titleLabel?.font = Design.purchaseButtonFont
     }
     
     private func configureShareButton() {
-        let shareImage = design.shareButtonImage
+        let shareImage = Design.shareButtonImage
         shareButton.setImage(shareImage, for: .normal)
     }
     
@@ -118,23 +120,23 @@ extension SignboardCollectionViewCell {
     
     private func setContratinsOfIconImageView() {
         let heightAnchor = iconImageView.heightAnchor.constraint(
-            equalToConstant: design.iconImageViewHeight)
+            equalToConstant: Design.iconImageViewHeight)
         heightAnchor.priority = .init(rawValue: 750)
         let widthAnchor = iconImageView.widthAnchor.constraint(
-            equalToConstant: design.iconImageViewWidth)
+            equalToConstant: Design.iconImageViewWidth)
         widthAnchor.priority = .init(rawValue: 1000)
         NSLayoutConstraint.activate([
             widthAnchor,
             heightAnchor,
             iconImageView.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor,
-                constant: design.paddingLeading),
+                constant: Design.paddingLeading),
             iconImageView.topAnchor.constraint(
                 equalTo: contentView.topAnchor,
-                constant: design.paddingTop),
+                constant: Design.paddingTop),
             iconImageView.bottomAnchor.constraint(
                 equalTo: contentView.bottomAnchor,
-                constant: -design.paddingBottom)
+                constant: -Design.paddingBottom)
         ])
     }
     
@@ -142,13 +144,13 @@ extension SignboardCollectionViewCell {
         NSLayoutConstraint.activate([
             appNameLabel.leadingAnchor.constraint(
                 equalTo: iconImageView.trailingAnchor,
-                constant: design.iconImageViewTrailingMargin),
+                constant: Design.iconImageViewTrailingMargin),
             appNameLabel.topAnchor.constraint(
                 equalTo: contentView.topAnchor,
-                constant: design.paddingTop),
+                constant: Design.paddingTop),
             appNameLabel.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: -design.paddingTrailing),
+                constant: -Design.paddingTrailing),
         ])
     }
     
@@ -156,25 +158,25 @@ extension SignboardCollectionViewCell {
         NSLayoutConstraint.activate([
             providerLabel.leadingAnchor.constraint(
                 equalTo: iconImageView.trailingAnchor,
-                constant: design.iconImageViewTrailingMargin),
+                constant: Design.iconImageViewTrailingMargin),
             providerLabel.topAnchor.constraint(
                 equalTo: appNameLabel.bottomAnchor,
-                constant: design.providerLabelTopMargin),
+                constant: Design.providerLabelTopMargin),
             providerLabel.trailingAnchor.constraint(
                 greaterThanOrEqualTo: contentView.trailingAnchor,
-                constant: -design.paddingTrailing)
+                constant: -Design.paddingTrailing)
         ])
     }
     
     private func setContstraintOfPurchaseButton() {
         NSLayoutConstraint.activate([
             purchaseButton.heightAnchor.constraint(
-                equalToConstant: design.purchaseButtonHeight),
+                equalToConstant: Design.purchaseButtonHeight),
             purchaseButton.widthAnchor.constraint(
-                equalToConstant: design.purchaseButtonWidth),
+                equalToConstant: Design.purchaseButtonWidth),
             purchaseButton.leadingAnchor.constraint(
                 equalTo: iconImageView.trailingAnchor,
-                constant: design.iconImageViewTrailingMargin),
+                constant: Design.iconImageViewTrailingMargin),
             purchaseButton.bottomAnchor.constraint(
                 equalTo: iconImageView.bottomAnchor)
         ])
@@ -184,7 +186,7 @@ extension SignboardCollectionViewCell {
         NSLayoutConstraint.activate([
             shareButton.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
-                constant: -design.paddingTrailing),
+                constant: -Design.paddingTrailing),
             shareButton.bottomAnchor.constraint(
                 equalTo: iconImageView.bottomAnchor)
         ])
@@ -196,7 +198,7 @@ extension SignboardCollectionViewCell {
     private func fillIconImage(url: String?) {
         _ = iconImageView.setImage(
             with: url,
-            defaultImage: design.defaultIconImage)
+            defaultImage: Design.defaultIconImage)
     }
     
     private func fillAppNameLabel(name: String?) {
@@ -210,5 +212,55 @@ extension SignboardCollectionViewCell {
     private func fillPurcahseButton(price: String?) {
         purchaseButton.setTitle(price, for: .normal)
     }
+    
+}
+
+private enum Design {
+    
+    // padding, margin
+    static let paddingLeading = AppDetailCollectionViewCellDesign.paddingLeading
+    static let paddingTop: CGFloat = 0
+    static let paddingBottom = AppDetailCollectionViewCellDesign.paddingBottom
+    static let paddingTrailing = AppDetailCollectionViewCellDesign.paddingTrailing
+    
+    static let iconImageViewTrailingMargin: CGFloat = 15
+    static let providerLabelTopMargin: CGFloat = 5
+    
+    // size
+    static let width = UIScreen.main.bounds.width
+    static let height = paddingTop + iconImageViewHeight + paddingBottom
+    static let iconImageViewWidth = UIScreen.main.bounds.width * 0.3
+    static let iconImageViewHeight = iconImageViewWidth
+    static let purchaseButtonWidth: CGFloat = 70
+    static let purchaseButtonHeight: CGFloat = 25
+    static let shareButtonWidth: CGFloat = 18
+    static let shareButtonHeight: CGFloat = 10
+    
+    // layer
+    static let iconImageViewCornerRadius: CGFloat = 20
+    static let icomImageViewBorderColor: CGColor = UIColor.systemGray4.cgColor
+    static let iconImageViewBorderWidth: CGFloat = 0.5
+    static let purchaseButtonCornerRadius: CGFloat = 13
+    
+    // numberOfLines
+    static let appNameLabelNumberOfLines: Int = 2
+    static let providerLabelNumberOfLines: Int = 1
+
+    // font
+    static let appNameLabelFont: UIFont = .boldSystemFont(ofSize: 22)
+    static let providerLabelFont: UIFont = .preferredFont(forTextStyle: .callout)
+    static let purchaseButtonFont: UIFont = .preferredFont(forTextStyle: .callout)
+    
+    // image
+    static let shareButtonImage = UIImage(
+        systemName: "square.and.arrow.up")?.withTintColor(.systemBlue)
+    static let defaultIconImage = UIImage(withBackground: .systemGray4)
+    
+    // textColor
+    static let appNameLabelTextColor: UIColor = .systemGray
+    static let purchaseButtonTextColor: UIColor = .white
+    
+    // backgroundColor
+    static let purchaseButtonBackgroundColor: UIColor = .systemBlue
     
 }
