@@ -20,34 +20,6 @@
                ReferencedContainer = "container:app-show-room.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "633A925C28A7D15700B3435F"
-               BuildableName = "iTunesAPITests.xctest"
-               BlueprintName = "iTunesAPITests"
-               ReferencedContainer = "container:app-show-room.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "63AA536328BF3DBA000FB5DD"
-               BuildableName = "app-show-room-unitTest.xctest"
-               BlueprintName = "app-show-room-unitTest"
-               ReferencedContainer = "container:app-show-room.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -55,42 +27,12 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      language = "en">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "633A925C28A7D15700B3435F"
-               BuildableName = "iTunesAPITests.xctest"
-               BlueprintName = "iTunesAPITests"
-               ReferencedContainer = "container:app-show-room.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "63AA536328BF3DBA000FB5DD"
-               BuildableName = "app-show-room-unitTest.xctest"
-               BlueprintName = "app-show-room-unitTest"
-               ReferencedContainer = "container:app-show-room.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "633500AA28CF5CA700398265"
-               BuildableName = "app-show-roomUITests.xctest"
-               BlueprintName = "app-show-roomUITests"
-               ReferencedContainer = "container:app-show-room.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
