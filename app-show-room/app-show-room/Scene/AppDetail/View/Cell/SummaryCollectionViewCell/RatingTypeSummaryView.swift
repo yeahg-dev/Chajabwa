@@ -102,7 +102,7 @@ private enum Design {
     static let symbolImageSymbolConfigruation = UIImage.SymbolConfiguration.init(font: .preferredFont(forTextStyle: .title2), scale: .large)
     
     // star
-    static let starSize: CGFloat = 15
+    static let starSize: CGFloat = 13
     static let starMargin: CGFloat = 3
     
     // size

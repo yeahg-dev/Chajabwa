@@ -80,9 +80,9 @@ final class StandardTypeSummaryView: UIView {
     private func configureConstraints() {
         addSubview(containerStackView)
         NSLayoutConstraint.activate([
-            containerStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            containerStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 3),
             containerStackView.topAnchor.constraint(equalTo: self.topAnchor),
-            containerStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            containerStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -3),
             containerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
