@@ -45,9 +45,25 @@ final class StandardTypeSummaryView: UIView {
         label.numberOfLines = 1
         return label
     }()
+    
+    private lazy var seperator: CALayer = {
+        let layer = CALayer()
+        layer.backgroundColor = Design.seperatorColor
+        layer.frame = CGRect(
+            origin: CGPoint(x: bounds.width, y: (bounds.height - Design.seperatorHeight) / 2),
+            size: CGSize(width: Design.seperatorWidth, height: Design.seperatorHeight))
+        return layer
+    }()
+    
+    var hasSeperator: Bool = true {
+        willSet {
+            seperator.isHidden = !newValue
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        layer.addSublayer(seperator)
         configureConstraints()
     }
     
@@ -84,10 +100,15 @@ private enum Design {
     static let primaryTextColor: UIColor = .gray
     static let symbolImageTintColor: UIColor = .gray
     static let secondaryTextColor: UIColor = .gray
+    static let seperatorColor: CGColor = UIColor.systemGray3.cgColor
     
     // font
     static let primaryTextFont: UIFont = .preferredFont(forTextStyle: .caption1)
     static let secondaryTextFont: UIFont = .preferredFont(forTextStyle: .caption1)
     static let symbolImageViewSymbolConfiguration = UIImage.SymbolConfiguration.init(font: .preferredFont(forTextStyle: .title2), scale: .large)
+    
+    // size
+    static let seperatorWidth: CGFloat = 0.3
+    static let seperatorHeight: CGFloat = 40
     
 }

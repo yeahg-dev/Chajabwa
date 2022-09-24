@@ -47,8 +47,18 @@ final class RatingTypeSummaryView: UIView {
         return starRatingView
     }()
     
+    private lazy var seperator: CALayer = {
+        let layer = CALayer()
+        layer.backgroundColor = Design.seperatorColor
+        layer.frame = CGRect(
+            origin: CGPoint(x: bounds.width, y: (bounds.height - Design.seperatorHeight) / 2),
+            size: CGSize(width: Design.seperatorWidth, height: Design.seperatorHeight))
+        return layer
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        layer.addSublayer(seperator)
         configureConstraints()
     }
     
@@ -85,6 +95,7 @@ private enum Design {
     static let primaryTextColor: UIColor = .gray
     static let symbolImageTintColor: UIColor = .gray
     static let starColor: UIColor = .gray
+    static let seperatorColor: CGColor = UIColor.systemGray3.cgColor
     
     // font
     static let primaryTextFont: UIFont = .preferredFont(forTextStyle: .caption1)
@@ -93,5 +104,9 @@ private enum Design {
     // star
     static let starSize: CGFloat = 15
     static let starMargin: CGFloat = 3
+    
+    // size
+    static let seperatorWidth: CGFloat = 0.3
+    static let seperatorHeight: CGFloat = 40
     
 }

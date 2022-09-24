@@ -66,6 +66,7 @@ final class SummaryCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        languageView.hasSeperator = false
         confiugreConstraints()
     }
     
