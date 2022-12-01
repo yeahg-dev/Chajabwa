@@ -9,7 +9,7 @@ import Foundation
 
 protocol AppDetailRepository {
     
-    func fetchAppDetail(of id: Int, completion: ((Result<AppDetail, Error>) -> Void)?)
+    func fetchAppDetail(of id: Int) async throws -> AppDetail
     
 }
 
@@ -21,26 +21,18 @@ struct ItunesAppDetailRepository: AppDetailRepository {
         self.service = service
     }
     
-    func fetchAppDetail(of id: Int, completion: ((Result<AppDetail, Error>) -> Void)?) {
+    func fetchAppDetail(of id: Int) async throws -> AppDetail {
         let lookupRequest = AppLookupAPIRequest(appID: id)
-        self.service.execute(lookupRequest) { result in
-            switch result {
-            case .success(let appResponse):
-                guard let result = appResponse.results.first else {
-                    completion?(.failure(AppDetailRepositoryError.nonExistAppDetail))
-                    return
-                }
-                
-                guard let appDetail = result.toAppDetail() else {
-                    completion?(.failure(DTOError.invalidTransform))
-                    return
-                }
-                
-                completion?(.success(appDetail))
-            case .failure(let error):
-                completion?(.failure(error))
-            }
+        let lookupResponse = try await self.service.execute(request: lookupRequest)
+        guard let app = lookupResponse.results.first else {
+            throw AppDetailRepositoryError.nonExistAppDetail
         }
+        
+        guard let appDetail = app.toAppDetail() else {
+            throw DTOError.invalidTransform
+        }
+        
+        return appDetail
     }
     
 }
