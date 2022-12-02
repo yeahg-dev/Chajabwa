@@ -20,7 +20,7 @@ struct iTunesAPIService: APIService {
             throw APIError.invalidURL
         }
         
-        let (data, response) = try await URLSession.shared.data(for: urlRequest)
+        let (data, response) = try await session.data(for: urlRequest)
         guard let response = response as? HTTPURLResponse,
               (200...299).contains(response.statusCode) else {
             throw APIError.HTTPResponseFailure
