@@ -35,9 +35,11 @@ class ScreenShotCollectionViewCell: BaseCollectionViewCell {
     }
     
     func fill(with imageURLString: String) {
-        cancellableTask = self.screenShotView.setImage(
-            with: imageURLString,
-            defaultImage: design.defaultImage)
+        Task {
+            cancellableTask = try await self.screenShotView.setImage(
+                with: imageURLString,
+                defaultImage: design.defaultImage)
+        }
     }
     
     private func setConstraintOfScreenShotView() {
