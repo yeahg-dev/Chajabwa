@@ -45,15 +45,14 @@ struct AppSearchViewModel: AppSearchViewModelOutput {
 extension AppSearchViewModel: AppSearchViewModelInput {
     
     func didTappedSearch(with input: String) {
-        self.appSearchUsecase.searchApp(
-            of: input) { result in
-                switch result {
-                case .success(let appDetail):
-                    searchResult.value = appDetail
-                case.failure(let error):
-                    handleSearchError(error)
-                }
+        Task {
+            do {
+                let appDetail = try await self.appSearchUsecase.searchAppDetail(of: input)
+                searchResult.value = appDetail
+            } catch {
+                handleSearchError(error)
             }
+        }
     }
     
     private func handleSearchError(_ error: Error) {

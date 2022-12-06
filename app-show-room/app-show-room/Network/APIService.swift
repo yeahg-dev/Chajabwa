@@ -10,11 +10,8 @@ import Foundation
 protocol APIService {
     
     var session: URLSession { get set }
-    
-    func execute<T: APIRequest>(
-        _ request: T,
-        _ completion: ((Result<T.APIResponse, Error>
-        ) -> Void)? )
+
+    func execute<T: APIRequest>(request: T) async throws -> T.APIResponse
     
 }
 

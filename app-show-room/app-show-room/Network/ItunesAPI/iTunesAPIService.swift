@@ -15,35 +15,23 @@ struct iTunesAPIService: APIService {
         self.session = session
     }
     
-    func execute<T: APIRequest>(
-        _ request: T,
-        _ completion: ((Result<T.APIResponse, Error>) -> Void)? ) {
-            guard let urlRequest = request.urlRequest else {
-                completion?(.failure(APIError.invalidURL))
-                return
-            }
-            
-            let dataTask = session.dataTask(with: urlRequest) { data, urlResponse, error in
-                if let error = error {
-                    completion?(.failure(error))
-                    return
-                }
-                
-                guard let httpResponse = urlResponse as? HTTPURLResponse,
-                      (200...299).contains(httpResponse.statusCode),
-                      let data = data else {
-                    completion?(.failure(APIError.HTTPResponseFailure))
-                    return
-                }
-                
-                guard let parsedData: T.APIResponse = parse(response: data) else {
-                    completion?(.failure(APIError.invalidParsedData))
-                    return }
-                
-                completion?(.success(parsedData))
-            }
-            dataTask.resume()
+    func execute<T: APIRequest>(request: T) async throws -> T.APIResponse {
+        guard let urlRequest = request.urlRequest else {
+            throw APIError.invalidURL
         }
+        
+        let (data, response) = try await session.data(for: urlRequest)
+        guard let response = response as? HTTPURLResponse,
+              (200...299).contains(response.statusCode) else {
+            throw APIError.HTTPResponseFailure
+        }
+        
+        guard let parsedData: T.APIResponse = parse(response: data) else {
+            throw APIError.invalidParsedData
+        }
+        
+        return parsedData
+    }
     
 }
 

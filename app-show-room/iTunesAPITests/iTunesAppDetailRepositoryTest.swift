@@ -28,12 +28,9 @@ class iTunesAppDetailRepositoryTest: XCTestCase {
         self.sut = nil
     }
 
-    func test_ID_872469884의_AppDetail을_정상적으로_페치해오는지() throws {
-        let expectation = XCTestExpectation(description: "response arrived!")
-        
+    func test_ID_872469884의_AppDetail을_정상적으로_페치해오는지() async throws {
         let idiusID = 872469884
         let lookupRequest = AppLookupAPIRequest(appID: idiusID)
-        var appDetail: AppDetail?
         
         guard let url = lookupRequest.url else {
             XCTFail("invalid url")
@@ -49,27 +46,13 @@ class iTunesAppDetailRepositoryTest: XCTestCase {
             return (response, dummyIdiusAppDetailData)
         }
         
-        self.sut.fetchAppDetail(of: idiusID) { result in
-            switch result {
-            case .success(let detail):
-                appDetail = detail
-                expectation.fulfill()
-            case .failure(let error):
-                XCTFail("error: \(error.localizedDescription)")
-                expectation.fulfill()
-            }
-        }
-        
-        wait(for: [expectation], timeout: 5)
-        
-        XCTAssertEqual(appDetail?.provider, "Backpackr Inc.")
-        XCTAssertEqual(appDetail?.appName, "아이디어스(idus)")
-        XCTAssertEqual(appDetail?.price, "Free")
+        let appDetail = try await self.sut.fetchAppDetail(of: idiusID)
+        XCTAssertEqual(appDetail.provider, "Backpackr Inc.")
+        XCTAssertEqual(appDetail.appName, "아이디어스(idus)")
+        XCTAssertEqual(appDetail.price, "Free")
     }
-    
-    func test_유효하지않은_ID를_제공하면_페치가_실패하는지() throws {
-        let expectation = XCTestExpectation(description: "response arrived!")
-        
+
+    func test_유효하지않은_ID를_제공하면_페치가_실패하는지() async throws {
         let invalidID = 0
         let lookupRequest = AppLookupAPIRequest(appID: invalidID)
         var appDetail: AppDetail?
@@ -78,7 +61,7 @@ class iTunesAppDetailRepositoryTest: XCTestCase {
             XCTFail("invalid url")
             return
         }
-       
+
         MockURLProtocol.requestHandler = { [weak self] request in
             let dummyEmptyResultData = try self?.getData(fromJSON: "lookupAPIEmptyResultResponse")
             let response = HTTPURLResponse(url: url,
@@ -87,21 +70,12 @@ class iTunesAppDetailRepositoryTest: XCTestCase {
                                            headerFields: nil)!
             return (response, dummyEmptyResultData)
         }
-        
-        self.sut.fetchAppDetail(of: invalidID) { result in
-            switch result {
-            case .success(let detail):
-                appDetail = detail
-                expectation.fulfill()
-            case .failure(_):
-                appDetail = nil
-                expectation.fulfill()
-            }
+
+        do {
+            appDetail = try await self.sut.fetchAppDetail(of: invalidID)
+        } catch {
+            XCTAssertNil(appDetail)
         }
-        
-        wait(for: [expectation], timeout: 5)
-        
-        XCTAssertNil(appDetail)
     }
 
 }

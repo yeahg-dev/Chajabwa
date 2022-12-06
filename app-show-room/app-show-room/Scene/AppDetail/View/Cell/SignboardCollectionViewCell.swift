@@ -196,9 +196,11 @@ extension SignboardCollectionViewCell {
 extension SignboardCollectionViewCell {
     
     private func fillIconImage(url: String?) {
-        _ = iconImageView.setImage(
-            with: url,
-            defaultImage: Design.defaultIconImage)
+        Task {
+            _ = try await iconImageView.setImage(
+                with: url,
+                defaultImage: Design.defaultIconImage)
+        }
     }
     
     private func fillAppNameLabel(name: String?) {
