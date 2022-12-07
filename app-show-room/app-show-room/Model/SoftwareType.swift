@@ -7,21 +7,10 @@
 
 import Foundation
 
-enum SoftwareType {
+enum SoftwareType: String {
     
-    case iPhone
-    case iPad
-    case mac
-    
-    var entityName: String {
-        switch self {
-        case .iPhone:
-            return "software"
-        case .iPad:
-            return "iPadSoftware"
-        case .mac:
-            return "macSoftware"
-        }
-    }
+    case iPhone = "software"
+    case iPad = "iPadSoftware"
+    case mac = "macSoftware"
     
 }

@@ -71,6 +71,7 @@
 		63AFB9B628DC5D4C008E13A4 /* StarImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AFB9B528DC5D4C008E13A4 /* StarImage.swift */; };
 		63CEA73529408457009684A7 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CEA73429408457009684A7 /* Country.swift */; };
 		63CEA7392940AFC3009684A7 /* SoftwareType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CEA7382940AFC3009684A7 /* SoftwareType.swift */; };
+		63CEA73B2940B0A2009684A7 /* AppSearchingConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CEA73A2940B0A2009684A7 /* AppSearchingConfiguration.swift */; };
 		63F0341E28D8A0A5003F1751 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F0341D28D8A0A5003F1751 /* StarRatingView.swift */; };
 		63F0342328D9F96B003F1751 /* SummaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F0342228D9F96B003F1751 /* SummaryCollectionViewCell.swift */; };
 		63F0342528D9FA45003F1751 /* StandardTypeSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F0342428D9FA45003F1751 /* StandardTypeSummaryView.swift */; };
@@ -171,6 +172,7 @@
 		63AFB9B528DC5D4C008E13A4 /* StarImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarImage.swift; sourceTree = "<group>"; };
 		63CEA73429408457009684A7 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		63CEA7382940AFC3009684A7 /* SoftwareType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareType.swift; sourceTree = "<group>"; };
+		63CEA73A2940B0A2009684A7 /* AppSearchingConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSearchingConfiguration.swift; sourceTree = "<group>"; };
 		63F0341D28D8A0A5003F1751 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		63F0342228D9F96B003F1751 /* SummaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCollectionViewCell.swift; sourceTree = "<group>"; };
 		63F0342428D9FA45003F1751 /* StandardTypeSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardTypeSummaryView.swift; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 			isa = PBXGroup;
 			children = (
 				638722E728A948C900A6ED7B /* AppSearchUsecase.swift */,
+				63CEA73A2940B0A2009684A7 /* AppSearchingConfiguration.swift */,
 			);
 			path = Usecase;
 			sourceTree = "<group>";
@@ -775,6 +778,7 @@
 				633A925528A79E3D00B3435F /* iTunesAPIService.swift in Sources */,
 				6384E5CC28BCE54600563FD5 /* LargeScreenshotCollectionViewCell.swift in Sources */,
 				63AA535F28BEFD45000FB5DD /* String+Extension.swift in Sources */,
+				63CEA73B2940B0A2009684A7 /* AppSearchingConfiguration.swift in Sources */,
 				6388DE4228A6404E0011D47E /* SearchViewController.swift in Sources */,
 				6384EC5828AB7DB900D1F821 /* DescriptionCollectionViewCell.swift in Sources */,
 				6388DE5A28A68E090011D47E /* AppSearchSceneNamespace.swift in Sources */,
