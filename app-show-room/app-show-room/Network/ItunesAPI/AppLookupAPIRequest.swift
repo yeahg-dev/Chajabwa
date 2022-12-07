@@ -11,13 +11,13 @@ struct AppLookupAPIRequest: iTunesAPIRequest {
 
     typealias APIResponse = AppLookupResults
     
-    var httpMethod: HTTPMethod  = .get
+    var httpMethod: HTTPMethod = .get
     var path: String = "/lookup"
     var query: [String: Any]
     var body: Data? = nil
     
-    init(appID: Int) {
-        self.query = ["id": appID]
+    init(appID: Int, country:String, softwareType: String) {
+        self.query = ["id": appID, "country": country, "software": softwareType]
     }
     
 }

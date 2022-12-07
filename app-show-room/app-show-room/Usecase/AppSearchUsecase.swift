@@ -19,8 +19,12 @@ struct AppSearchUsecase {
         guard let id = Int(id) else {
             throw AppSearchUsecaseError.invalidInputType
         }
-        
-        let appDetail = try await self.appDetailRepository.fetchAppDetail(of: id)
+        let country = AppSearchingConfiguration.countryISOCode.isoCode
+        let softwareType = AppSearchingConfiguration.softwareType.rawValue
+        let appDetail = try await self.appDetailRepository.fetchAppDetail(
+            of: id,
+            country: country,
+            software: softwareType)
         
         return appDetail
     }
