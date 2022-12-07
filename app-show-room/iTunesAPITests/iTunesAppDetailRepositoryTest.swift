@@ -30,7 +30,10 @@ class iTunesAppDetailRepositoryTest: XCTestCase {
 
     func test_ID_872469884의_AppDetail을_정상적으로_페치해오는지() async throws {
         let idiusID = 872469884
-        let lookupRequest = AppLookupAPIRequest(appID: idiusID)
+        let lookupRequest = AppLookupAPIRequest(
+            appID: idiusID,
+            country: "KR",
+            softwareType: "software")
         
         guard let url = lookupRequest.url else {
             XCTFail("invalid url")
@@ -46,7 +49,10 @@ class iTunesAppDetailRepositoryTest: XCTestCase {
             return (response, dummyIdiusAppDetailData)
         }
         
-        let appDetail = try await self.sut.fetchAppDetail(of: idiusID)
+        let appDetail = try await self.sut.fetchAppDetail(
+            of: idiusID,
+            country: "KR",
+            software: "software")
         XCTAssertEqual(appDetail.provider, "Backpackr Inc.")
         XCTAssertEqual(appDetail.appName, "아이디어스(idus)")
         XCTAssertEqual(appDetail.price, "Free")
@@ -54,7 +60,10 @@ class iTunesAppDetailRepositoryTest: XCTestCase {
 
     func test_유효하지않은_ID를_제공하면_페치가_실패하는지() async throws {
         let invalidID = 0
-        let lookupRequest = AppLookupAPIRequest(appID: invalidID)
+        let lookupRequest = AppLookupAPIRequest(
+            appID: invalidID,
+            country: "KR",
+            softwareType: "software")
         var appDetail: AppDetail?
         
         guard let url = lookupRequest.url else {
@@ -72,7 +81,10 @@ class iTunesAppDetailRepositoryTest: XCTestCase {
         }
 
         do {
-            appDetail = try await self.sut.fetchAppDetail(of: invalidID)
+            appDetail = try await self.sut.fetchAppDetail(
+                of: invalidID,
+                country: "KR",
+                software: "software")
         } catch {
             XCTAssertNil(appDetail)
         }
