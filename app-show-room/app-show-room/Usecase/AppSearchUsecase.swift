@@ -15,24 +15,23 @@ struct AppSearchUsecase {
         self.appDetailRepository = appDetailRepository
     }
     
-    func searchAppDetail(of id: String) async throws -> AppDetail {
-        guard let id = Int(id) else {
-            throw AppSearchUsecaseError.invalidInputType
-        }
+    func searchAppDetail(of input: String) async throws -> [AppDetail] {
         let country = AppSearchingConfiguration.countryISOCode.isoCode
         let softwareType = AppSearchingConfiguration.softwareType.rawValue
-        let appDetail = try await self.appDetailRepository.fetchAppDetail(
-            of: id,
-            country: country,
-            software: softwareType)
         
-        return appDetail
+        if let id = Int(input) {
+            let appDetail = try await self.appDetailRepository.fetchAppDetail(
+                of: id,
+                country: country,
+                software: softwareType)
+            return [appDetail]
+        } else {
+            let appDetails = try await self.appDetailRepository.fetchAppDetails(
+                of: input,
+                country: country,
+                software: softwareType)
+            return appDetails
+        }
     }
  
 }
-
-enum AppSearchUsecaseError: Error {
-    
-    case invalidInputType
-}
-

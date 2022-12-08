@@ -26,7 +26,7 @@ protocol AppSearchViewModelOutput {
 // MARK: - AppSearchViewModel
 
 struct AppSearchViewModel: AppSearchViewModelOutput {
-
+    
     private let appSearchUsecase: AppSearchUsecase
     
     init(appSearchUsecase: AppSearchUsecase) {
@@ -47,8 +47,12 @@ extension AppSearchViewModel: AppSearchViewModelInput {
     func didTappedSearch(with input: String) {
         Task {
             do {
-                let appDetail = try await self.appSearchUsecase.searchAppDetail(of: input)
-                searchResult.value = appDetail
+                let appDetails = try await self.appSearchUsecase.searchAppDetail(of: input)
+                if let appDetail = appDetails.first {
+                    searchResult.value = appDetail
+                } else {
+                    throw AppDetailRepositoryError.nonExistAppDetail
+                }
             } catch {
                 handleSearchError(error)
             }
@@ -56,10 +60,8 @@ extension AppSearchViewModel: AppSearchViewModelInput {
     }
     
     private func handleSearchError(_ error: Error) {
-        if let appSearchUseacseError = error as? AppSearchUsecaseError,
-           appSearchUseacseError == AppSearchUsecaseError.invalidInputType {
-            self.searchFailureAlert.value = AppSearchSceneNamespace.invalidInputAlertViewModel
-        } else {
+        // TODO: - 에러 핸들링 케이스 추가
+        if error is AppDetailRepositoryError {
             self.searchFailureAlert.value = AppSearchSceneNamespace.searchFailureAlertViewModel
         }
     }

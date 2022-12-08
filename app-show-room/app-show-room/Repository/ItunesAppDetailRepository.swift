@@ -15,6 +15,12 @@ protocol AppDetailRepository {
         software: String)
     async throws -> AppDetail
     
+    func fetchAppDetails(
+        of term: String,
+        country: String,
+        software: String) async throws
+    -> [AppDetail]
+    
 }
 
 struct ItunesAppDetailRepository: AppDetailRepository {
@@ -45,6 +51,24 @@ struct ItunesAppDetailRepository: AppDetailRepository {
         }
         
         return appDetail
+    }
+    
+    func fetchAppDetails(
+        of term: String,
+        country: String,
+        software: String) async throws
+    -> [AppDetail]
+    {
+        let searchRequest = AppSearchAPIRequest(
+            term: term,
+            country: country,
+            softwareType: software)
+        let response = try await self.service.execute(request: searchRequest)
+        if response.results.isEmpty {
+            return []
+        } else {
+            return response.results.compactMap{ $0.toAppDetail() }
+        }
     }
     
 }
