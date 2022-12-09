@@ -29,7 +29,7 @@ class AppTableViewCell: UITableViewCell {
     
     private lazy var labelsStackView: UIStackView = {
         let stackView = UIStackView(
-            arrangedSubviews: [titleLabel, descriptionLabel, ratingStackView])
+            arrangedSubviews: [nameLabel, descriptionLabel, ratingStackView])
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .equalSpacing
@@ -49,7 +49,7 @@ class AppTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private let titleLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = Design.titleLabelFont
         return label
@@ -64,7 +64,8 @@ class AppTableViewCell: UITableViewCell {
     }()
     
     private lazy var ratingStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [starRatingView])
+        let stackView = UIStackView(
+            arrangedSubviews: [averageStarRatingView, userRatingCountLabel])
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fill
@@ -72,7 +73,7 @@ class AppTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    private let starRatingView: StarRatingView = {
+    private let averageStarRatingView: StarRatingView = {
         let configuration = StarRatingViewConfiguration(
             starSize: Design.starSize,
             starMargin: Design.starMargin,
@@ -81,7 +82,7 @@ class AppTableViewCell: UITableViewCell {
         return starRatingView
     }()
     
-    private let starRatingLabel: UILabel = {
+    private let userRatingCountLabel: UILabel = {
         let label = UILabel()
         label.font = Design.starRatingLabelFont
         label.textColor = Design.starRatingLabelTextColor
