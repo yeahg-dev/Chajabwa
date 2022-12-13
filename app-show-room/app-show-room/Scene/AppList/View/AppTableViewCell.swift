@@ -12,6 +12,7 @@ class AppTableViewCell: UITableViewCell {
     private lazy var topStackView: UIStackView = {
        let stackView = UIStackView(
         arrangedSubviews: [iconAndLabelsStackView, bookmarkButton])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .fill
@@ -21,6 +22,7 @@ class AppTableViewCell: UITableViewCell {
     
     private lazy var iconAndLabelsStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [iconImageView, labelsStackView])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .top
         stackView.distribution = .fill
@@ -30,6 +32,7 @@ class AppTableViewCell: UITableViewCell {
     private lazy var labelsStackView: UIStackView = {
         let stackView = UIStackView(
             arrangedSubviews: [nameLabel, descriptionLabel, ratingStackView])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .equalSpacing
@@ -43,6 +46,7 @@ class AppTableViewCell: UITableViewCell {
                 size: CGSize(
                     width: Design.iconImageViewBorderWidth,
                     height: Design.iconImageViewHeight)))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = Design.iconImageViewCornerRadius
         imageView.layer.borderWidth = Design.iconImageViewBorderWidth
         imageView.layer.borderColor = Design.icomImageViewBorderColor
@@ -51,12 +55,14 @@ class AppTableViewCell: UITableViewCell {
     
     private let nameLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Design.titleLabelFont
         return label
     }()
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Design.descriptionLabelFont
         label.textColor = Design.descriptionLabelTextColor
         label.lineBreakMode = .byTruncatingTail
@@ -66,6 +72,7 @@ class AppTableViewCell: UITableViewCell {
     private lazy var ratingStackView: UIStackView = {
         let stackView = UIStackView(
             arrangedSubviews: [averageStarRatingView, userRatingCountLabel])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fill
@@ -84,6 +91,7 @@ class AppTableViewCell: UITableViewCell {
     
     private let userRatingCountLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Design.starRatingLabelFont
         label.textColor = Design.starRatingLabelTextColor
         label.textAlignment = .left
@@ -93,6 +101,7 @@ class AppTableViewCell: UITableViewCell {
     private let bookmarkButton: UIButton = {
         let button = UIButton(
             frame: CGRect(origin: .zero, size: Design.bookmarkButtonSize))
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "bookmark"), for: .normal)
         return button
     }()
@@ -100,6 +109,7 @@ class AppTableViewCell: UITableViewCell {
     private lazy var screenshotStackView: UIStackView = {
        let stackView = UIStackView(
         arrangedSubviews: [screenshotImageView1, screenshotImageView2, screenshotImageView3])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .equalSpacing
@@ -116,6 +126,7 @@ class AppTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.translatesAutoresizingMaskIntoConstraints = false
         self.addSubviews()
         self.setConstraints()
     }

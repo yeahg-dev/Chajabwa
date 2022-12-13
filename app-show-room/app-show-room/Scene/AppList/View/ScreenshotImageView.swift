@@ -11,13 +11,17 @@ class ScreenshotImageView: UIImageView {
 
     override init(frame: CGRect) {
         super.init(frame: CGRect(origin: frame.origin, size: CGSize(width: Design.width, height: Design.height)))
-        self.layer.cornerRadius = Design.cornerRadius
-        self.layer.borderWidth = Design.borderWidth
-        self.layer.borderColor = Design.borderColor
+        self.translatesAutoresizingMaskIntoConstraints = false
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func designBorder() {
+        self.layer.cornerRadius = Design.cornerRadius
+        self.layer.borderWidth = Design.borderWidth
+        self.layer.borderColor = Design.borderColor
     }
     
 }
