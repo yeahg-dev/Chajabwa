@@ -15,12 +15,12 @@ final class SearchViewController: UIViewController {
     
     // MARK: - ViewModel
     
-    private let appSearchViewModel: AppSearchViewModel
+    private let searchViewModel: SearchViewModel
     
     // MARK: - Initializer
     
-    init(appSearchViewModel: AppSearchViewModel) {
-        self.appSearchViewModel = appSearchViewModel
+    init(searchViewModel: SearchViewModel) {
+        self.searchViewModel = searchViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -34,7 +34,7 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
         configureView()
         configureSearchController()
-        bind(appSearchViewModel)
+        bind(searchViewModel)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,7 +55,7 @@ final class SearchViewController: UIViewController {
         searchController.searchBar.delegate = self
     }
     
-    private func bind(_ viewModel: AppSearchViewModel) {
+    private func bind(_ viewModel: SearchViewModel) {
         viewModel.searchBarPlaceholder.observe(on: self) { [weak self] placeholder in
             self?.searchController.searchBar.placeholder = placeholder
         }
@@ -103,7 +103,7 @@ extension SearchViewController: UISearchBarDelegate {
             return
         }
         
-        appSearchViewModel.didTappedSearch(with: input)
+        searchViewModel.didTappedSearch(with: input)
     }
 }
 

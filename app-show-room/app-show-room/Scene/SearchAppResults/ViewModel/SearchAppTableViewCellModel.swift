@@ -1,5 +1,5 @@
 //
-//  AppTableViewCellModel.swift
+//  SearchAppTableViewCellModel.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/12/09.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AppTableViewCellModel: Hashable {
+struct SearchAppTableViewCellModel: Hashable {
     
     let iconImageURL: String?
     let name: String?

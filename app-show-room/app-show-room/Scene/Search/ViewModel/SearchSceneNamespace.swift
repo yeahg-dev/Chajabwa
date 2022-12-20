@@ -1,5 +1,5 @@
 //
-//  AppSearchSceneNamespace.swift
+//  SearchSceneNamespace.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/08/12.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum AppSearchSceneNamespace {
+enum SearchSceneNamespace {
     
     static let searchBarPlaceholder = "ID를 입력해주세요"
     static let invalidInputAlertViewModel = InvalidInputAlertViewModel()
@@ -16,7 +16,7 @@ enum AppSearchSceneNamespace {
 
 // MARK: - InvalidInputAlertViewModel
 
-extension AppSearchSceneNamespace {
+extension SearchSceneNamespace {
     
     struct InvalidInputAlertViewModel: AlertViewModel {
 
@@ -41,7 +41,7 @@ extension AppSearchSceneNamespace {
 
 // MARK: - SearchFailureAlertViewModel
 
-extension AppSearchSceneNamespace {
+extension SearchSceneNamespace {
     
     struct SearchFailureAlertViewModel: AlertViewModel {
         

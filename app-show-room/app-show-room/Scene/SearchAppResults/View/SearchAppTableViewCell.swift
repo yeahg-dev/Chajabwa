@@ -1,5 +1,5 @@
 //
-//  AppTableViewCell.swift
+//  SearchAppTableViewCell.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/12/08.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AppTableViewCell: UITableViewCell {
+class SearchAppTableViewCell: UITableViewCell {
     
     private lazy var topStackView: UIStackView = {
        let stackView = UIStackView(
@@ -164,7 +164,7 @@ class AppTableViewCell: UITableViewCell {
     
 }
 
-extension AppTableViewCell {
+extension SearchAppTableViewCell {
     
     // MARK: - Desigin
     

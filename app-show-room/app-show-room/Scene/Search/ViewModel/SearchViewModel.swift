@@ -1,5 +1,5 @@
 //
-//  AppSearchViewModel.swift
+//  SearchViewModel.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2022/08/15.
@@ -7,14 +7,14 @@
 
 import Foundation
 
-// MARK: - AppSearchViewModelInput
+// MARK: - SearchViewModelInput
 
-protocol AppSearchViewModelInput {
+protocol SearchViewModelInput {
     
     func didTappedSearch(with input: String)
 }
 
-// MARK: - AppSearchViewModelOutput
+// MARK: - SearchViewModelOutput
 
 protocol AppSearchViewModelOutput {
     
@@ -23,9 +23,9 @@ protocol AppSearchViewModelOutput {
     var searchFailureAlert: Observable<AlertViewModel?> { get }
 }
 
-// MARK: - AppSearchViewModel
+// MARK: - SearchViewModel
 
-struct AppSearchViewModel: AppSearchViewModelOutput {
+struct SearchViewModel: AppSearchViewModelOutput {
     
     private let appSearchUsecase: AppSearchUsecase
     
@@ -34,7 +34,7 @@ struct AppSearchViewModel: AppSearchViewModelOutput {
     }
     
     // MARK: - Output
-    var searchBarPlaceholder = Observable(AppSearchSceneNamespace.searchBarPlaceholder)
+    var searchBarPlaceholder = Observable(SearchSceneNamespace.searchBarPlaceholder)
     var searchResult = Observable<AppDetail?>(.none)
     var searchFailureAlert = Observable<AlertViewModel?>(.none)
     
@@ -42,7 +42,7 @@ struct AppSearchViewModel: AppSearchViewModelOutput {
 
 // MARK: - Input
 
-extension AppSearchViewModel: AppSearchViewModelInput {
+extension SearchViewModel: SearchViewModelInput {
     
     func didTappedSearch(with input: String) {
         Task {
@@ -62,7 +62,7 @@ extension AppSearchViewModel: AppSearchViewModelInput {
     private func handleSearchError(_ error: Error) {
         // TODO: - 에러 핸들링 케이스 추가
         if error is AppDetailRepositoryError {
-            self.searchFailureAlert.value = AppSearchSceneNamespace.searchFailureAlertViewModel
+            self.searchFailureAlert.value = SearchSceneNamespace.searchFailureAlertViewModel
         }
     }
     
