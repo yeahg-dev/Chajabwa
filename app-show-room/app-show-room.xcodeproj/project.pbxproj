@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		630068CA2951A7B400BD73C9 /* SearchAppResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630068C92951A7B400BD73C9 /* SearchAppResultsViewController.swift */; };
+		630068CC2951E15600BD73C9 /* SearchAppResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630068CB2951E15600BD73C9 /* SearchAppResultsViewModel.swift */; };
+		630068CE2951E8DB00BD73C9 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630068CD2951E8DB00BD73C9 /* UITableView+Extension.swift */; };
 		63075FBF28C1D7590094E117 /* ReleaseNoteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63075FBE28C1D7590094E117 /* ReleaseNoteCollectionViewCell.swift */; };
 		63075FC528C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63075FC428C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift */; };
 		631F096528D088B3002419B7 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631F096428D088B3002419B7 /* Int+Extension.swift */; };
@@ -108,6 +111,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		630068C92951A7B400BD73C9 /* SearchAppResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAppResultsViewController.swift; sourceTree = "<group>"; };
+		630068CB2951E15600BD73C9 /* SearchAppResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAppResultsViewModel.swift; sourceTree = "<group>"; };
+		630068CD2951E8DB00BD73C9 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		63075FBE28C1D7590094E117 /* ReleaseNoteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseNoteCollectionViewCell.swift; sourceTree = "<group>"; };
 		63075FC428C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailCollectionViewCellDesign.swift; sourceTree = "<group>"; };
 		631F096428D088B3002419B7 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
@@ -233,6 +239,7 @@
 		632B93272942011E004CAD58 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				630068C92951A7B400BD73C9 /* SearchAppResultsViewController.swift */,
 				632B93282942014E004CAD58 /* SearchAppTableViewCell.swift */,
 				632B932A2942D8E0004CAD58 /* ScreenshotImageView.swift */,
 			);
@@ -243,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				632B932D2943063A004CAD58 /* SearchAppTableViewCellModel.swift */,
+				630068CB2951E15600BD73C9 /* SearchAppResultsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -331,6 +339,7 @@
 				63861ED328AAA9950062A8BD /* UIImage+Extension.swift */,
 				6384EC4C28AB2E7C00D1F821 /* UICollectionView+Extension.swift */,
 				6384EC7B28AC800A00D1F821 /* UIView+Extension.swift */,
+				630068CD2951E8DB00BD73C9 /* UITableView+Extension.swift */,
 			);
 			path = "UIKit+Extension";
 			sourceTree = "<group>";
@@ -821,10 +830,12 @@
 			files = (
 				6395706128C624D6002D56CF /* TitleSupplementaryView.swift in Sources */,
 				632B93292942014E004CAD58 /* SearchAppTableViewCell.swift in Sources */,
+				630068CE2951E8DB00BD73C9 /* UITableView+Extension.swift in Sources */,
 				63F0342328D9F96B003F1751 /* SummaryCollectionViewCell.swift in Sources */,
 				6384EC4B28AB2E6300D1F821 /* NSObject+Extension.swift in Sources */,
 				632B932B2942D8E0004CAD58 /* ScreenshotImageView.swift in Sources */,
 				63F0342528D9FA45003F1751 /* StandardTypeSummaryView.swift in Sources */,
+				630068CA2951A7B400BD73C9 /* SearchAppResultsViewController.swift in Sources */,
 				633A925528A79E3D00B3435F /* iTunesAPIService.swift in Sources */,
 				6384E5CC28BCE54600563FD5 /* LargeScreenshotCollectionViewCell.swift in Sources */,
 				63AA535F28BEFD45000FB5DD /* String+Extension.swift in Sources */,
@@ -847,6 +858,7 @@
 				6384EC7C28AC800A00D1F821 /* UIView+Extension.swift in Sources */,
 				63861ECF28AAA2530062A8BD /* UIImageView+Extension.swift in Sources */,
 				6388DE3E28A6404E0011D47E /* AppDelegate.swift in Sources */,
+				630068CC2951E15600BD73C9 /* SearchAppResultsViewModel.swift in Sources */,
 				638722D828A8D3E100A6ED7B /* ItunesAppDetailRepository.swift in Sources */,
 				63075FC528C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift in Sources */,
 				63861EB928AA1ACB0062A8BD /* App.swift in Sources */,

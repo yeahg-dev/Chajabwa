@@ -11,7 +11,7 @@ struct SearchAppTableViewCellModel: Hashable {
     
     let iconImageURL: String?
     let name: String?
-    let description: String?
+    let provider: String?
     let averageUserRating: Double?
     let userRatingCount: String?
     let screenshotImageURLs: [String]?
@@ -19,7 +19,7 @@ struct SearchAppTableViewCellModel: Hashable {
     init(app: AppDetail) {
         self.iconImageURL = app.iconImageURL
         self.name = app.appName
-        self.description = app.description
+        self.provider = app.provider
         self.averageUserRating = app.averageUserRating
         self.userRatingCount = app.userRatingCount?.formattedNumber
         self.screenshotImageURLs = app.screenShotURLs

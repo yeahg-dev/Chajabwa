@@ -10,8 +10,8 @@ import UIKit
 class SearchAppTableViewCell: UITableViewCell {
     
     private lazy var topStackView: UIStackView = {
-       let stackView = UIStackView(
-        arrangedSubviews: [iconAndLabelsStackView, bookmarkButton])
+        let stackView = UIStackView(
+            arrangedSubviews: [iconAndLabelsStackView, bookmarkButton])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .center
@@ -31,7 +31,7 @@ class SearchAppTableViewCell: UITableViewCell {
     
     private lazy var labelsStackView: UIStackView = {
         let stackView = UIStackView(
-            arrangedSubviews: [nameLabel, descriptionLabel, ratingStackView])
+            arrangedSubviews: [nameLabel, providerLabel, ratingStackView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .leading
@@ -60,7 +60,7 @@ class SearchAppTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let descriptionLabel: UILabel = {
+    private let providerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Design.descriptionLabelFont
@@ -107,8 +107,8 @@ class SearchAppTableViewCell: UITableViewCell {
     }()
     
     private lazy var screenshotStackView: UIStackView = {
-       let stackView = UIStackView(
-        arrangedSubviews: [screenshotImageView1, screenshotImageView2, screenshotImageView3])
+        let stackView = UIStackView(
+            arrangedSubviews: [screenshotImageView1, screenshotImageView2, screenshotImageView3])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .fill
@@ -119,6 +119,8 @@ class SearchAppTableViewCell: UITableViewCell {
     private let screenshotImageView1 = ScreenshotImageView(frame: .zero)
     private let screenshotImageView2 = ScreenshotImageView(frame: .zero)
     private let screenshotImageView3 = ScreenshotImageView(frame: .zero)
+    
+    private var cancellableTasks: [CancellableTask] = []
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -131,11 +133,50 @@ class SearchAppTableViewCell: UITableViewCell {
         self.setConstraints()
     }
     
+    func bind(_ viewModel: SearchAppTableViewCellModel) {
+        let defaultImage = UIImage(withBackground: .gray)
+        Task {
+            async let iconImageViewTask = iconImageView.setImage(
+                with: viewModel.iconImageURL,
+                defaultImage: defaultImage)
+            async let screenshotImageView1Task = screenshotImageView1.setImage(
+                with: viewModel.screenshotImageURLs?[0],
+                defaultImage: defaultImage)
+            async let screenshotImageView2Task = screenshotImageView1.setImage(
+                with: viewModel.screenshotImageURLs?[1],
+                defaultImage: defaultImage)
+            async let screenshotImageView3Task = screenshotImageView1.setImage(
+                with: viewModel.screenshotImageURLs?[2],
+                defaultImage: defaultImage)
+            if let iconImageViewTask = try? await iconImageViewTask,
+               let screenshotImageView1Task = try? await screenshotImageView1Task,
+               let screenshotImageView2Task = try? await screenshotImageView2Task,
+               let screenshotImageView3Task = try? await screenshotImageView3Task
+            {
+                cancellableTasks.append(
+                    contentsOf: [iconImageViewTask, screenshotImageView1Task,
+                                 screenshotImageView2Task, screenshotImageView3Task])
+            }
+        }
+        nameLabel.text = viewModel.name
+        providerLabel.text = viewModel.provider
+        userRatingCountLabel.text = viewModel.userRatingCount
+        if let rating = viewModel.averageUserRating {
+            averageStarRatingView.update(rating: rating)
+        }
+    }
+    
+    override func prepareForReuse() {
+        cancellableTasks.forEach { task in
+            task.cancelTask()
+        }
+    }
+    
     private func addSubviews() {
         self.contentView.addSubview(topStackView)
         self.contentView.addSubview(screenshotStackView)
     }
-
+    
     private func setConstraints() {
         NSLayoutConstraint.activate([
             topStackView.topAnchor.constraint(
