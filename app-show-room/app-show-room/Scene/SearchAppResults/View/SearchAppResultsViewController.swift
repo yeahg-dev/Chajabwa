@@ -30,10 +30,12 @@ final class SearchAppResultsViewController: UITableViewController {
         self.viewModel = viewModel
         tableView.reloadData()
     }
-
+    
     private func configureView() {
         view.backgroundColor = Design.backgroundColor
         tableView.translatesAutoresizingMaskIntoConstraints = false
+//        tableView.rowHeight = UITableView.automaticDimension
+//        tableView.estimatedRowHeight = 410
     }
 
     private func configureTableView() {
@@ -58,6 +60,13 @@ final class SearchAppResultsViewController: UITableViewController {
         cell.bind(cellModel)
         return cell
     }
+    
+//    override func tableView(
+//        _ tableView: UITableView,
+//        estimatedHeightForRowAt indexPath: IndexPath)
+//    -> CGFloat {
+//        return UITableView.automaticDimension
+//    }
     
 }
 

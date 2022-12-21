@@ -9,27 +9,12 @@ import UIKit
 
 class SearchAppTableViewCell: UITableViewCell {
     
-    private lazy var topStackView: UIStackView = {
-        let stackView = UIStackView(
-            arrangedSubviews: [iconAndLabelsStackView, bookmarkButton])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.alignment = .center
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 18
-        return stackView
+    private let containerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
-    
-    private lazy var iconAndLabelsStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [iconImageView, labelsStackView])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.alignment = .top
-        stackView.distribution = .fill
-        stackView.spacing = 10
-        return stackView
-    }()
-    
+
     private lazy var labelsStackView: UIStackView = {
         let stackView = UIStackView(
             arrangedSubviews: [nameLabel, providerLabel, ratingStackView])
@@ -37,7 +22,7 @@ class SearchAppTableViewCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .equalSpacing
-        stackView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        stackView.spacing = Design.labelStackViewSpacing
         return stackView
     }()
     
@@ -53,8 +38,6 @@ class SearchAppTableViewCell: UITableViewCell {
         imageView.layer.cornerRadius = Design.iconImageViewCornerRadius
         imageView.layer.borderWidth = Design.iconImageViewBorderWidth
         imageView.layer.borderColor = Design.icomImageViewBorderColor
-        imageView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        imageView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return imageView
     }()
     
@@ -81,7 +64,7 @@ class SearchAppTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fill
-        stackView.spacing = 10
+        stackView.spacing = Design.ratingStackViewSpacing
         return stackView
     }()
     
@@ -107,8 +90,14 @@ class SearchAppTableViewCell: UITableViewCell {
         let button = UIButton(
             frame: CGRect(origin: .zero, size: Design.bookmarkButtonSize))
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "bookmark"), for: .normal)
-        button.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        let configuration = UIImage.SymbolConfiguration(
+            pointSize: Design.bookmarkButtonSize.width,
+            weight: .light,
+            scale: .small)
+        button.setImage(
+            UIImage(systemName: "bookmark",
+                    withConfiguration: configuration),
+            for: .normal)
         return button
     }()
     
@@ -134,7 +123,6 @@ class SearchAppTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.translatesAutoresizingMaskIntoConstraints = false
         self.addSubviews()
         self.setConstraints()
     }
@@ -148,10 +136,10 @@ class SearchAppTableViewCell: UITableViewCell {
             async let screenshotImageView1Task = screenshotImageView1.setImage(
                 with: viewModel.screenshotImageURLs?[0],
                 defaultImage: defaultImage)
-            async let screenshotImageView2Task = screenshotImageView1.setImage(
+            async let screenshotImageView2Task = screenshotImageView2.setImage(
                 with: viewModel.screenshotImageURLs?[1],
                 defaultImage: defaultImage)
-            async let screenshotImageView3Task = screenshotImageView1.setImage(
+            async let screenshotImageView3Task = screenshotImageView3.setImage(
                 with: viewModel.screenshotImageURLs?[2],
                 defaultImage: defaultImage)
             if let iconImageViewTask = try? await iconImageViewTask,
@@ -179,36 +167,62 @@ class SearchAppTableViewCell: UITableViewCell {
     }
     
     private func addSubviews() {
-        self.contentView.addSubview(topStackView)
-        self.contentView.addSubview(screenshotStackView)
+        containerView.addSubview(iconImageView)
+        containerView.addSubview(labelsStackView)
+        containerView.addSubview(bookmarkButton)
+        containerView.addSubview(screenshotStackView)
+        self.contentView.addSubview(containerView)
     }
     
     private func setConstraints() {
+        let screenshotImageViewHeight = screenshotImageView1.height
+        let screenshotStackViewHeightAnchor = screenshotStackView.heightAnchor.constraint(
+            equalToConstant: screenshotImageViewHeight)
+        screenshotStackViewHeightAnchor.priority = .defaultHigh
         NSLayoutConstraint.activate([
-            topStackView.topAnchor.constraint(
+            containerView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: Design.contentViewPadding),
+            containerView.topAnchor.constraint(
                 equalTo: contentView.topAnchor,
                 constant: Design.contentViewPadding),
-            topStackView.leadingAnchor.constraint(
-                equalTo: contentView.leadingAnchor,
-                constant: Design.contentViewPadding),
-            topStackView.bottomAnchor.constraint(
-                equalTo: screenshotStackView.topAnchor,
-                constant: -Design.defaultSpacing),
-            screenshotStackView.leadingAnchor.constraint(
-                equalTo: contentView.leadingAnchor,
-                constant: Design.contentViewPadding),
-            screenshotStackView.bottomAnchor.constraint(
+            containerView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -Design.contentViewPadding),
+            containerView.bottomAnchor.constraint(
                 equalTo: contentView.bottomAnchor,
                 constant: -Design.contentViewPadding),
+            containerView.leadingAnchor.constraint(
+                equalTo: iconImageView.leadingAnchor),
+            containerView.topAnchor.constraint(
+                equalTo: iconImageView.topAnchor),
+            iconImageView.widthAnchor.constraint(
+                equalToConstant: Design.iconImageViewHeight),
+            iconImageView.heightAnchor.constraint(
+                equalToConstant: Design.iconImageViewHeight),
+            labelsStackView.topAnchor.constraint(
+                equalTo: iconImageView.topAnchor),
+            labelsStackView.trailingAnchor.constraint(
+                equalTo: bookmarkButton.leadingAnchor),
+            iconImageView.trailingAnchor.constraint(
+                equalTo: labelsStackView.leadingAnchor,
+                constant: -Design.iconImageViewTrailingMargin),
+            bookmarkButton.trailingAnchor.constraint(
+                equalTo: containerView.trailingAnchor),
+            bookmarkButton.centerYAnchor.constraint(
+                equalTo: iconImageView.centerYAnchor),
+            screenshotStackViewHeightAnchor,
+            screenshotStackView.topAnchor.constraint(
+                equalTo: iconImageView.bottomAnchor,
+                constant: Design.screenshotStackViewTopMargin),
+            screenshotStackView.leadingAnchor.constraint(
+                equalTo: containerView.leadingAnchor),
             screenshotStackView.trailingAnchor.constraint(
-                equalTo: contentView.trailingAnchor,
-                constant: -Design.contentViewPadding),
-            topStackView.trailingAnchor.constraint(
-                equalTo: contentView.trailingAnchor,
-                constant: -Design.contentViewPadding)
+                equalTo: containerView.trailingAnchor),
+            screenshotStackView.bottomAnchor.constraint(
+                equalTo: containerView.bottomAnchor)
         ])
     }
-    
 }
 
 extension SearchAppTableViewCell {
@@ -222,7 +236,7 @@ extension SearchAppTableViewCell {
         static let icomImageViewBorderColor: CGColor = UIColor.systemGray4.cgColor
         static let iconImageViewBorderWidth: CGFloat = 0.5
         static let purchaseButtonCornerRadius: CGFloat = 13
-        
+
         // font
         static let titleLabelFont: UIFont = .preferredFont(forTextStyle: .title3)
         static let descriptionLabelFont: UIFont = .preferredFont(forTextStyle: .subheadline)
@@ -230,7 +244,7 @@ extension SearchAppTableViewCell {
         
         // textColor
         static let descriptionLabelTextColor: UIColor = .gray
-        static let starRatingLabelTextColor: UIColor = .systemGray5
+        static let starRatingLabelTextColor: UIColor = .systemGray3
         
         // starRatingView
         static let starSize: CGFloat = 13
@@ -238,12 +252,19 @@ extension SearchAppTableViewCell {
         static let starColor: UIColor = .gray
         
         // size
-        static let bookmarkButtonSize: CGSize = .init(width: 60, height: 60)
+        static let bookmarkButtonSize: CGSize = .init(width: 35, height: 35)
         static let iconImageViewHeight: CGFloat = UIScreen.main.bounds.height * 0.1
         
-        // padding
-        static let contentViewPadding: CGFloat = 25
+        // padding, margin
+        static let contentViewPadding: CGFloat = 20
+        static let iconImageViewTrailingMargin: CGFloat = 10
+        static let screenshotStackViewTopMargin: CGFloat = 15
+        
+        // spacing
+        static let labelStackViewSpacing: CGFloat = 5
+        static let ratingStackViewSpacing: CGFloat = 10
         static let defaultSpacing: CGFloat = 23
+        
         
     }
     
