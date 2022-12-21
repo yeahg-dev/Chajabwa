@@ -134,13 +134,13 @@ class SearchAppTableViewCell: UITableViewCell {
                 with: viewModel.iconImageURL,
                 defaultImage: defaultImage)
             async let screenshotImageView1Task = screenshotImageView1.setImage(
-                with: viewModel.screenshotImageURLs?[0],
+                with: viewModel.screenshotImageURLs?[safe: 0],
                 defaultImage: defaultImage)
             async let screenshotImageView2Task = screenshotImageView2.setImage(
-                with: viewModel.screenshotImageURLs?[1],
+                with: viewModel.screenshotImageURLs?[safe: 1],
                 defaultImage: defaultImage)
             async let screenshotImageView3Task = screenshotImageView3.setImage(
-                with: viewModel.screenshotImageURLs?[2],
+                with: viewModel.screenshotImageURLs?[safe: 2],
                 defaultImage: defaultImage)
             if let iconImageViewTask = try? await iconImageViewTask,
                let screenshotImageView1Task = try? await screenshotImageView1Task,
