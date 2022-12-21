@@ -18,6 +18,10 @@ class ScreenshotImageView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: Design.width, height: Design.height)
+    }
+    
     private func designBorder() {
         self.layer.cornerRadius = Design.cornerRadius
         self.layer.borderWidth = Design.borderWidth

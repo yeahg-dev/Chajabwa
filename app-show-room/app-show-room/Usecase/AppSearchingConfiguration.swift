@@ -14,8 +14,10 @@ struct AppSearchingConfiguration {
     static var softwareType: SoftwareType {
         guard let softwareTypeName = defaults.string(forKey: "softwareType"),
               let software = SoftwareType(rawValue: softwareTypeName) else {
-            print("Can not found SoftwareType")
-            return SoftwareType(rawValue: "software")!
+            let defaultSoftwareType = SoftwareType.iPhone
+            setSoftwareType(by: defaultSoftwareType)
+            print("Can not found SoftwareType. SoftwareType is set to default: \(defaultSoftwareType.rawValue)")
+            return defaultSoftwareType
         }
         return software
     }
@@ -23,8 +25,13 @@ struct AppSearchingConfiguration {
     static var countryISOCode: Country {
         guard let code = defaults.string(forKey: "countryISOCode"),
               let country = Country.all[code] else {
-            print("Can not found Country")
-            return Country(name: "Korea, Republic of South Korea", dialCode: "+82", isoCode: "KR")
+            let defaultCountry = Country(
+                name: "Korea, Republic of South Korea",
+                dialCode: "+82",
+                isoCode: "KR")
+            setCountry(by: defaultCountry)
+            print("Can not found Country.  SoftwareType is set to default: \(defaultCountry.isoCode)")
+            return defaultCountry
         }
         return country
     }

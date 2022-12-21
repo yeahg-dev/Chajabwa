@@ -15,7 +15,7 @@ class SearchAppTableViewCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .center
-        stackView.distribution = .fill
+        stackView.distribution = .equalSpacing
         stackView.spacing = 18
         return stackView
     }()
@@ -26,6 +26,7 @@ class SearchAppTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.alignment = .top
         stackView.distribution = .fill
+        stackView.spacing = 10
         return stackView
     }()
     
@@ -36,6 +37,7 @@ class SearchAppTableViewCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .equalSpacing
+        stackView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return stackView
     }()
     
@@ -44,12 +46,15 @@ class SearchAppTableViewCell: UITableViewCell {
             frame: CGRect(
                 origin: .zero,
                 size: CGSize(
-                    width: Design.iconImageViewBorderWidth,
+                    width: Design.iconImageViewHeight,
                     height: Design.iconImageViewHeight)))
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = Design.iconImageViewCornerRadius
         imageView.layer.borderWidth = Design.iconImageViewBorderWidth
         imageView.layer.borderColor = Design.icomImageViewBorderColor
+        imageView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        imageView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return imageView
     }()
     
@@ -103,6 +108,7 @@ class SearchAppTableViewCell: UITableViewCell {
             frame: CGRect(origin: .zero, size: Design.bookmarkButtonSize))
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        button.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         return button
     }()
     
@@ -232,7 +238,7 @@ extension SearchAppTableViewCell {
         static let starColor: UIColor = .gray
         
         // size
-        static let bookmarkButtonSize: CGSize = .init(width: 40, height: 40)
+        static let bookmarkButtonSize: CGSize = .init(width: 60, height: 60)
         static let iconImageViewHeight: CGFloat = UIScreen.main.bounds.height * 0.1
         
         // padding

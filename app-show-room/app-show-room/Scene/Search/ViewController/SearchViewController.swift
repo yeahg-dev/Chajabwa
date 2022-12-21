@@ -64,10 +64,22 @@ final class SearchViewController: UIViewController {
             guard let appDetail = appDetail else {
                 return
             }
-
-            let appDetailViewController = AppDetailViewController(appDetailViewModel: AppDetailViewModel(app: appDetail))
-            self?.navigationController?.pushViewController(appDetailViewController, animated: true)
+            let appDetailViewController = AppDetailViewController(
+                appDetailViewModel: AppDetailViewModel(app: appDetail))
+            self?.navigationController?.pushViewController(
+                appDetailViewController,
+                animated: true)
         }
+        
+        viewModel.searchResults.observe(on: self, { appDetails in
+            let searchAppResultsViewModel = SearchAppResultsViewModel(
+                searchAppDetails: appDetails)
+            let searchAppResultsViewController = SearchAppResultsViewController(
+                viewModel: searchAppResultsViewModel)
+            self.navigationController?.pushViewController(
+                searchAppResultsViewController,
+                animated: true)
+        })
         
         viewModel.searchFailureAlert.observe(on: self) { [weak self] alertText in
             guard let alertText = alertText else {

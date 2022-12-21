@@ -18,7 +18,7 @@ final class SearchAppResultsViewController: UITableViewController {
     
     init(viewModel: SearchAppResultsViewModel) {
         self.viewModel = viewModel
-        super.init()
+        super.init(style: .plain)
     }
 
     override func viewDidLoad() {
@@ -29,12 +29,12 @@ final class SearchAppResultsViewController: UITableViewController {
 
     private func configureView() {
         view.backgroundColor = Design.backgroundColor
-        navigationItem.searchController = searchController
+        navigationController?.navigationItem.searchController = searchController
+        tableView.translatesAutoresizingMaskIntoConstraints = false
     }
 
     private func configureTableView() {
         tableView.register(cellWithClass: SearchAppTableViewCell.self)
-//        appResultsTableView.reloadData()
     }
     
     override func tableView(

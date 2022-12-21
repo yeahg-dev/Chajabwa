@@ -23,10 +23,12 @@ struct iTunesAPIService: APIService {
         let (data, response) = try await session.data(for: urlRequest)
         guard let response = response as? HTTPURLResponse,
               (200...299).contains(response.statusCode) else {
+            print("\(T.self) failed to receive success response(status code: 200-299)")
             throw APIError.HTTPResponseFailure
         }
         
         guard let parsedData: T.APIResponse = parse(response: data) else {
+            print("parsing failed. type: \(T.APIResponse.Type.self) ")
             throw APIError.invalidParsedData
         }
         

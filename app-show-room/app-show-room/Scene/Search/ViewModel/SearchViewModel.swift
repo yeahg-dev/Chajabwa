@@ -20,6 +20,7 @@ protocol AppSearchViewModelOutput {
     
     var searchBarPlaceholder: Observable<String> { get }
     var searchResult: Observable<AppDetail?> { get }
+    var searchResults: Observable<[AppDetail]> { get }
     var searchFailureAlert: Observable<AlertViewModel?> { get }
 }
 
@@ -36,6 +37,7 @@ struct SearchViewModel: AppSearchViewModelOutput {
     // MARK: - Output
     var searchBarPlaceholder = Observable(SearchSceneNamespace.searchBarPlaceholder)
     var searchResult = Observable<AppDetail?>(.none)
+    var searchResults = Observable<[AppDetail]>([])
     var searchFailureAlert = Observable<AlertViewModel?>(.none)
     
 }
@@ -48,10 +50,13 @@ extension SearchViewModel: SearchViewModelInput {
         Task {
             do {
                 let appDetails = try await self.appSearchUsecase.searchAppDetail(of: input)
-                if let appDetail = appDetails.first {
-                    searchResult.value = appDetail
-                } else {
+                if appDetails.isEmpty {
                     throw AppDetailRepositoryError.nonExistAppDetail
+                }
+                if appDetails.count == 1 {
+                    searchResult.value = appDetails.first
+                } else {
+                    searchResults.value = appDetails
                 }
             } catch {
                 handleSearchError(error)

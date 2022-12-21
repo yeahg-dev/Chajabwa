@@ -9,7 +9,7 @@ import Foundation
 
 struct AppSearchAPIRequest: iTunesAPIRequest {
     
-    typealias APIResponse = AppLookupResults
+    typealias APIResponse = AppSearchResults
     
     var httpMethod: HTTPMethod = .get
     var path: String = "/search"
@@ -17,7 +17,7 @@ struct AppSearchAPIRequest: iTunesAPIRequest {
     var body: Data? = nil
     
     init(term: String, country: String, softwareType: String) {
-        self.query = ["term": term, "country": country, "software": softwareType]
+        self.query = ["term": term, "country": country, "entity": softwareType]
     }
     
 }
