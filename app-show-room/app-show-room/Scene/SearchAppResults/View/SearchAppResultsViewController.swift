@@ -9,8 +9,7 @@ import UIKit
 
 final class SearchAppResultsViewController: UITableViewController {
     
-    private let viewModel: SearchAppResultsViewModel
-    private let searchController = UISearchController(searchResultsController: nil)
+    private var viewModel: SearchAppResultsViewModel
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -26,10 +25,14 @@ final class SearchAppResultsViewController: UITableViewController {
         configureTableView()
         configureView()
     }
+    
+    func showSearchAppResults(viewModel: SearchAppResultsViewModel) {
+        self.viewModel = viewModel
+        tableView.reloadData()
+    }
 
     private func configureView() {
         view.backgroundColor = Design.backgroundColor
-        navigationController?.navigationItem.searchController = searchController
         tableView.translatesAutoresizingMaskIntoConstraints = false
     }
 

@@ -11,8 +11,11 @@ final class SearchViewController: UIViewController {
 
     // MARK: - UIComponents
     
-    private let searchController = UISearchController(searchResultsController: nil)
+    private let searchAppResultsController = SearchAppResultsViewController(
+        viewModel: SearchAppResultsViewModel(searchAppDetails: []))
     
+    private lazy var searchController = UISearchController(searchResultsController: searchAppResultsController)
+
     // MARK: - ViewModel
     
     private let searchViewModel: SearchViewModel
@@ -74,11 +77,9 @@ final class SearchViewController: UIViewController {
         viewModel.searchResults.observe(on: self, { appDetails in
             let searchAppResultsViewModel = SearchAppResultsViewModel(
                 searchAppDetails: appDetails)
-            let searchAppResultsViewController = SearchAppResultsViewController(
+            self.searchAppResultsController.showSearchAppResults(
                 viewModel: searchAppResultsViewModel)
-            self.navigationController?.pushViewController(
-                searchAppResultsViewController,
-                animated: true)
+            self.searchController.showsSearchResultsController = true
         })
         
         viewModel.searchFailureAlert.observe(on: self) { [weak self] alertText in
@@ -117,6 +118,11 @@ extension SearchViewController: UISearchBarDelegate {
         
         searchViewModel.didTappedSearch(with: input)
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchAppResultsController.showSearchAppResults(viewModel: SearchAppResultsViewModel(searchAppDetails: []))
+    }
+    
 }
 
 // MARK: - Design
