@@ -27,7 +27,10 @@ extension UIImageView {
         }
         
         let task = Task{
-            if Task.isCancelled { return }
+            if Task.isCancelled {
+                self.image = nil
+                return
+            }
             
             do {
                 let (data, _) = try await URLSession.shared.data(from:url)
@@ -45,26 +48,6 @@ extension UIImageView {
             }
             
         }
-        
-        //        let task = URLSession.shared.dataTask(with: url) {
-        //            [weak self] data, _, error in
-        //            if let _ = error {
-        //                DispatchQueue.main.async {
-        //                    self?.image = defaultImage
-        //                }
-        //                return
-        //            } else {
-        //                DispatchQueue.main.async {
-        //                    guard let imageData = data,
-        //                          let image = UIImage(data: imageData) else {
-        //                        return }
-        //                    self?.image = image
-        //                    imageCache.cache(image, of: cacheKey)
-        //                }
-        //            }
-        //        }
-        //        task.resume()
-        //
         return task
     }
     
