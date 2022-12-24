@@ -57,6 +57,7 @@ final class SearchViewController: UIViewController {
     private func configureSearchController() {
         searchController.hidesNavigationBarDuringPresentation = true
         searchController.searchBar.delegate = self
+        searchAppResultsController.delegate = self
     }
     
     private func configureIntialState() {
@@ -115,6 +116,20 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchAppResultsController.showSearchAppResults(
             viewModel: SearchAppResultsViewModel(searchAppDetails: []))
+    }
+    
+}
+
+// MARK: - SearchAppResultsViewDelegate
+
+extension SearchViewController: SearchAppResultsViewDelegate {
+    
+    func didSelectRowOf(_ appDetail: AppDetail) {
+        let appDetailViewController = AppDetailViewController(
+            appDetailViewModel: AppDetailViewModel(app: appDetail))
+        navigationController?.pushViewController(
+            appDetailViewController,
+            animated: true)
     }
     
 }

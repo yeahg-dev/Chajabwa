@@ -7,9 +7,17 @@
 
 import UIKit
 
+protocol SearchAppResultsViewDelegate: AnyObject {
+    
+    func didSelectRowOf(_ appDetail: AppDetail)
+    
+}
+
 final class SearchAppResultsViewController: UITableViewController {
     
     private var viewModel: SearchAppResultsViewModel
+    
+    weak var delegate: SearchAppResultsViewDelegate?
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -70,6 +78,15 @@ final class SearchAppResultsViewController: UITableViewController {
         let cellModel = viewModel.searchAppCellModel(indexPath: indexPath)
         cell.bind(cellModel)
         return cell
+    }
+    
+    override func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath) {
+            tableView.deselectRow(at: indexPath, animated: true)
+            let appDetail = viewModel.didSelectAppResultsTableViewCell(
+                indexPath.row)
+            delegate?.didSelectRowOf(appDetail)
     }
     
 }
