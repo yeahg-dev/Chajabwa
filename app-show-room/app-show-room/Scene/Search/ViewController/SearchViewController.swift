@@ -103,6 +103,7 @@ extension SearchViewController: UISearchBarDelegate {
                     searchAppResultsController.showSearchAppResults(
                         viewModel: searchAppResultsViewModel)
                     searchController.showsSearchResultsController = true
+                    searchAppResultsController.scrollToTop()
                 }
             case .failure(let alertViewModel):
                 self.presentAlert(alertViewModel)

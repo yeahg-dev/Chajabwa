@@ -31,6 +31,17 @@ final class SearchAppResultsViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    func scrollToTop() {
+        guard tableView.numberOfRows(inSection: 0) != 0 else {
+            return
+        }
+        
+        tableView.scrollToRow(
+            at: IndexPath(row: 0, section: 0),
+            at: .top,
+            animated: true)
+    }
+    
     private func configureView() {
         view.backgroundColor = Design.backgroundColor
         tableView.translatesAutoresizingMaskIntoConstraints = false
