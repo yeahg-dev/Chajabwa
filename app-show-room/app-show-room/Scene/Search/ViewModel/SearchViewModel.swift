@@ -11,22 +11,23 @@ import Foundation
 
 protocol SearchViewModelInput {
     
-    func didTappedSearch(with input: String)
-}
-
-// MARK: - SearchViewModelOutput
-
-protocol AppSearchViewModelOutput {
+    var searchBarPlaceholder: String { get }
     
-    var searchBarPlaceholder: Observable<String> { get }
-    var searchResult: Observable<AppDetail?> { get }
-    var searchResults: Observable<[AppDetail]> { get }
-    var searchFailureAlert: Observable<AlertViewModel?> { get }
+    func didTappedSearch(
+        with input: String) async
+    -> Output<[AppDetail], AlertViewModel>
 }
+
+enum Output<Success, Failure> {
+    
+    case success(Success)
+    case failure(Failure)
+}
+
 
 // MARK: - SearchViewModel
 
-struct SearchViewModel: AppSearchViewModelOutput {
+struct SearchViewModel {
     
     private let appSearchUsecase: AppSearchUsecase
     
@@ -34,41 +35,26 @@ struct SearchViewModel: AppSearchViewModelOutput {
         self.appSearchUsecase = appSearchUsecase
     }
     
-    // MARK: - Output
-    var searchBarPlaceholder = Observable(SearchSceneNamespace.searchBarPlaceholder)
-    var searchResult = Observable<AppDetail?>(.none)
-    var searchResults = Observable<[AppDetail]>([])
-    var searchFailureAlert = Observable<AlertViewModel?>(.none)
-    
 }
-
-// MARK: - Input
+// MARK: - SearchViewModelInput
 
 extension SearchViewModel: SearchViewModelInput {
     
-    func didTappedSearch(with input: String) {
-        Task {
-            do {
-                let appDetails = try await self.appSearchUsecase.searchAppDetail(of: input)
-                if appDetails.isEmpty {
-                    throw AppDetailRepositoryError.nonExistAppDetail
-                }
-                if appDetails.count == 1 {
-                    searchResult.value = appDetails.first
-                } else {
-                    searchResults.value = appDetails
-                }
-            } catch {
-                handleSearchError(error)
+    var searchBarPlaceholder: String {
+        return SearchSceneNamespace.searchBarPlaceholder
+    }
+    
+    func didTappedSearch(with input: String) async -> Output<[AppDetail], AlertViewModel> {
+        do {
+            let appDetails = try await self.appSearchUsecase.searchAppDetail(of: input)
+            if appDetails.isEmpty {
+                return .failure(SearchSceneNamespace.searchFailureAlertViewModel)
+            } else {
+                return .success(appDetails)
             }
+        } catch {
+            return .failure(SearchSceneNamespace.searchFailureAlertViewModel)
         }
     }
-    
-    private func handleSearchError(_ error: Error) {
-        // TODO: - 에러 핸들링 케이스 추가
-        if error is AppDetailRepositoryError {
-            self.searchFailureAlert.value = SearchSceneNamespace.searchFailureAlertViewModel
-        }
-    }
-    
+ 
 }

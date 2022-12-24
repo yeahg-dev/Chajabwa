@@ -37,7 +37,7 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
         configureView()
         configureSearchController()
-        bind(searchViewModel)
+        configureIntialState()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,38 +58,10 @@ final class SearchViewController: UIViewController {
         searchController.searchBar.delegate = self
     }
     
-    private func bind(_ viewModel: SearchViewModel) {
-        viewModel.searchBarPlaceholder.observe(on: self) { [weak self] placeholder in
-            self?.searchController.searchBar.placeholder = placeholder
-        }
-        
-        viewModel.searchResult.observe(on: self) { [weak self] appDetail in
-            guard let appDetail = appDetail else {
-                return
-            }
-            let appDetailViewController = AppDetailViewController(
-                appDetailViewModel: AppDetailViewModel(app: appDetail))
-            self?.navigationController?.pushViewController(
-                appDetailViewController,
-                animated: true)
-        }
-        
-        viewModel.searchResults.observe(on: self, { appDetails in
-            let searchAppResultsViewModel = SearchAppResultsViewModel(
-                searchAppDetails: appDetails)
-            self.searchAppResultsController.showSearchAppResults(
-                viewModel: searchAppResultsViewModel)
-            self.searchController.showsSearchResultsController = true
-        })
-        
-        viewModel.searchFailureAlert.observe(on: self) { [weak self] alertText in
-            guard let alertText = alertText else {
-                return
-            }
-            self?.presentAlert(alertText)
-        }
+    private func configureIntialState() {
+        searchController.searchBar.placeholder = searchViewModel.searchBarPlaceholder
     }
-    
+ 
     private func presentAlert(_ alertViewModel: AlertViewModel) {
         let alertController = UIAlertController(
             title: alertViewModel.alertController.title,
@@ -115,8 +87,27 @@ extension SearchViewController: UISearchBarDelegate {
         guard let input = searchController.searchBar.text else {
             return
         }
-        
-        searchViewModel.didTappedSearch(with: input)
+        Task {
+            let result = await searchViewModel.didTappedSearch(with: input)
+            switch result {
+            case .success(let appDetail):
+                if appDetail.count == 1 {
+                    let appDetailViewController = AppDetailViewController(
+                        appDetailViewModel: AppDetailViewModel(app: appDetail.first!))
+                    navigationController?.pushViewController(
+                        appDetailViewController,
+                        animated: true)
+                } else {
+                    let searchAppResultsViewModel = SearchAppResultsViewModel(
+                        searchAppDetails: appDetail)
+                    searchAppResultsController.showSearchAppResults(
+                        viewModel: searchAppResultsViewModel)
+                    searchController.showsSearchResultsController = true
+                }
+            case .failure(let alertViewModel):
+                self.presentAlert(alertViewModel)
+            }
+        }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
