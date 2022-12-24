@@ -47,7 +47,9 @@ final class IconView: UIView {
     func setImage(withURL url: String?) {
         let defaultImage = UIImage(withBackground: .systemGray5)
         Task {
-            task = try await imageView.setImage(with: url, defaultImage: defaultImage)
+            task = try await imageView.setImage(
+                with: url,
+                defaultImage: defaultImage)
         }
     }
     

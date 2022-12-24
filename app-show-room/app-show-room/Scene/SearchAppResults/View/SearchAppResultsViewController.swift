@@ -64,7 +64,9 @@ final class SearchAppResultsViewController: UITableViewController {
         cellForRowAt indexPath: IndexPath)
     -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withClass: SearchAppTableViewCell.self, for: indexPath)
+        let cell = tableView.dequeueReusableCell(
+            withClass: SearchAppTableViewCell.self,
+            for: indexPath)
         let cellModel = viewModel.searchAppCellModel(indexPath: indexPath)
         cell.bind(cellModel)
         return cell

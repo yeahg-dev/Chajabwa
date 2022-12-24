@@ -14,7 +14,7 @@ class SearchAppTableViewCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
     private lazy var labelsStackView: UIStackView = {
         let stackView = UIStackView(
             arrangedSubviews: [nameLabel, providerLabel, ratingStackView])
@@ -73,7 +73,9 @@ class SearchAppTableViewCell: UITableViewCell {
             starSize: Design.starSize,
             starMargin: Design.starMargin,
             tintColor: Design.starColor)
-        let starRatingView = StarRatingView(rating: 0.0, configuration: configuration)
+        let starRatingView = StarRatingView(
+            rating: 0.0,
+            configuration: configuration)
         return starRatingView
     }()
     
@@ -236,7 +238,7 @@ extension SearchAppTableViewCell {
         static let icomImageViewBorderColor: CGColor = UIColor.systemGray4.cgColor
         static let iconImageViewBorderWidth: CGFloat = 0.5
         static let purchaseButtonCornerRadius: CGFloat = 13
-
+        
         // font
         static let titleLabelFont: UIFont = .preferredFont(forTextStyle: .title3)
         static let descriptionLabelFont: UIFont = .preferredFont(forTextStyle: .subheadline)

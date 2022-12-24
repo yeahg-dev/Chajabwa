@@ -44,9 +44,13 @@ extension SearchViewModel: SearchViewModelInput {
         return SearchSceneNamespace.searchBarPlaceholder
     }
     
-    func didTappedSearch(with input: String) async -> Output<[AppDetail], AlertViewModel> {
+    func didTappedSearch(
+        with input: String)
+    async -> Output<[AppDetail], AlertViewModel>
+    {
         do {
-            let appDetails = try await self.appSearchUsecase.searchAppDetail(of: input)
+            let appDetails = try await self.appSearchUsecase.searchAppDetail(
+                of: input)
             if appDetails.isEmpty {
                 return .failure(SearchSceneNamespace.searchFailureAlertViewModel)
             } else {
@@ -56,5 +60,5 @@ extension SearchViewModel: SearchViewModelInput {
             return .failure(SearchSceneNamespace.searchFailureAlertViewModel)
         }
     }
- 
+    
 }

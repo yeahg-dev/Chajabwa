@@ -9,7 +9,11 @@ import UIKit
 
 extension UIImageView {
     
-    func setImage(with urlString: String?, defaultImage: UIImage) async throws -> CancellableTask? {
+    func setImage(
+        with urlString: String?,
+        defaultImage: UIImage)
+    async throws -> CancellableTask?
+    {
         guard let urlString = urlString,
               let url = URL(string: urlString) else {
             DispatchQueue.main.async {

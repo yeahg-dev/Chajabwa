@@ -14,7 +14,8 @@ final class SearchViewController: UIViewController {
     private let searchAppResultsController = SearchAppResultsViewController(
         viewModel: SearchAppResultsViewModel(searchAppDetails: []))
     
-    private lazy var searchController = UISearchController(searchResultsController: searchAppResultsController)
+    private lazy var searchController = UISearchController(
+        searchResultsController: searchAppResultsController)
 
     // MARK: - ViewModel
     
@@ -112,7 +113,8 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchAppResultsController.showSearchAppResults(viewModel: SearchAppResultsViewModel(searchAppDetails: []))
+        searchAppResultsController.showSearchAppResults(
+            viewModel: SearchAppResultsViewModel(searchAppDetails: []))
     }
     
 }
