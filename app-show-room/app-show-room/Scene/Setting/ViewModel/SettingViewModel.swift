@@ -9,6 +9,10 @@ import UIKit
 
 struct SettingViewModel {
     
+    var navigationBarTitle: String = "설정"
+    var platformTitleLabelText: String = "플랫폼"
+    var countryTitleLabelText: String = "국가"
+    
     var platformSegmentIndex: Int {
         let softeware = AppSearchingConfiguration.softwareType
         switch softeware {
@@ -21,10 +25,20 @@ struct SettingViewModel {
         }
     }
     
+    var selectedCountryIndex: Int {
+        let currentCountry = AppSearchingConfiguration.countryISOCode
+        return Country.list.firstIndex { $0 == currentCountry } ?? 0
+    }
+    
     func didSelectPlatformSegement(at index: Int) {
         if let softwareType = PlatformSegment(rawValue: index)?.softwareType {
             AppSearchingConfiguration.setSoftwareType(by: softwareType)
         }
+    }
+    
+    func didSelectCountry(at row: Int) {
+        let country = Country.list[row]
+        AppSearchingConfiguration.setCountry(by: country)
     }
         
     enum PlatformSegment: Int {

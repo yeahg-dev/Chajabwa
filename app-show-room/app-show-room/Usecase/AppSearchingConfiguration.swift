@@ -24,7 +24,7 @@ struct AppSearchingConfiguration {
     
     static var countryISOCode: Country {
         guard let code = defaults.string(forKey: "countryISOCode"),
-              let country = Country.all[code] else {
+              let country = Country.hashTable[code] else {
             let defaultCountry = Country(
                 name: "Korea, Republic of South Korea",
                 dialCode: "+82",

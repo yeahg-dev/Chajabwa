@@ -7,9 +7,9 @@
 
 import UIKit
 
-struct Country: Decodable {
+struct Country: Decodable, Equatable {
     
-    static let all: [String: Country] = {
+    static let hashTable: [String: Country] = {
         let data = NSDataAsset(name: "CountryCodes")!
         let countries = try! JSONDecoder().decode([Country].self, from: data.data)
         var all = [String: Country]()
@@ -17,6 +17,12 @@ struct Country: Decodable {
             all[country.isoCode] = country
         }
         return all
+    }()
+    
+    static let list: [Country] = {
+        let data = NSDataAsset(name: "CountryCodes")!
+        let countries = try! JSONDecoder().decode([Country].self, from: data.data)
+        return countries.sorted(by: {$0.name < $1.name})
     }()
     
     let name: String
