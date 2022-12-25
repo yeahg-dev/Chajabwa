@@ -12,13 +12,12 @@ import UIKit
 protocol SearchViewModelInput {
     
     var searchBarPlaceholder: String { get }
-    var initialPlatformSegmentIndex: Int { get }
+    var platformIconImage: UIImage? { get }
     
     func didTappedSearch(
         with input: String) async
     -> Output<[AppDetail], AlertViewModel>
     
-    func didSelectPlatformSegement(at index: Int) -> UIImage?
 }
 
 enum Output<Success, Failure> {
@@ -47,15 +46,15 @@ extension SearchViewModel: SearchViewModelInput {
         return SearchSceneNamespace.searchBarPlaceholder
     }
     
-    var initialPlatformSegmentIndex: Int {
+    var platformIconImage: UIImage? {
         let softeware = AppSearchingConfiguration.softwareType
         switch softeware {
         case .iPhone:
-            return PlatformSegment.iPhone.rawValue
+            return PlatformSegment.iPhone.icon
         case .iPad:
-            return PlatformSegment.iPad.rawValue
+            return PlatformSegment.iPad.icon
         case .mac:
-            return PlatformSegment.mac.rawValue
+            return PlatformSegment.mac.icon
         }
     }
   
@@ -74,13 +73,6 @@ extension SearchViewModel: SearchViewModelInput {
         } catch {
             return .failure(SearchSceneNamespace.searchFailureAlertViewModel)
         }
-    }
-    
-    func didSelectPlatformSegement(at index: Int) -> UIImage? {
-        if let softwareType = PlatformSegment(rawValue: index)?.softwareType {
-            AppSearchingConfiguration.setSoftwareType(by: softwareType)
-        }
-        return PlatformSegment(rawValue: index)?.icon
     }
     
     enum PlatformSegment: Int {
@@ -112,5 +104,4 @@ extension SearchViewModel: SearchViewModelInput {
         }
         
     }
-    
 }
