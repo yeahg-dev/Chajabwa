@@ -12,6 +12,7 @@ import UIKit
 protocol SearchViewModelInput {
     
     var searchBarPlaceholder: String { get }
+    var initialPlatformSegmentIndex: Int { get }
     
     func didTappedSearch(
         with input: String) async
@@ -41,11 +42,23 @@ struct SearchViewModel {
 // MARK: - SearchViewModelInput
 
 extension SearchViewModel: SearchViewModelInput {
-  
+
     var searchBarPlaceholder: String {
         return SearchSceneNamespace.searchBarPlaceholder
     }
     
+    var initialPlatformSegmentIndex: Int {
+        let softeware = AppSearchingConfiguration.softwareType
+        switch softeware {
+        case .iPhone:
+            return PlatformSegment.iPhone.rawValue
+        case .iPad:
+            return PlatformSegment.iPad.rawValue
+        case .mac:
+            return PlatformSegment.mac.rawValue
+        }
+    }
+  
     func didTappedSearch(
         with input: String)
     async -> Output<[AppDetail], AlertViewModel>
