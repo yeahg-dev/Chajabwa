@@ -33,6 +33,9 @@ final class SearchViewController: UIViewController {
     }
     
     // MARK: - Overrides
+    override func loadView() {
+        view = SearchBackgroundView()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,9 +49,7 @@ final class SearchViewController: UIViewController {
     }
     
     // MARK: - Private Methods
-    
     private func configureView() {
-        view.backgroundColor = Design.backgroundColor
         navigationItem.searchController = self.searchController
         navigationItem.title = "Search App"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -131,13 +132,5 @@ extension SearchViewController: SearchAppResultsViewDelegate {
             appDetailViewController,
             animated: true)
     }
-    
-}
-
-// MARK: - Design
-
-private enum Design {
-    
-    static let backgroundColor: UIColor = .systemBackground
     
 }
