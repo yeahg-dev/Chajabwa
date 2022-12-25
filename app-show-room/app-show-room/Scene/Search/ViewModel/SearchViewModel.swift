@@ -15,6 +15,7 @@ protocol SearchViewModelInput {
     var searchBarPlaceholder: String { get }
     var platformIconImage: UIImage? { get }
     var countryFlag: String { get }
+    var countryName: String { get }
     
     func didTappedSearch(
         with input: String) async
@@ -65,6 +66,11 @@ extension SearchViewModel: SearchViewModelInput {
     var countryFlag: String {
         return AppSearchingConfiguration.countryISOCode.flag
     }
+    
+    var countryName: String {
+        return AppSearchingConfiguration.countryISOCode.name
+    }
+    
   
     func didTappedSearch(
         with input: String)

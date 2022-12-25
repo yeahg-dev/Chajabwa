@@ -63,7 +63,9 @@ final class SearchViewController: UIViewController {
     
     private func configureIntialState() {
         searchController.searchBar.placeholder = viewModel.searchBarPlaceholder
-        searchBackgroundView.bindCountryLabel(viewModel.countryFlag)
+        searchBackgroundView.bindCountry(
+            flag: viewModel.countryFlag,
+            name: viewModel.countryName)
         searchBackgroundView.bindPlatformImage(viewModel.platformIconImage)
     }
  

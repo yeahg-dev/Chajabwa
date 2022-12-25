@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchBackgroundView: UIView {
+final class SearchBackgroundView: UIView {
     
     private let platformImageView: UIImageView = {
         let view = UIImageView()
@@ -15,10 +15,28 @@ class SearchBackgroundView: UIView {
         return view
     }()
     
-    private let countryLabel: UILabel = {
-       let label = UILabel()
+    private lazy var countryStackView: UIStackView = {
+        let stackView = UIStackView(
+            arrangedSubviews: [flagLabel, countryNameLabel])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        return stackView
+    }()
+    
+    private let flagLabel: UILabel = {
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .largeTitle)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let countryNameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .subheadline)
         label.textAlignment = .center
         return label
     }()
@@ -27,13 +45,13 @@ class SearchBackgroundView: UIView {
         super.init(frame: frame)
         backgroundColor = UIColor(named: "background")
         self.addSubview(platformImageView)
-        self.addSubview(countryLabel)
+        self.addSubview(countryStackView)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         configurelayout()
@@ -67,8 +85,9 @@ class SearchBackgroundView: UIView {
         platformImageView.image = image
     }
     
-    func bindCountryLabel(_ text: String) {
-        countryLabel.text = text
+    func bindCountry(flag: String, name: String) {
+        flagLabel.text = flag
+        countryNameLabel.text = name
     }
     
     private func configurelayout() {
@@ -83,9 +102,9 @@ class SearchBackgroundView: UIView {
                 equalToConstant: 80),
             platformImageView.heightAnchor.constraint(
                 equalToConstant: 80),
-            countryLabel.centerYAnchor.constraint(
+            countryStackView.centerYAnchor.constraint(
                 equalTo: self.centerYAnchor),
-            countryLabel.centerXAnchor.constraint(
+            countryStackView.centerXAnchor.constraint(
                 equalTo: self.leadingAnchor,
                 constant: countryLabelX)
         ])
