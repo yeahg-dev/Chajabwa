@@ -5,7 +5,7 @@
 //  Created by Moon Yeji on 2022/08/15.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - SearchViewModelInput
 
@@ -16,6 +16,8 @@ protocol SearchViewModelInput {
     func didTappedSearch(
         with input: String) async
     -> Output<[AppDetail], AlertViewModel>
+    
+    func didSelectPlatformSegement(at index: Int) -> UIImage?
 }
 
 enum Output<Success, Failure> {
@@ -39,7 +41,7 @@ struct SearchViewModel {
 // MARK: - SearchViewModelInput
 
 extension SearchViewModel: SearchViewModelInput {
-    
+  
     var searchBarPlaceholder: String {
         return SearchSceneNamespace.searchBarPlaceholder
     }
@@ -59,6 +61,40 @@ extension SearchViewModel: SearchViewModelInput {
         } catch {
             return .failure(SearchSceneNamespace.searchFailureAlertViewModel)
         }
+    }
+    
+    func didSelectPlatformSegement(at index: Int) -> UIImage? {
+        return PlatformSegment(rawValue: index)?.icon
+    }
+    
+    enum PlatformSegment: Int {
+        
+        case iPhone = 0
+        case iPad = 1
+        case mac = 2
+        
+        var softwareType: SoftwareType {
+            switch self {
+            case .iPhone:
+                return SoftwareType.iPhone
+            case .iPad:
+                return SoftwareType.iPad
+            case .mac:
+                return SoftwareType.mac
+            }
+        }
+        
+        var icon: UIImage? {
+            switch self {
+            case .iPhone:
+                return UIImage(named: "iPhone")
+            case .iPad:
+                return UIImage(named: "iPad")
+            case .mac:
+                return UIImage(named: "mac")
+            }
+        }
+        
     }
     
 }
