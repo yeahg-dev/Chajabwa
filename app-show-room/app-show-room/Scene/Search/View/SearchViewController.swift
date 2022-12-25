@@ -16,15 +16,17 @@ final class SearchViewController: UIViewController {
     
     private lazy var searchController = UISearchController(
         searchResultsController: searchAppResultsController)
+    
+    private let searchBackgroundView = SearchBackgroundView()
 
     // MARK: - ViewModel
     
-    private let searchViewModel: SearchViewModel
+    private let viewModel: SearchViewModel
     
     // MARK: - Initializer
     
     init(searchViewModel: SearchViewModel) {
-        self.searchViewModel = searchViewModel
+        self.viewModel = searchViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -33,10 +35,7 @@ final class SearchViewController: UIViewController {
     }
     
     // MARK: - Overrides
-    override func loadView() {
-        view = SearchBackgroundView()
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
@@ -50,8 +49,9 @@ final class SearchViewController: UIViewController {
     
     // MARK: - Private Methods
     private func configureView() {
+        view = searchBackgroundView
         navigationItem.searchController = self.searchController
-        navigationItem.title = "Search App"
+        navigationItem.title = viewModel.navigationItemTitle
         navigationController?.navigationBar.prefersLargeTitles = true
     }
 
@@ -62,7 +62,9 @@ final class SearchViewController: UIViewController {
     }
     
     private func configureIntialState() {
-        searchController.searchBar.placeholder = searchViewModel.searchBarPlaceholder
+        searchController.searchBar.placeholder = viewModel.searchBarPlaceholder
+        searchBackgroundView.bindCountryLabel(viewModel.countryFlag)
+        searchBackgroundView.bindPlatformImage(viewModel.platformIconImage)
     }
  
     private func presentAlert(_ alertViewModel: AlertViewModel) {
@@ -91,7 +93,7 @@ extension SearchViewController: UISearchBarDelegate {
             return
         }
         Task {
-            let result = await searchViewModel.didTappedSearch(with: input)
+            let result = await viewModel.didTappedSearch(with: input)
             switch result {
             case .success(let appDetail):
                 if appDetail.count == 1 {

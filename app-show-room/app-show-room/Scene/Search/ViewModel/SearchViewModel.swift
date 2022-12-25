@@ -11,6 +11,7 @@ import UIKit
 
 protocol SearchViewModelInput {
     
+    var navigationItemTitle: String { get }
     var searchBarPlaceholder: String { get }
     var platformIconImage: UIImage? { get }
     var countryFlag: String { get }
@@ -43,6 +44,8 @@ struct SearchViewModel {
 
 extension SearchViewModel: SearchViewModelInput {
 
+    var navigationItemTitle: String { "Search for" }
+    
     var searchBarPlaceholder: String {
         return SearchSceneNamespace.searchBarPlaceholder
     }

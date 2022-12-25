@@ -63,6 +63,14 @@ class SearchBackgroundView: UIView {
         smallCirclePath.fill()
     }
     
+    func bindPlatformImage(_ image: UIImage?) {
+        platformImageView.image = image
+    }
+    
+    func bindCountryLabel(_ text: String) {
+        countryLabel.text = text
+    }
+    
     private func configurelayout() {
         let countryLabelX = frame.height * 0.3 * 3/4
         NSLayoutConstraint.activate([
@@ -70,7 +78,11 @@ class SearchBackgroundView: UIView {
                 equalTo: self.centerYAnchor),
             platformImageView.centerXAnchor.constraint(
                 equalTo: self.leadingAnchor,
-                constant: 30),
+                constant: 50),
+            platformImageView.widthAnchor.constraint(
+                equalToConstant: 80),
+            platformImageView.heightAnchor.constraint(
+                equalToConstant: 80),
             countryLabel.centerYAnchor.constraint(
                 equalTo: self.centerYAnchor),
             countryLabel.centerXAnchor.constraint(
