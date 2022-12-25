@@ -77,6 +77,9 @@ extension SearchViewModel: SearchViewModelInput {
     }
     
     func didSelectPlatformSegement(at index: Int) -> UIImage? {
+        if let softwareType = PlatformSegment(rawValue: index)?.softwareType {
+            AppSearchingConfiguration.setSoftwareType(by: softwareType)
+        }
         return PlatformSegment(rawValue: index)?.icon
     }
     
