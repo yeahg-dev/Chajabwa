@@ -641,6 +641,7 @@
 		63D52AE129582BAC006F043D /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				63D52AEC29589AA0006F043D /* View */,
 				63D52AE229582BD1006F043D /* ViewModel */,
 			);
 			path = Setting;
@@ -652,6 +653,13 @@
 				63D52AE329582BE0006F043D /* SettingViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		63D52AEC29589AA0006F043D /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		63F0342128D8A5DB003F1751 /* StarRatingView */ = {

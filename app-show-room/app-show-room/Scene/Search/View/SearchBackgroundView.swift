@@ -28,7 +28,7 @@ final class SearchBackgroundView: UIView {
     private let flagLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .largeTitle)
+        label.font = UIFont.systemFont(ofSize: 90)
         label.textAlignment = .center
         return label
     }()
@@ -36,7 +36,7 @@ final class SearchBackgroundView: UIView {
     private let countryNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.font = UIFont.systemFont(ofSize: 23, weight: .semibold)
         label.textAlignment = .center
         return label
     }()
@@ -58,23 +58,23 @@ final class SearchBackgroundView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        let centerPoint = CGPoint(x: 0, y: rect.midY)
-        let largeRadius = rect.height * 0.3
+        let centerPoint = CGPoint(x: rect.midX, y: rect.height)
+        let largeRadius = rect.width * 0.8
         let largeCirclePath = UIBezierPath(
             arcCenter: centerPoint,
             radius: largeRadius,
-            startAngle: 3/2 * .pi,
-            endAngle: 1/2 * .pi,
+            startAngle: .pi,
+            endAngle: 2 * .pi,
             clockwise: true)
         let largeCircleColor = UIColor(named: "largeCircle")!
         largeCircleColor.setFill()
         largeCirclePath.fill()
-        let smallRadius = rect.height * 0.15
+        let smallRadius = rect.width * 0.55
         let smallCirclePath = UIBezierPath(
             arcCenter: centerPoint,
             radius: smallRadius,
-            startAngle: 3/2 * .pi,
-            endAngle: 1/2 * .pi,
+            startAngle: .pi,
+            endAngle: 2 * .pi,
             clockwise: true)
         let smallCircleColor = UIColor(named: "smallCircle")!
         smallCircleColor.setFill()
@@ -91,22 +91,23 @@ final class SearchBackgroundView: UIView {
     }
     
     private func configurelayout() {
-        let countryLabelX = frame.height * 0.3 * 3/4
+        let countryY = frame.width * 0.8 * 4/5
+        let smallCircleRadius = frame.width * 0.6
         NSLayoutConstraint.activate([
             platformImageView.centerYAnchor.constraint(
-                equalTo: self.centerYAnchor),
+                equalTo: self.bottomAnchor,
+                constant: -countryY),
             platformImageView.centerXAnchor.constraint(
-                equalTo: self.leadingAnchor,
-                constant: 50),
+                equalTo: self.centerXAnchor),
             platformImageView.widthAnchor.constraint(
-                equalToConstant: 80),
+                equalToConstant: 70),
             platformImageView.heightAnchor.constraint(
-                equalToConstant: 80),
+                equalToConstant: 70),
             countryStackView.centerYAnchor.constraint(
-                equalTo: self.centerYAnchor),
+                equalTo: self.bottomAnchor,
+                constant: -smallCircleRadius * 0.5),
             countryStackView.centerXAnchor.constraint(
-                equalTo: self.leadingAnchor,
-                constant: countryLabelX)
+                equalTo: self.centerXAnchor)
         ])
     }
     
