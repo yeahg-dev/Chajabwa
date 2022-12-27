@@ -62,6 +62,15 @@ final class SearchBackgroundView: UIView {
         return button
     }()
     
+    private var animatableArrowLayer: AnimatableArrowLayer = {
+        let layer = AnimatableArrowLayer(
+            center: CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.height),
+            radius: UIScreen.main.bounds.width * 0.55 + 10)
+        return layer
+    }()
+    
+    private var smallCirclePath: UIBezierPath?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor(named: "background")
@@ -72,33 +81,36 @@ final class SearchBackgroundView: UIView {
     }
     
     @objc func iPhoneButtonDidTapped() {
+        iPhoneButton.isSelected = true
         if iPadButton.isSelected {
             iPadButton.isSelected.toggle()
         }
         if macButton.isSelected {
             macButton.isSelected.toggle()
         }
-        iPhoneButton.isSelected.toggle()
+        animatableArrowLayer.animate(from: nil, to: ArrowAngle.iPhone.angle)
     }
     
     @objc func iPadButtonDidTapped() {
+        iPadButton.isSelected = true
         if iPhoneButton.isSelected {
             iPhoneButton.isSelected.toggle()
         }
         if macButton.isSelected {
             macButton.isSelected.toggle()
         }
-        iPadButton.isSelected.toggle()
+        animatableArrowLayer.animate(from: nil, to: ArrowAngle.iPad.angle)
     }
     
     @objc func macButtonDidTapped() {
+        macButton.isSelected = true
         if iPhoneButton.isSelected {
             iPhoneButton.isSelected.toggle()
         }
         if iPadButton.isSelected {
             iPadButton.isSelected.toggle()
         }
-        macButton.isSelected = true
+        animatableArrowLayer.animate(from: nil, to: ArrowAngle.mac.angle)
     }
     
     required init?(coder: NSCoder) {
@@ -132,16 +144,21 @@ final class SearchBackgroundView: UIView {
         let smallCircleColor = UIColor.systemGray5
         smallCircleColor.setFill()
         smallCirclePath.fill()
+
+        self.layer.addSublayer(animatableArrowLayer)
     }
     
     func bindPlatform(_ type: SoftwareType) {
         switch type {
         case .iPhone:
             iPhoneButton.isSelected = true
+            animatableArrowLayer.setPosition(ArrowAngle.iPhone.angle)
         case .iPad:
             iPadButton.isSelected = true
+            animatableArrowLayer.setPosition(ArrowAngle.iPad.angle)
         case .mac:
             macButton.isSelected = true
+            animatableArrowLayer.setPosition(ArrowAngle.mac.angle)
         }
     }
     
@@ -151,7 +168,6 @@ final class SearchBackgroundView: UIView {
     }
     
     private func configurelayout() {
-        let countryY = frame.width * 0.8 * 4/5
         let smallCircleRadius = frame.width * 0.6
         NSLayoutConstraint.activate([
             countryStackView.centerYAnchor.constraint(
@@ -177,6 +193,29 @@ final class SearchBackgroundView: UIView {
                 equalTo: self.trailingAnchor,
                 constant: -UIScreen.main.bounds.width * 0.06)
         ])
+    }
+    
+}
+
+extension SearchBackgroundView {
+    
+    private enum ArrowAngle {
+        
+        case iPad
+        case iPhone
+        case mac
+        
+        var angle: CGFloat {
+            switch self {
+            case .iPad:
+                return 1.31 * .pi
+            case .iPhone:
+                return 1.5 * .pi
+            case .mac:
+                return 1.7 * .pi
+            }
+        }
+        
     }
     
 }
