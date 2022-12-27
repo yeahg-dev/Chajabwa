@@ -45,7 +45,7 @@ struct SearchViewModel {
 
 extension SearchViewModel: SearchViewModelInput {
 
-    var navigationItemTitle: String { "Search for" }
+    var navigationItemTitle: String { SearchSceneNamespace.navigationTitle }
     
     var searchBarPlaceholder: String {
         return SearchSceneNamespace.searchBarPlaceholder

@@ -9,7 +9,8 @@ import Foundation
 
 enum SearchSceneNamespace {
     
-    static let searchBarPlaceholder = "ID를 입력해주세요"
+    static let searchBarPlaceholder = "이름 또는 ID를 입력해주세요"
+    static let navigationTitle = "Search for"
     static let invalidInputAlertViewModel = InvalidInputAlertViewModel()
     static let searchFailureAlertViewModel = SearchFailureAlertViewModel()
 }
