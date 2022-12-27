@@ -66,7 +66,7 @@ final class SearchViewController: UIViewController {
         searchBackgroundView.bindCountry(
             flag: viewModel.countryFlag,
             name: viewModel.countryName)
-        searchBackgroundView.bindPlatformImage(viewModel.platformIconImage)
+        searchBackgroundView.bindPlatform(viewModel.platformType)
     }
  
     private func presentAlert(_ alertViewModel: AlertViewModel) {

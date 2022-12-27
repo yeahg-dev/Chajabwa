@@ -13,7 +13,7 @@ protocol SearchViewModelInput {
     
     var navigationItemTitle: String { get }
     var searchBarPlaceholder: String { get }
-    var platformIconImage: UIImage? { get }
+    var platformType: SoftwareType  { get }
     var countryFlag: String { get }
     var countryName: String { get }
     
@@ -51,16 +51,8 @@ extension SearchViewModel: SearchViewModelInput {
         return SearchSceneNamespace.searchBarPlaceholder
     }
     
-    var platformIconImage: UIImage? {
-        let softeware = AppSearchingConfiguration.softwareType
-        switch softeware {
-        case .iPhone:
-            return PlatformSegment.iPhone.icon
-        case .iPad:
-            return PlatformSegment.iPad.icon
-        case .mac:
-            return PlatformSegment.mac.icon
-        }
+    var platformType: SoftwareType {
+        return AppSearchingConfiguration.softwareType
     }
     
     var countryFlag: String {
@@ -103,17 +95,6 @@ extension SearchViewModel: SearchViewModelInput {
                 return SoftwareType.iPad
             case .mac:
                 return SoftwareType.mac
-            }
-        }
-        
-        var icon: UIImage? {
-            switch self {
-            case .iPhone:
-                return UIImage(named: "iPhone")
-            case .iPad:
-                return UIImage(named: "iPad")
-            case .mac:
-                return UIImage(named: "mac")
             }
         }
         
