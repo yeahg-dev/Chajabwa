@@ -11,7 +11,7 @@ final class AnimatableArrowLayer: CAShapeLayer {
     
     private let centerPoint: CGPoint
     private let pathRadius: CGFloat
-    private var startAngle: CGFloat? = 1.5 * .pi
+    private var startAngle: CGFloat!
     
     override init(layer: Any) {
         centerPoint = (layer as! AnimatableArrowLayer).centerPoint
@@ -46,27 +46,23 @@ final class AnimatableArrowLayer: CAShapeLayer {
             endAngle: start,
             clockwise: true)
         initialPosition.path = postionPath.cgPath
-        initialPosition.fillMode = .forwards
-        initialPosition.isRemovedOnCompletion = false
-
+        
         self.position = postionPath.currentPoint
     }
     
-    func animate(from start: CGFloat?, to end: CGFloat) {
-        if startAngle == nil {
-            startAngle = start
-        }
-        let clockwise = (startAngle! < end) ? true : false
+    func animate(to end: CGFloat) {
+        self.removeAnimation(forKey: "position")
+        
         let positionAnimation = CAKeyframeAnimation(keyPath: "position")
+        let clockwise = (startAngle < end) ? true : false
         let arcPath = UIBezierPath(
             arcCenter: centerPoint,
             radius: pathRadius,
-            startAngle: startAngle!,
+            startAngle: startAngle,
             endAngle: end,
             clockwise: clockwise)
         positionAnimation.path = arcPath.cgPath
         positionAnimation.timingFunction = .init(name: CAMediaTimingFunctionName.easeInEaseOut)
-        positionAnimation.isAdditive = true
         positionAnimation.duration = 0.5
         positionAnimation.fillMode = .forwards
         positionAnimation.isRemovedOnCompletion = false
@@ -75,14 +71,9 @@ final class AnimatableArrowLayer: CAShapeLayer {
         } else {
             positionAnimation.rotationMode = .rotateAutoReverse
         }
-        let group = CAAnimationGroup()
-        group.animations = [positionAnimation]
+        add(positionAnimation, forKey: "positoon")
         
-        add(group, forKey: nil)
-        self.position = arcPath.currentPoint
-        self.transform = CATransform3DMakeRotation(end - 3/2 * .pi , 0.0, 0.0, 1.0)
-    
-        startAngle = end
+        self.startAngle = end
     }
     
 }

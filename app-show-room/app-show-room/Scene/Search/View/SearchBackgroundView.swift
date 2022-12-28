@@ -88,7 +88,7 @@ final class SearchBackgroundView: UIView {
         if macButton.isSelected {
             macButton.isSelected.toggle()
         }
-        animatableArrowLayer.animate(from: nil, to: ArrowAngle.iPhone.angle)
+        animatableArrowLayer.animate(to: ArrowAngle.iPhone.angle)
     }
     
     @objc func iPadButtonDidTapped() {
@@ -99,7 +99,7 @@ final class SearchBackgroundView: UIView {
         if macButton.isSelected {
             macButton.isSelected.toggle()
         }
-        animatableArrowLayer.animate(from: nil, to: ArrowAngle.iPad.angle)
+        animatableArrowLayer.animate(to: ArrowAngle.iPad.angle)
     }
     
     @objc func macButtonDidTapped() {
@@ -110,7 +110,7 @@ final class SearchBackgroundView: UIView {
         if iPadButton.isSelected {
             iPadButton.isSelected.toggle()
         }
-        animatableArrowLayer.animate(from: nil, to: ArrowAngle.mac.angle)
+        animatableArrowLayer.animate(to: ArrowAngle.mac.angle)
     }
     
     required init?(coder: NSCoder) {
