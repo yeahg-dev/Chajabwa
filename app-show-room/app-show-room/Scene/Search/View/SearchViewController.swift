@@ -63,6 +63,10 @@ final class SearchViewController: UIViewController {
     
     private func configureIntialState() {
         searchController.searchBar.placeholder = viewModel.searchBarPlaceholder
+        refreshState()
+    }
+    
+    private func refreshState() {
         searchBackgroundView.bindCountry(
             flag: viewModel.countryFlag,
             name: viewModel.countryName)
@@ -137,4 +141,14 @@ extension SearchViewController: SearchAppResultsViewDelegate {
             animated: true)
     }
     
+}
+
+// MARK: - SettingViewDelegate
+
+extension SearchViewController: SettingViewDelegate {
+    
+    func didSettingChanged() {
+        refreshState()
+    }
+
 }
