@@ -15,57 +15,121 @@ protocol ReleaseNoteCollectionViewCellDelegate: AnyObject {
 
 final class ReleaseNoteCollectionViewCell: BaseCollectionViewCell {
     
-    private let versionLabel = UILabel()
-    private let currentVersionReleaseDateLabel = UILabel()
-    private let descriptionTextView = UITextView()
-    private let foldingButton = UIButton(type: .custom)
+    private lazy var containerStackView: UIStackView = {
+        let stackView = UIStackView(
+            arrangedSubviews: [versionStackView, descriptionTextView, buttonView])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.spacing = 7
+        return stackView
+    }()
+    
+    private lazy var versionStackView: UIStackView = {
+        let stackView = UIStackView(
+            arrangedSubviews: [versionLabel, currentVersionReleaseDateLabel])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        return stackView
+    }()
+    
+    private let versionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = Design.decriptionTextViewFont
+        label.textColor = Design.versionTextColor
+        label.textAlignment = .left
+        return label
+    }()
+    
+    private let currentVersionReleaseDateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = Design.currentVersionReleaseDateFont
+        label.textColor = Design.currentVersionReleaseDateTextColor
+        label.textAlignment = .right
+        return label
+    }()
+    
+    private let descriptionTextView: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.textContainer.lineBreakMode = .byTruncatingTail
+        textView.textContainer.maximumNumberOfLines = Design.textContainerMaximumNumberOfLines
+        textView.textContainerInset = UIEdgeInsets(
+            top: Design.textContainerInsetTop,
+            left: Design.textContainerInsetLeft,
+            bottom: Design.textContainerInsetBottom,
+            right: Design.textContainerInsetRight)
+        textView.isScrollEnabled = false
+        textView.isEditable = false
+        textView.textColor = Design.descriptionTextColor
+        textView.font = Design.decriptionTextViewFont
+        return textView
+    }()
+    
+    private lazy var buttonView: UIView = {
+        let view = UIView(
+            frame: CGRect(
+                origin: .zero,
+                size: .init(
+                    width: contentView.frame.width,
+                    height: foldingButton.intrinsicContentSize.height)))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(foldingButton)
+        return view
+    }()
+    
+    private lazy var foldingButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(Design.foldingButtonTextColor, for: .normal)
+        button.setTitleColor(Design.foldingButtonTextColor, for: .selected)
+        button.titleLabel?.font = Design.foldingButtonFont
+        button.titleLabel?.textAlignment = .right
+        button.addTarget(
+            self,
+            action: #selector(toggleFoldingButton),
+            for: .touchUpInside)
+        return button
+    }()
     
     private var isFolded: Bool = true
     
     weak var delegate: ReleaseNoteCollectionViewCellDelegate?
-    
-    private lazy var showFoldingButton: [NSLayoutConstraint] = {
-        return [
-            foldingButton.topAnchor.constraint(
-                equalTo: descriptionTextView.bottomAnchor,
-                constant: Design.desciptionTextViewMarginBottom),
-            foldingButton.trailingAnchor.constraint(
-                equalTo: contentView.trailingAnchor,
-                constant: -Design.paddingTrailing),
-            foldingButton.bottomAnchor.constraint(
-                equalTo: contentView.bottomAnchor,
-                constant: -Design.paddingBottom)
-        ]
-    }()
-    
-    private lazy var hideFoldingButton: NSLayoutConstraint = {
-        descriptionTextView.bottomAnchor.constraint(
-            equalTo: contentView.bottomAnchor,
-            constant: -Design.desciptionTextViewMarginBottom)
-    }()
-  
+   
     override func addSubviews() {
-        contentView.addSubview(versionLabel)
-        contentView.addSubview(currentVersionReleaseDateLabel)
-        contentView.addSubview(descriptionTextView)
-        contentView.addSubview(foldingButton)
-    }
-    
-    override func configureSubviews() {
-        configureVersionLabel()
-        configureCurrentVersionReleaseDateLabel()
-        configureDescrpitionTextView()
-        configureFoldingButton()
+        contentView.addSubview(containerStackView)
     }
     
     override func setConstraints() {
-        invalidateTranslateAutoResizingMasks(of: [
-            versionLabel, currentVersionReleaseDateLabel, foldingButton, descriptionTextView, contentView])
-        setContstraintsOfContentView()
-        setConstraintsOfVersionLabel()
-        setConstraintsOfcurrentVersionReleaseDateLabel()
-        setConstraintsOfFoldingButton()
-        setContstraintsOfDescriptionView()
+         NSLayoutConstraint.activate([
+             contentView.topAnchor.constraint(equalTo: self.topAnchor),
+             contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+             contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+             contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+             containerStackView.leadingAnchor.constraint(
+                 equalTo: contentView.leadingAnchor,
+                 constant: Design.paddingLeading),
+             containerStackView.trailingAnchor.constraint(
+                 equalTo: contentView.trailingAnchor,
+                 constant: -Design.paddingTrailing),
+             containerStackView.topAnchor.constraint(
+                 equalTo: contentView.topAnchor,
+                 constant: Design.paddingTop),
+             containerStackView.bottomAnchor.constraint(
+                 equalTo: contentView.bottomAnchor,
+                 constant: -Design.paddingBottom),
+             foldingButton.topAnchor.constraint(
+                 equalTo: buttonView.topAnchor),
+             foldingButton.trailingAnchor.constraint(
+                 equalTo: buttonView.trailingAnchor),
+             foldingButton.bottomAnchor.constraint(
+                 equalTo: buttonView.bottomAnchor)
+         ])
     }
     
     func bind(model: AppDetailViewModel.Item) {
@@ -73,125 +137,17 @@ final class ReleaseNoteCollectionViewCell: BaseCollectionViewCell {
             versionLabel.text = releaseNote.version
             currentVersionReleaseDateLabel.text = releaseNote.currentVersionReleaseDate
             descriptionTextView.text = releaseNote.description
-            
+            foldingButton.setTitle(releaseNote.buttonTitle, for: .normal)
             if releaseNote.isTrucated {
-                descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMaximumNumberOfLines
+                descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMinimumNumberOfLines
             } else {
                 descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMaximumNumberOfLines
             }
-            
-            guard let button = releaseNote.buttonTitle else {
-                NSLayoutConstraint.deactivate(showFoldingButton)
-                hideFoldingButton.isActive = true
-                return
-            }
-            
-            foldingButton.setTitle(button, for: .normal)
         }
-    }
-    
-    private func configureFoldingButton() {
-        foldingButton.setTitleColor(Design.foldingButtonTextColor, for: .normal)
-        foldingButton.setTitleColor(Design.foldingButtonTextColor, for: .selected)
-        foldingButton.titleLabel?.font = Design.foldingButtonFont
-        foldingButton.titleLabel?.textAlignment = .right
-        foldingButton.addTarget(
-            self,
-            action: #selector(toggleFoldingButton),
-            for: .touchUpInside)
     }
     
     @objc private func toggleFoldingButton() {
         delegate?.foldingButtonDidTapped(self)
-    }
-    
-    private func configureVersionLabel() {
-        versionLabel.font = Design.decriptionTextViewFont
-        versionLabel.textColor = Design.versionTextColor
-    }
-    
-    private func configureCurrentVersionReleaseDateLabel() {
-        currentVersionReleaseDateLabel.font = Design.currentVersionReleaseDateFont
-        currentVersionReleaseDateLabel.textColor = Design.currentVersionReleaseDateTextColor
-        currentVersionReleaseDateLabel.textAlignment = .right
-    }
-
-    private func configureDescrpitionTextView() {
-        descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
-        descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMaximumNumberOfLines
-        descriptionTextView.textContainerInset = UIEdgeInsets(
-            top: Design.textContainerInsetTop,
-            left: Design.textContainerInsetLeft,
-            bottom: Design.textContainerInsetBottom,
-            right: Design.textContainerInsetRight)
-        descriptionTextView.isScrollEnabled = false
-        descriptionTextView.isEditable = false
-        descriptionTextView.textColor = Design.descriptionTextColor
-        descriptionTextView.font = Design.decriptionTextViewFont
-    }
-    
-}
-
-// MARK: - configure layout
-
-extension ReleaseNoteCollectionViewCell {
-    
-    private func setContstraintsOfContentView() {
-        NSLayoutConstraint.activate([
-            contentView.leadingAnchor.constraint(
-                equalTo: self.leadingAnchor),
-            contentView.topAnchor.constraint(
-                equalTo: self.topAnchor),
-            contentView.trailingAnchor.constraint(
-                equalTo: self.trailingAnchor),
-            contentView.bottomAnchor.constraint(
-                equalTo: self.bottomAnchor)])
-    }
-    
-    private func setConstraintsOfVersionLabel() {
-        NSLayoutConstraint.activate([
-            versionLabel.leadingAnchor.constraint(
-                equalTo: contentView.leadingAnchor,
-                constant: Design.paddingLeading),
-            versionLabel.topAnchor.constraint(
-                equalTo: contentView.topAnchor,
-                constant: Design.paddingTop),
-            versionLabel.bottomAnchor.constraint(
-                equalTo: descriptionTextView.topAnchor,
-                constant: -Design.descriptionTextViewMarginTop)
-        ])
-    }
-    
-    private func setConstraintsOfcurrentVersionReleaseDateLabel() {
-        NSLayoutConstraint.activate([
-            currentVersionReleaseDateLabel.topAnchor.constraint(
-                equalTo: contentView.topAnchor,
-                constant: Design.paddingTop),
-            currentVersionReleaseDateLabel.trailingAnchor.constraint(
-                equalTo: contentView.trailingAnchor,
-                constant: -Design.paddingTrailing),
-            currentVersionReleaseDateLabel.bottomAnchor.constraint(
-                equalTo: descriptionTextView.topAnchor,
-                constant: -Design.descriptionTextViewMarginTop)
-        ])
-    }
-    
-    private func setContstraintsOfDescriptionView() {
-        NSLayoutConstraint.activate([
-            descriptionTextView.leadingAnchor.constraint(
-                equalTo: contentView.leadingAnchor,
-                constant: Design.paddingLeading),
-            descriptionTextView.trailingAnchor.constraint(
-                equalTo: contentView.trailingAnchor,
-                constant: -Design.paddingTrailing),
-            descriptionTextView.widthAnchor.constraint(
-                equalToConstant: UIScreen.main.bounds.width
-                - Design.paddingLeading - Design.paddingTrailing)
-        ])
-    }
-    
-    private func setConstraintsOfFoldingButton() {
-        NSLayoutConstraint.activate(showFoldingButton)
     }
     
 }
@@ -216,8 +172,8 @@ private enum Design {
     static let textContainerInsetRight: CGFloat = -5
     static let textContainerInsetBottom: CGFloat = 0
     
-    static let textContainerMaximumNumberOfLines: Int = 3
-    static let textContainerMinimumNumberOfLines: Int = 0
+    static let textContainerMaximumNumberOfLines: Int = 0
+    static let textContainerMinimumNumberOfLines: Int = 3
     
     // size
     static let foldingButtonWidth: CGFloat = 100
