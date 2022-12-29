@@ -64,6 +64,7 @@ class ScreenShotCollectionViewCell: BaseCollectionViewCell {
         contentView.layer.borderColor = design.borderColor
         contentView.layer.borderWidth = design.borderWidth
         contentView.clipsToBounds = true
+        screenShotView.contentMode = .scaleAspectFit
     }
     
 }
