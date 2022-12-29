@@ -16,32 +16,6 @@ protocol SearchBackgroundViewPresentaionDelegate: AnyObject {
 final class SearchBackgroundView: UIView {
     
     weak var presentationDelegate: SearchBackgroundViewPresentaionDelegate?
-
-    private let flagButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 90)
-        button.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-        button.addTarget(
-            self,
-            action: #selector(presentSettingView),
-            for: .touchUpInside)
-        return button
-    }()
-    
-    private let countryNameButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(
-            ofSize: 23,
-            weight: .semibold)
-        button.addTarget(
-            self,
-            action: #selector(presentSettingView),
-            for: .touchUpInside)
-        return button
-    }()
     
     private lazy var iPhoneButton: PlatformButton = {
         let button = PlatformButton(type: .iPhone)
@@ -77,13 +51,34 @@ final class SearchBackgroundView: UIView {
         return layer
     }()
     
+    private let flagButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 90)
+        button.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        button.addTarget(
+            self,
+            action: #selector(presentSettingView),
+            for: .touchUpInside)
+        return button
+    }()
+    
+    private let countryNameButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(
+            ofSize: 23,
+            weight: .semibold)
+        button.addTarget(
+            self,
+            action: #selector(presentSettingView),
+            for: .touchUpInside)
+        return button
+    }()
+    
     private var smallCirclePath: UIBezierPath?
     
-    @objc func presentSettingView() {
-        presentationDelegate?.presentSettingView(
-            view: SettingViewController.self)
-    }
-        
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor(named: "background")
@@ -93,43 +88,7 @@ final class SearchBackgroundView: UIView {
         self.addSubview(flagButton)
         self.addSubview(countryNameButton)
     }
-    
-    @objc func iPhoneButtonDidTapped() {
-        iPhoneButton.isSelected = true
-        if iPadButton.isSelected {
-            iPadButton.isSelected.toggle()
-        }
-        if macButton.isSelected {
-            macButton.isSelected.toggle()
-        }
-        animatableArrowLayer.animate(to: ArrowAngle.iPhone.angle)
-        AppSearchingConfiguration.setSoftwareType(by: .iPhone)
-    }
-    
-    @objc func iPadButtonDidTapped() {
-        iPadButton.isSelected = true
-        if iPhoneButton.isSelected {
-            iPhoneButton.isSelected.toggle()
-        }
-        if macButton.isSelected {
-            macButton.isSelected.toggle()
-        }
-        animatableArrowLayer.animate(to: ArrowAngle.iPad.angle)
-        AppSearchingConfiguration.setSoftwareType(by: .iPad)
-    }
-    
-    @objc func macButtonDidTapped() {
-        macButton.isSelected = true
-        if iPhoneButton.isSelected {
-            iPhoneButton.isSelected.toggle()
-        }
-        if iPadButton.isSelected {
-            iPadButton.isSelected.toggle()
-        }
-        animatableArrowLayer.animate(to: ArrowAngle.mac.angle)
-        AppSearchingConfiguration.setSoftwareType(by: .mac)
-    }
-    
+   
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -137,6 +96,39 @@ final class SearchBackgroundView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         configurelayout()
+    }
+    
+    private func configurelayout() {
+        let smallCircleRadius = frame.width * 0.6
+        NSLayoutConstraint.activate([
+            flagButton.bottomAnchor.constraint(
+                equalTo: self.bottomAnchor,
+                constant: -smallCircleRadius * 0.3),
+            flagButton.centerXAnchor.constraint(
+                equalTo: self.centerXAnchor),
+            countryNameButton.topAnchor.constraint(
+                equalTo: flagButton.bottomAnchor,
+                constant: -20),
+            countryNameButton.centerXAnchor.constraint(
+                equalTo: self.centerXAnchor),
+            iPhoneButton.centerXAnchor.constraint(
+                equalTo: self.centerXAnchor),
+            iPhoneButton.bottomAnchor.constraint(
+                equalTo: self.bottomAnchor,
+                constant: -UIScreen.main.bounds.width * 0.58),
+            iPadButton.bottomAnchor.constraint(
+                equalTo: self.bottomAnchor,
+                constant: -UIScreen.main.bounds.width * 0.485),
+            iPadButton.leadingAnchor.constraint(
+                equalTo: self.leadingAnchor,
+                constant: UIScreen.main.bounds.width * 0.06),
+            macButton.bottomAnchor.constraint(
+                equalTo: self.bottomAnchor,
+                constant: -UIScreen.main.bounds.width * 0.48),
+            macButton.trailingAnchor.constraint(
+                equalTo: self.trailingAnchor,
+                constant: -UIScreen.main.bounds.width * 0.06)
+        ])
     }
     
     override func draw(_ rect: CGRect) {
@@ -184,41 +176,50 @@ final class SearchBackgroundView: UIView {
         countryNameButton.setTitle(name, for: .normal)
     }
     
-    private func configurelayout() {
-        let smallCircleRadius = frame.width * 0.6
-        NSLayoutConstraint.activate([
-            flagButton.bottomAnchor.constraint(
-                equalTo: self.bottomAnchor,
-                constant: -smallCircleRadius * 0.3),
-            flagButton.centerXAnchor.constraint(
-                equalTo: self.centerXAnchor),
-            countryNameButton.topAnchor.constraint(
-                equalTo: flagButton.bottomAnchor,
-                constant: -20),
-            countryNameButton.centerXAnchor.constraint(
-                equalTo: self.centerXAnchor),
-            iPhoneButton.centerXAnchor.constraint(
-                equalTo: self.centerXAnchor),
-            iPhoneButton.bottomAnchor.constraint(
-                equalTo: self.bottomAnchor,
-                constant: -UIScreen.main.bounds.width * 0.58),
-            iPadButton.bottomAnchor.constraint(
-                equalTo: self.bottomAnchor,
-                constant: -UIScreen.main.bounds.width * 0.485),
-            iPadButton.leadingAnchor.constraint(
-                equalTo: self.leadingAnchor,
-                constant: UIScreen.main.bounds.width * 0.06),
-            macButton.bottomAnchor.constraint(
-                equalTo: self.bottomAnchor,
-                constant: -UIScreen.main.bounds.width * 0.48),
-            macButton.trailingAnchor.constraint(
-                equalTo: self.trailingAnchor,
-                constant: -UIScreen.main.bounds.width * 0.06)
-        ])
+    @objc func presentSettingView() {
+        presentationDelegate?.presentSettingView(
+            view: SettingViewController.self)
+    }
+        
+    @objc func iPhoneButtonDidTapped() {
+        iPhoneButton.isSelected = true
+        if iPadButton.isSelected {
+            iPadButton.isSelected.toggle()
+        }
+        if macButton.isSelected {
+            macButton.isSelected.toggle()
+        }
+        animatableArrowLayer.animate(to: ArrowAngle.iPhone.angle)
+        AppSearchingConfiguration.setSoftwareType(by: .iPhone)
+    }
+    
+    @objc func iPadButtonDidTapped() {
+        iPadButton.isSelected = true
+        if iPhoneButton.isSelected {
+            iPhoneButton.isSelected.toggle()
+        }
+        if macButton.isSelected {
+            macButton.isSelected.toggle()
+        }
+        animatableArrowLayer.animate(to: ArrowAngle.iPad.angle)
+        AppSearchingConfiguration.setSoftwareType(by: .iPad)
+    }
+    
+    @objc func macButtonDidTapped() {
+        macButton.isSelected = true
+        if iPhoneButton.isSelected {
+            iPhoneButton.isSelected.toggle()
+        }
+        if iPadButton.isSelected {
+            iPadButton.isSelected.toggle()
+        }
+        animatableArrowLayer.animate(to: ArrowAngle.mac.angle)
+        AppSearchingConfiguration.setSoftwareType(by: .mac)
     }
     
 }
 
+// MARK: - ArrowAngle
 extension SearchBackgroundView {
     
     private enum ArrowAngle {

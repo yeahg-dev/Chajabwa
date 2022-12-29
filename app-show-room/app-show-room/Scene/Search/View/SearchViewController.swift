@@ -48,6 +48,7 @@ final class SearchViewController: UIViewController {
     }
     
     // MARK: - Private Methods
+    
     private func configureView() {
         view = searchBackgroundView
         searchBackgroundView.presentationDelegate = self
