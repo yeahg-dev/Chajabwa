@@ -16,21 +16,12 @@ protocol SearchBackgroundViewPresentaionDelegate: AnyObject {
 final class SearchBackgroundView: UIView {
     
     weak var presentationDelegate: SearchBackgroundViewPresentaionDelegate?
-    
-    private lazy var countryStackView: UIStackView = {
-        let stackView = UIStackView(
-            arrangedSubviews: [flagButton, countryNameButton])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fill
-        return stackView
-    }()
-    
+
     private let flagButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.systemFont(ofSize: 90)
+        button.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         button.addTarget(
             self,
             action: #selector(presentSettingView),
@@ -41,6 +32,7 @@ final class SearchBackgroundView: UIView {
     private let countryNameButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(
             ofSize: 23,
             weight: .semibold)
@@ -95,10 +87,11 @@ final class SearchBackgroundView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor(named: "background")
-        self.addSubview(countryStackView)
         self.addSubview(iPhoneButton)
         self.addSubview(iPadButton)
         self.addSubview(macButton)
+        self.addSubview(flagButton)
+        self.addSubview(countryNameButton)
     }
     
     @objc func iPhoneButtonDidTapped() {
@@ -194,10 +187,15 @@ final class SearchBackgroundView: UIView {
     private func configurelayout() {
         let smallCircleRadius = frame.width * 0.6
         NSLayoutConstraint.activate([
-            countryStackView.centerYAnchor.constraint(
+            flagButton.bottomAnchor.constraint(
                 equalTo: self.bottomAnchor,
-                constant: -smallCircleRadius * 0.5),
-            countryStackView.centerXAnchor.constraint(
+                constant: -smallCircleRadius * 0.3),
+            flagButton.centerXAnchor.constraint(
+                equalTo: self.centerXAnchor),
+            countryNameButton.topAnchor.constraint(
+                equalTo: flagButton.bottomAnchor,
+                constant: -20),
+            countryNameButton.centerXAnchor.constraint(
                 equalTo: self.centerXAnchor),
             iPhoneButton.centerXAnchor.constraint(
                 equalTo: self.centerXAnchor),
