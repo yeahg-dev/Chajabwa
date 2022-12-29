@@ -70,8 +70,12 @@ final class DescriptionCollectionViewCell: BaseCollectionViewCell {
                 descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMaximumNumberOfLines
             }
             
-            if let descriptionText = descritpion.text,
-               descriptionText.count < 100 {
+            guard let descriptionText = descritpion.text else {
+                foldingButton.isHidden = true
+                return
+            }
+            
+            if descriptionText.count < 100 {
                 foldingButton.isHidden = true
             } else {
                 foldingButton.setTitle(descritpion.buttonTitle, for: .normal)

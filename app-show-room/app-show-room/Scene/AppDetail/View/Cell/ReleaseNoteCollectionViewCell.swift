@@ -143,8 +143,11 @@ final class ReleaseNoteCollectionViewCell: BaseCollectionViewCell {
                 descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMaximumNumberOfLines
             }
             
-            if let description = releaseNote.description,
-               description.count < 100 {
+            guard let descriptionText = releaseNote.description else {
+                foldingButton.isHidden = true
+                return
+            }
+            if descriptionText.count < 100 {
                 foldingButton.isHidden = true
             } else {
                 foldingButton.setTitle(releaseNote.buttonTitle, for: .normal)
