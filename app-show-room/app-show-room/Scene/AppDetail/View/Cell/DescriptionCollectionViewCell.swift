@@ -17,19 +17,42 @@ final class DescriptionCollectionViewCell: BaseCollectionViewCell {
     
     weak var delegate: DescriptionCollectionViewCellDelegate?
     
-    private let descriptionTextView = UITextView()
-    private let foldingButton = UIButton(type: .custom)
+    private let descriptionTextView: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.textContainer.lineBreakMode = .byTruncatingTail
+        textView.textContainer.lineBreakMode = .byCharWrapping
+        textView.textContainer.maximumNumberOfLines = Design.textContainerMinimumNumberOfLines
+        textView.textContainerInset = UIEdgeInsets(
+            top: Design.textContainerInsetTop,
+            left: Design.textContainerInsetLeft,
+            bottom: Design.textContainerInsetBottom,
+            right:  Design.textContainerInsetRight)
+        textView.isScrollEnabled = false
+        textView.isEditable = false
+        textView.font = Design.decriptionTextViewFont
+        return textView
+    }()
+    
+    private lazy var foldingButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(Design.foldingButtonTextColor, for: .normal)
+        button.setTitleColor(Design.foldingButtonTextColor, for: .selected)
+        button.titleLabel?.font = Design.foldingButtonFont
+        button.titleLabel?.textAlignment = .right
+        button.addTarget(
+            self,
+            action: #selector(toggleFoldingButton),
+            for: .touchUpInside)
+        return button
+    }()
     
     override func addSubviews() {
         contentView.addSubview(descriptionTextView)
         contentView.addSubview(foldingButton)
     }
-    
-    override func configureSubviews() {
-        configureDescrpitionTextView()
-        configureFoldingButton()
-    }
-    
+
     override func setConstraints() {
         invalidateTranslateAutoResizingMasks(of: [
             foldingButton, descriptionTextView, contentView])
@@ -55,34 +78,9 @@ final class DescriptionCollectionViewCell: BaseCollectionViewCell {
             }
         }
     }
-    
-    private func configureFoldingButton() {
-        foldingButton.setTitleColor(Design.foldingButtonTextColor, for: .normal)
-        foldingButton.setTitleColor(Design.foldingButtonTextColor, for: .selected)
-        foldingButton.titleLabel?.font = Design.foldingButtonFont
-        foldingButton.titleLabel?.textAlignment = .right
-        foldingButton.addTarget(
-            self,
-            action: #selector(toggleFoldingButton),
-            for: .touchUpInside)
-    }
-    
+  
     @objc private func toggleFoldingButton() {
         delegate?.foldingButtonDidTapped(self)
-    }
-    
-    private func configureDescrpitionTextView() {
-        descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
-        descriptionTextView.textContainer.lineBreakMode = .byCharWrapping
-        descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMinimumNumberOfLines
-        descriptionTextView.textContainerInset = UIEdgeInsets(
-            top: Design.textContainerInsetTop,
-            left: Design.textContainerInsetLeft,
-            bottom: Design.textContainerInsetBottom,
-            right:  Design.textContainerInsetRight)
-        descriptionTextView.isScrollEnabled = false
-        descriptionTextView.isEditable = false
-        descriptionTextView.font = Design.decriptionTextViewFont
     }
     
 }
