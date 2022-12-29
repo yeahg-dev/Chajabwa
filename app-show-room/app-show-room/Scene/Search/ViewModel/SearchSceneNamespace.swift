@@ -13,6 +13,7 @@ enum SearchSceneNamespace {
     static let navigationTitle = "Search for"
     static let invalidInputAlertViewModel = InvalidInputAlertViewModel()
     static let searchFailureAlertViewModel = SearchFailureAlertViewModel()
+    static let emptyResultAlertViewModel = EmptyResultAlertViewModel()
 }
 
 // MARK: - InvalidInputAlertViewModel
@@ -50,10 +51,23 @@ extension SearchSceneNamespace {
         var alertAction: UIAlertActionViewModel? = SearchFailureAlertActionViewModel()
     }
     
+    struct EmptyResultAlertViewModel: AlertViewModel {
+        
+        var alertController: UIAlertControllerViewModel = EmptyResultAlertControllerViewModel()
+        var alertAction: UIAlertActionViewModel? = SearchFailureAlertActionViewModel()
+    }
+    
     struct SearchFailureAlertControllerViewModel: UIAlertControllerViewModel {
         
         var title: String? = "검색에 실패했습니다"
         var message: String? = "다시 시도해주세요🙏🏻"
+        var preferredStyle: UIAlertControllerStyle = .alert
+    }
+    
+    struct EmptyResultAlertControllerViewModel: UIAlertControllerViewModel {
+        
+        var title: String? = "결과가 없습니다"
+        var message: String? = "검색어를 확인해주세요"
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     

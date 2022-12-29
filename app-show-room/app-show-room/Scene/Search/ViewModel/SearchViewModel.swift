@@ -72,7 +72,7 @@ extension SearchViewModel: SearchViewModelInput {
             let appDetails = try await self.appSearchUsecase.searchAppDetail(
                 of: input)
             if appDetails.isEmpty {
-                return .failure(SearchSceneNamespace.searchFailureAlertViewModel)
+                return .failure(SearchSceneNamespace.emptyResultAlertViewModel)
             } else {
                 return .success(appDetails)
             }
