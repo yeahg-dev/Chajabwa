@@ -50,13 +50,13 @@ final class SearchViewController: UIViewController {
     // MARK: - Private Methods
     private func configureView() {
         view = searchBackgroundView
+        searchBackgroundView.presentationDelegate = self
         navigationItem.searchController = self.searchController
         navigationItem.title = viewModel.navigationItemTitle
         navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     private func configureSearchController() {
-        searchController.hidesNavigationBarDuringPresentation = true
         searchController.searchBar.delegate = self
         searchAppResultsController.delegate = self
     }
@@ -139,6 +139,17 @@ extension SearchViewController: SearchAppResultsViewDelegate {
         navigationController?.pushViewController(
             appDetailViewController,
             animated: true)
+    }
+    
+}
+
+extension SearchViewController: SearchBackgroundViewPresentaionDelegate {
+    
+    func presentSettingView(view: SettingViewController.Type) {
+        let settingView = view.init()
+        settingView.settingViewdelegate = self
+        settingView.modalPresentationStyle = .formSheet
+        present(settingView, animated: true)
     }
     
 }

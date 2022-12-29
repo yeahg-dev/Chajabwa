@@ -13,17 +13,29 @@ protocol SettingViewDelegate {
     
 }
 
-class SettingViewController: UINavigationController {
+class SettingViewController: UIViewController {
     
     var settingViewdelegate: SettingViewDelegate?
     
     private let viewModel = SettingViewModel()
     private lazy var selectedIndex: Int = viewModel.selectedCountryIndex
     
+    private lazy var navigationBar: UINavigationBar = {
+        let statusBarHeight: CGFloat = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0
+        let bar = UINavigationBar(
+            frame: .init(
+                x: 0,
+                y: statusBarHeight,
+                width: view.frame.width,
+                height: statusBarHeight))
+        bar.isTranslucent = false
+        bar.backgroundColor = .systemBackground
+        return bar
+    }()
+    
     private let countryTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
         return tableView
     }()
     
@@ -36,21 +48,22 @@ class SettingViewController: UINavigationController {
     }
     
     private func configureLayout() {
+        view.addSubview(navigationBar)
         view.addSubview(countryTableView)
         NSLayoutConstraint.activate([
             countryTableView.leadingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                equalTo: view.leadingAnchor),
             countryTableView.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor),
+                equalTo: navigationBar.bottomAnchor),
             countryTableView.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                equalTo: view.bottomAnchor),
             countryTableView.trailingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+                equalTo: view.trailingAnchor)
         ])
     }
     
     private func configureNavigationBar() {
-        navigationItem.title = viewModel.navigationBarTitle
+        let navigationItem = UINavigationItem(title: viewModel.navigationBarTitle)
         let doneButton = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,
@@ -61,6 +74,7 @@ class SettingViewController: UINavigationController {
             action: #selector(dismissView))
         navigationItem.rightBarButtonItem = doneButton
         navigationItem.leftBarButtonItem = cancelButton
+        navigationBar.items = [navigationItem]
     }
     
     @objc func dismissView() {
@@ -120,8 +134,11 @@ extension SettingViewController: UITableViewDelegate {
     func tableView(
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath) {
-            tableView.deselectRow(at: indexPath, animated: false)
+            let beforeSelectedIndex = IndexPath(row: selectedIndex, section: 0)
             selectedIndex = indexPath.row
+            tableView.reloadRows(
+                at: [indexPath, beforeSelectedIndex],
+                with: .fade)
         }
     
 }

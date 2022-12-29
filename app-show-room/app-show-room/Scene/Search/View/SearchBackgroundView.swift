@@ -7,32 +7,48 @@
 
 import UIKit
 
+protocol SearchBackgroundViewPresentaionDelegate: AnyObject {
+    
+    func presentSettingView(view: SettingViewController.Type)
+    
+}
+
 final class SearchBackgroundView: UIView {
+    
+    weak var presentationDelegate: SearchBackgroundViewPresentaionDelegate?
     
     private lazy var countryStackView: UIStackView = {
         let stackView = UIStackView(
-            arrangedSubviews: [flagLabel, countryNameLabel])
+            arrangedSubviews: [flagButton, countryNameButton])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.alignment = .center
+        stackView.alignment = .fill
         stackView.distribution = .fill
         return stackView
     }()
     
-    private let flagLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 90)
-        label.textAlignment = .center
-        return label
+    private let flagButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 90)
+        button.addTarget(
+            self,
+            action: #selector(presentSettingView),
+            for: .touchUpInside)
+        return button
     }()
     
-    private let countryNameLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 23, weight: .semibold)
-        label.textAlignment = .center
-        return label
+    private let countryNameButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont.systemFont(
+            ofSize: 23,
+            weight: .semibold)
+        button.addTarget(
+            self,
+            action: #selector(presentSettingView),
+            for: .touchUpInside)
+        return button
     }()
     
     private lazy var iPhoneButton: PlatformButton = {
@@ -71,6 +87,11 @@ final class SearchBackgroundView: UIView {
     
     private var smallCirclePath: UIBezierPath?
     
+    @objc func presentSettingView() {
+        presentationDelegate?.presentSettingView(
+            view: SettingViewController.self)
+    }
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor(named: "background")
@@ -163,8 +184,8 @@ final class SearchBackgroundView: UIView {
     }
     
     func bindCountry(flag: String, name: String) {
-        flagLabel.text = flag
-        countryNameLabel.text = name
+        flagButton.setTitle(flag, for: .normal)
+        countryNameButton.setTitle(name, for: .normal)
     }
     
     private func configurelayout() {
