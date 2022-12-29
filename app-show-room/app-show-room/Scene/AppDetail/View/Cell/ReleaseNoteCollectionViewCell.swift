@@ -15,6 +15,8 @@ protocol ReleaseNoteCollectionViewCellDelegate: AnyObject {
 
 final class ReleaseNoteCollectionViewCell: BaseCollectionViewCell {
     
+    weak var delegate: ReleaseNoteCollectionViewCellDelegate?
+    
     private lazy var containerStackView: UIStackView = {
         let stackView = UIStackView(
             arrangedSubviews: [versionStackView, descriptionTextView, buttonView])
@@ -42,6 +44,7 @@ final class ReleaseNoteCollectionViewCell: BaseCollectionViewCell {
         label.font = Design.decriptionTextViewFont
         label.textColor = Design.versionTextColor
         label.textAlignment = .left
+        label.setContentHuggingPriority(.required, for: .horizontal)
         return label
     }()
     
@@ -96,10 +99,6 @@ final class ReleaseNoteCollectionViewCell: BaseCollectionViewCell {
             for: .touchUpInside)
         return button
     }()
-    
-    private var isFolded: Bool = true
-    
-    weak var delegate: ReleaseNoteCollectionViewCellDelegate?
    
     override func addSubviews() {
         contentView.addSubview(containerStackView)
@@ -137,11 +136,18 @@ final class ReleaseNoteCollectionViewCell: BaseCollectionViewCell {
             versionLabel.text = releaseNote.version
             currentVersionReleaseDateLabel.text = releaseNote.currentVersionReleaseDate
             descriptionTextView.text = releaseNote.description
-            foldingButton.setTitle(releaseNote.buttonTitle, for: .normal)
+          
             if releaseNote.isTrucated {
                 descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMinimumNumberOfLines
             } else {
                 descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMaximumNumberOfLines
+            }
+            
+            if let description = releaseNote.description,
+               description.count < 100 {
+                foldingButton.isHidden = true
+            } else {
+                foldingButton.setTitle(releaseNote.buttonTitle, for: .normal)
             }
         }
     }

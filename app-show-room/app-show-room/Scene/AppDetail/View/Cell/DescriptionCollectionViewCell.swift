@@ -15,12 +15,10 @@ protocol DescriptionCollectionViewCellDelegate: AnyObject {
 
 final class DescriptionCollectionViewCell: BaseCollectionViewCell {
     
-    private let descriptionTextView = UITextView()
-    private let foldingButton = UIButton(type: .custom)
-    
     weak var delegate: DescriptionCollectionViewCellDelegate?
     
-    private var isFolded: Bool = true
+    private let descriptionTextView = UITextView()
+    private let foldingButton = UIButton(type: .custom)
     
     override func addSubviews() {
         contentView.addSubview(descriptionTextView)
@@ -43,11 +41,17 @@ final class DescriptionCollectionViewCell: BaseCollectionViewCell {
     func bind(model: AppDetailViewModel.Item) {
         if case let .description(descritpion) = model {
             descriptionTextView.text = descritpion.text
-            foldingButton.setTitle(descritpion.buttonTitle, for: .normal)
             if descritpion.isTrucated {
                 descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMinimumNumberOfLines
             } else {
                 descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMaximumNumberOfLines
+            }
+            
+            if let descriptionText = descritpion.text,
+               descriptionText.count < 100 {
+                foldingButton.isHidden = true
+            } else {
+                foldingButton.setTitle(descritpion.buttonTitle, for: .normal)
             }
         }
     }
@@ -66,7 +70,7 @@ final class DescriptionCollectionViewCell: BaseCollectionViewCell {
     @objc private func toggleFoldingButton() {
         delegate?.foldingButtonDidTapped(self)
     }
-
+    
     private func configureDescrpitionTextView() {
         descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
         descriptionTextView.textContainer.lineBreakMode = .byCharWrapping
@@ -161,7 +165,7 @@ private enum Design {
     // numberOfLines
     static let textContainerMaximumNumberOfLines = 0
     static let textContainerMinimumNumberOfLines = 3
-
+    
     // textColor
     static let foldingButtonTextColor: UIColor = .systemBlue
     
