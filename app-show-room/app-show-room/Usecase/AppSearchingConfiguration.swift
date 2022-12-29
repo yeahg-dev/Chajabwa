@@ -36,12 +36,26 @@ struct AppSearchingConfiguration {
         return country
     }
     
+    static var isActiveSavingSearchKeyword: Bool {
+        guard let isActive = defaults.string(forKey: "isActiveSavingSearchKeyword") else {
+            let defaultState = true
+            setSavingSearchKeywordState(with: defaultState)
+            print("isActiveSavingSearchKeyword is set to default: \(defaultState)")
+            return defaultState
+        }
+        return isActive == "true" ? true : false
+    }
+    
     static func setCountry(by country: Country) {
         defaults.set(country.isoCode, forKey: "countryISOCode")
     }
     
     static func setSoftwareType(by type: SoftwareType) {
         defaults.set(type.rawValue, forKey: "softwareType")
+    }
+    
+    static func setSavingSearchKeywordState(with bool: Bool) {
+        defaults.set(bool.description, forKey: "isActiveSavingSearchKeyword")
     }
     
 }
