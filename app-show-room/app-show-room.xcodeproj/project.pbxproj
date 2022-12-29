@@ -381,7 +381,7 @@
 			path = ScreenshotCollectionViewCell;
 			sourceTree = "<group>";
 		};
-		63861EB728AA1ABC0062A8BD /* Entity */ = {
+		63861EB728AA1ABC0062A8BD /* ResponseMappingEntity */ = {
 			isa = PBXGroup;
 			children = (
 				63861EBA28AA1AF50062A8BD /* AppLookupResults.swift */,
@@ -389,7 +389,7 @@
 				63861EB828AA1ACB0062A8BD /* App.swift */,
 				630068D12952949800BD73C9 /* AppSummary.swift */,
 			);
-			path = Entity;
+			path = ResponseMappingEntity;
 			sourceTree = "<group>";
 		};
 		63861EBF28AA41F00062A8BD /* Scene */ = {
@@ -516,9 +516,9 @@
 			children = (
 				6388DE5228A6641E0011D47E /* App */,
 				6388DE5428A664520011D47E /* Resource */,
+				63D52B1E295D5F6E006F043D /* Domain */,
 				63861EBF28AA41F00062A8BD /* Scene */,
-				6388DE5328A6643D0011D47E /* UIComponent */,
-				6388DE5128A664150011D47E /* Model */,
+				6388DE5328A6643D0011D47E /* UIComponents */,
 				638722E628A948B700A6ED7B /* Usecase */,
 				638722D928A8D3E600A6ED7B /* Repository */,
 				6388DE5E28A6A5200011D47E /* Network */,
@@ -528,15 +528,13 @@
 			path = "app-show-room";
 			sourceTree = "<group>";
 		};
-		6388DE5128A664150011D47E /* Model */ = {
+		6388DE5128A664150011D47E /* App */ = {
 			isa = PBXGroup;
 			children = (
 				6388DE5728A66BF70011D47E /* AppDetail.swift */,
 				6388DE5C28A691820011D47E /* AppGenre.swift */,
-				63CEA73429408457009684A7 /* Country.swift */,
-				63CEA7382940AFC3009684A7 /* SoftwareType.swift */,
 			);
-			path = Model;
+			path = App;
 			sourceTree = "<group>";
 		};
 		6388DE5228A6641E0011D47E /* App */ = {
@@ -548,7 +546,7 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		6388DE5328A6643D0011D47E /* UIComponent */ = {
+		6388DE5328A6643D0011D47E /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
 				63AFB9B828DCA5C5008E13A4 /* CommonUIBaseClass */,
@@ -558,7 +556,7 @@
 				63A764FB28BE0C6E003B1EAA /* DownloadButtonView.swift */,
 				635D695F28C321900002C755 /* TextSymbolView.swift */,
 			);
-			path = UIComponent;
+			path = UIComponents;
 			sourceTree = "<group>";
 		};
 		6388DE5428A664520011D47E /* Resource */ = {
@@ -586,7 +584,6 @@
 				6388DE6128A6A56A0011D47E /* APIRequest.swift */,
 				633A925628A7A44A00B3435F /* APIError.swift */,
 				6388DE5F28A6A5430011D47E /* HTTPMethod.swift */,
-				6388DE6328A6C6E50011D47E /* ItunesAPI */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -596,7 +593,7 @@
 			children = (
 				633A925428A79E3D00B3435F /* iTunesAPIService.swift */,
 				63CEA73E2940BA19009684A7 /* Request */,
-				63861EB728AA1ABC0062A8BD /* Entity */,
+				63861EB728AA1ABC0062A8BD /* ResponseMappingEntity */,
 			);
 			path = ItunesAPI;
 			sourceTree = "<group>";
@@ -669,6 +666,41 @@
 				63D52B1B295C800B006F043D /* SettingViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		63D52B1D295D5ED2006F043D /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				6388DE6328A6C6E50011D47E /* ItunesAPI */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		63D52B1E295D5F6E006F043D /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				63D52B1F295D5F7C006F043D /* Entity */,
+				63D52B1D295D5ED2006F043D /* Service */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		63D52B1F295D5F7C006F043D /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				63D52B20295D5FC4006F043D /* Configuration */,
+				6388DE5128A664150011D47E /* App */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		63D52B20295D5FC4006F043D /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				63CEA73429408457009684A7 /* Country.swift */,
+				63CEA7382940AFC3009684A7 /* SoftwareType.swift */,
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 		63F0342128D8A5DB003F1751 /* StarRatingView */ = {
