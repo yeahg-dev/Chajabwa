@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "iphoneButtonSelectedBlue.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "iphoneButtonSelectedBlue 1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "iphoneButtonSelectedBlue 2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -10,33 +10,51 @@ import XCTest
 
 class ParsingTest: XCTestCase {
     
-    var sut: AppLookupResults!
-    let mockJSONName = "lookupAPISuccessResponse"
-
-    override func setUpWithError() throws {
-        try super.setUpWithError()
-        let responseData = try getData(fromJSON: mockJSONName)
-        self.sut = try JSONDecoder().decode(AppLookupResults.self, from: responseData)
-    }
-    
-    override func tearDownWithError() throws {
-        try super.tearDownWithError()
-        self.sut = nil
-    }
-
-    func test_AppLookupResponse_resultCount() throws {
-        XCTAssertEqual(sut.resultCount, 1)
+    private enum JSONFile: String {
+        case lookup = "lookupAPISuccessResponse"
+        case search = "searchAPISuccessResponse"
+        
     }
     
     func test_AppResponse_property() throws {
-        guard let appResponse = sut.results.first else {
-            XCTFail("AppResponse nil")
+        let appLookupResults = try parse(
+            fileName: JSONFile.lookup.rawValue,
+            type: AppLookupResults.self)
+       
+        guard let app = appLookupResults?.results.first else {
+            XCTFail("failed to parsing type: \(App.self)")
             return
         }
         
-        XCTAssertEqual(appResponse.trackName, "아이디어스(idus)")
-        XCTAssertEqual(appResponse.averageUserRating, 4.7563)
-        XCTAssertEqual(appResponse.price, 0)
+        XCTAssertEqual(app.trackName, "아이디어스(idus)")
+        XCTAssertEqual(app.averageUserRating, 4.7563)
+        XCTAssertEqual(app.price, 0)
+    }
+    
+    func test_AppSearchResponse_data가_App으로_정상적으로_파싱되는지() throws {
+        let appLookupResults = try parse(
+            fileName: JSONFile.search.rawValue,
+            type: AppLookupResults.self)
+
+        guard let melon = appLookupResults?.results.first else {
+            XCTFail("failed to parsing type: App")
+            return
+        }
+        
+        XCTAssertEqual(melon.trackName, "멜론(Melon)")
     }
 
+    private func parse<T: Decodable>(
+        fileName: String,
+        type targetType: T.Type)
+    throws -> T?
+    {
+        let data = try getData(fromJSON: fileName)
+        do {
+            return try JSONDecoder().decode(T.self, from: data)
+        } catch {
+            XCTFail("failed to parsing type: \(T.self)")
+            return nil
+        }
+    }
 }

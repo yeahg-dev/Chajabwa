@@ -20,7 +20,10 @@ class CacheTest: XCTestCase {
     
     func test_데이터가_변경되지_않았을때_캐시를_리턴하는지() throws {
         let expectation = XCTestExpectation(description: "response arrived")
-        let apiRequest = AppLookupAPIRequest(appID: 362057947)
+        let apiRequest = AppLookupAPIRequest(
+            appID: 362057947,
+            country: "KR",
+            softwareType: "software")
         var cachedURLResponse: CachedURLResponse?
         
         guard let urlRequest = apiRequest.urlRequest else {

@@ -15,23 +15,44 @@ protocol DescriptionCollectionViewCellDelegate: AnyObject {
 
 final class DescriptionCollectionViewCell: BaseCollectionViewCell {
     
-    private let descriptionTextView = UITextView()
-    private let foldingButton = UIButton(type: .custom)
-    
     weak var delegate: DescriptionCollectionViewCellDelegate?
     
-    private var isFolded: Bool = true
+    private let descriptionTextView: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.textContainer.lineBreakMode = .byTruncatingTail
+        textView.textContainer.lineBreakMode = .byCharWrapping
+        textView.textContainer.maximumNumberOfLines = Design.textContainerMinimumNumberOfLines
+        textView.textContainerInset = UIEdgeInsets(
+            top: Design.textContainerInsetTop,
+            left: Design.textContainerInsetLeft,
+            bottom: Design.textContainerInsetBottom,
+            right:  Design.textContainerInsetRight)
+        textView.isScrollEnabled = false
+        textView.isEditable = false
+        textView.font = Design.decriptionTextViewFont
+        return textView
+    }()
+    
+    private lazy var foldingButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(Design.foldingButtonTextColor, for: .normal)
+        button.setTitleColor(Design.foldingButtonTextColor, for: .selected)
+        button.titleLabel?.font = Design.foldingButtonFont
+        button.titleLabel?.textAlignment = .right
+        button.addTarget(
+            self,
+            action: #selector(toggleFoldingButton),
+            for: .touchUpInside)
+        return button
+    }()
     
     override func addSubviews() {
         contentView.addSubview(descriptionTextView)
         contentView.addSubview(foldingButton)
     }
-    
-    override func configureSubviews() {
-        configureDescrpitionTextView()
-        configureFoldingButton()
-    }
-    
+
     override func setConstraints() {
         invalidateTranslateAutoResizingMasks(of: [
             foldingButton, descriptionTextView, contentView])
@@ -43,42 +64,27 @@ final class DescriptionCollectionViewCell: BaseCollectionViewCell {
     func bind(model: AppDetailViewModel.Item) {
         if case let .description(descritpion) = model {
             descriptionTextView.text = descritpion.text
-            foldingButton.setTitle(descritpion.buttonTitle, for: .normal)
             if descritpion.isTrucated {
                 descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMinimumNumberOfLines
             } else {
                 descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMaximumNumberOfLines
             }
+            
+            guard let descriptionText = descritpion.text else {
+                foldingButton.isHidden = true
+                return
+            }
+            
+            if descriptionText.count < 100 {
+                foldingButton.isHidden = true
+            } else {
+                foldingButton.setTitle(descritpion.buttonTitle, for: .normal)
+            }
         }
     }
-    
-    private func configureFoldingButton() {
-        foldingButton.setTitleColor(Design.foldingButtonTextColor, for: .normal)
-        foldingButton.setTitleColor(Design.foldingButtonTextColor, for: .selected)
-        foldingButton.titleLabel?.font = Design.foldingButtonFont
-        foldingButton.titleLabel?.textAlignment = .right
-        foldingButton.addTarget(
-            self,
-            action: #selector(toggleFoldingButton),
-            for: .touchUpInside)
-    }
-    
+  
     @objc private func toggleFoldingButton() {
         delegate?.foldingButtonDidTapped(self)
-    }
-
-    private func configureDescrpitionTextView() {
-        descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
-        descriptionTextView.textContainer.lineBreakMode = .byCharWrapping
-        descriptionTextView.textContainer.maximumNumberOfLines = Design.textContainerMinimumNumberOfLines
-        descriptionTextView.textContainerInset = UIEdgeInsets(
-            top: Design.textContainerInsetTop,
-            left: Design.textContainerInsetLeft,
-            bottom: Design.textContainerInsetBottom,
-            right:  Design.textContainerInsetRight)
-        descriptionTextView.isScrollEnabled = false
-        descriptionTextView.isEditable = false
-        descriptionTextView.font = Design.decriptionTextViewFont
     }
     
 }
@@ -161,7 +167,7 @@ private enum Design {
     // numberOfLines
     static let textContainerMaximumNumberOfLines = 0
     static let textContainerMinimumNumberOfLines = 3
-
+    
     // textColor
     static let foldingButtonTextColor: UIColor = .systemBlue
     

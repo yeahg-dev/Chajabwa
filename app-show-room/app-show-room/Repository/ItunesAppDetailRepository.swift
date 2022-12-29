@@ -9,7 +9,17 @@ import Foundation
 
 protocol AppDetailRepository {
     
-    func fetchAppDetail(of id: Int) async throws -> AppDetail
+    func fetchAppDetail(
+        of id: Int,
+        country: String,
+        software: String)
+    async throws -> AppDetail
+    
+    func fetchAppDetails(
+        of term: String,
+        country: String,
+        software: String) async throws
+    -> [AppDetail]
     
 }
 
@@ -21,8 +31,16 @@ struct ItunesAppDetailRepository: AppDetailRepository {
         self.service = service
     }
     
-    func fetchAppDetail(of id: Int) async throws -> AppDetail {
-        let lookupRequest = AppLookupAPIRequest(appID: id)
+    func fetchAppDetail(
+        of id: Int,
+        country: String,
+        software: String)
+    async throws -> AppDetail
+    {
+        let lookupRequest = AppLookupAPIRequest(
+            appID: id,
+            country: country,
+            softwareType: software)
         let lookupResponse = try await self.service.execute(request: lookupRequest)
         guard let app = lookupResponse.results.first else {
             throw AppDetailRepositoryError.nonExistAppDetail
@@ -33,6 +51,24 @@ struct ItunesAppDetailRepository: AppDetailRepository {
         }
         
         return appDetail
+    }
+    
+    func fetchAppDetails(
+        of term: String,
+        country: String,
+        software: String) async throws
+    -> [AppDetail]
+    {
+        let searchRequest = AppSearchAPIRequest(
+            term: term,
+            country: country,
+            softwareType: software)
+        let response = try await self.service.execute(request: searchRequest)
+        if response.results.isEmpty {
+            return []
+        } else {
+            return response.results.compactMap{ $0.toAppDetail() }
+        }
     }
     
 }

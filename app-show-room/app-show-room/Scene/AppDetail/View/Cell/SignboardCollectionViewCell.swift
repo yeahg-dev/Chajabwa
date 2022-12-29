@@ -92,6 +92,7 @@ extension SignboardCollectionViewCell {
         purchaseButton.layer.cornerRadius = Design.purchaseButtonCornerRadius
         purchaseButton.titleLabel?.textColor = Design.purchaseButtonTextColor
         purchaseButton.titleLabel?.font = Design.purchaseButtonFont
+        purchaseButton.titleLabel?.adjustsFontSizeToFitWidth = true
     }
     
     private func configureShareButton() {
@@ -251,7 +252,7 @@ private enum Design {
     // font
     static let appNameLabelFont: UIFont = .boldSystemFont(ofSize: 22)
     static let providerLabelFont: UIFont = .preferredFont(forTextStyle: .callout)
-    static let purchaseButtonFont: UIFont = .preferredFont(forTextStyle: .callout)
+    static let purchaseButtonFont: UIFont = .preferredFont(forTextStyle: .footnote)
     
     // image
     static let shareButtonImage = UIImage(

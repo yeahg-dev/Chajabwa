@@ -284,7 +284,7 @@ extension AppDetailViewModel {
         private let currentVersionReleaseDateValue: String?
         
         var description: String?
-        var isTrucated: Bool
+        var isTrucated: Bool = true
         
         init(version: String?, currentVersionReleaseDate: String?, description: String?,
              isTruncated: Bool) {

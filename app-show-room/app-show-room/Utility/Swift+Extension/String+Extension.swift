@@ -34,7 +34,8 @@ extension String {
         
         while integerPart.count > 3 {
             byteValue = byteValue / Double(1024)
-            guard let dividedIntegerPart = String(byteValue).split(separator: ".").first else {
+            guard let dividedIntegerPart = String(byteValue)
+                .split(separator: ".").first else {
                 return invalidText
             }
             divisionCount += 1
@@ -43,7 +44,8 @@ extension String {
         
         let numberFormatter = NumberFormatter()
         numberFormatter.maximumFractionDigits = 1
-        guard let formattedByteValue = numberFormatter.string(from: byteValue as NSNumber) else {
+        guard let formattedByteValue = numberFormatter
+            .string(from: byteValue as NSNumber) else {
             return invalidText
         }
         

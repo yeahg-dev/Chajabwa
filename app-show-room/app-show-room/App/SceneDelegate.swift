@@ -16,7 +16,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         let rootiViewController = SearchViewController(
-            appSearchViewModel: AppSearchViewModel(appSearchUsecase: AppSearchUsecase()))
+            searchViewModel: SearchViewModel(
+                appSearchUsecase: AppSearchUsecase())
+        )
         let navigationController = UINavigationController(rootViewController: rootiViewController)
 
         window?.rootViewController = navigationController
