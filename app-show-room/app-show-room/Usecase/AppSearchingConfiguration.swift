@@ -14,7 +14,7 @@ struct AppSearchingConfiguration {
     static var softwareType: SoftwareType {
         guard let softwareTypeName = defaults.string(forKey: "softwareType"),
               let software = SoftwareType(rawValue: softwareTypeName) else {
-            let defaultSoftwareType = SoftwareType.iPhone
+            let defaultSoftwareType = DefaultConfiguration.softwareType
             setSoftwareType(by: defaultSoftwareType)
             print("Can not found SoftwareType. SoftwareType is set to default: \(defaultSoftwareType.rawValue)")
             return defaultSoftwareType
@@ -25,10 +25,7 @@ struct AppSearchingConfiguration {
     static var countryISOCode: Country {
         guard let code = defaults.string(forKey: "countryISOCode"),
               let country = Country.hashTable[code] else {
-            let defaultCountry = Country(
-                name: "Korea, Republic of South Korea",
-                dialCode: "+82",
-                isoCode: "KR")
+            let defaultCountry = DefaultConfiguration.country
             setCountry(by: defaultCountry)
             print("Can not found Country.  SoftwareType is set to default: \(defaultCountry.isoCode)")
             return defaultCountry
@@ -38,7 +35,7 @@ struct AppSearchingConfiguration {
     
     static var isActiveSavingSearchKeyword: Bool {
         guard let isActive = defaults.string(forKey: "isActiveSavingSearchKeyword") else {
-            let defaultState = true
+            let defaultState = DefaultConfiguration.isActiveSavingSearchKeyword
             setSavingSearchKeywordState(with: defaultState)
             print("isActiveSavingSearchKeyword is set to default: \(defaultState)")
             return defaultState
@@ -56,6 +53,21 @@ struct AppSearchingConfiguration {
     
     static func setSavingSearchKeywordState(with bool: Bool) {
         defaults.set(bool.description, forKey: "isActiveSavingSearchKeyword")
+    }
+    
+}
+
+extension AppSearchingConfiguration {
+    
+    private enum DefaultConfiguration {
+        
+        static let softwareType: SoftwareType = SoftwareType.iPhone
+        static let country: Country = Country(
+            name: "Korea, Republic of South Korea",
+            dialCode: "+82",
+            isoCode: "KR")
+        static let isActiveSavingSearchKeyword: Bool = true
+        
     }
     
 }
