@@ -12,6 +12,12 @@ struct RecentSearchKeyword {
     let identifier = UUID()
     let keyword: String
     let date: Date
+    let configuration: SearchConfiguration
+    
+}
+
+struct SearchConfiguration {
+    
     let country: Country
     let softwareType: SoftwareType
     
