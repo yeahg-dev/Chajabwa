@@ -91,6 +91,7 @@
 		63D52B22295DD389006F043D /* RecentSearchKeyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D52B21295DD389006F043D /* RecentSearchKeyword.swift */; };
 		63D52B2629601520006F043D /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 63D52B2529601520006F043D /* Realm */; };
 		63D52B2829601520006F043D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 63D52B2729601520006F043D /* RealmSwift */; };
+		63D52B2C29601D74006F043D /* SearckKeywordRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D52B2B29601D74006F043D /* SearckKeywordRealmStore.swift */; };
 		63F0341E28D8A0A5003F1751 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F0341D28D8A0A5003F1751 /* StarRatingView.swift */; };
 		63F0342328D9F96B003F1751 /* SummaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F0342228D9F96B003F1751 /* SummaryCollectionViewCell.swift */; };
 		63F0342528D9FA45003F1751 /* StandardTypeSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F0342428D9FA45003F1751 /* StandardTypeSummaryView.swift */; };
@@ -209,6 +210,7 @@
 		63D52B19295AF206006F043D /* AnimatableArrowLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatableArrowLayer.swift; sourceTree = "<group>"; };
 		63D52B1B295C800B006F043D /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		63D52B21295DD389006F043D /* RecentSearchKeyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchKeyword.swift; sourceTree = "<group>"; };
+		63D52B2B29601D74006F043D /* SearckKeywordRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearckKeywordRealmStore.swift; sourceTree = "<group>"; };
 		63F0341D28D8A0A5003F1751 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		63F0342228D9F96B003F1751 /* SummaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCollectionViewCell.swift; sourceTree = "<group>"; };
 		63F0342428D9FA45003F1751 /* StandardTypeSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardTypeSummaryView.swift; sourceTree = "<group>"; };
@@ -522,6 +524,7 @@
 			children = (
 				6388DE5228A6641E0011D47E /* App */,
 				6388DE5428A664520011D47E /* Resource */,
+				63D52B2929601B70006F043D /* Database */,
 				63D52B1E295D5F6E006F043D /* Domain */,
 				63861EBF28AA41F00062A8BD /* Scene */,
 				6388DE5328A6643D0011D47E /* UIComponents */,
@@ -708,6 +711,22 @@
 				63D52B21295DD389006F043D /* RecentSearchKeyword.swift */,
 			);
 			path = AppSearch;
+			sourceTree = "<group>";
+		};
+		63D52B2929601B70006F043D /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				63D52B2A29601B7D006F043D /* Realm */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		63D52B2A29601B7D006F043D /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				63D52B2B29601D74006F043D /* SearckKeywordRealmStore.swift */,
+			);
+			path = Realm;
 			sourceTree = "<group>";
 		};
 		63F0342128D8A5DB003F1751 /* StarRatingView */ = {
@@ -950,6 +969,7 @@
 				632B932E2943063A004CAD58 /* SearchAppTableViewCellModel.swift in Sources */,
 				63D52B18295A8BD9006F043D /* PlatformButton.swift in Sources */,
 				63CEA73D2940B96D009684A7 /* AppSearchAPIRequest.swift in Sources */,
+				63D52B2C29601D74006F043D /* SearckKeywordRealmStore.swift in Sources */,
 				633A925328A79C2500B3435F /* APIService.swift in Sources */,
 				63861EB628AA10990062A8BD /* SearchViewModel.swift in Sources */,
 				63861EC628AA43450062A8BD /* AppDetailViewModel.swift in Sources */,
