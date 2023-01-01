@@ -11,6 +11,10 @@ struct RecentSearchKeywordManagementUsecase {
     
     private let searchKeywordRepository: SearchKeywordRepository
     
+    init(searchKeywordRepository: SearchKeywordRepository) {
+        self.searchKeywordRepository = searchKeywordRepository
+    }
+    
     func isActiveSavingSearchingKeyword() -> Bool {
         return AppSearchingConfiguration.isActiveSavingSearchKeyword
     }

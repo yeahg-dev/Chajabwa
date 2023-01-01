@@ -96,6 +96,8 @@
 		63D52B3229602338006F043D /* RealmSearchKeywordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D52B3129602338006F043D /* RealmSearchKeywordRepository.swift */; };
 		63D52B342960247A006F043D /* RecentSearchKeywordRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D52B332960247A006F043D /* RecentSearchKeywordRealm.swift */; };
 		63D52B3D29617996006F043D /* RecentSearchKeywordManagementUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D52B3C29617996006F043D /* RecentSearchKeywordManagementUsecase.swift */; };
+		63D52B3F29617DBC006F043D /* RecentSearchKeywordsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D52B3E29617DBC006F043D /* RecentSearchKeywordsViewModel.swift */; };
+		63D52B4129617FD7006F043D /* RecentSearchKeywordCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D52B4029617FD7006F043D /* RecentSearchKeywordCellModel.swift */; };
 		63F0341E28D8A0A5003F1751 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F0341D28D8A0A5003F1751 /* StarRatingView.swift */; };
 		63F0342328D9F96B003F1751 /* SummaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F0342228D9F96B003F1751 /* SummaryCollectionViewCell.swift */; };
 		63F0342528D9FA45003F1751 /* StandardTypeSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F0342428D9FA45003F1751 /* StandardTypeSummaryView.swift */; };
@@ -219,6 +221,8 @@
 		63D52B3129602338006F043D /* RealmSearchKeywordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmSearchKeywordRepository.swift; sourceTree = "<group>"; };
 		63D52B332960247A006F043D /* RecentSearchKeywordRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchKeywordRealm.swift; sourceTree = "<group>"; };
 		63D52B3C29617996006F043D /* RecentSearchKeywordManagementUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchKeywordManagementUsecase.swift; sourceTree = "<group>"; };
+		63D52B3E29617DBC006F043D /* RecentSearchKeywordsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchKeywordsViewModel.swift; sourceTree = "<group>"; };
+		63D52B4029617FD7006F043D /* RecentSearchKeywordCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchKeywordCellModel.swift; sourceTree = "<group>"; };
 		63F0341D28D8A0A5003F1751 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		63F0342228D9F96B003F1751 /* SummaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCollectionViewCell.swift; sourceTree = "<group>"; };
 		63F0342428D9FA45003F1751 /* StandardTypeSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardTypeSummaryView.swift; sourceTree = "<group>"; };
@@ -777,6 +781,8 @@
 		63D52B3729617210006F043D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				63D52B3E29617DBC006F043D /* RecentSearchKeywordsViewModel.swift */,
+				63D52B4029617FD7006F043D /* RecentSearchKeywordCellModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1046,6 +1052,7 @@
 				6384EC4728AB2D2800D1F821 /* ScreenshotCollectionViewCell.swift in Sources */,
 				6384E5CE28BCED6E00563FD5 /* ScreenshotCollectionViewCellDesign.swift in Sources */,
 				6388DE6728A6CAB70011D47E /* iTunesAPIRequest.swift in Sources */,
+				63D52B4129617FD7006F043D /* RecentSearchKeywordCellModel.swift in Sources */,
 				630068D22952949800BD73C9 /* AppSummary.swift in Sources */,
 				6384EC7E28AC83B100D1F821 /* AppDetailViewController.swift in Sources */,
 				63D52B1C295C800B006F043D /* SettingViewController.swift in Sources */,
@@ -1066,6 +1073,7 @@
 				631F096B28D0D05C002419B7 /* PaddingTitleSupplementaryView.swift in Sources */,
 				63AFB9B628DC5D4C008E13A4 /* StarImage.swift in Sources */,
 				631F096528D088B3002419B7 /* Int+Extension.swift in Sources */,
+				63D52B3F29617DBC006F043D /* RecentSearchKeywordsViewModel.swift in Sources */,
 				63CEA7392940AFC3009684A7 /* SoftwareType.swift in Sources */,
 				63D52B1A295AF206006F043D /* AnimatableArrowLayer.swift in Sources */,
 				6388DE5D28A691820011D47E /* AppGenre.swift in Sources */,
