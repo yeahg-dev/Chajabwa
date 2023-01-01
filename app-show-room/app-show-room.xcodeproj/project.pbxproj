@@ -93,6 +93,8 @@
 		63D52B2829601520006F043D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 63D52B2729601520006F043D /* RealmSwift */; };
 		63D52B2C29601D74006F043D /* SearckKeywordRealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D52B2B29601D74006F043D /* SearckKeywordRealmStore.swift */; };
 		63D52B3029602048006F043D /* SearchKeywordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D52B2F29602048006F043D /* SearchKeywordRepository.swift */; };
+		63D52B3229602338006F043D /* RealmSearchKeywordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D52B3129602338006F043D /* RealmSearchKeywordRepository.swift */; };
+		63D52B342960247A006F043D /* RecentSearchKeywordRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D52B332960247A006F043D /* RecentSearchKeywordRealm.swift */; };
 		63F0341E28D8A0A5003F1751 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F0341D28D8A0A5003F1751 /* StarRatingView.swift */; };
 		63F0342328D9F96B003F1751 /* SummaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F0342228D9F96B003F1751 /* SummaryCollectionViewCell.swift */; };
 		63F0342528D9FA45003F1751 /* StandardTypeSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F0342428D9FA45003F1751 /* StandardTypeSummaryView.swift */; };
@@ -213,6 +215,8 @@
 		63D52B21295DD389006F043D /* RecentSearchKeyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchKeyword.swift; sourceTree = "<group>"; };
 		63D52B2B29601D74006F043D /* SearckKeywordRealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearckKeywordRealmStore.swift; sourceTree = "<group>"; };
 		63D52B2F29602048006F043D /* SearchKeywordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchKeywordRepository.swift; sourceTree = "<group>"; };
+		63D52B3129602338006F043D /* RealmSearchKeywordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmSearchKeywordRepository.swift; sourceTree = "<group>"; };
+		63D52B332960247A006F043D /* RecentSearchKeywordRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchKeywordRealm.swift; sourceTree = "<group>"; };
 		63F0341D28D8A0A5003F1751 /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		63F0342228D9F96B003F1751 /* SummaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCollectionViewCell.swift; sourceTree = "<group>"; };
 		63F0342428D9FA45003F1751 /* StandardTypeSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardTypeSummaryView.swift; sourceTree = "<group>"; };
@@ -728,6 +732,7 @@
 			isa = PBXGroup;
 			children = (
 				63D52B2B29601D74006F043D /* SearckKeywordRealmStore.swift */,
+				63D52B332960247A006F043D /* RecentSearchKeywordRealm.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -744,6 +749,7 @@
 			isa = PBXGroup;
 			children = (
 				63D52B2F29602048006F043D /* SearchKeywordRepository.swift */,
+				63D52B3129602338006F043D /* RealmSearchKeywordRepository.swift */,
 			);
 			path = SearchKeywordRepository;
 			sourceTree = "<group>";
@@ -1022,6 +1028,8 @@
 				63CEA73529408457009684A7 /* Country.swift in Sources */,
 				6388DE4028A6404E0011D47E /* SceneDelegate.swift in Sources */,
 				6384EC8528AD2A5C00D1F821 /* ScreenshotGalleryViewController.swift in Sources */,
+				63D52B342960247A006F043D /* RecentSearchKeywordRealm.swift in Sources */,
+				63D52B3229602338006F043D /* RealmSearchKeywordRepository.swift in Sources */,
 				63861ED428AAA9950062A8BD /* UIImage+Extension.swift in Sources */,
 				63861EBE28AA1D090062A8BD /* AlertViewModel.swift in Sources */,
 				63861EBB28AA1AF50062A8BD /* AppLookupResults.swift in Sources */,

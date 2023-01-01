@@ -11,7 +11,7 @@ import RealmSwift
 
 final class SearckKeywordRealmStore {
     
-    private let defaultRealm: Realm!
+    let defaultRealm: Realm!
     
     init?() {
         do {
