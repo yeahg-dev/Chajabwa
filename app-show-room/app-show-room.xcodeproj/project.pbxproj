@@ -409,6 +409,7 @@
 		63861EBF28AA41F00062A8BD /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				63D52B35296171E6006F043D /* RecentSearchKeywords */,
 				6388DE5B28A6907C0011D47E /* CommonNamespace */,
 				63861EC028AA41F90062A8BD /* Search */,
 				632B93262942010C004CAD58 /* SearchAppResults */,
@@ -752,6 +753,29 @@
 				63D52B3129602338006F043D /* RealmSearchKeywordRepository.swift */,
 			);
 			path = SearchKeywordRepository;
+			sourceTree = "<group>";
+		};
+		63D52B35296171E6006F043D /* RecentSearchKeywords */ = {
+			isa = PBXGroup;
+			children = (
+				63D52B3729617210006F043D /* ViewModel */,
+				63D52B3629617205006F043D /* View */,
+			);
+			path = RecentSearchKeywords;
+			sourceTree = "<group>";
+		};
+		63D52B3629617205006F043D /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		63D52B3729617210006F043D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		63F0342128D8A5DB003F1751 /* StarRatingView */ = {
