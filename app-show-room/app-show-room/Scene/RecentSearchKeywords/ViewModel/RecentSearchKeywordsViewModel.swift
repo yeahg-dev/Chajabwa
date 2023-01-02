@@ -33,20 +33,24 @@ struct RecentSearchKeywordsViewModel {
         return "최근 검색어"
     }
     
-    var deleteAllDescription: String {
-        return "전체 삭제"
-    }
-    
-    var savingDescrption: String {
+    var savingSwtichTitle: String {
         return "저장"
     }
     
+    var deleteAllButtonTitle: String {
+        return "전체 삭제"
+    }
+
     var savingModeOffDescription: String {
         return "검색어 저장 기능이 꺼져 있습니다."
     }
     
     var isActivateSavingButton: Bool {
         return usecase.isActiveSavingSearchingKeyword()
+    }
+    
+    var numberOfSearchKeywordCell: Int {
+        return cellModels.count
     }
     
     func searchKeywordCellModel(
