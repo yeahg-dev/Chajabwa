@@ -27,7 +27,7 @@ struct AppSearchUsecase {
         let input = searchKeyword.keyword
         let configuration = searchKeyword.configuration
         
-        createRecentSearchKeyword(with: input)
+        createRecentSearchKeyword(with: searchKeyword)
         
         if let id = Int(input) {
             let appDetail = try await self.appDetailRepository.fetchAppDetail(
@@ -64,6 +64,24 @@ struct AppSearchUsecase {
             return appDetails
         }
         
+    }
+    
+    private func createRecentSearchKeyword(with recentKeyword: RecentSearchKeyword) {
+        let keyword =  RecentSearchKeyword(
+            keyword: recentKeyword.keyword,
+            date: Date(),
+            configuration: SearchConfiguration(
+                country: recentKeyword.configuration.country,
+                softwareType: recentKeyword.configuration.softwareType))
+        searchKeywordRepository.create(
+            keyword: keyword) { result in
+                switch result {
+                case .success(_):
+                    return
+                case .failure(let failure):
+                    print("Failed to create RecentSearchKeyword. error :\(failure)")
+                }
+            }
     }
     
     private func createRecentSearchKeyword(with input: String) {
