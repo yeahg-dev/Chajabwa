@@ -40,11 +40,12 @@ struct RealmSearchKeywordRepository: SearchKeywordRepository {
         }
     }
     
-    func readAll(
+    func readAll(sorted ascending: Bool = false,
         completion: @escaping (Result<[RecentSearchKeyword], Error>) -> Void)
     {
         DispatchQueue.main.async {
             let result = realm.objects(RecentSearchKeywordRealm.self)
+                .sorted(byKeyPath: "date", ascending: ascending)
             let keywords = result.compactMap { $0.toDomain() } as [RecentSearchKeyword]
             completion(.success(keywords))
         }

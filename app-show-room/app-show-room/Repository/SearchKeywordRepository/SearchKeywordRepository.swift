@@ -14,6 +14,7 @@ protocol SearchKeywordRepository {
         completion: @escaping (Result<RecentSearchKeyword, Error>) -> Void)
     
     func readAll(
+        sorted ascending: Bool,
         completion: @escaping (Result<[RecentSearchKeyword], Error>) -> Void)
     
     func delete(

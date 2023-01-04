@@ -32,7 +32,9 @@ struct RecentSearchKeywordManagementUsecase {
     {
         let isActive = isActiveSavingSearchingKeyword()
         if isActive {
-            searchKeywordRepository.readAll(completion: completion)
+            searchKeywordRepository.readAll(
+                sorted: false,
+                completion: completion)
         } else {
             completion(.success([]))
         }
