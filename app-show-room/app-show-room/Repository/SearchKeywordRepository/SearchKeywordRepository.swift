@@ -9,15 +9,18 @@ import Foundation
 
 protocol SearchKeywordRepository {
     
-    @discardableResult
-    func create(keyword: RecentSearchKeyword) throws -> RecentSearchKeyword
+    func create(
+        keyword: RecentSearchKeyword,
+        completion: @escaping (Result<RecentSearchKeyword, Error>) -> Void)
     
-    func readAll() throws -> [RecentSearchKeyword]
+    func readAll(
+        completion: @escaping (Result<[RecentSearchKeyword], Error>) -> Void)
     
-    @discardableResult
-    func delete(identifier: UUID) throws -> RecentSearchKeyword
+    func delete(
+        identifier: String,
+        completion: @escaping (Result<RecentSearchKeyword, Error>) -> Void)
     
-    @discardableResult
-    func deleteAll() throws -> [RecentSearchKeyword]
+    func deleteAll(
+        completion: @escaping (Result<[RecentSearchKeyword], Error>) -> Void)
     
 }

@@ -21,54 +21,75 @@ struct RealmSearchKeywordRepository: SearchKeywordRepository {
         }
     }
     
-    func create(keyword: RecentSearchKeyword) throws -> RecentSearchKeyword {
-        let searchKeyword = RecentSearchKeywordRealm(model: keyword)
-        do {
-            try realm.write {
-                realm.add(searchKeyword)
+    func create(
+        keyword: RecentSearchKeyword,
+        completion: @escaping (Result<RecentSearchKeyword, Error>) -> Void)
+    {
+        DispatchQueue.main.async {
+            let searchKeyword = RecentSearchKeywordRealm(model: keyword)
+            do {
+                try realm.write {
+                    realm.add(searchKeyword)
+                }
+                completion(.success(searchKeyword.toDomain()!))
+            } catch {
+                print("failed in \(self): \(error)")
+                completion(.failure(RealmSearchKeywordRepositoryError.realmOperationFailure))
             }
-            return keyword
-        } catch {
-            print("failed in \(self): \(error)")
-            throw RealmSearchKeywordRepositoryError.realmOperationFailure
         }
     }
     
-    func readAll() -> [RecentSearchKeyword] {
-        let result = realm.objects(RecentSearchKeywordRealm.self)
-        return result.compactMap { $0.toDomain() }
+    func readAll(
+        completion: @escaping (Result<[RecentSearchKeyword], Error>) -> Void)
+    {
+        DispatchQueue.main.async {
+            let result = realm.objects(RecentSearchKeywordRealm.self)
+            let keywords = result.compactMap { $0.toDomain() } as [RecentSearchKeyword]
+            completion(.success(keywords))
+        }
     }
     
-    func delete(identifier: UUID) throws -> RecentSearchKeyword {
-        guard let keywordRealm = realm.object(
-            ofType: RecentSearchKeywordRealm.self,
-            forPrimaryKey: identifier),
-              let keyword = keywordRealm.toDomain() else {
-            throw RealmSearchKeywordRepositoryError.realmCanNotFoundObject
-        }
-        
-        do {
-            try realm.write {
-                realm.delete(keywordRealm)
+    func delete(
+        identifier: String,
+        completion: @escaping (Result<RecentSearchKeyword, Error>) -> Void)
+    {
+        DispatchQueue.main.async {
+            guard let keywordRealm = realm.object(
+                ofType: RecentSearchKeywordRealm.self,
+                forPrimaryKey: identifier),
+                  let keyword = keywordRealm.toDomain() else {
+                completion(.failure(RealmSearchKeywordRepositoryError.realmCanNotFoundObject))
+                return
             }
-            return keyword
-        } catch {
-            throw RealmSearchKeywordRepositoryError.realmOperationFailure
-        }
-    }
-    
-    func deleteAll() throws -> [RecentSearchKeyword] {
-        let keywords = realm.objects(RecentSearchKeywordRealm.self)
-        do {
-            try realm.write {
-                realm.delete(keywords)
+            
+            do {
+                try realm.write {
+                    realm.delete(keywordRealm)
+                }
+                completion(.success(keyword))
+            } catch {
+                completion(.failure(RealmSearchKeywordRepositoryError.realmOperationFailure))
             }
-            return keywords.compactMap { $0.toDomain() }
-        } catch {
-            throw RealmSearchKeywordRepositoryError.realmOperationFailure
         }
     }
     
+    func deleteAll(
+        completion: @escaping (Result<[RecentSearchKeyword], Error>) -> Void)
+    {
+        DispatchQueue.main.async {
+            let realmKeywords = realm.objects(RecentSearchKeywordRealm.self)
+            do {
+                try realm.write {
+                    realm.delete(realmKeywords)
+                }
+                let keywords = realmKeywords.compactMap { $0.toDomain() } as [RecentSearchKeyword]
+                completion(.success(keywords))
+            } catch {
+                completion(.failure(RealmSearchKeywordRepositoryError.realmOperationFailure))
+            }
+        }
+    }
+
 }
 
 enum RealmSearchKeywordRepositoryError: Error {

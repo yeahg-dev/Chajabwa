@@ -66,20 +66,21 @@ struct AppSearchUsecase {
         guard !input.isEmpty else {
             return
         }
-        
-        do {
-            try searchKeywordRepository.create(
-                keyword:
-                    RecentSearchKeyword(
-                        keyword: input,
-                        date: Date(),
-                        configuration: SearchConfiguration(
-                            country: AppSearchingConfiguration.countryISOCode,
-                            softwareType: AppSearchingConfiguration.softwareType) )
-            )
-        } catch {
-            print("Failed to create RecentSearchKeyword. error :\(error)")
-        }
+        let keyword =  RecentSearchKeyword(
+            keyword: input,
+            date: Date(),
+            configuration: SearchConfiguration(
+                country: AppSearchingConfiguration.countryISOCode,
+                softwareType: AppSearchingConfiguration.softwareType))
+        searchKeywordRepository.create(
+            keyword: keyword) { result in
+                switch result {
+                case .success(_):
+                    return
+                case .failure(let failure):
+                    print("Failed to create RecentSearchKeyword. error :\(failure)")
+                }
+            }
     }
     
 }

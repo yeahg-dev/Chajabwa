@@ -95,6 +95,11 @@ final class SearchViewController: UIViewController {
 
 extension SearchViewController: UISearchBarDelegate {
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchController.showsSearchResultsController = true
+        searchAppResultsController.updateTableView(of: .recentSearchKeywords)
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let input = searchController.searchBar.text else {
             return
@@ -120,6 +125,7 @@ extension SearchViewController: UISearchBarDelegate {
             case .failure(let alertViewModel):
                 self.presentAlert(alertViewModel)
             }
+            searchAppResultsController.refreshSearchKeywordTableView()
         }
     }
     

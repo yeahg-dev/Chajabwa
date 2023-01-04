@@ -23,20 +23,29 @@ struct RecentSearchKeywordManagementUsecase {
         AppSearchingConfiguration.setSavingSearchKeywordState(with: true)
     }
     
-    func deactivateSavingKeyword() {
+    func deactivateSavingSearchKeyword() {
         AppSearchingConfiguration.setSavingSearchKeywordState(with: false)
     }
     
-    func recentSearchKeywords() throws -> [RecentSearchKeyword] {
-        try searchKeywordRepository.readAll()
+    func allRecentSearchKeywords(
+        completion: @escaping (Result<[RecentSearchKeyword], Error>) -> Void)
+    {
+        let isActive = isActiveSavingSearchingKeyword()
+        if isActive {
+            searchKeywordRepository.readAll(completion: completion)
+        } else {
+            completion(.success([]))
+        }
     }
     
-    func deleteRecentSearchKeyword(of identifier: UUID) throws {
-        try searchKeywordRepository.delete(identifier: identifier)
+    func deleteRecentSearchKeyword(
+        of identifier: String,
+        completion: @escaping (Result<RecentSearchKeyword, Error>) -> Void) {
+        searchKeywordRepository.delete(identifier: identifier, completion: completion)
     }
     
-    func deleteAllRecentSearchKeywords() throws {
-        try searchKeywordRepository.deleteAll()
+    func deleteAllRecentSearchKeywords(completion: @escaping (Result<[RecentSearchKeyword], Error>) -> Void) {
+        searchKeywordRepository.deleteAll(completion: completion)
     }
     
 }

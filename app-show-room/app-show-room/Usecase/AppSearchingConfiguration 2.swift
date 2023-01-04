@@ -14,7 +14,7 @@ struct AppSearchingConfiguration {
     static var softwareType: SoftwareType {
         guard let softwareTypeName = defaults.string(forKey: "softwareType"),
               let software = SoftwareType(rawValue: softwareTypeName) else {
-            let defaultSoftwareType = DefaultConfiguration.softwareType
+            let defaultSoftwareType = SoftwareType.iPhone
             setSoftwareType(by: defaultSoftwareType)
             print("Can not found SoftwareType. SoftwareType is set to default: \(defaultSoftwareType.rawValue)")
             return defaultSoftwareType
@@ -25,16 +25,15 @@ struct AppSearchingConfiguration {
     static var countryISOCode: Country {
         guard let code = defaults.string(forKey: "countryISOCode"),
               let country = Country.hashTable[code] else {
-            let defaultCountry = DefaultConfiguration.country
+            let defaultCountry = Country(
+                name: "Korea, Republic of South Korea",
+                dialCode: "+82",
+                isoCode: "KR")
             setCountry(by: defaultCountry)
             print("Can not found Country.  SoftwareType is set to default: \(defaultCountry.isoCode)")
             return defaultCountry
         }
         return country
-    }
-    
-    static var isActiveSavingSearchKeyword: Bool {
-        return defaults.bool(forKey: "isActiveSavingSearchKeyword")
     }
     
     static func setCountry(by country: Country) {
@@ -43,25 +42,6 @@ struct AppSearchingConfiguration {
     
     static func setSoftwareType(by type: SoftwareType) {
         defaults.set(type.rawValue, forKey: "softwareType")
-    }
-    
-    static func setSavingSearchKeywordState(with bool: Bool) {
-        defaults.set(bool, forKey: "isActiveSavingSearchKeyword")
-    }
-    
-}
-
-extension AppSearchingConfiguration {
-    
-    private enum DefaultConfiguration {
-        
-        static let softwareType: SoftwareType = SoftwareType.iPhone
-        static let country: Country = Country(
-            name: "Korea, Republic of South Korea",
-            dialCode: "+82",
-            isoCode: "KR")
-        static let isActiveSavingSearchKeyword: Bool = false
-        
     }
     
 }

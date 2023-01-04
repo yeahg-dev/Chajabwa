@@ -9,10 +9,22 @@ import Foundation
 
 struct RecentSearchKeyword {
     
-    let identifier = UUID()
+    let identifier: String
     let keyword: String
     let date: Date
     let configuration: SearchConfiguration
+    
+    init(
+        keyword: String,
+        date: Date,
+        configuration: SearchConfiguration,
+        identifier: String = UUID().uuidString)
+    {
+        self.keyword = keyword
+        self.date = date
+        self.configuration = configuration
+        self.identifier = identifier
+    }
     
 }
 

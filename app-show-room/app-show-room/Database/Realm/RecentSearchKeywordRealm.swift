@@ -13,19 +13,19 @@ class RecentSearchKeywordRealm: Object {
     
     typealias DomainEntity = RecentSearchKeyword
     
-    @Persisted(primaryKey: true) var identifier: UUID
+    @Persisted(primaryKey: true) var identifier: String
     @Persisted var keyword: String
     @Persisted var date: Date
     @Persisted var country: String
     @Persisted var softwareType: String
     
-    init(model: RecentSearchKeyword) {
-        super.init()
+    convenience init(model: RecentSearchKeyword) {
+        self.init()
         keyword = model.keyword
         date = model.date
         country = model.configuration.country.name
         softwareType = model.configuration.softwareType.rawValue
-        self.identifier = model.identifier
+        identifier = model.identifier
     }
     
     func toDomain() -> DomainEntity? {
@@ -38,7 +38,8 @@ class RecentSearchKeywordRealm: Object {
             date: date,
             configuration: SearchConfiguration(
                 country: country,
-                softwareType: software)
+                softwareType: software),
+            identifier: identifier
         )
     }
     
