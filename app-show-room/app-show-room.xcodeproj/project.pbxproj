@@ -278,7 +278,6 @@
 			children = (
 				632B93272942011E004CAD58 /* View */,
 				632B932C29430387004CAD58 /* ViewModel */,
-				63D52B35296171E6006F043D /* RecentSearchKeywordsView */,
 			);
 			path = SearchAppResults;
 			sourceTree = "<group>";
@@ -287,8 +286,8 @@
 			isa = PBXGroup;
 			children = (
 				630068C92951A7B400BD73C9 /* SearchAppResultsViewController.swift */,
-				632B93282942014E004CAD58 /* SearchAppTableViewCell.swift */,
-				632B932A2942D8E0004CAD58 /* ScreenshotImageView.swift */,
+				63962714296577C90037A2B7 /* SearchKeyword */,
+				63962713296577BC0037A2B7 /* SearchApp */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -296,8 +295,8 @@
 		632B932C29430387004CAD58 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				632B932D2943063A004CAD58 /* SearchAppTableViewCellModel.swift */,
-				630068CB2951E15600BD73C9 /* SearchAppResultsViewModel.swift */,
+				63962716296577F80037A2B7 /* SearchApp */,
+				63962715296577F20037A2B7 /* SearchKeyword */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -437,7 +436,6 @@
 		63861EC028AA41F90062A8BD /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				63D52AE129582BAC006F043D /* Setting */,
 				63861EC128AA42190062A8BD /* View */,
 				63861EC228AA421E0062A8BD /* ViewModel */,
 			);
@@ -447,6 +445,7 @@
 		63861EC128AA42190062A8BD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				639627172965787E0037A2B7 /* Setting */,
 				6388DE4128A6404E0011D47E /* SearchViewController.swift */,
 				63D52AE829584BC5006F043D /* SearchBackgroundView.swift */,
 				63D52B17295A8BD9006F043D /* PlatformButton.swift */,
@@ -458,6 +457,7 @@
 		63861EC228AA421E0062A8BD /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				639627182965788B0037A2B7 /* Setting */,
 				63861EB528AA10990062A8BD /* SearchViewModel.swift */,
 				6388DE5928A68E090011D47E /* SearchSceneNamespace.swift */,
 			);
@@ -632,6 +632,61 @@
 			path = ItunesAPI;
 			sourceTree = "<group>";
 		};
+		63962713296577BC0037A2B7 /* SearchApp */ = {
+			isa = PBXGroup;
+			children = (
+				632B93282942014E004CAD58 /* SearchAppTableViewCell.swift */,
+				632B932A2942D8E0004CAD58 /* ScreenshotImageView.swift */,
+			);
+			path = SearchApp;
+			sourceTree = "<group>";
+		};
+		63962714296577C90037A2B7 /* SearchKeyword */ = {
+			isa = PBXGroup;
+			children = (
+				63D52B6A2962F983006F043D /* SearchKeywordTableHeaderView.swift */,
+				6396270F296560F80037A2B7 /* SearchKeywordTableFooterView.swift */,
+				63D52B682962D590006F043D /* RecentSearchKeywordTableViewCell.swift */,
+			);
+			path = SearchKeyword;
+			sourceTree = "<group>";
+		};
+		63962715296577F20037A2B7 /* SearchKeyword */ = {
+			isa = PBXGroup;
+			children = (
+				63D52B3E29617DBC006F043D /* RecentSearchKeywordsViewModel.swift */,
+				63D52B4029617FD7006F043D /* RecentSearchKeywordCellModel.swift */,
+				6396270D29644D0C0037A2B7 /* SearchKeywordTableHeaderViewModel.swift */,
+				63962711296563D00037A2B7 /* SearchKeywordTableFooterViewModel.swift */,
+			);
+			path = SearchKeyword;
+			sourceTree = "<group>";
+		};
+		63962716296577F80037A2B7 /* SearchApp */ = {
+			isa = PBXGroup;
+			children = (
+				630068CB2951E15600BD73C9 /* SearchAppResultsViewModel.swift */,
+				632B932D2943063A004CAD58 /* SearchAppTableViewCellModel.swift */,
+			);
+			path = SearchApp;
+			sourceTree = "<group>";
+		};
+		639627172965787E0037A2B7 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				63D52B1B295C800B006F043D /* SettingViewController.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		639627182965788B0037A2B7 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				63D52AE329582BE0006F043D /* SettingViewModel.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
 		63AA536528BF3DBA000FB5DD /* app-show-room-unitTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -675,31 +730,6 @@
 				63CEA73C2940B96D009684A7 /* AppSearchAPIRequest.swift */,
 			);
 			path = Request;
-			sourceTree = "<group>";
-		};
-		63D52AE129582BAC006F043D /* Setting */ = {
-			isa = PBXGroup;
-			children = (
-				63D52AEC29589AA0006F043D /* View */,
-				63D52AE229582BD1006F043D /* ViewModel */,
-			);
-			path = Setting;
-			sourceTree = "<group>";
-		};
-		63D52AE229582BD1006F043D /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				63D52AE329582BE0006F043D /* SettingViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		63D52AEC29589AA0006F043D /* View */ = {
-			isa = PBXGroup;
-			children = (
-				63D52B1B295C800B006F043D /* SettingViewController.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		63D52B1D295D5ED2006F043D /* Service */ = {
@@ -770,36 +800,6 @@
 				63D52B3129602338006F043D /* RealmSearchKeywordRepository.swift */,
 			);
 			path = SearchKeywordRepository;
-			sourceTree = "<group>";
-		};
-		63D52B35296171E6006F043D /* RecentSearchKeywordsView */ = {
-			isa = PBXGroup;
-			children = (
-				63D52B3729617210006F043D /* ViewModel */,
-				63D52B3629617205006F043D /* View */,
-			);
-			path = RecentSearchKeywordsView;
-			sourceTree = "<group>";
-		};
-		63D52B3629617205006F043D /* View */ = {
-			isa = PBXGroup;
-			children = (
-				63D52B682962D590006F043D /* RecentSearchKeywordTableViewCell.swift */,
-				63D52B6A2962F983006F043D /* SearchKeywordTableHeaderView.swift */,
-				6396270F296560F80037A2B7 /* SearchKeywordTableFooterView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		63D52B3729617210006F043D /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				63D52B3E29617DBC006F043D /* RecentSearchKeywordsViewModel.swift */,
-				63D52B4029617FD7006F043D /* RecentSearchKeywordCellModel.swift */,
-				6396270D29644D0C0037A2B7 /* SearchKeywordTableHeaderViewModel.swift */,
-				63962711296563D00037A2B7 /* SearchKeywordTableFooterViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		63F0342128D8A5DB003F1751 /* StarRatingView */ = {
