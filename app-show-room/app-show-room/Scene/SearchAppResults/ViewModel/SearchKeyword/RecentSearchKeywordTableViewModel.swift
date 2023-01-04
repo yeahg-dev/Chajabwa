@@ -1,13 +1,24 @@
 //
-//  RecentSearchKeywordsViewModel.swift
+//  RecentSearchKeywordTableViewModel.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2023/01/01.
 //
 
-import Foundation
+import UIKit
 
-class RecentSearchKeywordsViewModel {
+protocol SearchAppResultTableViewUpdater: AnyObject {
+    
+    func updateSearchAppResultTableView(with searchApps: [AppDetail])
+    
+    func presentAlert(_ alertViewModel: AlertViewModel)
+    
+}
+
+final class RecentSearchKeywordTableViewModel: NSObject {
+    
+    weak var appDetailViewPresenter: AppDetailViewPresenter?
+    weak var searchAppResultTableViewUpdater: SearchAppResultTableViewUpdater?
     
     private let recentSearchKeywordUsecase: RecentSearchKeywordManagementUsecase
     private let appSearchUsecase: AppSearchUsecase
@@ -21,16 +32,14 @@ class RecentSearchKeywordsViewModel {
     // Publisher로 구현?
     private var cellModels: [RecentSearchKeywordCellModel] = []
     
-    init?() {
-        if let recentSearchKeywordRepository = RealmSearchKeywordRepository() {
-            self.recentSearchKeywordUsecase = RecentSearchKeywordManagementUsecase(
+    override init() {
+        let recentSearchKeywordRepository = RealmSearchKeywordRepository()!
+        self.recentSearchKeywordUsecase = RecentSearchKeywordManagementUsecase(
                 searchKeywordRepository: recentSearchKeywordRepository)
-            self.appSearchUsecase = AppSearchUsecase(
+        self.appSearchUsecase = AppSearchUsecase(
                 searchKeywordRepository: recentSearchKeywordRepository)
-            self.fetchSearchKeywordCellModels(completion: { return })
-        } else {
-            return nil
-        }
+        super.init()
+        self.fetchSearchKeywordCellModels(completion: { return })
     }
     
     var title: String {
@@ -52,28 +61,11 @@ class RecentSearchKeywordsViewModel {
     var isActivateSavingButton: Bool {
         return recentSearchKeywordUsecase.isActiveSavingSearchingKeyword()
     }
-    
-    var numberOfSearchKeywordCell: Int {
-        return cellModels.count
-    }
-    
-    func searchKeywordCellModel(
-        at indexPath: IndexPath,
-        by timeAsecending: Bool = true)
-    -> RecentSearchKeywordCellModel
-    {
-        return cellModels[indexPath.row]
-    }
-    
-    func keywordDidSearched() {
-        fetchSearchKeywordCellModels(completion: { return })
-    }
-    
+
     func fetchLatestData(completion: @escaping () -> Void) {
         fetchSearchKeywordCellModels(completion: completion)
     }
 
-    // TODO: - 셀 선택 -> searchVC에게 키워드 전달해야함 -> Usecase에서 찾고 -> SearchVC에서 보여주기
     func cellDidSelected(
         at indexPath: IndexPath)
     async -> Output<[AppDetail], AlertViewModel>
@@ -129,6 +121,85 @@ class RecentSearchKeywordsViewModel {
             case .failure(let failure):
                 print("Failed to fetch RecentSearchKeyword. error: \(failure)")
                 completion()
+            }
+        }
+    }
+    
+}
+
+// MARK: - UITableViewDataSource
+
+extension RecentSearchKeywordTableViewModel: UITableViewDataSource {
+    
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int)
+    -> Int
+    {
+        return cellModels.count
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath)
+    -> UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCell(
+            withClass: RecentSearchKeywordTableViewCell.self,
+            for: indexPath)
+        // TODO: - 파라미터 컨벤션 통일
+        let cellModel = cellModels[indexPath.row]
+        cell.bind(viewModel: cellModel)
+        return cell
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
+    -> UISwipeActionsConfiguration?
+    {
+        let deleteAction = UIContextualAction(
+            style: .destructive,
+            title: "삭제"
+        ) {  [weak self] _, _, _ in
+            self?.cellDidDeleted(
+                at: indexPath,
+                completion: {
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                })
+        }
+        
+        let actionConfigurations = UISwipeActionsConfiguration(
+            actions: [deleteAction])
+        return actionConfigurations
+    }
+  
+}
+
+// MARK: - UITableViewDelegate
+
+extension RecentSearchKeywordTableViewModel: UITableViewDelegate {
+    
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath)
+    {
+        tableView.deselectRow(at: indexPath, animated: true)
+        Task {
+            let result = await cellDidSelected(at: indexPath)
+            switch result {
+            case .success(let appDetail):
+                if appDetail.count == 1 {
+                    appDetailViewPresenter?.pushAppDetailView(of: appDetail.first!)
+                } else {
+                    searchAppResultTableViewUpdater?.updateSearchAppResultTableView(
+                        with: appDetail)
+                }
+            case .failure(let alertViewModel):
+                searchAppResultTableViewUpdater?.presentAlert(alertViewModel)
+            }
+            fetchLatestData {
+                tableView.reloadData()
             }
         }
     }
