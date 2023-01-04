@@ -5,7 +5,7 @@
 //  Created by Moon Yeji on 2023/01/04.
 //
 
-import Foundation
+import UIKit
 
 struct SearchKeywordTableFooterViewModel {
     
@@ -13,6 +13,10 @@ struct SearchKeywordTableFooterViewModel {
     
     var deleteAllButtonTitle: String {
         return "전체 삭제"
+    }
+    
+    var deleteAllButtonTitleColor: UIColor {
+        return .black
     }
     
     func deleteAllButtonDidTapped(completion: @escaping() -> Void) {

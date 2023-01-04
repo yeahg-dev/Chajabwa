@@ -23,7 +23,6 @@ final class SearchKeywordTableFooterView: UIView {
         let buttton = UIButton()
         buttton.translatesAutoresizingMaskIntoConstraints = false
         buttton.titleLabel?.font = .preferredFont(forTextStyle: .callout)
-        buttton.setTitleColor(.systemGray, for: .normal)
         buttton.addTarget(
             self,
             action: #selector(deleteAllButtonDidTapped),
@@ -44,6 +43,7 @@ final class SearchKeywordTableFooterView: UIView {
     func bind(_ viewModel: SearchKeywordTableFooterViewModel) {
         self.viewModel = viewModel
         deleteAllButton.setTitle(viewModel.deleteAllButtonTitle, for: .normal)
+        deleteAllButton.setTitleColor(viewModel.deleteAllButtonTitleColor, for: .normal)
     }
     
     private func addSubviews() {
