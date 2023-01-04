@@ -1,11 +1,10 @@
-
-
 //
 //  RecentSearchKeywordTableViewCell.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2023/01/02.
 //
+
 import UIKit
 
 class RecentSearchKeywordTableViewCell: UITableViewCell {
@@ -18,11 +17,24 @@ class RecentSearchKeywordTableViewCell: UITableViewCell {
         imageView.image = clockImage
         return imageView
     }()
+    
+    private lazy var keywordStackView: UIStackView = {
+       let stackView = UIStackView(arrangedSubviews: [keywordLabel, countryFlagLabel, platformImageView])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        stackView.setCustomSpacing(5, after: keywordLabel)
+        return stackView
+    }()
 
     private let keywordLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .callout)
+        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        label.lineBreakMode = .byTruncatingTail
         return label
     }()
 
@@ -30,6 +42,8 @@ class RecentSearchKeywordTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .callout)
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
+        label.setContentHuggingPriority(.required, for: .horizontal)
         return label
     }()
 
@@ -37,6 +51,7 @@ class RecentSearchKeywordTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        imageView.setContentHuggingPriority(.required, for: .horizontal)
         return imageView
     }()
 
@@ -68,9 +83,7 @@ class RecentSearchKeywordTableViewCell: UITableViewCell {
 
     private func addSubviews() {
         contentView.addSubview(clockIconImageView)
-        contentView.addSubview(keywordLabel)
-        contentView.addSubview(countryFlagLabel)
-        contentView.addSubview(platformImageView)
+        contentView.addSubview(keywordStackView)
         contentView.addSubview(dateLabel)
     }
 
@@ -86,27 +99,20 @@ class RecentSearchKeywordTableViewCell: UITableViewCell {
                 equalTo: contentView.bottomAnchor,
                 constant: -Design.paddingBottom),
             clockIconImageView.trailingAnchor.constraint(
-                equalTo: keywordLabel.leadingAnchor,
+                equalTo: keywordStackView.leadingAnchor,
                 constant: -Design.clockImageViewRightMargin),
             clockIconImageView.widthAnchor.constraint(
                 equalTo: clockIconImageView.heightAnchor,
                 multiplier: 1),
-            keywordLabel.centerYAnchor.constraint(
-                equalTo: contentView.centerYAnchor),
-            keywordLabel.trailingAnchor.constraint(
-                equalTo: countryFlagLabel.leadingAnchor,
-                constant: -Design.clockImageViewRightMargin),
-            countryFlagLabel.centerYAnchor.constraint(
-                equalTo: contentView.centerYAnchor),
-            countryFlagLabel.trailingAnchor.constraint(
-                equalTo: platformImageView.leadingAnchor,
-                constant: -Design.countryFlagLabelRightMargin),
-            platformImageView.topAnchor.constraint(
+            keywordStackView.topAnchor.constraint(
                 equalTo: contentView.topAnchor,
                 constant: Design.paddingTop),
-            platformImageView.bottomAnchor.constraint(
+            keywordStackView.bottomAnchor.constraint(
                 equalTo: contentView.bottomAnchor,
                 constant: -Design.paddingBottom),
+            keywordStackView.trailingAnchor.constraint(
+                lessThanOrEqualTo: dateLabel.leadingAnchor,
+                constant: -5),
             dateLabel.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
                 constant: -Design.paddingTrailing),
@@ -125,7 +131,5 @@ private enum Design {
     static let paddingBottom: CGFloat = 15
 
     static let clockImageViewRightMargin: CGFloat = 9
-    static let keywordLabelRightMargin: CGFloat = 7
-    static let countryFlagLabelRightMargin: CGFloat = 5
-
+    
 }
