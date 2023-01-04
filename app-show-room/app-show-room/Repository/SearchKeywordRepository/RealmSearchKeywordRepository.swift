@@ -16,6 +16,7 @@ struct RealmSearchKeywordRepository: SearchKeywordRepository {
     init?() {
         if let searchKeywordRealm = SearckKeywordRealmStore()?.defaultRealm {
             realm = searchKeywordRealm
+            print("📂\(self)'s file URL : \(searchKeywordRealm.configuration.fileURL)")
         } else {
             return nil
         }

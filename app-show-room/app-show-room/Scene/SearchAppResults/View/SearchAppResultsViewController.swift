@@ -184,6 +184,27 @@ final class SearchAppResultsViewController: UITableViewController {
             }
     }
     
+    override func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
+    -> UISwipeActionsConfiguration?
+    {
+        let deleteAction = UIContextualAction(
+            style: .destructive,
+            title: "삭제"
+        ) {  [weak self] _, _, _ in
+            self?.recentSearchKeywordViewModel.cellDidDeleted(
+                at: indexPath,
+                completion: {
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+            })
+        }
+        
+        let actionConfigurations = UISwipeActionsConfiguration(
+            actions: [deleteAction])
+        return actionConfigurations
+    }
+    
 }
 
 extension SearchAppResultsViewController: SearchKeywordSavingUpdater {

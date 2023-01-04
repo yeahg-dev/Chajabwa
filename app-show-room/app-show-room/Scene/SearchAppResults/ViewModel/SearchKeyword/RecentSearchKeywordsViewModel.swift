@@ -75,25 +75,29 @@ class RecentSearchKeywordsViewModel {
         return keywords[indexPath.row]
     }
 
-    func cellDidDeleted(at indexPath: IndexPath) {
+    func cellDidDeleted(
+        at indexPath: IndexPath,
+        completion: @escaping () -> Void) {
         let cell = keywords[indexPath.row]
         usecase.deleteRecentSearchKeyword(
             of: cell.identifier) { result in
                 switch result {
                 case .success(_):
-                    return
+                    self.fetchLatestData(completion: completion)
                 case .failure(let failure):
+                    // TODO: - Alert 구현!
                     print("Failed to Delete RecentSearchKeyword. error: \(failure)")
                 }
             }
     }
     
-    func allCellDidDeleted() {
+    func allCellDidDeleted(completion: @escaping () -> Void) {
         usecase.deleteAllRecentSearchKeywords { result in
             switch result {
             case .success(_):
-                return
+                self.fetchLatestData(completion: completion)
             case .failure(let failure):
+                // TODO: - Alert 구현!
                 print("Failed to DeleteAll RecentSearchKeyword. error: \(failure)")
             }
         }
