@@ -38,7 +38,7 @@ final class SearchAppResultsViewController: UITableViewController {
     private var recentSearchKeywordViewModel = RecentSearchKeywordsViewModel()!
     private let searchKeywordTableHeaderViewModel = SearchKeywordTableHeaderViewModel()
     private let searchKeywordTableFooterViewModel = SearchKeywordTableFooterViewModel()
-
+    
     private var results: SearchResults = .recentSearchKeywords
     private var searchKeywordSaving: SearhKeywordSaving {
         return recentSearchKeywordViewModel.isActivateSavingButton ? .active : .deactive
@@ -101,19 +101,19 @@ final class SearchAppResultsViewController: UITableViewController {
             at: .top,
             animated: true)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
         configureView()
         configureTableView()
     }
-
+    
     private func configureView() {
         view.backgroundColor = Design.backgroundColor
         updateTableView(of: .recentSearchKeywords)
     }
-
+    
     private func configureTableView() {
         tableView.register(cellWithClass: SearchAppTableViewCell.self)
         tableView.register(cellWithClass: RecentSearchKeywordTableViewCell.self)
@@ -175,13 +175,50 @@ final class SearchAppResultsViewController: UITableViewController {
         didSelectRowAt indexPath: IndexPath) {
             switch results {
             case .recentSearchKeywords:
-                return
+                tableView.deselectRow(at: indexPath, animated: true)
+                Task {
+                    let result = await recentSearchKeywordViewModel.cellDidSelected(at: indexPath)
+                    switch result {
+                    case .success(let appDetail):
+                        if appDetail.count == 1 {
+                            let appDetailViewController = AppDetailViewController(
+                                appDetailViewModel: AppDetailViewModel(app: appDetail.first!))
+                            navigationController?.pushViewController(
+                                appDetailViewController,
+                                animated: true)
+                        } else {
+                            let searchAppResultsViewModel = SearchAppResultsViewModel(
+                                searchAppDetails: appDetail)
+                            showSearchAppResults(
+                                viewModel: searchAppResultsViewModel)
+                            scrollToTop()
+                        }
+                    case .failure(let alertViewModel):
+                        self.presentAlert(alertViewModel)
+                    }
+                    refreshSearchKeywordTableView()
+                }
             case .apps:
                 tableView.deselectRow(at: indexPath, animated: true)
                 let appDetail = searchAppResultsViewModel.didSelectAppResultsTableViewCell(
                     indexPath.row)
                 delegate?.didSelectRowOf(appDetail)
             }
+        }
+    
+    private func presentAlert(_ alertViewModel: AlertViewModel) {
+        let alertController = UIAlertController(
+            title: alertViewModel.alertController.title,
+            message: alertViewModel.alertController.message,
+            preferredStyle: alertViewModel.alertController.preferredStyle.value)
+        if let alertActionViewModel = alertViewModel.alertAction {
+            let action = UIAlertAction(
+                title: alertActionViewModel.title,
+                style: alertActionViewModel.style.value)
+            alertController.addAction(action)
+        }
+        
+        present(alertController, animated: false)
     }
     
     override func tableView(
@@ -197,7 +234,7 @@ final class SearchAppResultsViewController: UITableViewController {
                 at: indexPath,
                 completion: {
                     tableView.deleteRows(at: [indexPath], with: .fade)
-            })
+                })
         }
         
         let actionConfigurations = UISwipeActionsConfiguration(

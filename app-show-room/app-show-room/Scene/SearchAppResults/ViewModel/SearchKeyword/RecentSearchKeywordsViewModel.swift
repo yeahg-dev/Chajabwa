@@ -9,7 +9,8 @@ import Foundation
 
 class RecentSearchKeywordsViewModel {
     
-    private let usecase: RecentSearchKeywordManagementUsecase
+    private let recentSearchKeywordUsecase: RecentSearchKeywordManagementUsecase
+    private let appSearchUsecase: AppSearchUsecase
     
     private var keywords: [RecentSearchKeyword] = [] {
         willSet(newKeywords) {
@@ -22,7 +23,9 @@ class RecentSearchKeywordsViewModel {
     
     init?() {
         if let recentSearchKeywordRepository = RealmSearchKeywordRepository() {
-            self.usecase = RecentSearchKeywordManagementUsecase(
+            self.recentSearchKeywordUsecase = RecentSearchKeywordManagementUsecase(
+                searchKeywordRepository: recentSearchKeywordRepository)
+            self.appSearchUsecase = AppSearchUsecase(
                 searchKeywordRepository: recentSearchKeywordRepository)
             self.fetchSearchKeywordCellModels(completion: { return })
         } else {
@@ -47,7 +50,7 @@ class RecentSearchKeywordsViewModel {
     }
     
     var isActivateSavingButton: Bool {
-        return usecase.isActiveSavingSearchingKeyword()
+        return recentSearchKeywordUsecase.isActiveSavingSearchingKeyword()
     }
     
     var numberOfSearchKeywordCell: Int {
@@ -71,15 +74,28 @@ class RecentSearchKeywordsViewModel {
     }
 
     // TODO: - 셀 선택 -> searchVC에게 키워드 전달해야함 -> Usecase에서 찾고 -> SearchVC에서 보여주기
-    func cellDidSelected(at indexPath: IndexPath) -> RecentSearchKeyword {
-        return keywords[indexPath.row]
+    func cellDidSelected(
+        at indexPath: IndexPath)
+    async -> Output<[AppDetail], AlertViewModel>
+    {
+        let keyword = keywords[indexPath.row]
+        do {
+            let appDetails = try await self.appSearchUsecase.searchAppDetail(of: keyword)
+            if appDetails.isEmpty {
+                return .failure(SearchSceneNamespace.emptyResultAlertViewModel)
+            } else {
+                return .success(appDetails)
+            }
+        } catch {
+            return .failure(SearchSceneNamespace.searchFailureAlertViewModel)
+        }
     }
 
     func cellDidDeleted(
         at indexPath: IndexPath,
         completion: @escaping () -> Void) {
         let cell = keywords[indexPath.row]
-        usecase.deleteRecentSearchKeyword(
+        recentSearchKeywordUsecase.deleteRecentSearchKeyword(
             of: cell.identifier) { result in
                 switch result {
                 case .success(_):
@@ -92,7 +108,7 @@ class RecentSearchKeywordsViewModel {
     }
     
     func allCellDidDeleted(completion: @escaping () -> Void) {
-        usecase.deleteAllRecentSearchKeywords { result in
+        recentSearchKeywordUsecase.deleteAllRecentSearchKeywords { result in
             switch result {
             case .success(_):
                 self.fetchLatestData(completion: completion)
@@ -104,7 +120,7 @@ class RecentSearchKeywordsViewModel {
     }
     
     private func fetchSearchKeywordCellModels(completion: @escaping () -> Void) {
-        usecase.allRecentSearchKeywords { result in
+        recentSearchKeywordUsecase.allRecentSearchKeywords { result in
             switch result {
             case .success(let fetchedKeywords):
                 //TODO: - Struct로 변경하기

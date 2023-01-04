@@ -26,16 +26,19 @@ struct AppSearchUsecase {
     {
         let input = searchKeyword.keyword
         let configuration = searchKeyword.configuration
+        
+        createRecentSearchKeyword(with: input)
+        
         if let id = Int(input) {
             let appDetail = try await self.appDetailRepository.fetchAppDetail(
                 of: id,
-                country: configuration.country.name,
+                country: configuration.country.isoCode,
                 software: configuration.softwareType.rawValue)
             return [appDetail]
         } else {
             let appDetails = try await self.appDetailRepository.fetchAppDetails(
                 of: input,
-                country: configuration.country.name,
+                country: configuration.country.isoCode,
                 software: configuration.softwareType.rawValue)
             return appDetails
         }
@@ -46,6 +49,7 @@ struct AppSearchUsecase {
         let currentSoftwareType = AppSearchingConfiguration.softwareType.rawValue
         
         createRecentSearchKeyword(with: input)
+        
         if let id = Int(input) {
             let appDetail = try await self.appDetailRepository.fetchAppDetail(
                 of: id,
