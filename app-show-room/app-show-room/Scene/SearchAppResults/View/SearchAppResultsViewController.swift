@@ -128,6 +128,8 @@ extension SearchAppResultsViewController: SearchAppResultTableViewUpdater {
         searchAppResultsViewModel.appDetailViewPresenter = self
         tableView.dataSource = searchAppResultsViewModel
         tableView.delegate = searchAppResultsViewModel
+        tableView.tableHeaderView?.isHidden = true
+        tableView.tableFooterView?.isHidden = true
         tableView.reloadData()
         scrollToTop()
     }
