@@ -226,6 +226,10 @@ final class SearchAppResultsViewController: UITableViewController {
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
     -> UISwipeActionsConfiguration?
     {
+        guard results == .recentSearchKeywords else {
+            return nil
+        }
+        
         let deleteAction = UIContextualAction(
             style: .destructive,
             title: "삭제"
