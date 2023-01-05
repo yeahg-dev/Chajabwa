@@ -63,7 +63,7 @@
 		6388DE4728A640500011D47E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6388DE4628A640500011D47E /* Assets.xcassets */; };
 		6388DE4A28A640500011D47E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6388DE4828A640500011D47E /* LaunchScreen.storyboard */; };
 		6388DE5828A66BF70011D47E /* AppDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DE5728A66BF70011D47E /* AppDetail.swift */; };
-		6388DE5A28A68E090011D47E /* SearchSceneNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DE5928A68E090011D47E /* SearchSceneNamespace.swift */; };
+		6388DE5A28A68E090011D47E /* SearchAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DE5928A68E090011D47E /* SearchAlertViewModel.swift */; };
 		6388DE5D28A691820011D47E /* AppGenre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DE5C28A691820011D47E /* AppGenre.swift */; };
 		6388DE6028A6A5430011D47E /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DE5F28A6A5430011D47E /* HTTPMethod.swift */; };
 		6388DE6228A6A56A0011D47E /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DE6128A6A56A0011D47E /* APIRequest.swift */; };
@@ -195,7 +195,7 @@
 		6388DE4928A640500011D47E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6388DE4B28A640500011D47E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6388DE5728A66BF70011D47E /* AppDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetail.swift; sourceTree = "<group>"; };
-		6388DE5928A68E090011D47E /* SearchSceneNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSceneNamespace.swift; sourceTree = "<group>"; };
+		6388DE5928A68E090011D47E /* SearchAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAlertViewModel.swift; sourceTree = "<group>"; };
 		6388DE5C28A691820011D47E /* AppGenre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGenre.swift; sourceTree = "<group>"; };
 		6388DE5F28A6A5430011D47E /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		6388DE6128A6A56A0011D47E /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
@@ -461,7 +461,7 @@
 			children = (
 				639627182965788B0037A2B7 /* Setting */,
 				63861EB528AA10990062A8BD /* SearchViewModel.swift */,
-				6388DE5928A68E090011D47E /* SearchSceneNamespace.swift */,
+				6388DE5928A68E090011D47E /* SearchAlertViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1036,7 +1036,7 @@
 				6388DE4228A6404E0011D47E /* SearchViewController.swift in Sources */,
 				6384EC5828AB7DB900D1F821 /* DescriptionCollectionViewCell.swift in Sources */,
 				63D52B6B2962F983006F043D /* SearchKeywordTableHeaderView.swift in Sources */,
-				6388DE5A28A68E090011D47E /* SearchSceneNamespace.swift in Sources */,
+				6388DE5A28A68E090011D47E /* SearchAlertViewModel.swift in Sources */,
 				63861ECD28AA6F1D0062A8BD /* SignboardCollectionViewCell.swift in Sources */,
 				6388DE6528A6C71E0011D47E /* AppLookupAPIRequest.swift in Sources */,
 				63A764F828BDFF8C003B1EAA /* IconView.swift in Sources */,

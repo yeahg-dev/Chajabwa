@@ -79,11 +79,13 @@ final class SearchViewController: UIViewController {
             title: alertViewModel.alertController.title,
             message: alertViewModel.alertController.message,
             preferredStyle: alertViewModel.alertController.preferredStyle.value)
-        if let alertActionViewModel = alertViewModel.alertAction {
-            let action = UIAlertAction(
-                title: alertActionViewModel.title,
-                style: alertActionViewModel.style.value)
-            alertController.addAction(action)
+        if let alertActions = alertViewModel.alertActions {
+            alertActions.forEach { actionViewModel in
+                let action = UIAlertAction(
+                    title: actionViewModel.title,
+                    style: actionViewModel.style.value)
+                alertController.addAction(action)
+            }
         }
         
         present(alertController, animated: false)
