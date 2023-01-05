@@ -35,9 +35,9 @@ final class RecentSearchKeywordTableViewModel: NSObject {
     override init() {
         let recentSearchKeywordRepository = RealmSearchKeywordRepository()!
         self.recentSearchKeywordUsecase = RecentSearchKeywordManagementUsecase(
-                searchKeywordRepository: recentSearchKeywordRepository)
+            searchKeywordRepository: recentSearchKeywordRepository)
         self.appSearchUsecase = AppSearchUsecase(
-                searchKeywordRepository: recentSearchKeywordRepository)
+            searchKeywordRepository: recentSearchKeywordRepository)
         super.init()
         self.fetchSearchKeywordCellModels(completion: { return })
     }
@@ -53,7 +53,7 @@ final class RecentSearchKeywordTableViewModel: NSObject {
     var deleteAllButtonTitle: String {
         return "전체 삭제"
     }
-
+    
     var savingModeOffDescription: String {
         return "검색어 저장 기능이 꺼져 있습니다."
     }
@@ -61,11 +61,11 @@ final class RecentSearchKeywordTableViewModel: NSObject {
     var isActivateSavingButton: Bool {
         return recentSearchKeywordUsecase.isActiveSavingSearchingKeyword()
     }
-
+    
     func fetchLatestData(completion: @escaping () -> Void) {
         fetchSearchKeywordCellModels(completion: completion)
     }
-
+    
     func cellDidSelected(
         at indexPath: IndexPath)
     async -> Output<[AppDetail], AlertViewModel>
@@ -82,26 +82,27 @@ final class RecentSearchKeywordTableViewModel: NSObject {
             return .failure(SearchAlertViewModel.SearchFailureAlertViewModel())
         }
     }
-
+    
     func cellDidDeleted(
         at indexPath: IndexPath,
         completion: @escaping () -> Void) {
-        let cell = keywords[indexPath.row]
-        recentSearchKeywordUsecase.deleteRecentSearchKeyword(
-            of: cell.identifier) { result in
-                switch result {
-                case .success(_):
-                    self.fetchLatestData(completion: completion)
-                case .failure(let failure):
-                    self.searchAppResultTableViewUpdater?.presentAlert(
-                        SearchKeywordAlertViewModel.RecentSearchKeywordDeleteFailure())
-                    print("Failed to Delete RecentSearchKeyword. error: \(failure)")
+            let cell = keywords[indexPath.row]
+            recentSearchKeywordUsecase.deleteRecentSearchKeyword(
+                of: cell.identifier) { [unowned self] result in
+                    switch result {
+                    case .success(_):
+                        self.fetchLatestData(completion: completion)
+                    case .failure(let failure):
+                        self.searchAppResultTableViewUpdater?.presentAlert(
+                            SearchKeywordAlertViewModel.RecentSearchKeywordDeleteFailure())
+                        print("Failed to Delete RecentSearchKeyword. error: \(failure)")
+                    }
                 }
-            }
-    }
+        }
     
     func allCellDidDeleted(completion: @escaping () -> Void) {
-        recentSearchKeywordUsecase.deleteAllRecentSearchKeywords { result in
+        recentSearchKeywordUsecase.deleteAllRecentSearchKeywords
+        { [unowned self] result in
             switch result {
             case .success(_):
                 self.fetchLatestData(completion: completion)
@@ -114,7 +115,8 @@ final class RecentSearchKeywordTableViewModel: NSObject {
     }
     
     private func fetchSearchKeywordCellModels(completion: @escaping () -> Void) {
-        recentSearchKeywordUsecase.allRecentSearchKeywords { result in
+        recentSearchKeywordUsecase.allRecentSearchKeywords
+        { [unowned self] result in
             switch result {
             case .success(let fetchedKeywords):
                 //TODO: - Struct로 변경하기
@@ -162,8 +164,8 @@ extension RecentSearchKeywordTableViewModel: UITableViewDataSource {
         let deleteAction = UIContextualAction(
             style: .destructive,
             title: "삭제"
-        ) {  [weak self] _, _, _ in
-            self?.cellDidDeleted(
+        ) {  [unowned self] _, _, _ in
+            self.cellDidDeleted(
                 at: indexPath,
                 completion: {
                     tableView.deleteRows(at: [indexPath], with: .fade)
@@ -174,7 +176,7 @@ extension RecentSearchKeywordTableViewModel: UITableViewDataSource {
             actions: [deleteAction])
         return actionConfigurations
     }
-  
+    
 }
 
 // MARK: - UITableViewDelegate
