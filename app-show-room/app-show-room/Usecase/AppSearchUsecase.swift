@@ -67,6 +67,10 @@ struct AppSearchUsecase {
     }
     
     private func createRecentSearchKeyword(with recentKeyword: RecentSearchKeyword) {
+        guard AppSearchingConfiguration.isActiveSavingSearchKeyword else {
+            return
+        }
+        
         let keyword =  RecentSearchKeyword(
             keyword: recentKeyword.keyword,
             date: Date(),
@@ -85,9 +89,14 @@ struct AppSearchUsecase {
     }
     
     private func createRecentSearchKeyword(with input: String) {
+        guard AppSearchingConfiguration.isActiveSavingSearchKeyword else {
+            return
+        }
+        
         guard !input.isEmpty else {
             return
         }
+        
         let keyword =  RecentSearchKeyword(
             keyword: input,
             date: Date(),
