@@ -74,7 +74,7 @@ class RecentSearchKeywordTableViewCell: UITableViewCell {
         self.setConstraints()
     }
 
-    func bind(viewModel: RecentSearchKeywordCellModel) {
+    func bind(_ viewModel: RecentSearchKeywordCellModel) {
         keywordLabel.text = viewModel.keyword
         countryFlagLabel.text = viewModel.countryFlag
         platformImageView.image = viewModel.softwareIcon

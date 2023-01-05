@@ -147,9 +147,8 @@ extension RecentSearchKeywordTableViewModel: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(
             withClass: RecentSearchKeywordTableViewCell.self,
             for: indexPath)
-        // TODO: - 파라미터 컨벤션 통일
         let cellModel = cellModels[indexPath.row]
-        cell.bind(viewModel: cellModel)
+        cell.bind(cellModel)
         return cell
     }
     
