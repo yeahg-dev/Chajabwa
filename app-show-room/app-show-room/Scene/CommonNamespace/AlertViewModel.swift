@@ -10,7 +10,7 @@ import UIKit
 protocol AlertViewModel {
     
     var alertController: UIAlertControllerViewModel  { get }
-    var alertAction: UIAlertActionViewModel?  { get }
+    var alertActions: [UIAlertActionViewModel]?  { get }
     
 }
 

@@ -23,7 +23,7 @@ extension SearchSceneNamespace {
     struct InvalidInputAlertViewModel: AlertViewModel {
 
         var alertController: UIAlertControllerViewModel = InvalidInputAlertControllerViewModel()
-        var alertAction: UIAlertActionViewModel? = InvalidInputAlertActionViewModel()
+        var alertActions: [UIAlertActionViewModel]? = [InvalidInputAlertActionViewModel()]
     }
     
     struct InvalidInputAlertControllerViewModel: UIAlertControllerViewModel {
@@ -48,13 +48,13 @@ extension SearchSceneNamespace {
     struct SearchFailureAlertViewModel: AlertViewModel {
         
         var alertController: UIAlertControllerViewModel = SearchFailureAlertControllerViewModel()
-        var alertAction: UIAlertActionViewModel? = SearchFailureAlertActionViewModel()
+        var alertActions: [UIAlertActionViewModel]? = [SearchFailureAlertActionViewModel()]
     }
     
     struct EmptyResultAlertViewModel: AlertViewModel {
         
         var alertController: UIAlertControllerViewModel = EmptyResultAlertControllerViewModel()
-        var alertAction: UIAlertActionViewModel? = SearchFailureAlertActionViewModel()
+        var alertActions: [UIAlertActionViewModel]? = [SearchFailureAlertActionViewModel()]
     }
     
     struct SearchFailureAlertControllerViewModel: UIAlertControllerViewModel {

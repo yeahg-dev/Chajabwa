@@ -93,7 +93,8 @@ final class RecentSearchKeywordTableViewModel: NSObject {
                 case .success(_):
                     self.fetchLatestData(completion: completion)
                 case .failure(let failure):
-                    // TODO: - Alert 구현!
+                    self.searchAppResultTableViewUpdater?.presentAlert(
+                        SearchKeywordAlertViewModel.RecentSearchKeywordDeleteFailure())
                     print("Failed to Delete RecentSearchKeyword. error: \(failure)")
                 }
             }
@@ -105,7 +106,8 @@ final class RecentSearchKeywordTableViewModel: NSObject {
             case .success(_):
                 self.fetchLatestData(completion: completion)
             case .failure(let failure):
-                // TODO: - Alert 구현!
+                self.searchAppResultTableViewUpdater?.presentAlert(
+                    SearchKeywordAlertViewModel.RecentSearchKeywordDeleteFailure())
                 print("Failed to DeleteAll RecentSearchKeyword. error: \(failure)")
             }
         }
