@@ -27,27 +27,24 @@ struct RecentSearchKeywordManagementUsecase {
         AppSearchingConfiguration.setSavingSearchKeywordState(with: false)
     }
     
-    func allRecentSearchKeywords(
-        completion: @escaping (Result<[RecentSearchKeyword], Error>) -> Void)
-    {
+    func allRecentSearchKeywords() async throws -> [RecentSearchKeyword] {
         let isActive = isActiveSavingSearchingKeyword()
         if isActive {
-            searchKeywordRepository.readAll(
-                sorted: false,
-                completion: completion)
+            return try await searchKeywordRepository.readAll(sorted: false)
         } else {
-            completion(.success([]))
+            return []
         }
     }
     
     func deleteRecentSearchKeyword(
-        of identifier: String,
-        completion: @escaping (Result<RecentSearchKeyword, Error>) -> Void) {
-        searchKeywordRepository.delete(identifier: identifier, completion: completion)
+        of identifier: String)
+    async throws -> RecentSearchKeyword
+    {
+        return try await searchKeywordRepository.delete(identifier: identifier)
     }
     
-    func deleteAllRecentSearchKeywords(completion: @escaping (Result<[RecentSearchKeyword], Error>) -> Void) {
-        searchKeywordRepository.deleteAll(completion: completion)
+    func deleteAllRecentSearchKeywords() async throws -> [RecentSearchKeyword] {
+        return try await searchKeywordRepository.deleteAll()
     }
     
 }

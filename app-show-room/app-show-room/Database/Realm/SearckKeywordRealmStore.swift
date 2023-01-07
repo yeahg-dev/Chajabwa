@@ -11,11 +11,15 @@ import RealmSwift
 
 final class SearckKeywordRealmStore {
     
-    let defaultRealm: Realm!
+    var defaultRealm: Realm!
+    let serialQueue: DispatchQueue
     
     init?() {
+        serialQueue = DispatchQueue(label: "serial-queue")
         do {
-            defaultRealm = try Realm()
+            try serialQueue.sync {
+                defaultRealm = try Realm(configuration: .defaultConfiguration, queue: serialQueue)
+            }
         } catch  {
             print("Error initiating new realm \(error)")
             return nil

@@ -30,4 +30,14 @@ struct SearchKeywordTableFooterViewModel {
         }
     }
     
+    func deleteAllButtonDidTapped() async {
+        do {
+            let _ = try await usecase.deleteAllRecentSearchKeywords()
+            return
+        } catch {
+            print("Failed to Delete RecentSearchKeyword. error: \(error)")
+            return
+        }
+    }
+    
 }

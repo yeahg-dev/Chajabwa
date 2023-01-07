@@ -77,15 +77,13 @@ struct AppSearchUsecase {
             configuration: SearchConfiguration(
                 country: recentKeyword.configuration.country,
                 softwareType: recentKeyword.configuration.softwareType))
-        searchKeywordRepository.create(
-            keyword: keyword) { result in
-                switch result {
-                case .success(_):
-                    return
-                case .failure(let failure):
-                    print("Failed to create RecentSearchKeyword. error :\(failure)")
-                }
+        Task {
+            do {
+                let _ = try await searchKeywordRepository.create(keyword: keyword)
+            } catch {
+                print("Failed to create RecentSearchKeyword. error :\(error)")
             }
+        }
     }
     
     private func createRecentSearchKeyword(with input: String) {
@@ -103,15 +101,13 @@ struct AppSearchUsecase {
             configuration: SearchConfiguration(
                 country: AppSearchingConfiguration.countryISOCode,
                 softwareType: AppSearchingConfiguration.softwareType))
-        searchKeywordRepository.create(
-            keyword: keyword) { result in
-                switch result {
-                case .success(_):
-                    return
-                case .failure(let failure):
-                    print("Failed to create RecentSearchKeyword. error :\(failure)")
-                }
+        Task {
+            do {
+                let _ = try await searchKeywordRepository.create(keyword: keyword)
+            } catch {
+                print("Failed to create RecentSearchKeyword. error :\(error)")
             }
+        }
     }
     
 }

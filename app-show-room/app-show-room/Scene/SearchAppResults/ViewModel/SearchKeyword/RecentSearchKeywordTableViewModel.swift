@@ -23,13 +23,8 @@ final class RecentSearchKeywordTableViewModel: NSObject {
     private let recentSearchKeywordUsecase: RecentSearchKeywordManagementUsecase
     private let appSearchUsecase: AppSearchUsecase
     
-    private var keywords: [RecentSearchKeyword] = [] {
-        willSet(newKeywords) {
-            cellModels = newKeywords.compactMap{ RecentSearchKeywordCellModel(keyword: $0)}
-        }
-    }
+    private var keywords: [RecentSearchKeyword] = []
     
-    // Publisher로 구현?
     private var cellModels: [RecentSearchKeywordCellModel] = []
     
     override init() {
@@ -39,7 +34,9 @@ final class RecentSearchKeywordTableViewModel: NSObject {
         self.appSearchUsecase = AppSearchUsecase(
             searchKeywordRepository: recentSearchKeywordRepository)
         super.init()
-        self.fetchSearchKeywordCellModels(completion: { return })
+        Task {
+            await self.fetchLatestData()
+        }
     }
     
     var title: String {
@@ -62,8 +59,9 @@ final class RecentSearchKeywordTableViewModel: NSObject {
         return recentSearchKeywordUsecase.isActiveSavingSearchingKeyword()
     }
     
-    func fetchLatestData(completion: @escaping () -> Void) {
-        fetchSearchKeywordCellModels(completion: completion)
+    func fetchLatestData() async {
+        keywords = await fetchAllRecentSearchKeyword()
+        cellModels = keywords.compactMap{ RecentSearchKeywordCellModel(keyword: $0) }
     }
     
     func cellDidSelected(
@@ -83,49 +81,39 @@ final class RecentSearchKeywordTableViewModel: NSObject {
         }
     }
     
-    func cellDidDeleted(
-        at indexPath: IndexPath,
-        completion: @escaping () -> Void) {
+    func deleteRecentSearchKeyword(
+        at indexPath: IndexPath) async {
             let cell = keywords[indexPath.row]
-            recentSearchKeywordUsecase.deleteRecentSearchKeyword(
-                of: cell.identifier) { [unowned self] result in
-                    switch result {
-                    case .success(_):
-                        self.fetchLatestData(completion: completion)
-                    case .failure(let failure):
-                        self.searchAppResultTableViewUpdater?.presentAlert(
-                            SearchKeywordAlertViewModel.RecentSearchKeywordDeleteFailure())
-                        print("Failed to Delete RecentSearchKeyword. error: \(failure)")
-                    }
-                }
-        }
-    
-    func allCellDidDeleted(completion: @escaping () -> Void) {
-        recentSearchKeywordUsecase.deleteAllRecentSearchKeywords
-        { [unowned self] result in
-            switch result {
-            case .success(_):
-                self.fetchLatestData(completion: completion)
-            case .failure(let failure):
+            print("🗑deleteRecentSearchKeyword 호출")
+            do {
+                let _ = try await recentSearchKeywordUsecase.deleteRecentSearchKeyword(of: cell.identifier)
+                await self.fetchLatestData()
+                return
+            } catch {
                 self.searchAppResultTableViewUpdater?.presentAlert(
                     SearchKeywordAlertViewModel.RecentSearchKeywordDeleteFailure())
-                print("Failed to DeleteAll RecentSearchKeyword. error: \(failure)")
+                print("Failed to Delete RecentSearchKeyword. error: \(error)")
+                return
             }
+        }
+    
+    func deleteAllRecentSearchKeyword() async {
+        do {
+            let _ = try await recentSearchKeywordUsecase.deleteAllRecentSearchKeywords()
+            await self.fetchLatestData()
+        } catch {
+            self.searchAppResultTableViewUpdater?.presentAlert(
+                SearchKeywordAlertViewModel.RecentSearchKeywordDeleteFailure())
+            print("Failed to DeleteAll RecentSearchKeyword. error: \(error)")
         }
     }
     
-    private func fetchSearchKeywordCellModels(completion: @escaping () -> Void) {
-        recentSearchKeywordUsecase.allRecentSearchKeywords
-        { [unowned self] result in
-            switch result {
-            case .success(let fetchedKeywords):
-                //TODO: - Struct로 변경하기
-                self.keywords = fetchedKeywords
-                completion()
-            case .failure(let failure):
-                print("Failed to fetch RecentSearchKeyword. error: \(failure)")
-                completion()
-            }
+    private func fetchAllRecentSearchKeyword() async -> [RecentSearchKeyword] {
+        do {
+            return try await recentSearchKeywordUsecase.allRecentSearchKeywords()
+        } catch {
+            print("Failed to fetch RecentSearchKeyword. error: \(error)")
+            return []
         }
     }
     
@@ -165,11 +153,14 @@ extension RecentSearchKeywordTableViewModel: UITableViewDataSource {
             style: .destructive,
             title: "삭제"
         ) {  [unowned self] _, _, _ in
-            self.cellDidDeleted(
-                at: indexPath,
-                completion: {
+            Task {
+                await self.deleteRecentSearchKeyword(at: indexPath)
+                print("delete와 MainActor 사이")
+                await MainActor.run {
+                    print("MainActor에서 reloadData실행")
                     tableView.deleteRows(at: [indexPath], with: .fade)
-                })
+                }
+            }
         }
         
         let actionConfigurations = UISwipeActionsConfiguration(
@@ -201,10 +192,12 @@ extension RecentSearchKeywordTableViewModel: UITableViewDelegate {
             case .failure(let alertViewModel):
                 searchAppResultTableViewUpdater?.presentAlert(alertViewModel)
             }
-            fetchLatestData {
+            await fetchLatestData()
+            await MainActor.run {
                 tableView.reloadData()
             }
         }
+        
     }
     
 }

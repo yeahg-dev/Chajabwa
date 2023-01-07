@@ -18,7 +18,7 @@ final class SearchKeywordTableFooterView: UIView {
     weak var searchKeywordTableViewUpdater: SearchKeywordTableViewUpdater?
     
     private var viewModel: SearchKeywordTableFooterViewModel?
-
+    
     private lazy var deleteAllButton: UIButton = {
         let buttton = UIButton()
         buttton.translatesAutoresizingMaskIntoConstraints = false
@@ -59,12 +59,13 @@ final class SearchKeywordTableFooterView: UIView {
                 constant: -25)
         ])
     }
-
+    
     @objc
     private func deleteAllButtonDidTapped() {
-        viewModel?.deleteAllButtonDidTapped {
+        Task {
+            await viewModel?.deleteAllButtonDidTapped()
             self.searchKeywordTableViewUpdater?.allSearchKeywordDidDeleted()
-        }
+        } 
     }
     
 }

@@ -52,8 +52,9 @@ final class SearchAppResultsViewController: UITableViewController {
     }
     
     func refreshSearchKeywordTableView() {
-        recentSearchKeywordViewModel.fetchLatestData {
-            DispatchQueue.main.async {
+        Task {
+            await recentSearchKeywordViewModel.fetchLatestData()
+            await MainActor.run(body: {
                 self.tableView.tableHeaderView?.isHidden = false
                 switch self.searchKeywordSaving {
                 case .active:
@@ -62,10 +63,10 @@ final class SearchAppResultsViewController: UITableViewController {
                     self.tableView.tableFooterView?.isHidden = true
                 }
                 self.tableView.reloadData()
-            }
+            })
         }
     }
-
+    
     func scrollToTop() {
         guard tableView.numberOfRows(inSection: 0) != 0 else {
             return
@@ -133,7 +134,7 @@ extension SearchAppResultsViewController: SearchAppResultTableViewUpdater {
         tableView.reloadData()
         scrollToTop()
     }
-
+    
     func presentAlert(_ alertViewModel: AlertViewModel) {
         let alertController = UIAlertController(
             title: alertViewModel.alertController.title,
