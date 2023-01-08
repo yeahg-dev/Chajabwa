@@ -18,18 +18,7 @@ struct SearchKeywordTableFooterViewModel {
     var deleteAllButtonTitleColor: UIColor {
         return .black
     }
-    
-    func deleteAllButtonDidTapped(completion: @escaping() -> Void) {
-        usecase.deleteAllRecentSearchKeywords { result in
-            switch result {
-            case .success(_):
-                completion()
-            case .failure(_):
-                return
-            }
-        }
-    }
-    
+
     func deleteAllButtonDidTapped() async {
         do {
             let _ = try await usecase.deleteAllRecentSearchKeywords()

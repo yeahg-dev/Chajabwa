@@ -11,15 +11,15 @@ protocol AppDetailRepository {
     
     func fetchAppDetail(
         of id: Int,
-        country: String,
-        software: String)
+        country: Country,
+        software: SoftwareType)
     async throws -> AppDetail
     
     func fetchAppDetails(
         of term: String,
-        country: String,
-        software: String) async throws
-    -> [AppDetail]
+        country: Country,
+        software: SoftwareType)
+    async throws -> [AppDetail]
     
 }
 
@@ -33,14 +33,14 @@ struct ItunesAppDetailRepository: AppDetailRepository {
     
     func fetchAppDetail(
         of id: Int,
-        country: String,
-        software: String)
+        country: Country,
+        software: SoftwareType)
     async throws -> AppDetail
     {
         let lookupRequest = AppLookupAPIRequest(
             appID: id,
-            country: country,
-            softwareType: software)
+            countryISOCode: country.isoCode,
+            softwareType: software.rawValue)
         let lookupResponse = try await self.service.execute(request: lookupRequest)
         guard let app = lookupResponse.results.first else {
             throw AppDetailRepositoryError.nonExistAppDetail
@@ -55,14 +55,14 @@ struct ItunesAppDetailRepository: AppDetailRepository {
     
     func fetchAppDetails(
         of term: String,
-        country: String,
-        software: String) async throws
+        country: Country,
+        software: SoftwareType) async throws
     -> [AppDetail]
     {
         let searchRequest = AppSearchAPIRequest(
             term: term,
-            country: country,
-            softwareType: software)
+            countryISOCode: country.isoCode,
+            softwareType: software.rawValue)
         let response = try await self.service.execute(request: searchRequest)
         if response.results.isEmpty {
             return []

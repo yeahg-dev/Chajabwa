@@ -32,21 +32,21 @@ struct AppSearchUsecase {
         if let id = Int(input) {
             let appDetail = try await self.appDetailRepository.fetchAppDetail(
                 of: id,
-                country: configuration.country.isoCode,
-                software: configuration.softwareType.rawValue)
+                country: configuration.country,
+                software: configuration.softwareType)
             return [appDetail]
         } else {
             let appDetails = try await self.appDetailRepository.fetchAppDetails(
                 of: input,
-                country: configuration.country.isoCode,
-                software: configuration.softwareType.rawValue)
+                country: configuration.country,
+                software: configuration.softwareType)
             return appDetails
         }
     }
     
     func searchAppDetail(of input: String) async throws -> [AppDetail] {
-        let currentCountry = AppSearchingConfiguration.countryISOCode.isoCode
-        let currentSoftwareType = AppSearchingConfiguration.softwareType.rawValue
+        let currentCountry = AppSearchingConfiguration.countryISOCode
+        let currentSoftwareType = AppSearchingConfiguration.softwareType
         
         createRecentSearchKeyword(with: input)
         
