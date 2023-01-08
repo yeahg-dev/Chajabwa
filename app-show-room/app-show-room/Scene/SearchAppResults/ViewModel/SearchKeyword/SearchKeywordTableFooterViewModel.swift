@@ -13,7 +13,7 @@ struct SearchKeywordTableFooterViewModel {
         searchKeywordRepository: RealmSearchKeywordRepository())
     
     var deleteAllButtonTitle: String {
-        return Text.deleteAll
+        return Text.deleteAll.rawValue
     }
     
     var deleteAllButtonTitleColor: UIColor {

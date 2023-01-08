@@ -35,7 +35,7 @@ struct AppSummary {
     let averageUserRating: Double?
     let trackViewURL: String?
     let trackContentRating, version, wrapperType: String?
-    let price: Int?
+    let price: Double?
     let genres: [String]?
     let artistID: Int?
     let artistName: String?
