@@ -10,11 +10,11 @@ import Foundation
 struct AppSearchUsecase {
     
     private let appDetailRepository: AppDetailRepository
-    private let searchKeywordRepository: SearchKeywordRepository
+    private let searchKeywordRepository: SearchKeywordRepository?
     
     init(
         appDetailRepository: AppDetailRepository = ItunesAppDetailRepository(),
-        searchKeywordRepository: SearchKeywordRepository
+        searchKeywordRepository: SearchKeywordRepository?
     ) {
         self.appDetailRepository = appDetailRepository
         self.searchKeywordRepository = searchKeywordRepository
@@ -79,7 +79,7 @@ struct AppSearchUsecase {
                 softwareType: recentKeyword.configuration.softwareType))
         Task {
             do {
-                let _ = try await searchKeywordRepository.create(keyword: keyword)
+                let _ = try await searchKeywordRepository?.create(keyword: keyword)
             } catch {
                 print("Failed to create RecentSearchKeyword. error :\(error)")
             }
@@ -103,7 +103,7 @@ struct AppSearchUsecase {
                 softwareType: AppSearchingConfiguration.softwareType))
         Task {
             do {
-                let _ = try await searchKeywordRepository.create(keyword: keyword)
+                let _ = try await searchKeywordRepository?.create(keyword: keyword)
             } catch {
                 print("Failed to create RecentSearchKeyword. error :\(error)")
             }

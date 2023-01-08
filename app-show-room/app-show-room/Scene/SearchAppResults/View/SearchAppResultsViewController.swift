@@ -30,7 +30,13 @@ final class SearchAppResultsViewController: UITableViewController {
     private let searchKeywordTableHeaderViewModel = SearchKeywordTableHeaderViewModel()
     private let searchKeywordTableFooterViewModel = SearchKeywordTableFooterViewModel()
     private var searchAppResultsViewModel: SearchAppResultsTableViewModel
-    private var recentSearchKeywordViewModel = RecentSearchKeywordTableViewModel()
+    private var recentSearchKeywordViewModel = {
+        let searchKeywordRepository = RealmSearchKeywordRepository()
+        let viewModel = RecentSearchKeywordTableViewModel(
+            recentSearchKeywordUsecase: .init(searchKeywordRepository: searchKeywordRepository),
+            appSearchUsecase: .init(searchKeywordRepository: searchKeywordRepository))
+        return viewModel
+    }()
     
     private var searchKeywordSaving: SearhKeywordSaving {
         return recentSearchKeywordViewModel.isActivateSavingButton ? .active : .deactive

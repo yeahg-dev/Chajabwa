@@ -11,11 +11,19 @@ struct SearchKeywordAlertViewModel {
     
     // MARK: - AlertViewModel
     
+    struct RecentSearckKeywordRepositoryFailure: AlertViewModel {
+        
+        var alertController: UIAlertControllerViewModel = RecentSearckKeywordRepositoryFailureAlertControllerViewModel()
+        var alertActions: [UIAlertActionViewModel]? = [OKActionViewModel()]
+        
+    }
+    
     struct RecentSearchKeywordReadFailure: AlertViewModel {
         
         var alertController: UIAlertControllerViewModel = RecentSearchKeywordReadFailureAlertControllerViewModel()
         var alertActions: [UIAlertActionViewModel]? = [
             RetryActionViewModel(), ReportToDeveloperActionViewModel()]
+        
     }
     
     struct RecentSearchKeywordDeleteFailure: AlertViewModel {
@@ -27,6 +35,14 @@ struct SearchKeywordAlertViewModel {
     }
     
     // MARK: - UIAlertControllerViewModel
+    
+    struct RecentSearckKeywordRepositoryFailureAlertControllerViewModel: UIAlertControllerViewModel {
+        
+        var title: String? = "검색 기록 기능을 사용할 수 없습니다."
+        var message: String?
+        var preferredStyle: UIAlertControllerStyle = .alert
+        
+    }
     
     struct RecentSearchKeywordReadFailureAlertControllerViewModel: UIAlertControllerViewModel {
         
@@ -45,6 +61,13 @@ struct SearchKeywordAlertViewModel {
     }
     
     // MARK: - UIAlertActionViewModel
+    
+    struct OKActionViewModel: UIAlertActionViewModel {
+        
+        var title: String? = "확인"
+        var style: UIAlertActionStyle = .defaults
+        
+    }
     
     struct RetryActionViewModel: UIAlertActionViewModel {
         

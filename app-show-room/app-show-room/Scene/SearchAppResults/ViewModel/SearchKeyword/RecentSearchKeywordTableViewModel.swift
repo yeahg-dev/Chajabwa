@@ -20,20 +20,26 @@ final class RecentSearchKeywordTableViewModel: NSObject {
     weak var appDetailViewPresenter: AppDetailViewPresenter?
     weak var searchAppResultTableViewUpdater: SearchAppResultTableViewUpdater?
     
-    private let recentSearchKeywordUsecase: RecentSearchKeywordManagementUsecase
-    private let appSearchUsecase: AppSearchUsecase
+    private let recentSearchKeywordUsecase: RecentSearchKeywordManagementUsecase?
+    private let appSearchUsecase: AppSearchUsecase?
     
     private var keywords: [RecentSearchKeyword] = []
     
     private var cellModels: [RecentSearchKeywordCellModel] = []
     
-    override init() {
-        let recentSearchKeywordRepository = RealmSearchKeywordRepository()!
-        self.recentSearchKeywordUsecase = RecentSearchKeywordManagementUsecase(
-            searchKeywordRepository: recentSearchKeywordRepository)
-        self.appSearchUsecase = AppSearchUsecase(
-            searchKeywordRepository: recentSearchKeywordRepository)
+    init(
+        recentSearchKeywordUsecase: RecentSearchKeywordManagementUsecase?,
+        appSearchUsecase: AppSearchUsecase?)
+    {
+        self.recentSearchKeywordUsecase = recentSearchKeywordUsecase
+        self.appSearchUsecase = appSearchUsecase
         super.init()
+        guard let recentSearchKeywordUsecase,
+              let appSearchUsecase else {
+            searchAppResultTableViewUpdater?.presentAlert(
+                SearchKeywordAlertViewModel.RecentSearckKeywordRepositoryFailure())
+            return
+        }
         Task {
             await self.fetchLatestData()
         }
@@ -56,7 +62,7 @@ final class RecentSearchKeywordTableViewModel: NSObject {
     }
     
     var isActivateSavingButton: Bool {
-        return recentSearchKeywordUsecase.isActiveSavingSearchingKeyword()
+        return recentSearchKeywordUsecase?.isActiveSavingSearchingKeyword() ?? false
     }
     
     func fetchLatestData() async {
@@ -70,11 +76,12 @@ final class RecentSearchKeywordTableViewModel: NSObject {
     {
         let keyword = keywords[indexPath.row]
         do {
-            let appDetails = try await self.appSearchUsecase.searchAppDetail(of: keyword)
-            if appDetails.isEmpty {
+            let result = try await self.appSearchUsecase?.searchAppDetail(of: keyword)
+            if let appDetails = result,
+               appDetails.isEmpty {
                 return .failure(SearchAlertViewModel.EmptyResultAlertViewModel())
             } else {
-                return .success(appDetails)
+                return .success(result!)
             }
         } catch {
             return .failure(SearchAlertViewModel.SearchFailureAlertViewModel())
@@ -86,7 +93,7 @@ final class RecentSearchKeywordTableViewModel: NSObject {
             let cell = keywords[indexPath.row]
             print("🗑deleteRecentSearchKeyword 호출")
             do {
-                let _ = try await recentSearchKeywordUsecase.deleteRecentSearchKeyword(of: cell.identifier)
+                let _ = try await recentSearchKeywordUsecase?.deleteRecentSearchKeyword(of: cell.identifier)
                 await self.fetchLatestData()
                 return
             } catch {
@@ -99,7 +106,7 @@ final class RecentSearchKeywordTableViewModel: NSObject {
     
     func deleteAllRecentSearchKeyword() async {
         do {
-            let _ = try await recentSearchKeywordUsecase.deleteAllRecentSearchKeywords()
+            let _ = try await recentSearchKeywordUsecase?.deleteAllRecentSearchKeywords()
             await self.fetchLatestData()
         } catch {
             self.searchAppResultTableViewUpdater?.presentAlert(
@@ -110,7 +117,7 @@ final class RecentSearchKeywordTableViewModel: NSObject {
     
     private func fetchAllRecentSearchKeyword() async -> [RecentSearchKeyword] {
         do {
-            return try await recentSearchKeywordUsecase.allRecentSearchKeywords()
+            return try await recentSearchKeywordUsecase?.allRecentSearchKeywords() ?? []
         } catch {
             print("Failed to fetch RecentSearchKeyword. error: \(error)")
             return []

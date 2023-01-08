@@ -9,7 +9,8 @@ import UIKit
 
 struct SearchKeywordTableFooterViewModel {
     
-    private let usecase = RecentSearchKeywordManagementUsecase(searchKeywordRepository: RealmSearchKeywordRepository()!)
+    private let usecase = RecentSearchKeywordManagementUsecase(
+        searchKeywordRepository: RealmSearchKeywordRepository())
     
     var deleteAllButtonTitle: String {
         return "전체 삭제"
@@ -21,7 +22,7 @@ struct SearchKeywordTableFooterViewModel {
 
     func deleteAllButtonDidTapped() async {
         do {
-            let _ = try await usecase.deleteAllRecentSearchKeywords()
+            let _ = try await usecase?.deleteAllRecentSearchKeywords()
             return
         } catch {
             print("Failed to Delete RecentSearchKeyword. error: \(error)")

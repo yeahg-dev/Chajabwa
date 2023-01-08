@@ -9,7 +9,8 @@ import Foundation
 
 struct SearchKeywordTableHeaderViewModel {
     
-    private let usecase = RecentSearchKeywordManagementUsecase(searchKeywordRepository: RealmSearchKeywordRepository()!)
+    private let usecase = RecentSearchKeywordManagementUsecase(
+        searchKeywordRepository: RealmSearchKeywordRepository())
     
     var headerTitle: String {
         return "최근 검색어"
@@ -20,14 +21,14 @@ struct SearchKeywordTableHeaderViewModel {
     }
     
     var isSavingSwithOn: Bool {
-        return usecase.isActiveSavingSearchingKeyword()
+        return usecase?.isActiveSavingSearchingKeyword() ?? false
     }
     
     func switchStateDidChanged(to isOn: Bool) {
         if isOn == true {
-            usecase.activateSavingSearchKeyword()
+            usecase?.activateSavingSearchKeyword()
         } else {
-            usecase.deactivateSavingSearchKeyword()
+            usecase?.deactivateSavingSearchKeyword()
         }
         
     }
