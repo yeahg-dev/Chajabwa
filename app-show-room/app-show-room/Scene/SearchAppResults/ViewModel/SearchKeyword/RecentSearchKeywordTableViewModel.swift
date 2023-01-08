@@ -91,7 +91,6 @@ final class RecentSearchKeywordTableViewModel: NSObject {
     func deleteRecentSearchKeyword(
         at indexPath: IndexPath) async {
             let cell = keywords[indexPath.row]
-            print("🗑deleteRecentSearchKeyword 호출")
             do {
                 let _ = try await recentSearchKeywordUsecase?.deleteRecentSearchKeyword(of: cell.identifier)
                 await self.fetchLatestData()
@@ -162,9 +161,7 @@ extension RecentSearchKeywordTableViewModel: UITableViewDataSource {
         ) {  [unowned self] _, _, _ in
             Task {
                 await self.deleteRecentSearchKeyword(at: indexPath)
-                print("delete와 MainActor 사이")
                 await MainActor.run {
-                    print("MainActor에서 reloadData실행")
                     tableView.deleteRows(at: [indexPath], with: .fade)
                 }
             }

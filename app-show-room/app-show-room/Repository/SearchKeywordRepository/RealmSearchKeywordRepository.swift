@@ -74,7 +74,6 @@ struct RealmSearchKeywordRepository: SearchKeywordRepository {
                 do {
                     try realm.write {
                         realm.delete(keywordRealm)
-                        print("realm deletedKeyowrdRealm")
                     }
                     continuation.resume(returning: keyword)
                 } catch {
