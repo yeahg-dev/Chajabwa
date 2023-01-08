@@ -7,17 +7,17 @@
 
 import UIKit
 
-protocol SettingViewDelegate {
+protocol SettingViewDelegate: AnyObject {
     
     func didSettingChanged()
     
 }
 
-class SettingViewController: UIViewController {
+final class SettingViewController: UIViewController {
     
-    var settingViewdelegate: SettingViewDelegate?
+    weak var settingViewdelegate: SettingViewDelegate?
     
-    private let viewModel = SettingViewModel()
+    private var viewModel = SettingViewModel()
     private lazy var selectedIndex: Int = viewModel.selectedCountryIndex
     
     private lazy var navigationBar: UINavigationBar = {
@@ -25,12 +25,19 @@ class SettingViewController: UIViewController {
         let bar = UINavigationBar(
             frame: .init(
                 x: 0,
-                y: statusBarHeight,
+                y: 0,
                 width: view.frame.width,
                 height: statusBarHeight))
         bar.isTranslucent = false
         bar.backgroundColor = .systemBackground
         return bar
+    }()
+    
+    private let searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.placeholder = "나라 검색"
+        return searchBar
     }()
     
     private let countryTableView: UITableView = {
@@ -41,20 +48,26 @@ class SettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureLayout()
         configureNavigationBar()
+        configureLayout()
+        view.backgroundColor = .white
+        searchBar.delegate = self
         countryTableView.delegate = self
         countryTableView.dataSource = self
     }
     
     private func configureLayout() {
         view.addSubview(navigationBar)
+        view.addSubview(searchBar)
         view.addSubview(countryTableView)
         NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             countryTableView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor),
             countryTableView.topAnchor.constraint(
-                equalTo: navigationBar.bottomAnchor),
+                equalTo: searchBar.bottomAnchor),
             countryTableView.bottomAnchor.constraint(
                 equalTo: view.bottomAnchor),
             countryTableView.trailingAnchor.constraint(
@@ -103,7 +116,7 @@ extension SettingViewController: UITableViewDataSource {
         numberOfRowsInSection section: Int)
     -> Int
     {
-        return Country.list.count
+        return viewModel.numberOfCountry()
     }
     
     func tableView(
@@ -111,6 +124,7 @@ extension SettingViewController: UITableViewDataSource {
         cellForRowAt indexPath: IndexPath)
     -> UITableViewCell
     {
+        // TODO: - Cell 재사용
         let cell = UITableViewCell()
         var configuration = cell.defaultContentConfiguration()
         configuration.text = viewModel.countryName(at: indexPath.row)
@@ -140,5 +154,20 @@ extension SettingViewController: UITableViewDelegate {
                 at: [indexPath, beforeSelectedIndex],
                 with: .fade)
         }
+    
+}
+
+// MARK: - UISearchBarDelegate
+
+extension SettingViewController: UISearchBarDelegate {
+    
+    func searchBar(
+        _ searchBar: UISearchBar,
+        textDidChange searchText: String)
+    {
+        print(searchText)
+        viewModel.searchBarTextDidChange(to: searchText)
+        countryTableView.reloadData()
+    }
     
 }
