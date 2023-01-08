@@ -11,12 +11,12 @@ struct SettingViewModel {
     
     private let allCountries: [Country] = Country.list
     private var countries: [Country] = Country.list
+    private var selecteCountry: Country = AppSearchingConfiguration.countryISOCode
     
     var navigationBarTitle: String = "나라 설정"
     
-    var selectedCountryIndex: Int {
-        let currentCountry = AppSearchingConfiguration.countryISOCode
-        return Country.list.firstIndex { $0 == currentCountry } ?? 0
+    var selectedCountryIndex: Int? {
+        return countries.firstIndex { $0 == selecteCountry }
     }
     
     func numberOfCountry() -> Int {
@@ -30,12 +30,20 @@ struct SettingViewModel {
     func countryFlag(at row: Int) -> String? {
         return countries[safe: row]?.flag
     }
+    
+    func isSelectedCountry(at indexPath: IndexPath) -> Bool {
+        return indexPath.row == selectedCountryIndex
+    }
 
-    func didSelectCountry(at row: Int) {
-        guard let country = countries[safe: row] else {
+    mutating func didSelectCountry(at indexPath: IndexPath) {
+        guard let country = countries[safe: indexPath.row] else {
             return
         }
-        AppSearchingConfiguration.setCountry(by: country)
+        selecteCountry = country
+    }
+    
+    func saveSetting() {
+        AppSearchingConfiguration.setCountry(by: selecteCountry)
     }
     
     mutating func searchBarTextDidChange(to text: String) {

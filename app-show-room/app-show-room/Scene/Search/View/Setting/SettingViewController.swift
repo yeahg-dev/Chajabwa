@@ -18,7 +18,6 @@ final class SettingViewController: UIViewController {
     weak var settingViewdelegate: SettingViewDelegate?
     
     private var viewModel = SettingViewModel()
-    private lazy var selectedIndex: Int = viewModel.selectedCountryIndex
     
     private lazy var navigationBar: UINavigationBar = {
         let statusBarHeight: CGFloat = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0
@@ -107,7 +106,7 @@ final class SettingViewController: UIViewController {
     }
     
     private func saveSetting() {
-        viewModel.didSelectCountry(at: selectedIndex)
+        viewModel.saveSetting()
     }
     
 }
@@ -137,7 +136,7 @@ extension SettingViewController: UITableViewDataSource {
         configuration.secondaryText = viewModel.countryFlag(at: indexPath.row)
         cell.contentConfiguration = configuration
         
-        if selectedIndex == indexPath.row {
+        if viewModel.selectedCountryIndex == indexPath.row {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none
@@ -154,11 +153,8 @@ extension SettingViewController: UITableViewDelegate {
     func tableView(
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath) {
-            let beforeSelectedIndex = IndexPath(row: selectedIndex, section: 0)
-            selectedIndex = indexPath.row
-            tableView.reloadRows(
-                at: [indexPath, beforeSelectedIndex],
-                with: .fade)
+            viewModel.didSelectCountry(at: indexPath)
+            tableView.reloadData()
         }
     
 }
