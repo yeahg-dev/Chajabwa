@@ -7,12 +7,6 @@
 
 import UIKit
 
-protocol SearchKeywordSavingUpdater: AnyObject {
-    
-    func didChangedVaule(to isOn: Bool)
-    
-}
-
 final class SearchKeywordTableHeaderView: UIView {
     
     weak var recentKeywordSavingUpdater: SearchKeywordSavingUpdater?

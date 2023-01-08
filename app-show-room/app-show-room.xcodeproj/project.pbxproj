@@ -18,6 +18,8 @@
 		631F096528D088B3002419B7 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631F096428D088B3002419B7 /* Int+Extension.swift */; };
 		631F096928D0C539002419B7 /* numberFormattingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631F096828D0C539002419B7 /* numberFormattingTest.swift */; };
 		631F096B28D0D05C002419B7 /* PaddingTitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631F096A28D0D05C002419B7 /* PaddingTitleSupplementaryView.swift */; };
+		6322E701296AE64500134B30 /* SearchKeywordSavingUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E700296AE64500134B30 /* SearchKeywordSavingUpdater.swift */; };
+		6322E703296AE66D00134B30 /* SearchKeywordTableViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E702296AE66D00134B30 /* SearchKeywordTableViewUpdater.swift */; };
 		632B93292942014E004CAD58 /* SearchAppTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632B93282942014E004CAD58 /* SearchAppTableViewCell.swift */; };
 		632B932B2942D8E0004CAD58 /* ScreenshotImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632B932A2942D8E0004CAD58 /* ScreenshotImageView.swift */; };
 		632B932E2943063A004CAD58 /* SearchAppTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632B932D2943063A004CAD58 /* SearchAppTableViewCellModel.swift */; };
@@ -146,6 +148,8 @@
 		631F096428D088B3002419B7 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		631F096828D0C539002419B7 /* numberFormattingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = numberFormattingTest.swift; sourceTree = "<group>"; };
 		631F096A28D0D05C002419B7 /* PaddingTitleSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingTitleSupplementaryView.swift; sourceTree = "<group>"; };
+		6322E700296AE64500134B30 /* SearchKeywordSavingUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchKeywordSavingUpdater.swift; sourceTree = "<group>"; };
+		6322E702296AE66D00134B30 /* SearchKeywordTableViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchKeywordTableViewUpdater.swift; sourceTree = "<group>"; };
 		632B93282942014E004CAD58 /* SearchAppTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAppTableViewCell.swift; sourceTree = "<group>"; };
 		632B932A2942D8E0004CAD58 /* ScreenshotImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotImageView.swift; sourceTree = "<group>"; };
 		632B932D2943063A004CAD58 /* SearchAppTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAppTableViewCellModel.swift; sourceTree = "<group>"; };
@@ -649,6 +653,8 @@
 				63D52B6A2962F983006F043D /* SearchKeywordTableHeaderView.swift */,
 				6396270F296560F80037A2B7 /* SearchKeywordTableFooterView.swift */,
 				63D52B682962D590006F043D /* RecentSearchKeywordTableViewCell.swift */,
+				6322E700296AE64500134B30 /* SearchKeywordSavingUpdater.swift */,
+				6322E702296AE66D00134B30 /* SearchKeywordTableViewUpdater.swift */,
 			);
 			path = SearchKeyword;
 			sourceTree = "<group>";
@@ -1053,6 +1059,7 @@
 				633A925328A79C2500B3435F /* APIService.swift in Sources */,
 				63861EB628AA10990062A8BD /* SearchViewModel.swift in Sources */,
 				63861EC628AA43450062A8BD /* AppDetailViewModel.swift in Sources */,
+				6322E701296AE64500134B30 /* SearchKeywordSavingUpdater.swift in Sources */,
 				630068D02952947300BD73C9 /* AppSearchResults.swift in Sources */,
 				63A04E0F29668DB3007E8A8C /* SearchKeywordAlertViewModel.swift in Sources */,
 				63075FBF28C1D7590094E117 /* ReleaseNoteCollectionViewCell.swift in Sources */,
@@ -1098,6 +1105,7 @@
 				63AFB9B628DC5D4C008E13A4 /* StarImage.swift in Sources */,
 				631F096528D088B3002419B7 /* Int+Extension.swift in Sources */,
 				63D52B3F29617DBC006F043D /* RecentSearchKeywordTableViewModel.swift in Sources */,
+				6322E703296AE66D00134B30 /* SearchKeywordTableViewUpdater.swift in Sources */,
 				63CEA7392940AFC3009684A7 /* SoftwareType.swift in Sources */,
 				63D52B1A295AF206006F043D /* AnimatableArrowLayer.swift in Sources */,
 				6388DE5D28A691820011D47E /* AppGenre.swift in Sources */,

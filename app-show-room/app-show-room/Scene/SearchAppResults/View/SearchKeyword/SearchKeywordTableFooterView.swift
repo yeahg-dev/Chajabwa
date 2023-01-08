@@ -7,12 +7,6 @@
 
 import UIKit
 
-protocol SearchKeywordTableViewUpdater: AnyObject {
-    
-    func allSearchKeywordDidDeleted()
-    
-}
-
 final class SearchKeywordTableFooterView: UIView {
     
     weak var searchKeywordTableViewUpdater: SearchKeywordTableViewUpdater?
