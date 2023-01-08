@@ -124,15 +124,19 @@ extension SearchAppResultsViewController: AppDetailViewPresenter {
 extension SearchAppResultsViewController: SearchAppResultTableViewUpdater {
     
     func updateSearchAppResultTableView(with searchApps: [AppDetail]) {
+        hideFooterAndHeaderView()
+        scrollToTop()
         searchAppResultsViewModel = SearchAppResultsTableViewModel(
             searchAppDetails: searchApps)
         searchAppResultsViewModel.appDetailViewPresenter = self
         tableView.dataSource = searchAppResultsViewModel
         tableView.delegate = searchAppResultsViewModel
+        tableView.reloadData()
+    }
+    
+    private func hideFooterAndHeaderView() {
         tableView.tableHeaderView?.isHidden = true
         tableView.tableFooterView?.isHidden = true
-        tableView.reloadData()
-        scrollToTop()
     }
     
     func presentAlert(_ alertViewModel: AlertViewModel) {
