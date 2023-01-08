@@ -46,19 +46,19 @@ final class RecentSearchKeywordTableViewModel: NSObject {
     }
     
     var title: String {
-        return "최근 검색어"
+        return Text.recentSearchKeyword.rawValue
     }
     
     var savingSwtichTitle: String {
-        return "저장"
+        return Text.save.rawValue
     }
     
     var deleteAllButtonTitle: String {
-        return "전체 삭제"
+        return Text.deleteAll.rawValue
     }
     
     var savingModeOffDescription: String {
-        return "검색어 저장 기능이 꺼져 있습니다."
+        return Text.savingIsDeactivate.rawValue
     }
     
     var isActivateSavingButton: Bool {
