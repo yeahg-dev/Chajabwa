@@ -33,10 +33,11 @@ final class SettingViewController: UIViewController {
         return bar
     }()
     
-    private let searchBar: UISearchBar = {
+    private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.placeholder = "나라 검색"
+        searchBar.delegate = self
         return searchBar
     }()
     
@@ -49,11 +50,9 @@ final class SettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
+        configureCountryTableView()
         configureLayout()
         view.backgroundColor = .white
-        searchBar.delegate = self
-        countryTableView.delegate = self
-        countryTableView.dataSource = self
     }
     
     private func configureLayout() {
@@ -90,6 +89,12 @@ final class SettingViewController: UIViewController {
         navigationBar.items = [navigationItem]
     }
     
+    private func configureCountryTableView() {
+        countryTableView.delegate = self
+        countryTableView.dataSource = self
+        countryTableView.register(cellWithClass: UITableViewCell.self)
+    }
+    
     @objc func dismissView() {
         self.dismiss(animated: true)
     }
@@ -124,8 +129,9 @@ extension SettingViewController: UITableViewDataSource {
         cellForRowAt indexPath: IndexPath)
     -> UITableViewCell
     {
-        // TODO: - Cell 재사용
-        let cell = UITableViewCell()
+        let cell = tableView.dequeueReusableCell(
+            withClass: UITableViewCell.self,
+            for: indexPath)
         var configuration = cell.defaultContentConfiguration()
         configuration.text = viewModel.countryName(at: indexPath.row)
         configuration.secondaryText = viewModel.countryFlag(at: indexPath.row)
@@ -165,7 +171,6 @@ extension SettingViewController: UISearchBarDelegate {
         _ searchBar: UISearchBar,
         textDidChange searchText: String)
     {
-        print(searchText)
         viewModel.searchBarTextDidChange(to: searchText)
         countryTableView.reloadData()
     }
