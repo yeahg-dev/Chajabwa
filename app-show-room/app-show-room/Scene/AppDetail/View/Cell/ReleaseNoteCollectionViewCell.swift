@@ -106,10 +106,6 @@ final class ReleaseNoteCollectionViewCell: BaseCollectionViewCell {
     
     override func setConstraints() {
          NSLayoutConstraint.activate([
-             contentView.topAnchor.constraint(equalTo: self.topAnchor),
-             contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-             contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-             contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
              containerStackView.leadingAnchor.constraint(
                  equalTo: contentView.leadingAnchor,
                  constant: Design.paddingLeading),
