@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SearchAppTableViewCell: UITableViewCell {
+final class SearchAppTableViewCell: BaseTableViewCell {
     
     private let containerView: UIView = {
         let view = UIView()
@@ -119,16 +119,6 @@ final class SearchAppTableViewCell: UITableViewCell {
     
     private var cancellableTasks: [CancellableTask] = []
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.addSubviews()
-        self.setConstraints()
-    }
-    
     func bind(_ viewModel: SearchAppTableViewCellModel) {
         let defaultImage = UIImage(withBackground: .gray)
         Task {
@@ -168,7 +158,7 @@ final class SearchAppTableViewCell: UITableViewCell {
         }
     }
     
-    private func addSubviews() {
+    override func addSubviews() {
         containerView.addSubview(iconImageView)
         containerView.addSubview(labelsStackView)
         containerView.addSubview(bookmarkButton)
@@ -176,7 +166,7 @@ final class SearchAppTableViewCell: UITableViewCell {
         self.contentView.addSubview(containerView)
     }
     
-    private func setConstraints() {
+    override func setConstraints() {
         let screenshotImageViewHeight = screenshotImageView1.height
         let screenshotStackViewHeightAnchor = screenshotStackView.heightAnchor.constraint(
             equalToConstant: screenshotImageViewHeight)

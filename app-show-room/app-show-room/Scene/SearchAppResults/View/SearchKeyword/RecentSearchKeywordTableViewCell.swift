@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class RecentSearchKeywordTableViewCell: UITableViewCell {
+final class RecentSearchKeywordTableViewCell: BaseTableViewCell {
 
     private let clockIconImageView: UIImageView = {
         let imageView = UIImageView()
@@ -64,16 +64,6 @@ final class RecentSearchKeywordTableViewCell: UITableViewCell {
         return label
     }()
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.addSubviews()
-        self.setConstraints()
-    }
-
     func bind(_ viewModel: RecentSearchKeywordCellModel) {
         keywordLabel.text = viewModel.keyword
         countryFlagLabel.text = viewModel.countryFlag
@@ -81,13 +71,13 @@ final class RecentSearchKeywordTableViewCell: UITableViewCell {
         dateLabel.text = viewModel.date
     }
 
-    private func addSubviews() {
+    override func addSubviews() {
         contentView.addSubview(clockIconImageView)
         contentView.addSubview(keywordStackView)
         contentView.addSubview(dateLabel)
     }
 
-    private func setConstraints() {
+    override func setConstraints() {
         NSLayoutConstraint.activate([
             clockIconImageView.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor,
