@@ -45,10 +45,10 @@ struct SearchViewModel {
 
 extension SearchViewModel: SearchViewModelInput {
 
-    var navigationItemTitle: String { SearchSceneNamespace.navigationTitle }
+    var navigationItemTitle: String { SearchAlertViewModel.navigationTitle }
     
     var searchBarPlaceholder: String {
-        return SearchSceneNamespace.searchBarPlaceholder
+        return SearchAlertViewModel.searchBarPlaceholder
     }
     
     var platformType: SoftwareType {
@@ -72,12 +72,12 @@ extension SearchViewModel: SearchViewModelInput {
             let appDetails = try await self.appSearchUsecase.searchAppDetail(
                 of: input)
             if appDetails.isEmpty {
-                return .failure(SearchSceneNamespace.emptyResultAlertViewModel)
+                return .failure(SearchAlertViewModel.EmptyResultAlertViewModel())
             } else {
                 return .success(appDetails)
             }
         } catch {
-            return .failure(SearchSceneNamespace.searchFailureAlertViewModel)
+            return .failure(SearchAlertViewModel.SearchFailureAlertViewModel())
         }
     }
     

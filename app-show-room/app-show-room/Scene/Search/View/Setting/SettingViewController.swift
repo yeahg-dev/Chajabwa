@@ -7,30 +7,37 @@
 
 import UIKit
 
-protocol SettingViewDelegate {
+protocol SettingViewDelegate: AnyObject {
     
     func didSettingChanged()
     
 }
 
-class SettingViewController: UIViewController {
+final class SettingViewController: UIViewController {
     
-    var settingViewdelegate: SettingViewDelegate?
+    weak var settingViewdelegate: SettingViewDelegate?
     
-    private let viewModel = SettingViewModel()
-    private lazy var selectedIndex: Int = viewModel.selectedCountryIndex
+    private var viewModel = SettingViewModel()
     
     private lazy var navigationBar: UINavigationBar = {
         let statusBarHeight: CGFloat = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0
         let bar = UINavigationBar(
             frame: .init(
                 x: 0,
-                y: statusBarHeight,
+                y: 0,
                 width: view.frame.width,
                 height: statusBarHeight))
         bar.isTranslucent = false
         bar.backgroundColor = .systemBackground
         return bar
+    }()
+    
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.placeholder = "나라 검색"
+        searchBar.delegate = self
+        return searchBar
     }()
     
     private let countryTableView: UITableView = {
@@ -41,20 +48,24 @@ class SettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureLayout()
         configureNavigationBar()
-        countryTableView.delegate = self
-        countryTableView.dataSource = self
+        configureCountryTableView()
+        configureLayout()
+        view.backgroundColor = .white
     }
     
     private func configureLayout() {
         view.addSubview(navigationBar)
+        view.addSubview(searchBar)
         view.addSubview(countryTableView)
         NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             countryTableView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor),
             countryTableView.topAnchor.constraint(
-                equalTo: navigationBar.bottomAnchor),
+                equalTo: searchBar.bottomAnchor),
             countryTableView.bottomAnchor.constraint(
                 equalTo: view.bottomAnchor),
             countryTableView.trailingAnchor.constraint(
@@ -77,6 +88,12 @@ class SettingViewController: UIViewController {
         navigationBar.items = [navigationItem]
     }
     
+    private func configureCountryTableView() {
+        countryTableView.delegate = self
+        countryTableView.dataSource = self
+        countryTableView.register(cellWithClass: UITableViewCell.self)
+    }
+    
     @objc func dismissView() {
         self.dismiss(animated: true)
     }
@@ -89,7 +106,7 @@ class SettingViewController: UIViewController {
     }
     
     private func saveSetting() {
-        viewModel.didSelectCountry(at: selectedIndex)
+        viewModel.saveSetting()
     }
     
 }
@@ -103,7 +120,7 @@ extension SettingViewController: UITableViewDataSource {
         numberOfRowsInSection section: Int)
     -> Int
     {
-        return Country.list.count
+        return viewModel.numberOfCountry()
     }
     
     func tableView(
@@ -111,13 +128,15 @@ extension SettingViewController: UITableViewDataSource {
         cellForRowAt indexPath: IndexPath)
     -> UITableViewCell
     {
-        let cell = UITableViewCell()
+        let cell = tableView.dequeueReusableCell(
+            withClass: UITableViewCell.self,
+            for: indexPath)
         var configuration = cell.defaultContentConfiguration()
         configuration.text = viewModel.countryName(at: indexPath.row)
         configuration.secondaryText = viewModel.countryFlag(at: indexPath.row)
         cell.contentConfiguration = configuration
         
-        if selectedIndex == indexPath.row {
+        if viewModel.selectedCountryIndex == indexPath.row {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none
@@ -134,11 +153,22 @@ extension SettingViewController: UITableViewDelegate {
     func tableView(
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath) {
-            let beforeSelectedIndex = IndexPath(row: selectedIndex, section: 0)
-            selectedIndex = indexPath.row
-            tableView.reloadRows(
-                at: [indexPath, beforeSelectedIndex],
-                with: .fade)
+            viewModel.didSelectCountry(at: indexPath)
+            tableView.reloadData()
         }
+    
+}
+
+// MARK: - UISearchBarDelegate
+
+extension SettingViewController: UISearchBarDelegate {
+    
+    func searchBar(
+        _ searchBar: UISearchBar,
+        textDidChange searchText: String)
+    {
+        viewModel.searchBarTextDidChange(to: searchText)
+        countryTableView.reloadData()
+    }
     
 }

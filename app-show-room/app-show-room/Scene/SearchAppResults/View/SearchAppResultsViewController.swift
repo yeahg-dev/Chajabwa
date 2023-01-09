@@ -9,34 +9,68 @@ import UIKit
 
 protocol SearchAppResultsViewDelegate: AnyObject {
     
-    func didSelectRowOf(_ appDetail: AppDetail)
+    func pushAppDetailView(_ appDetail: AppDetail)
+    
+}
+
+private enum SearhKeywordSaving {
+    
+    case active
+    case deactive
     
 }
 
 final class SearchAppResultsViewController: UITableViewController {
     
-    private var viewModel: SearchAppResultsViewModel
-    
     weak var delegate: SearchAppResultsViewDelegate?
+    
+    private let searchKeywordTableHeaderView = SearchKeywordTableHeaderView()
+    private let searchKeywordTableFooterView = SearchKeywordTableFooterView()
+    
+    private let searchKeywordTableHeaderViewModel = SearchKeywordTableHeaderViewModel()
+    private let searchKeywordTableFooterViewModel = SearchKeywordTableFooterViewModel()
+    private var searchAppResultsViewModel: SearchAppResultsTableViewModel
+    private var recentSearchKeywordViewModel = {
+        let searchKeywordRepository = RealmSearchKeywordRepository()
+        let viewModel = RecentSearchKeywordTableViewModel(
+            recentSearchKeywordUsecase: .init(searchKeywordRepository: searchKeywordRepository),
+            appSearchUsecase: .init(searchKeywordRepository: searchKeywordRepository))
+        return viewModel
+    }()
+    
+    private var searchKeywordSaving: SearhKeywordSaving {
+        return recentSearchKeywordViewModel.isActivateSavingButton ? .active : .deactive
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(viewModel: SearchAppResultsViewModel) {
-        self.viewModel = viewModel
+    init(viewModel: SearchAppResultsTableViewModel) {
+        self.searchAppResultsViewModel = viewModel
         super.init(style: .plain)
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureTableView()
-        configureView()
+    
+    func showRecentSearchKeywordTableView() {
+        tableView.dataSource = recentSearchKeywordViewModel
+        tableView.delegate = recentSearchKeywordViewModel
+        refreshSearchKeywordTableView()
     }
     
-    func showSearchAppResults(viewModel: SearchAppResultsViewModel) {
-        self.viewModel = viewModel
-        tableView.reloadData()
+    func refreshSearchKeywordTableView() {
+        Task {
+            await recentSearchKeywordViewModel.fetchLatestData()
+            await MainActor.run(body: {
+                self.tableView.tableHeaderView?.isHidden = false
+                switch self.searchKeywordSaving {
+                case .active:
+                    self.tableView.tableFooterView?.isHidden = false
+                case .deactive:
+                    self.tableView.tableFooterView?.isHidden = true
+                }
+                self.tableView.reloadData()
+            })
+        }
     }
     
     func scrollToTop() {
@@ -50,43 +84,98 @@ final class SearchAppResultsViewController: UITableViewController {
             animated: true)
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureView()
+        configureTableView()
+    }
+    
     private func configureView() {
         view.backgroundColor = Design.backgroundColor
-        tableView.translatesAutoresizingMaskIntoConstraints = false
     }
-
+    
     private func configureTableView() {
         tableView.register(cellWithClass: SearchAppTableViewCell.self)
+        tableView.register(cellWithClass: RecentSearchKeywordTableViewCell.self)
+        
+        searchAppResultsViewModel.appDetailViewPresenter = self
+        recentSearchKeywordViewModel.appDetailViewPresenter = self
+        recentSearchKeywordViewModel.searchAppResultTableViewUpdater = self
+        
+        searchKeywordTableHeaderView.frame = .init(
+            origin: .zero,
+            size: .init(width: view.bounds.width, height: 75))
+        tableView.tableHeaderView = searchKeywordTableHeaderView
+        searchKeywordTableHeaderView.recentKeywordSavingUpdater = self
+        searchKeywordTableHeaderView.bind(searchKeywordTableHeaderViewModel)
+        
+        searchKeywordTableFooterView.frame = .init(
+            origin: .zero,
+            size: .init(width: view.bounds.width, height: 60))
+        tableView.tableFooterView = searchKeywordTableFooterView
+        searchKeywordTableFooterView.searchKeywordTableViewUpdater = self
+        searchKeywordTableFooterView.bind(searchKeywordTableFooterViewModel)
     }
     
-    override func tableView(
-        _ tableView: UITableView,
-        numberOfRowsInSection section: Int)
-    -> Int
-    {
-        return viewModel.numberOfSearchAppCell()
+}
+
+extension SearchAppResultsViewController: AppDetailViewPresenter {
+    
+    func pushAppDetailView(of app: AppDetail) {
+        delegate?.pushAppDetailView(app)
     }
     
-    override func tableView(
-        _ tableView: UITableView,
-        cellForRowAt indexPath: IndexPath)
-    -> UITableViewCell
-    {
-        let cell = tableView.dequeueReusableCell(
-            withClass: SearchAppTableViewCell.self,
-            for: indexPath)
-        let cellModel = viewModel.searchAppCellModel(indexPath: indexPath)
-        cell.bind(cellModel)
-        return cell
+}
+
+extension SearchAppResultsViewController: SearchAppResultTableViewUpdater {
+    
+    func updateSearchAppResultTableView(with searchApps: [AppDetail]) {
+        hideFooterAndHeaderView()
+        scrollToTop()
+        searchAppResultsViewModel = SearchAppResultsTableViewModel(
+            searchAppDetails: searchApps)
+        searchAppResultsViewModel.appDetailViewPresenter = self
+        tableView.dataSource = searchAppResultsViewModel
+        tableView.delegate = searchAppResultsViewModel
+        tableView.reloadData()
     }
     
-    override func tableView(
-        _ tableView: UITableView,
-        didSelectRowAt indexPath: IndexPath) {
-            tableView.deselectRow(at: indexPath, animated: true)
-            let appDetail = viewModel.didSelectAppResultsTableViewCell(
-                indexPath.row)
-            delegate?.didSelectRowOf(appDetail)
+    private func hideFooterAndHeaderView() {
+        tableView.tableHeaderView?.isHidden = true
+        tableView.tableFooterView?.isHidden = true
+    }
+    
+    func presentAlert(_ alertViewModel: AlertViewModel) {
+        let alertController = UIAlertController(
+            title: alertViewModel.alertController.title,
+            message: alertViewModel.alertController.message,
+            preferredStyle: alertViewModel.alertController.preferredStyle.value)
+        if let alertActions = alertViewModel.alertActions {
+            alertActions.forEach { actionViewModel in
+                let action = UIAlertAction(
+                    title: actionViewModel.title,
+                    style: actionViewModel.style.value)
+                alertController.addAction(action)
+            }
+        }
+        
+        present(alertController, animated: false)
+    }
+    
+}
+
+extension SearchAppResultsViewController: SearchKeywordSavingUpdater {
+    
+    func didChangedVaule(to isOn: Bool) {
+        refreshSearchKeywordTableView()
+    }
+    
+}
+
+extension SearchAppResultsViewController: SearchKeywordTableViewUpdater {
+    
+    func allSearchKeywordDidDeleted() {
+        refreshSearchKeywordTableView()
     }
     
 }

@@ -32,6 +32,11 @@ enum Text: String {
     case ratingCount
     case languageCount
     
+    case deleteAll = "전체 삭제"
+    case save = "저장"
+    case recentSearchKeyword = "최근 검색어"
+    case savingIsDeactivate = "검색어 저장 기능이 꺼져 있습니다."
+    
     var value: String {
         return self.rawValue
     }

@@ -12,7 +12,7 @@ final class SearchViewController: UIViewController {
     // MARK: - UIComponents
     
     private let searchAppResultsController = SearchAppResultsViewController(
-        viewModel: SearchAppResultsViewModel(searchAppDetails: []))
+        viewModel: SearchAppResultsTableViewModel(searchAppDetails: []))
     
     private lazy var searchController = UISearchController(
         searchResultsController: searchAppResultsController)
@@ -79,11 +79,13 @@ final class SearchViewController: UIViewController {
             title: alertViewModel.alertController.title,
             message: alertViewModel.alertController.message,
             preferredStyle: alertViewModel.alertController.preferredStyle.value)
-        if let alertActionViewModel = alertViewModel.alertAction {
-            let action = UIAlertAction(
-                title: alertActionViewModel.title,
-                style: alertActionViewModel.style.value)
-            alertController.addAction(action)
+        if let alertActions = alertViewModel.alertActions {
+            alertActions.forEach { actionViewModel in
+                let action = UIAlertAction(
+                    title: actionViewModel.title,
+                    style: actionViewModel.style.value)
+                alertController.addAction(action)
+            }
         }
         
         present(alertController, animated: false)
@@ -95,12 +97,18 @@ final class SearchViewController: UIViewController {
 
 extension SearchViewController: UISearchBarDelegate {
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchController.showsSearchResultsController = true
+        searchAppResultsController.showRecentSearchKeywordTableView()
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let input = searchController.searchBar.text else {
             return
         }
         Task {
             let result = await viewModel.didTappedSearch(with: input)
+            searchAppResultsController.refreshSearchKeywordTableView()
             switch result {
             case .success(let appDetail):
                 if appDetail.count == 1 {
@@ -110,12 +118,7 @@ extension SearchViewController: UISearchBarDelegate {
                         appDetailViewController,
                         animated: true)
                 } else {
-                    let searchAppResultsViewModel = SearchAppResultsViewModel(
-                        searchAppDetails: appDetail)
-                    searchAppResultsController.showSearchAppResults(
-                        viewModel: searchAppResultsViewModel)
-                    searchController.showsSearchResultsController = true
-                    searchAppResultsController.scrollToTop()
+                    searchAppResultsController.updateSearchAppResultTableView(with: appDetail)
                 }
             case .failure(let alertViewModel):
                 self.presentAlert(alertViewModel)
@@ -124,8 +127,7 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchAppResultsController.showSearchAppResults(
-            viewModel: SearchAppResultsViewModel(searchAppDetails: []))
+        searchAppResultsController.updateSearchAppResultTableView(with: [])
     }
     
 }
@@ -134,7 +136,7 @@ extension SearchViewController: UISearchBarDelegate {
 
 extension SearchViewController: SearchAppResultsViewDelegate {
     
-    func didSelectRowOf(_ appDetail: AppDetail) {
+    func pushAppDetailView(_ appDetail: AppDetail) {
         let appDetailViewController = AppDetailViewController(
             appDetailViewModel: AppDetailViewModel(app: appDetail))
         navigationController?.pushViewController(

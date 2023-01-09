@@ -38,6 +38,22 @@ struct Country: Decodable, Equatable {
             .joined()
     }
     
+    init(name: String, dialCode: String, isoCode: String) {
+        self.name = name
+        self.dialCode = dialCode
+        self.isoCode = isoCode
+    }
+    
+    init?(name: String) {
+        if let country = Country.list.first(where: { $0.name == name }) {
+            self.name = name
+            self.dialCode = country.dialCode
+            self.isoCode = country.isoCode
+        } else {
+            return nil
+        }
+    }
+    
     private enum CodingKeys: String, CodingKey {
         
         case name

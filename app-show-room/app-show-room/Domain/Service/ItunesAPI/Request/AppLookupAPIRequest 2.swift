@@ -16,8 +16,8 @@ struct AppLookupAPIRequest: iTunesAPIRequest {
     var query: [String: Any]
     var body: Data? = nil
     
-    init(appID: Int, countryISOCode: String, softwareType: String) {
-        self.query = ["id": appID, "country": countryISOCode, "software": softwareType]
+    init(appID: Int, country:String, softwareType: String) {
+        self.query = ["id": appID, "country": country, "software": softwareType]
     }
     
 }
