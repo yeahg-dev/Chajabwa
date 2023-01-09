@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchAppTableViewCell: UITableViewCell {
+final class SearchAppTableViewCell: UITableViewCell {
     
     private let containerView: UIView = {
         let view = UIView()

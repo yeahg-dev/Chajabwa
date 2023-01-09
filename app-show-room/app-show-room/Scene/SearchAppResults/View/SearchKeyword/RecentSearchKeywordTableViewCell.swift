@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RecentSearchKeywordTableViewCell: UITableViewCell {
+final class RecentSearchKeywordTableViewCell: UITableViewCell {
 
     private let clockIconImageView: UIImageView = {
         let imageView = UIImageView()

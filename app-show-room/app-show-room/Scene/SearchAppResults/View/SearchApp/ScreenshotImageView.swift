@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ScreenshotImageView: UIImageView {
+final class ScreenshotImageView: UIImageView {
 
     let height = Design.height
     
