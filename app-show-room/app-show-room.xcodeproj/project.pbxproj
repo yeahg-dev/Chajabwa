@@ -21,6 +21,8 @@
 		6322E701296AE64500134B30 /* SearchKeywordSavingUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E700296AE64500134B30 /* SearchKeywordSavingUpdater.swift */; };
 		6322E703296AE66D00134B30 /* SearchKeywordTableViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E702296AE66D00134B30 /* SearchKeywordTableViewUpdater.swift */; };
 		6322E705296C06D100134B30 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E704296C06D100134B30 /* BaseTableViewCell.swift */; };
+		6322E708296C23F500134B30 /* SavedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E707296C23F500134B30 /* SavedApp.swift */; };
+		6322E70B296C50BC00134B30 /* AppFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E70A296C50BC00134B30 /* AppFolder.swift */; };
 		632B93292942014E004CAD58 /* SearchAppTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632B93282942014E004CAD58 /* SearchAppTableViewCell.swift */; };
 		632B932B2942D8E0004CAD58 /* ScreenshotImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632B932A2942D8E0004CAD58 /* ScreenshotImageView.swift */; };
 		632B932E2943063A004CAD58 /* SearchAppTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632B932D2943063A004CAD58 /* SearchAppTableViewCellModel.swift */; };
@@ -152,6 +154,8 @@
 		6322E700296AE64500134B30 /* SearchKeywordSavingUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchKeywordSavingUpdater.swift; sourceTree = "<group>"; };
 		6322E702296AE66D00134B30 /* SearchKeywordTableViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchKeywordTableViewUpdater.swift; sourceTree = "<group>"; };
 		6322E704296C06D100134B30 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		6322E707296C23F500134B30 /* SavedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedApp.swift; sourceTree = "<group>"; };
+		6322E70A296C50BC00134B30 /* AppFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolder.swift; sourceTree = "<group>"; };
 		632B93282942014E004CAD58 /* SearchAppTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAppTableViewCell.swift; sourceTree = "<group>"; };
 		632B932A2942D8E0004CAD58 /* ScreenshotImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotImageView.swift; sourceTree = "<group>"; };
 		632B932D2943063A004CAD58 /* SearchAppTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAppTableViewCellModel.swift; sourceTree = "<group>"; };
@@ -281,6 +285,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6322E706296C23C100134B30 /* AppFolder */ = {
+			isa = PBXGroup;
+			children = (
+				6322E70A296C50BC00134B30 /* AppFolder.swift */,
+				6322E707296C23F500134B30 /* SavedApp.swift */,
+			);
+			path = AppFolder;
+			sourceTree = "<group>";
+		};
 		632B93262942010C004CAD58 /* SearchAppResults */ = {
 			isa = PBXGroup;
 			children = (
@@ -764,6 +777,7 @@
 		63D52B1F295D5F7C006F043D /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				6322E706296C23C100134B30 /* AppFolder */,
 				63D52B20295D5FC4006F043D /* AppSearch */,
 				6388DE5128A664150011D47E /* App */,
 			);
@@ -1045,6 +1059,7 @@
 				6322E705296C06D100134B30 /* BaseTableViewCell.swift in Sources */,
 				6388DE4228A6404E0011D47E /* SearchViewController.swift in Sources */,
 				6384EC5828AB7DB900D1F821 /* DescriptionCollectionViewCell.swift in Sources */,
+				6322E70B296C50BC00134B30 /* AppFolder.swift in Sources */,
 				63D52B6B2962F983006F043D /* SearchKeywordTableHeaderView.swift in Sources */,
 				6388DE5A28A68E090011D47E /* SearchAlertViewModel.swift in Sources */,
 				63861ECD28AA6F1D0062A8BD /* SignboardCollectionViewCell.swift in Sources */,
@@ -1095,6 +1110,7 @@
 				638722EE28A95F9800A6ED7B /* Observable.swift in Sources */,
 				6384E5CA28BCDD3800563FD5 /* ScreenshotGalleryViewModel.swift in Sources */,
 				63CEA73529408457009684A7 /* Country.swift in Sources */,
+				6322E708296C23F500134B30 /* SavedApp.swift in Sources */,
 				6388DE4028A6404E0011D47E /* SceneDelegate.swift in Sources */,
 				6384EC8528AD2A5C00D1F821 /* ScreenshotGalleryViewController.swift in Sources */,
 				63D52B342960247A006F043D /* RecentSearchKeywordRealm.swift in Sources */,
