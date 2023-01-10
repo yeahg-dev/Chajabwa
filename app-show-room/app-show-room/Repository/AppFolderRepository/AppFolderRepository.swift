@@ -9,6 +9,12 @@ import Foundation
 
 protocol AppFolderRepository {
     
+    func fetch(identifier: String) async throws -> AppFolder
+    
+    func fetchSavedApps(
+        in appFolder: AppFolder)
+    async throws -> [SavedApp]
+    
     func create(appFolder: AppFolder) async throws -> AppFolder
     
     func updateName(

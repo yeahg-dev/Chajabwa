@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 struct RealmAppFolderRepository: AppFolderRepository {
-    
+
     private let realm: Realm
     private let realmQueue: DispatchQueue
 
@@ -18,6 +18,42 @@ struct RealmAppFolderRepository: AppFolderRepository {
         self.realm = realmStore.realm
         self.realmQueue = realmStore.serialQueue
         print("📂\(self)'s file URL : \(realm.configuration.fileURL)")
+    }
+    
+    func fetch(identifier: String) async throws -> AppFolder {
+        try await withCheckedThrowingContinuation{ continuation in
+            realmQueue.async {
+                guard let result = realm.object(
+                    ofType: AppFolderRealm.self,
+                    forPrimaryKey: identifier) else {
+                    print("failed in \(self): \(RealmAppFolderRepositoryError.appFolderFetchError)")
+                    continuation.resume(
+                        throwing: RealmAppFolderRepositoryError.appFolderFetchError)
+                    return
+                }
+                continuation.resume(returning: result.toDomain()!)
+            }
+        }
+    }
+    
+    func fetchSavedApps(
+        in appFolder: AppFolder)
+    async throws -> [SavedApp]
+    {
+        try await withCheckedThrowingContinuation{ continuation in
+            realmQueue.async {
+                guard let result = realm.object(
+                    ofType: AppFolderRealm.self,
+                    forPrimaryKey: appFolder.identifier) else {
+                    print("failed in \(self): \(RealmAppFolderRepositoryError.appFolderFetchError)")
+                    continuation.resume(
+                        throwing: RealmAppFolderRepositoryError.appFolderFetchError)
+                    return
+                }
+                continuation.resume(
+                    returning: result.savedApps.compactMap{$0.toDomain()})
+            }
+        }
     }
     
     func create(
@@ -45,18 +81,24 @@ struct RealmAppFolderRepository: AppFolderRepository {
         of appFolder: AppFolder)
     async throws -> AppFolder
     {
-        let appFolderRealm = try await fetchAppFolderRealm(with: appFolder.identifier)
         return try await withCheckedThrowingContinuation { continuation in
             realmQueue.async {
-                do {
-                    try realm.write {
-                        appFolderRealm.name = name
+                if let appFolderRealm = realm.object(
+                    ofType: AppFolderRealm.self,
+                    forPrimaryKey: appFolder.identifier) {
+                    do {
+                        try realm.write {
+                            appFolderRealm.name = name
+                        }
+                        continuation.resume(returning: appFolderRealm.toDomain()!)
+                    } catch {
+                        continuation.resume(
+                            throwing: RealmAppFolderRepositoryError.appFolderUpdateError)
                     }
-                    continuation.resume(returning: appFolderRealm.toDomain()!)
-                } catch {
-                    continuation.resume(
-                        throwing: RealmAppFolderRepositoryError.appFolderUpdateError)
+                } else {
+                    continuation.resume(throwing: RealmAppFolderRepositoryError.appFolderFetchError)
                 }
+                
             }
         }
     }
@@ -66,18 +108,24 @@ struct RealmAppFolderRepository: AppFolderRepository {
         of appFolder: AppFolder)
     async throws -> AppFolder
     {
-        let appFolderRealm = try await fetchAppFolderRealm(with: appFolder.identifier)
         return try await withCheckedThrowingContinuation { continuation in
             realmQueue.async {
-                do {
-                    try realm.write {
-                        appFolderRealm.folderDescription = description
+                if let appFolderRealm = realm.object(
+                    ofType: AppFolderRealm.self,
+                    forPrimaryKey: appFolder.identifier) {
+                    do {
+                        try realm.write {
+                            appFolderRealm.folderDescription = description
+                        }
+                        continuation.resume(returning: appFolderRealm.toDomain()!)
+                    } catch {
+                        continuation.resume(
+                            throwing: RealmAppFolderRepositoryError.appFolderUpdateError)
                     }
-                    continuation.resume(returning: appFolderRealm.toDomain()!)
-                } catch {
-                    continuation.resume(
-                        throwing: RealmAppFolderRepositoryError.appFolderUpdateError)
+                } else {
+                    continuation.resume(throwing: RealmAppFolderRepositoryError.appFolderFetchError)
                 }
+                
             }
         }
     }
@@ -87,18 +135,24 @@ struct RealmAppFolderRepository: AppFolderRepository {
         of appFolder: AppFolder)
     async throws -> AppFolder
     {
-        let appFolderRealm = try await fetchAppFolderRealm(with: appFolder.identifier)
-        return try await withCheckedThrowingContinuation{ continuation in
+        return try await withCheckedThrowingContinuation { continuation in
             realmQueue.async {
-                do {
-                    try realm.write {
-                        appFolderRealm.icon = icon
+                if let appFolderRealm = realm.object(
+                    ofType: AppFolderRealm.self,
+                    forPrimaryKey: appFolder.identifier) {
+                    do {
+                        try realm.write {
+                            appFolderRealm.icon = icon
+                        }
+                        continuation.resume(returning: appFolderRealm.toDomain()!)
+                    } catch {
+                        continuation.resume(
+                            throwing: RealmAppFolderRepositoryError.appFolderUpdateError)
                     }
-                    continuation.resume(returning: appFolderRealm.toDomain()!)
-                } catch {
-                    continuation.resume(
-                        throwing: RealmAppFolderRepositoryError.appFolderUpdateError)
+                } else {
+                    continuation.resume(throwing: RealmAppFolderRepositoryError.appFolderFetchError)
                 }
+                
             }
         }
     }
@@ -108,19 +162,25 @@ struct RealmAppFolderRepository: AppFolderRepository {
         in appFolder: AppFolder)
     async throws -> AppFolder
     {
-        let appFolderRealm = try await fetchAppFolderRealm(with: appFolder.identifier)
         return try await withCheckedThrowingContinuation { continuation in
             realmQueue.async {
-                do {
-                    let savedApp = SavedAppRealm(model: app)
-                    try realm.write {
-                        appFolderRealm.savedApps.append(savedApp)
+                if let appFolderRealm = realm.object(
+                    ofType: AppFolderRealm.self,
+                    forPrimaryKey: appFolder.identifier) {
+                    do {
+                        let savedApp = SavedAppRealm(model: app)
+                        try realm.write {
+                            appFolderRealm.savedApps.append(savedApp)
+                        }
+                        continuation.resume(returning: appFolderRealm.toDomain()!)
+                    } catch {
+                        continuation.resume(
+                            throwing: RealmAppFolderRepositoryError.appFolderUpdateError)
                     }
-                    continuation.resume(returning: appFolderRealm.toDomain()!)
-                } catch {
-                    continuation.resume(
-                        throwing: RealmAppFolderRepositoryError.appFolderUpdateError)
+                } else {
+                    continuation.resume(throwing: RealmAppFolderRepositoryError.appFolderFetchError)
                 }
+                
             }
         }
     }
@@ -130,41 +190,27 @@ struct RealmAppFolderRepository: AppFolderRepository {
         in appFolder: AppFolder)
     async throws -> AppFolder
     {
-        let appFolderRealm = try await fetchAppFolderRealm(with: appFolder.identifier)
-        return try await withCheckedThrowingContinuation{ continuation in
+        return try await withCheckedThrowingContinuation { continuation in
             realmQueue.async {
-                do {
-                    let indexsToDelete = app.compactMap { savedApp in
-                        appFolderRealm.savedApps.index(matching: "identifier == %@", savedApp.identifier)
-                    }
-                    let indexSetToDelete = IndexSet(indexsToDelete)
-                    try realm.write {
-                        appFolderRealm.savedApps.remove(atOffsets: indexSetToDelete)
-                    }
-                    continuation.resume(returning: appFolderRealm.toDomain()!)
-                } catch {
-                    continuation.resume(
-                        throwing: RealmAppFolderRepositoryError.appFolderUpdateError)
-                }
-            }
-        }
-    }
-    
-    private func fetchAppFolderRealm(
-        with identifier: String)
-    async throws -> AppFolderRealm
-    {
-        try await withCheckedThrowingContinuation{ continuation in
-            realmQueue.async {
-                guard let result = realm.object(
+                if let appFolderRealm = realm.object(
                     ofType: AppFolderRealm.self,
-                    forPrimaryKey: identifier) else {
-                    print("failed in \(self): \(RealmAppFolderRepositoryError.appFolderFetchError)")
-                    continuation.resume(
-                        throwing: RealmAppFolderRepositoryError.appFolderFetchError)
-                    return
+                    forPrimaryKey: appFolder.identifier) {
+                    do {
+                        let indexsToDelete = app.compactMap {
+                            appFolderRealm.savedApps.index(matching: "identifier == %@", $0.identifier) }
+                        let indexSetToDelete = IndexSet(indexsToDelete)
+                        try realm.write {
+                            appFolderRealm.savedApps.remove(atOffsets: indexSetToDelete)
+                        }
+                        continuation.resume(returning: appFolderRealm.toDomain()!)
+                    } catch {
+                        continuation.resume(
+                            throwing: RealmAppFolderRepositoryError.appFolderUpdateError)
+                    }
+                } else {
+                    continuation.resume(throwing: RealmAppFolderRepositoryError.appFolderFetchError)
                 }
-                continuation.resume(returning: result)
+                
             }
         }
     }
@@ -173,7 +219,9 @@ struct RealmAppFolderRepository: AppFolderRepository {
 
 enum RealmAppFolderRepositoryError: Error {
     
+    case appFolderDTOFailure
     case appFolderCreationError
     case appFolderFetchError
     case appFolderUpdateError
+    
 }

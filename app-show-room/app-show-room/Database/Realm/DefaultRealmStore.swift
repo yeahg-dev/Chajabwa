@@ -12,18 +12,25 @@ import RealmSwift
 final class DefaultRealmStore: RealmStore {
     
     var realm: Realm
-    let serialQueue: DispatchQueue
+    var serialQueue: DispatchQueue
     
+    // MARK: - Refactoring
     init?() {
-        serialQueue = DispatchQueue(label: "serial-queue")
-        do {
-            try serialQueue.sync {
-                realm = try Realm(
+        let queue = DispatchQueue(label: "serial-queue")
+        serialQueue = queue
+        var initailzedRealm: Realm?
+        queue.sync {
+            do {
+                initailzedRealm = try Realm(
                     configuration: .defaultConfiguration,
-                    queue: serialQueue)
+                    queue: queue)
+            } catch  {
+                print("Error initiating new realm \(error)")
             }
-        } catch  {
-            print("Error initiating new realm \(error)")
+        }
+        if let initailzedRealm {
+            realm = initailzedRealm
+        } else {
             return nil
         }
     }

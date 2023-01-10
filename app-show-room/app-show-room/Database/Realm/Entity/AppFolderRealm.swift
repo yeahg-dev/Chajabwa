@@ -18,7 +18,7 @@ class AppFolderRealm: Object {
     @Persisted var folderDescription: String
     @Persisted var icon: String
     
-    let savedApps = List<SavedAppRealm>()
+    @Persisted var savedApps = List<SavedAppRealm>()
     
     convenience init(model: AppFolder) {
         self.init()
