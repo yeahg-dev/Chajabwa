@@ -12,7 +12,7 @@ protocol AppFolderRepository {
     func fetch(identifier: String) async throws -> AppFolder
     
     func fetchSavedApps(
-        in appFolder: AppFolder)
+        from appFolder: AppFolder)
     async throws -> [SavedApp]
     
     func create(appFolder: AppFolder) async throws -> AppFolder
@@ -32,13 +32,13 @@ protocol AppFolderRepository {
         of appFolder: AppFolder)
     async throws -> AppFolder
     
-    func appendAppToSavedApps(
-        _ app: SavedApp,
-        in appFolder: AppFolder)
+    func append(
+        _ savedApp: SavedApp,
+        to appFolder: AppFolder)
     async throws -> AppFolder
     
-    func deleteAppsAtSavedApps(
-        _ app: [SavedApp],
+    func delete(
+        _ savedApps: [SavedApp],
         in appFolder: AppFolder)
     async throws -> AppFolder
     

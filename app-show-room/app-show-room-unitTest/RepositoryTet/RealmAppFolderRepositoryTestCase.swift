@@ -81,7 +81,9 @@ final class RealmAppFolderRepositoryTestCase: XCTestCase {
         
         let createdAppFolder = try await sut.create(appFolder: targetAppFolder)
         // MARK: - API 변경
-        let updatedAppFolder = try await sut.appendAppToSavedApps(dummySavedApp, in: createdAppFolder)
+        let updatedAppFolder = try await sut.append(
+            dummySavedApp,
+            to: createdAppFolder)
         
         XCTAssertEqual(updatedAppFolder.appCount, 1)
         XCTAssertEqual(updatedAppFolder.savedApps.first?.name, dummySavedApp.name)
@@ -91,14 +93,15 @@ final class RealmAppFolderRepositoryTestCase: XCTestCase {
     async throws
     {
         let targetAppFolder = DummyEntity.appFolder
-        let dummySavedApps = [DummyEntity.savedApp1, DummyEntity.savedApp2, DummyEntity.savedApp3]
+        let dummySavedApps = [DummyEntity.savedApp1,
+                              DummyEntity.savedApp2,
+                              DummyEntity.savedApp3]
         
         let createdAppFolder = try await sut.create(appFolder: targetAppFolder)
-        // MARK: - API 변경
         for app in dummySavedApps {
-            try await sut.appendAppToSavedApps(app, in: createdAppFolder)
+            try await sut.append(app, to: createdAppFolder)
         }
-        let savedApps = try await sut.fetchSavedApps(in: createdAppFolder)
+        let savedApps = try await sut.fetchSavedApps(from: createdAppFolder)
         
         XCTAssertEqual(savedApps, dummySavedApps)
     }
@@ -110,9 +113,10 @@ final class RealmAppFolderRepositoryTestCase: XCTestCase {
         let dummySavedApp = DummyEntity.savedApp1
         
         let createdAppFolder = try await sut.create(appFolder: targetAppFolder)
-        // MARK: - API 변경
-        let updatedAppFolder = try await sut.appendAppToSavedApps(dummySavedApp, in: createdAppFolder)
-        let appFolderDeleted = try await sut.deleteAppsAtSavedApps(
+        let updatedAppFolder = try await sut.append(
+            dummySavedApp,
+            to: createdAppFolder)
+        let appFolderDeleted = try await sut.delete(
             [dummySavedApp],
             in: updatedAppFolder)
         

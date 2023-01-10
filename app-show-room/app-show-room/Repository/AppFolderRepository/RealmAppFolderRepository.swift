@@ -37,7 +37,7 @@ struct RealmAppFolderRepository: AppFolderRepository {
     }
     
     func fetchSavedApps(
-        in appFolder: AppFolder)
+        from appFolder: AppFolder)
     async throws -> [SavedApp]
     {
         try await withCheckedThrowingContinuation{ continuation in
@@ -157,9 +157,9 @@ struct RealmAppFolderRepository: AppFolderRepository {
         }
     }
     
-    func appendAppToSavedApps(
-        _ app: SavedApp,
-        in appFolder: AppFolder)
+    func append(
+        _ savedApp: SavedApp,
+        to appFolder: AppFolder)
     async throws -> AppFolder
     {
         return try await withCheckedThrowingContinuation { continuation in
@@ -168,9 +168,9 @@ struct RealmAppFolderRepository: AppFolderRepository {
                     ofType: AppFolderRealm.self,
                     forPrimaryKey: appFolder.identifier) {
                     do {
-                        let savedApp = SavedAppRealm(model: app)
+                        let savedAppRealm = SavedAppRealm(model: savedApp)
                         try realm.write {
-                            appFolderRealm.savedApps.append(savedApp)
+                            appFolderRealm.savedApps.append(savedAppRealm)
                         }
                         continuation.resume(returning: appFolderRealm.toDomain()!)
                     } catch {
@@ -185,8 +185,8 @@ struct RealmAppFolderRepository: AppFolderRepository {
         }
     }
     
-    func deleteAppsAtSavedApps(
-        _ app: [SavedApp],
+    func delete(
+        _ savedApps: [SavedApp],
         in appFolder: AppFolder)
     async throws -> AppFolder
     {
@@ -196,7 +196,7 @@ struct RealmAppFolderRepository: AppFolderRepository {
                     ofType: AppFolderRealm.self,
                     forPrimaryKey: appFolder.identifier) {
                     do {
-                        let indexsToDelete = app.compactMap {
+                        let indexsToDelete = savedApps.compactMap {
                             appFolderRealm.savedApps.index(matching: "identifier == %@", $0.identifier) }
                         let indexSetToDelete = IndexSet(indexsToDelete)
                         try realm.write {
