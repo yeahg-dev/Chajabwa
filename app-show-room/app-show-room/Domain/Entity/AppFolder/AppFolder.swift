@@ -15,6 +15,20 @@ struct AppFolder {
     private var description: String
     private var icon: String
    
+    init(
+        identifier: String = UUID().uuidString,
+        savedApps: [SavedApp],
+        name: String,
+        description: String,
+        icon: String)
+    {
+        self.identifier = identifier
+        self.savedApps = Set(savedApps)
+        self.name = name
+        self.description = description
+        self.icon = icon
+    }
+    
     var appCount: Int {
         return savedApps.count
     }
