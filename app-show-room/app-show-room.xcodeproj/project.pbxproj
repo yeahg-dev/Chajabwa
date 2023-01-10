@@ -23,6 +23,8 @@
 		6322E705296C06D100134B30 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E704296C06D100134B30 /* BaseTableViewCell.swift */; };
 		6322E708296C23F500134B30 /* SavedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E707296C23F500134B30 /* SavedApp.swift */; };
 		6322E70B296C50BC00134B30 /* AppFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E70A296C50BC00134B30 /* AppFolder.swift */; };
+		6322E70E296CEF5F00134B30 /* AppFolderRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E70D296CEF5F00134B30 /* AppFolderRepository.swift */; };
+		6322E710296CF2C500134B30 /* SavedAppRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E70F296CF2C500134B30 /* SavedAppRepository.swift */; };
 		632B93292942014E004CAD58 /* SearchAppTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632B93282942014E004CAD58 /* SearchAppTableViewCell.swift */; };
 		632B932B2942D8E0004CAD58 /* ScreenshotImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632B932A2942D8E0004CAD58 /* ScreenshotImageView.swift */; };
 		632B932E2943063A004CAD58 /* SearchAppTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632B932D2943063A004CAD58 /* SearchAppTableViewCellModel.swift */; };
@@ -156,6 +158,8 @@
 		6322E704296C06D100134B30 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		6322E707296C23F500134B30 /* SavedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedApp.swift; sourceTree = "<group>"; };
 		6322E70A296C50BC00134B30 /* AppFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolder.swift; sourceTree = "<group>"; };
+		6322E70D296CEF5F00134B30 /* AppFolderRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderRepository.swift; sourceTree = "<group>"; };
+		6322E70F296CF2C500134B30 /* SavedAppRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAppRepository.swift; sourceTree = "<group>"; };
 		632B93282942014E004CAD58 /* SearchAppTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAppTableViewCell.swift; sourceTree = "<group>"; };
 		632B932A2942D8E0004CAD58 /* ScreenshotImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotImageView.swift; sourceTree = "<group>"; };
 		632B932D2943063A004CAD58 /* SearchAppTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAppTableViewCellModel.swift; sourceTree = "<group>"; };
@@ -292,6 +296,15 @@
 				6322E707296C23F500134B30 /* SavedApp.swift */,
 			);
 			path = AppFolder;
+			sourceTree = "<group>";
+		};
+		6322E70C296CEF4000134B30 /* AppFolderRepository */ = {
+			isa = PBXGroup;
+			children = (
+				6322E70D296CEF5F00134B30 /* AppFolderRepository.swift */,
+				6322E70F296CF2C500134B30 /* SavedAppRepository.swift */,
+			);
+			path = AppFolderRepository;
 			sourceTree = "<group>";
 		};
 		632B93262942010C004CAD58 /* SearchAppResults */ = {
@@ -509,6 +522,7 @@
 			children = (
 				63D52B2E2960202D006F043D /* SearchKeywordRepository */,
 				63D52B2D29601FE4006F043D /* AppDetailRepository */,
+				6322E70C296CEF4000134B30 /* AppFolderRepository */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1055,6 +1069,7 @@
 				633A925528A79E3D00B3435F /* iTunesAPIService.swift in Sources */,
 				6384E5CC28BCE54600563FD5 /* LargeScreenshotCollectionViewCell.swift in Sources */,
 				63AA535F28BEFD45000FB5DD /* String+Extension.swift in Sources */,
+				6322E710296CF2C500134B30 /* SavedAppRepository.swift in Sources */,
 				63CEA73B2940B0A2009684A7 /* AppSearchingConfiguration.swift in Sources */,
 				6322E705296C06D100134B30 /* BaseTableViewCell.swift in Sources */,
 				6388DE4228A6404E0011D47E /* SearchViewController.swift in Sources */,
@@ -1122,6 +1137,7 @@
 				63D52B692962D590006F043D /* RecentSearchKeywordTableViewCell.swift in Sources */,
 				6388DE6228A6A56A0011D47E /* APIRequest.swift in Sources */,
 				631F096B28D0D05C002419B7 /* PaddingTitleSupplementaryView.swift in Sources */,
+				6322E70E296CEF5F00134B30 /* AppFolderRepository.swift in Sources */,
 				63AFB9B628DC5D4C008E13A4 /* StarImage.swift in Sources */,
 				631F096528D088B3002419B7 /* Int+Extension.swift in Sources */,
 				63D52B3F29617DBC006F043D /* RecentSearchKeywordTableViewModel.swift in Sources */,
