@@ -27,11 +27,13 @@ protocol AppFolderRepository {
     async throws -> AppFolder
     
     func appendAppToSavedApps(
-        _ app: SavedApp)
+        _ app: SavedApp,
+        in appFolder: AppFolder)
     async throws -> AppFolder
     
     func deleteAppsAtSavedApps(
-        _ app: [SavedApp])
+        _ app: [SavedApp],
+        in appFolder: AppFolder)
     async throws -> AppFolder
     
 }

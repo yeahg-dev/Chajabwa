@@ -27,6 +27,8 @@
 		6322E710296CF2C500134B30 /* SavedAppRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E70F296CF2C500134B30 /* SavedAppRepository.swift */; };
 		6322E713296CF67D00134B30 /* AppFolderRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E712296CF67D00134B30 /* AppFolderRealm.swift */; };
 		6322E715296CF99000134B30 /* SavedAppRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E714296CF99000134B30 /* SavedAppRealm.swift */; };
+		6322E717296D014C00134B30 /* RealmAppFolderRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E716296D014C00134B30 /* RealmAppFolderRepository.swift */; };
+		6322E719296D4A5100134B30 /* RealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E718296D4A5100134B30 /* RealmStore.swift */; };
 		632B93292942014E004CAD58 /* SearchAppTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632B93282942014E004CAD58 /* SearchAppTableViewCell.swift */; };
 		632B932B2942D8E0004CAD58 /* ScreenshotImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632B932A2942D8E0004CAD58 /* ScreenshotImageView.swift */; };
 		632B932E2943063A004CAD58 /* SearchAppTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632B932D2943063A004CAD58 /* SearchAppTableViewCellModel.swift */; };
@@ -164,6 +166,8 @@
 		6322E70F296CF2C500134B30 /* SavedAppRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAppRepository.swift; sourceTree = "<group>"; };
 		6322E712296CF67D00134B30 /* AppFolderRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderRealm.swift; sourceTree = "<group>"; };
 		6322E714296CF99000134B30 /* SavedAppRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAppRealm.swift; sourceTree = "<group>"; };
+		6322E716296D014C00134B30 /* RealmAppFolderRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmAppFolderRepository.swift; sourceTree = "<group>"; };
+		6322E718296D4A5100134B30 /* RealmStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmStore.swift; sourceTree = "<group>"; };
 		632B93282942014E004CAD58 /* SearchAppTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAppTableViewCell.swift; sourceTree = "<group>"; };
 		632B932A2942D8E0004CAD58 /* ScreenshotImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotImageView.swift; sourceTree = "<group>"; };
 		632B932D2943063A004CAD58 /* SearchAppTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAppTableViewCellModel.swift; sourceTree = "<group>"; };
@@ -306,6 +310,7 @@
 			isa = PBXGroup;
 			children = (
 				6322E70D296CEF5F00134B30 /* AppFolderRepository.swift */,
+				6322E716296D014C00134B30 /* RealmAppFolderRepository.swift */,
 				6322E70F296CF2C500134B30 /* SavedAppRepository.swift */,
 			);
 			path = AppFolderRepository;
@@ -833,6 +838,7 @@
 		63D52B2A29601B7D006F043D /* Realm */ = {
 			isa = PBXGroup;
 			children = (
+				6322E718296D4A5100134B30 /* RealmStore.swift */,
 				63D52B2B29601D74006F043D /* DefaultRealmStore.swift */,
 				6322E711296CF62900134B30 /* Entity */,
 			);
@@ -1109,6 +1115,7 @@
 				63861EB628AA10990062A8BD /* SearchViewModel.swift in Sources */,
 				63861EC628AA43450062A8BD /* AppDetailViewModel.swift in Sources */,
 				6322E701296AE64500134B30 /* SearchKeywordSavingUpdater.swift in Sources */,
+				6322E719296D4A5100134B30 /* RealmStore.swift in Sources */,
 				630068D02952947300BD73C9 /* AppSearchResults.swift in Sources */,
 				63A04E0F29668DB3007E8A8C /* SearchKeywordAlertViewModel.swift in Sources */,
 				63075FBF28C1D7590094E117 /* ReleaseNoteCollectionViewCell.swift in Sources */,
@@ -1159,6 +1166,7 @@
 				63D52B3F29617DBC006F043D /* RecentSearchKeywordTableViewModel.swift in Sources */,
 				6322E703296AE66D00134B30 /* SearchKeywordTableViewUpdater.swift in Sources */,
 				63CEA7392940AFC3009684A7 /* SoftwareType.swift in Sources */,
+				6322E717296D014C00134B30 /* RealmAppFolderRepository.swift in Sources */,
 				63D52B1A295AF206006F043D /* AnimatableArrowLayer.swift in Sources */,
 				6388DE5D28A691820011D47E /* AppGenre.swift in Sources */,
 				633A925728A7A44A00B3435F /* APIError.swift in Sources */,

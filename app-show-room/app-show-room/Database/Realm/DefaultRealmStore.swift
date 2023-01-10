@@ -9,9 +9,9 @@ import Foundation
 
 import RealmSwift
 
-final class DefaultRealmStore {
+final class DefaultRealmStore: RealmStore {
     
-    var realm: Realm!
+    var realm: Realm
     let serialQueue: DispatchQueue
     
     init?() {
