@@ -15,8 +15,8 @@ struct RealmSearchKeywordRepository: SearchKeywordRepository {
     private let realmQueue: DispatchQueue!
     
     init?() {
-        if let searchKeywordRealm = SearckKeywordRealmStore() {
-            realm = searchKeywordRealm.defaultRealm
+        if let searchKeywordRealm = DefaultRealmStore() {
+            realm = searchKeywordRealm.realm
             realmQueue = searchKeywordRealm.serialQueue
             print("📂\(self)'s file URL : \(realm.configuration.fileURL)")
         } else {
