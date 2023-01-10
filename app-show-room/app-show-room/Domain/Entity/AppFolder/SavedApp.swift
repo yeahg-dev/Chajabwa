@@ -9,28 +9,25 @@ import Foundation
 
 struct SavedApp {
     
-    private let identifier: String
+    let identifier: String
     
-    private let name: String
-    private let appID: Int
-    private let country: Country
-    private let platform: SoftwareType
-    private var folders: Set<AppFolder>
+    let name: String
+    let appID: Int
+    let country: Country
+    let platform: SoftwareType
     
     init(
         identifier: String = UUID().uuidString,
         name: String,
         appID: Int,
         country: Country,
-        platform: SoftwareType,
-        folders: [AppFolder]
+        platform: SoftwareType
     ) {
         self.identifier = identifier
         self.name = name
         self.appID = appID
         self.country = country
         self.platform = platform
-        self.folders = Set(folders)
     }
 
 }

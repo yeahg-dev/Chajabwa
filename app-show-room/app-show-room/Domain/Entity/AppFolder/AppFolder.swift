@@ -9,11 +9,11 @@ import Foundation
 
 struct AppFolder {
     
-    private let identifier: String
-    private var savedApps: Set<SavedApp>
-    private var name: String
-    private var description: String
-    private var icon: String
+    let identifier: String
+    var savedApps: Set<SavedApp>
+    var name: String
+    var description: String
+    var icon: String
    
     init(
         identifier: String = UUID().uuidString,
