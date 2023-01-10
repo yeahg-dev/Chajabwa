@@ -307,6 +307,14 @@
 			path = AppFolderRepository;
 			sourceTree = "<group>";
 		};
+		6322E711296CF62900134B30 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				63D52B332960247A006F043D /* RecentSearchKeywordRealm.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		632B93262942010C004CAD58 /* SearchAppResults */ = {
 			isa = PBXGroup;
 			children = (
@@ -820,7 +828,7 @@
 			isa = PBXGroup;
 			children = (
 				63D52B2B29601D74006F043D /* SearckKeywordRealmStore.swift */,
-				63D52B332960247A006F043D /* RecentSearchKeywordRealm.swift */,
+				6322E711296CF62900134B30 /* Entity */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
