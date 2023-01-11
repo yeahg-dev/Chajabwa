@@ -183,11 +183,7 @@ struct RealmAppFolderRepository: AppFolderRepository {
         to appFolder: AppFolder)
     async throws -> AppFolder
     {
-        let fetchedSavedApp = await createSavedApp(
-            name: savedApp.name,
-            id: savedApp.appID,
-            country: savedApp.country,
-            platform: savedApp.platform)
+        let fetchedSavedApp = await createSavedApp(savedApp)
         
         return try await withCheckedThrowingContinuation { continuation in
             realmQueue.async {
@@ -245,27 +241,19 @@ struct RealmAppFolderRepository: AppFolderRepository {
     }
     
     private func createSavedApp(
-        name: String,
-        id: Int,
-        country: Country,
-        platform: SoftwareType)
+        _ savedApp: SavedApp)
     async -> SavedApp
     {
         if let savedApp = await fetchSavedApp(
-            name: name,
-            id: id,
-            country: country,
-            platform: platform) {
+            name: savedApp.name,
+            id: savedApp.appID,
+            country: savedApp.country,
+            platform: savedApp.platform) {
             return savedApp
         }
         
         return await withCheckedContinuation { continuation in
             realmQueue.async {
-                let savedApp = SavedApp(
-                    name: name,
-                    appID: id,
-                    country: country,
-                    platform: platform)
                 let savedAppRealm = SavedAppRealm(model: savedApp)
                 try! realm.write {
                     realm.add(savedAppRealm)

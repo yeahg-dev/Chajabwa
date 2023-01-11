@@ -19,7 +19,7 @@ final class RealmAppFolderRepositoryTestCase: XCTestCase {
         let testRealmStore = TestRealmStore(configuration: configuration)
         sut = RealmAppFolderRepository(realmStore: testRealmStore)
     }
-
+    
     func test_AppFolder를_생성하고_해당identifier로_fetch하면_object가_존재하는지()
     async throws
     {
@@ -122,7 +122,27 @@ final class RealmAppFolderRepositoryTestCase: XCTestCase {
         
         XCTAssertEqual(appFolderDeleted.appCount, 0)
     }
-
+    
+    func test_AppFolder에_savedApp을_추가한뒤_SavedApp이_fetch되는지()
+    async throws
+    {
+        let dummyAppFolder = DummyEntity.appFolder
+        let dummySavedApp = DummyEntity.savedApp1
+        
+        let createdAppFolder = try await sut.create(
+            appFolder: dummyAppFolder)
+        try await sut.append(dummySavedApp, to: createdAppFolder)
+        if let savedApp = await sut.fetchSavedApp(
+            name: dummySavedApp.name,
+            id: dummySavedApp.appID,
+            country: dummySavedApp.country,
+            platform: dummySavedApp.platform) {
+            XCTAssertEqual(savedApp, dummySavedApp)
+        } else {
+            XCTFail("Failed To fetchSavedApp")
+        }
+    }
+    
 }
 
 private enum DummyEntity {
