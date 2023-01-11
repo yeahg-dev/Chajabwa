@@ -11,6 +11,13 @@ protocol AppFolderRepository {
     
     func fetch(identifier: String) async throws -> AppFolder
     
+    func fetchSavedApp(
+        name: String,
+        id: Int,
+        country: Country,
+        platform: SoftwareType)
+    async -> SavedApp?
+    
     func fetchSavedApps(
         from appFolder: AppFolder)
     async throws -> [SavedApp]

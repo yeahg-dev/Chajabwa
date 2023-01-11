@@ -10,10 +10,10 @@ import Foundation
 import RealmSwift
 
 struct RealmAppFolderRepository: AppFolderRepository {
-
+    
     private let realm: Realm
     private let realmQueue: DispatchQueue
-
+    
     init(realmStore: RealmStore) {
         self.realm = realmStore.realm
         self.realmQueue = realmStore.serialQueue
@@ -32,6 +32,27 @@ struct RealmAppFolderRepository: AppFolderRepository {
                     return
                 }
                 continuation.resume(returning: result.toDomain()!)
+            }
+        }
+    }
+    
+    func fetchSavedApp(
+        name: String,
+        id: Int,
+        country: Country,
+        platform: SoftwareType)
+    async -> SavedApp?
+    {
+        await withCheckedContinuation{ continuation in
+            realmQueue.async {
+                if let fetchedSaveapp = realm.objects(SavedAppRealm.self)
+                    .where ({ savedApp in
+                        savedApp.appID == id && savedApp.countryName == country.name && savedApp.softwareTypeName == platform.rawValue })
+                        .first {
+                    continuation.resume(returning: fetchedSaveapp.toDomain())
+                } else {
+                    continuation.resume(returning: nil)
+                }
             }
         }
     }
@@ -162,13 +183,21 @@ struct RealmAppFolderRepository: AppFolderRepository {
         to appFolder: AppFolder)
     async throws -> AppFolder
     {
+        let fetchedSavedApp = await createSavedApp(
+            name: savedApp.name,
+            id: savedApp.appID,
+            country: savedApp.country,
+            platform: savedApp.platform)
+        
         return try await withCheckedThrowingContinuation { continuation in
             realmQueue.async {
                 if let appFolderRealm = realm.object(
                     ofType: AppFolderRealm.self,
-                    forPrimaryKey: appFolder.identifier) {
+                    forPrimaryKey: appFolder.identifier),
+                   let savedAppRealm = realm.object(
+                    ofType: SavedAppRealm.self,
+                    forPrimaryKey: fetchedSavedApp.identifier) {
                     do {
-                        let savedAppRealm = SavedAppRealm(model: savedApp)
                         try realm.write {
                             appFolderRealm.savedApps.append(savedAppRealm)
                         }
@@ -211,6 +240,37 @@ struct RealmAppFolderRepository: AppFolderRepository {
                     continuation.resume(throwing: RealmAppFolderRepositoryError.appFolderFetchError)
                 }
                 
+            }
+        }
+    }
+    
+    private func createSavedApp(
+        name: String,
+        id: Int,
+        country: Country,
+        platform: SoftwareType)
+    async -> SavedApp
+    {
+        if let savedApp = await fetchSavedApp(
+            name: name,
+            id: id,
+            country: country,
+            platform: platform) {
+            return savedApp
+        }
+        
+        return await withCheckedContinuation { continuation in
+            realmQueue.async {
+                let savedApp = SavedApp(
+                    name: name,
+                    appID: id,
+                    country: country,
+                    platform: platform)
+                let savedAppRealm = SavedAppRealm(model: savedApp)
+                try! realm.write {
+                    realm.add(savedAppRealm)
+                }
+                continuation.resume(returning: savedApp)
             }
         }
     }
