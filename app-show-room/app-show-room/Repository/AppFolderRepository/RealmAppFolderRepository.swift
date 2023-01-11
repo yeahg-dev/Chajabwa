@@ -36,9 +36,9 @@ struct RealmAppFolderRepository: AppFolderRepository {
         }
     }
     
-    func fetchAppFolder(
+    func fetchAppFolders(
         of savedApp: SavedApp)
-    async throws -> AppFolder?
+    async throws -> [AppFolder]
     {
         try await withCheckedThrowingContinuation{ continuation in
             realmQueue.async {
@@ -49,12 +49,9 @@ struct RealmAppFolderRepository: AppFolderRepository {
                         throwing: RealmAppFolderRepositoryError.savedAppFetchError)
                     return
                 }
-                if let appFolderRealm = savedAppRealm.folders.first,
-                   let appFolder = appFolderRealm.toDomain() {
-                    continuation.resume(returning: appFolder)
-                } else {
-                    continuation.resume(returning: nil)
-                }
+                let appFolders = AnyCollection(savedAppRealm.folders.compactMap({ appFolderRealm in
+                    appFolderRealm.toDomain()})).map { return $0 }
+                continuation.resume(returning: appFolders)
             }
         }
     }
@@ -259,7 +256,7 @@ struct RealmAppFolderRepository: AppFolderRepository {
         }
     }
     
-    private func createSavedApp(
+    func createSavedApp(
         _ appUnit: AppUnit)
     async -> SavedApp
     {

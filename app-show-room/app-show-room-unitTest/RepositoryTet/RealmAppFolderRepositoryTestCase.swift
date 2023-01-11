@@ -143,6 +143,59 @@ final class RealmAppFolderRepositoryTestCase: XCTestCase {
         }
     }
     
+    func test_savedApp에_연결된appFolder가_없을때_fetchAppFolder를_호출하면_빈배열을_반환하는지()
+    async throws
+    {
+        let dummySavedAppUnit = DummyEntity.appUnit1
+        
+        let savedApp = await sut.createSavedApp(dummySavedAppUnit)
+        let result = try await sut.fetchAppFolders(of: savedApp)
+        
+        XCTAssertEqual(result.isEmpty, true)
+    }
+    
+    func test_savedApp에_연결된appFolder가_있을때_fetchAppFolder를_호출하면_첫번째AppFolder를_반환하는지()
+    async throws
+    {
+        let dummyAppFolder = DummyEntity.appFolder
+        let dummyAppFolder2 = DummyEntity.appFolder2
+        let dummySavedAppUnit = DummyEntity.appUnit1
+        
+        let appFolder = try await sut.create(appFolder: dummyAppFolder)
+        let appFolder2 = try await sut.create(appFolder: dummyAppFolder2)
+        let savedApp = await sut.createSavedApp(dummySavedAppUnit)
+        try await sut.append(dummySavedAppUnit, to: dummyAppFolder)
+        try await sut.append(dummySavedAppUnit, to: dummyAppFolder2)
+        
+        let result = try await sut.fetchAppFolders(of: savedApp).first
+        
+        XCTAssertEqual(result, appFolder)
+    }
+
+    func test_updateAppFodler를_호출하면_SavedApp의_folder에_반영이되는지()
+    async throws {
+        let dummyAppFolder = DummyEntity.appFolder
+        let dummyAppFolder2 = DummyEntity.appFolder2
+        let dummyAppFolder3 = DummyEntity.appFolder3
+        let dummySavedAppUnit = DummyEntity.appUnit1
+        
+        let appFolder = try await sut.create(appFolder: dummyAppFolder)
+        let appFolder2 = try await sut.create(appFolder: dummyAppFolder2)
+        let appFolder3 = try await sut.create(appFolder: dummyAppFolder3)
+        try await sut.append(dummySavedAppUnit, to: appFolder)
+        guard let savedApp = await sut.fetchSavedApp(dummySavedAppUnit) else {
+            XCTFail("Faild to fetch SavedApp")
+            return
+        }
+        
+        try await sut.updateAppFolder(
+            of: savedApp,
+            to: [appFolder2, appFolder3])
+        let folders = try await sut.fetchAppFolders(of: savedApp)
+        
+        XCTAssertEqual(folders, [appFolder2, appFolder3])
+    }
+    
 }
 
 private enum DummyEntity {
@@ -152,6 +205,18 @@ private enum DummyEntity {
         name: "테스트용 앱",
         description: "테스트 참고용",
         icon: "👩🏻‍🔬")
+    
+    static let appFolder2 = AppFolder(
+        savedApps: [],
+        name: "UI Cool 앱",
+        description: "참고용",
+        icon: "🎨")
+    
+    static let appFolder3 = AppFolder(
+        savedApps: [],
+        name: "미디어 앱",
+        description: "참고용",
+        icon: "🎥")
     
     static let appUnit1 = AppUnit(
         name: "앱과사전",
