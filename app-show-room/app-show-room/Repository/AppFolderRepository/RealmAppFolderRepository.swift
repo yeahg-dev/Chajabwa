@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 struct RealmAppFolderRepository: AppFolderRepository {
-    
+
     private let realm: Realm
     private let realmQueue: DispatchQueue
     
@@ -36,6 +36,29 @@ struct RealmAppFolderRepository: AppFolderRepository {
         }
     }
     
+    func fetchAppFolder(
+        of savedApp: SavedApp)
+    async throws -> AppFolder?
+    {
+        try await withCheckedThrowingContinuation{ continuation in
+            realmQueue.async {
+                guard let savedAppRealm = realm.object(
+                    ofType: SavedAppRealm.self,
+                    forPrimaryKey: savedApp.identifier) else {
+                    continuation.resume(
+                        throwing: RealmAppFolderRepositoryError.savedAppFetchError)
+                    return
+                }
+                if let appFolderRealm = savedAppRealm.folders.first,
+                   let appFolder = appFolderRealm.toDomain() {
+                    continuation.resume(returning: appFolder)
+                } else {
+                    continuation.resume(returning: nil)
+                }
+            }
+        }
+    }
+
     func fetchSavedApp(_ appUnit: AppUnit) async -> SavedApp? {
         await withCheckedContinuation{ continuation in
             realmQueue.async {
@@ -256,6 +279,46 @@ struct RealmAppFolderRepository: AppFolderRepository {
         }
     }
     
+    func updateAppFolder(
+        of savedApp: SavedApp,
+        to appFolder: [AppFolder])
+    async throws -> SavedApp
+    {
+        try await withCheckedThrowingContinuation { continuation in
+            realmQueue.async {
+                guard let savedAppRealm = realm.object(
+                    ofType: SavedAppRealm.self,
+                    forPrimaryKey: savedApp.identifier) else {
+                    continuation.resume(throwing: RealmAppFolderRepositoryError.appFolderFetchError)
+                    return
+                }
+                do {
+                    try realm.write {
+                        // 기존 소속 appFolder에서 자신을 제거
+                        savedAppRealm.folders.forEach { appFolder in
+                            if let indexToDelete = appFolder.savedApps.index(
+                                matching: "identifier == %@", savedApp.identifier) {
+                                appFolder.savedApps.remove(at: indexToDelete)
+                            }
+                        }
+                        // 새로운 appFolder에 자신을 추가
+                        appFolder.forEach { newAppFolder in
+                            if let newAppFolderRealm = realm.object(
+                                ofType: AppFolderRealm.self,
+                                forPrimaryKey: newAppFolder.identifier){
+                                newAppFolderRealm.savedApps.append(savedAppRealm)
+                            }
+                        }
+                    }
+                    continuation.resume(returning: savedAppRealm.toDomain()!)
+                } catch {
+                    continuation.resume(
+                        throwing: RealmAppFolderRepositoryError.savedAppFolderUpdatingError)
+                }
+            }
+        }
+    }
+     
 }
 
 enum RealmAppFolderRepositoryError: Error {
@@ -264,5 +327,8 @@ enum RealmAppFolderRepositoryError: Error {
     case appFolderCreationError
     case appFolderFetchError
     case appFolderUpdateError
+    
+    case savedAppFetchError
+    case savedAppFolderUpdatingError
     
 }

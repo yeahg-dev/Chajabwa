@@ -24,7 +24,6 @@
 		6322E708296C23F500134B30 /* SavedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E707296C23F500134B30 /* SavedApp.swift */; };
 		6322E70B296C50BC00134B30 /* AppFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E70A296C50BC00134B30 /* AppFolder.swift */; };
 		6322E70E296CEF5F00134B30 /* AppFolderRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E70D296CEF5F00134B30 /* AppFolderRepository.swift */; };
-		6322E710296CF2C500134B30 /* SavedAppRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E70F296CF2C500134B30 /* SavedAppRepository.swift */; };
 		6322E713296CF67D00134B30 /* AppFolderRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E712296CF67D00134B30 /* AppFolderRealm.swift */; };
 		6322E715296CF99000134B30 /* SavedAppRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E714296CF99000134B30 /* SavedAppRealm.swift */; };
 		6322E717296D014C00134B30 /* RealmAppFolderRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322E716296D014C00134B30 /* RealmAppFolderRepository.swift */; };
@@ -166,7 +165,6 @@
 		6322E707296C23F500134B30 /* SavedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedApp.swift; sourceTree = "<group>"; };
 		6322E70A296C50BC00134B30 /* AppFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolder.swift; sourceTree = "<group>"; };
 		6322E70D296CEF5F00134B30 /* AppFolderRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderRepository.swift; sourceTree = "<group>"; };
-		6322E70F296CF2C500134B30 /* SavedAppRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAppRepository.swift; sourceTree = "<group>"; };
 		6322E712296CF67D00134B30 /* AppFolderRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderRealm.swift; sourceTree = "<group>"; };
 		6322E714296CF99000134B30 /* SavedAppRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAppRealm.swift; sourceTree = "<group>"; };
 		6322E716296D014C00134B30 /* RealmAppFolderRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmAppFolderRepository.swift; sourceTree = "<group>"; };
@@ -318,7 +316,6 @@
 			children = (
 				6322E70D296CEF5F00134B30 /* AppFolderRepository.swift */,
 				6322E716296D014C00134B30 /* RealmAppFolderRepository.swift */,
-				6322E70F296CF2C500134B30 /* SavedAppRepository.swift */,
 			);
 			path = AppFolderRepository;
 			sourceTree = "<group>";
@@ -1107,7 +1104,6 @@
 				633A925528A79E3D00B3435F /* iTunesAPIService.swift in Sources */,
 				6384E5CC28BCE54600563FD5 /* LargeScreenshotCollectionViewCell.swift in Sources */,
 				63AA535F28BEFD45000FB5DD /* String+Extension.swift in Sources */,
-				6322E710296CF2C500134B30 /* SavedAppRepository.swift in Sources */,
 				63CEA73B2940B0A2009684A7 /* AppSearchingConfiguration.swift in Sources */,
 				6322E705296C06D100134B30 /* BaseTableViewCell.swift in Sources */,
 				6388DE4228A6404E0011D47E /* SearchViewController.swift in Sources */,

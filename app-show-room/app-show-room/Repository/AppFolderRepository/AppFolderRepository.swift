@@ -11,6 +11,10 @@ protocol AppFolderRepository {
     
     func fetch(identifier: String) async throws -> AppFolder
     
+    func fetchAppFolder(
+        of savedApp: SavedApp)
+    async throws -> AppFolder?
+    
     func fetchSavedApp(_ appUnit: AppUnit) async -> SavedApp?
     
     func fetchSavedApps(
@@ -48,5 +52,10 @@ protocol AppFolderRepository {
         _ savedApps: [SavedApp],
         in appFolder: AppFolder)
     async throws -> AppFolder
+    
+    func updateAppFolder(
+        of savedApp: SavedApp,
+        to appFolder: [AppFolder])
+    async throws -> SavedApp
     
 }

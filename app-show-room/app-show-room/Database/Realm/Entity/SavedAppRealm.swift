@@ -19,7 +19,7 @@ class SavedAppRealm: Object {
     @Persisted var countryName: String
     @Persisted var softwareTypeName: String
     
-    let folders = LinkingObjects(fromType: AppFolderRealm.self, property: "savedApps")
+    @Persisted var folders = LinkingObjects(fromType: AppFolderRealm.self, property: "savedApps")
     
     convenience init(model: SavedApp) {
         self.init()
