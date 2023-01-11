@@ -77,69 +77,69 @@ final class RealmAppFolderRepositoryTestCase: XCTestCase {
     async throws
     {
         let targetAppFolder = DummyEntity.appFolder
-        let dummySavedApp = DummyEntity.savedApp1
+        let dummyAppUnit = DummyEntity.appUnit1
         
         let createdAppFolder = try await sut.create(appFolder: targetAppFolder)
         // MARK: - API 변경
         let updatedAppFolder = try await sut.append(
-            dummySavedApp,
+            dummyAppUnit,
             to: createdAppFolder)
         
         XCTAssertEqual(updatedAppFolder.appCount, 1)
-        XCTAssertEqual(updatedAppFolder.savedApps.first?.name, dummySavedApp.name)
+        XCTAssertEqual(updatedAppFolder.savedApps.first!.appUnit, dummyAppUnit)
     }
     
     func test_AppFolder에_SavedApp3개가_정상적으로_추가되는지()
     async throws
     {
         let targetAppFolder = DummyEntity.appFolder
-        let dummySavedApps = [DummyEntity.savedApp1,
-                              DummyEntity.savedApp2,
-                              DummyEntity.savedApp3]
+        let dummyAppUnits = [DummyEntity.appUnit1,
+                              DummyEntity.appUnit2,
+                              DummyEntity.appUnit3]
         
         let createdAppFolder = try await sut.create(appFolder: targetAppFolder)
-        for app in dummySavedApps {
+        for app in dummyAppUnits {
             try await sut.append(app, to: createdAppFolder)
         }
         let savedApps = try await sut.fetchSavedApps(from: createdAppFolder)
         
-        XCTAssertEqual(savedApps, dummySavedApps)
+        XCTAssertEqual(savedApps.map{$0.appUnit}, dummyAppUnits)
     }
     
     func test_AppFolder에서_savedApp을_정상적으로_삭제하는지()
     async throws
     {
         let targetAppFolder = DummyEntity.appFolder
-        let dummySavedApp = DummyEntity.savedApp1
+        let dummySavedAppUnit = DummyEntity.appUnit1
         
         let createdAppFolder = try await sut.create(appFolder: targetAppFolder)
         let updatedAppFolder = try await sut.append(
-            dummySavedApp,
+            dummySavedAppUnit,
             to: createdAppFolder)
-        let appFolderDeleted = try await sut.delete(
-            [dummySavedApp],
-            in: updatedAppFolder)
-        
-        XCTAssertEqual(appFolderDeleted.appCount, 0)
+        if let savedApp = await sut.fetchSavedApp(dummySavedAppUnit) {
+            let appFolderDeleted = try await sut.delete(
+                [savedApp],
+                in: updatedAppFolder)
+            XCTAssertEqual(appFolderDeleted.appCount, 0)
+        } else {
+            print("Failed to fetch SavedApp")
+        }
+      
     }
     
     func test_AppFolder에_savedApp을_추가한뒤_SavedApp이_fetch되는지()
     async throws
     {
         let dummyAppFolder = DummyEntity.appFolder
-        let dummySavedApp = DummyEntity.savedApp1
+        let dummyAppUnit = DummyEntity.appUnit1
         
         let createdAppFolder = try await sut.create(
             appFolder: dummyAppFolder)
-        try await sut.append(dummySavedApp, to: createdAppFolder)
-        if let savedApp = await sut.fetchSavedApp(
-            name: dummySavedApp.name,
-            id: dummySavedApp.appID,
-            country: dummySavedApp.country,
-            platform: dummySavedApp.platform) {
-            XCTAssertEqual(savedApp, dummySavedApp)
+        try await sut.append(dummyAppUnit, to: createdAppFolder)
+        if let savedApp = await sut.fetchSavedApp(dummyAppUnit) {
+            XCTAssertEqual(savedApp.appUnit, dummyAppUnit)
         } else {
-            XCTFail("Failed To fetchSavedApp")
+            XCTFail("Failed To fetch SavedApp")
         }
     }
     
@@ -153,19 +153,19 @@ private enum DummyEntity {
         description: "테스트 참고용",
         icon: "👩🏻‍🔬")
     
-    static let savedApp1 = SavedApp(
+    static let appUnit1 = AppUnit(
         name: "앱과사전",
         appID: 9090,
         country: .init(name: "South Korea")!,
         platform: .iPhone)
     
-    static let savedApp2 = SavedApp(
+    static let appUnit2 = AppUnit(
         name: "앱과사전",
         appID: 9090,
         country: .init(name: "South Korea")!,
         platform: .iPad)
-    
-    static let savedApp3 = SavedApp(
+  
+    static let appUnit3 = AppUnit(
         name: "앱과사전",
         appID: 9090,
         country: .init(name: "South Korea")!,

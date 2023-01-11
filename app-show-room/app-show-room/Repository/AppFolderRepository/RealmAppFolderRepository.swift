@@ -36,18 +36,14 @@ struct RealmAppFolderRepository: AppFolderRepository {
         }
     }
     
-    func fetchSavedApp(
-        name: String,
-        id: Int,
-        country: Country,
-        platform: SoftwareType)
-    async -> SavedApp?
-    {
+    func fetchSavedApp(_ appUnit: AppUnit) async -> SavedApp? {
         await withCheckedContinuation{ continuation in
             realmQueue.async {
                 if let fetchedSaveapp = realm.objects(SavedAppRealm.self)
                     .where ({ savedApp in
-                        savedApp.appID == id && savedApp.countryName == country.name && savedApp.softwareTypeName == platform.rawValue })
+                        savedApp.appID == appUnit.appID &&
+                        savedApp.countryName == appUnit.country.name &&
+                        savedApp.softwareTypeName == appUnit.platform.rawValue })
                         .first {
                     continuation.resume(returning: fetchedSaveapp.toDomain())
                 } else {
@@ -179,7 +175,7 @@ struct RealmAppFolderRepository: AppFolderRepository {
     }
     
     func append(
-        _ savedApp: SavedApp,
+        _ savedApp: AppUnit,
         to appFolder: AppFolder)
     async throws -> AppFolder
     {
@@ -241,24 +237,21 @@ struct RealmAppFolderRepository: AppFolderRepository {
     }
     
     private func createSavedApp(
-        _ savedApp: SavedApp)
+        _ appUnit: AppUnit)
     async -> SavedApp
     {
-        if let savedApp = await fetchSavedApp(
-            name: savedApp.name,
-            id: savedApp.appID,
-            country: savedApp.country,
-            platform: savedApp.platform) {
+        if let savedApp = await fetchSavedApp(appUnit) {
             return savedApp
         }
         
         return await withCheckedContinuation { continuation in
             realmQueue.async {
-                let savedAppRealm = SavedAppRealm(model: savedApp)
+                let newSavedApp = SavedApp(appUnit: appUnit)
+                let savedAppRealm = SavedAppRealm(model: newSavedApp)
                 try! realm.write {
                     realm.add(savedAppRealm)
                 }
-                continuation.resume(returning: savedApp)
+                continuation.resume(returning: newSavedApp)
             }
         }
     }

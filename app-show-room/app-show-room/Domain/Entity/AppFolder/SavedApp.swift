@@ -10,24 +10,14 @@ import Foundation
 struct SavedApp {
     
     let identifier: String
-    
-    let name: String
-    let appID: Int
-    let country: Country
-    let platform: SoftwareType
+    let appUnit: AppUnit
     
     init(
         identifier: String = UUID().uuidString,
-        name: String,
-        appID: Int,
-        country: Country,
-        platform: SoftwareType
+        appUnit: AppUnit
     ) {
         self.identifier = identifier
-        self.name = name
-        self.appID = appID
-        self.country = country
-        self.platform = platform
+        self.appUnit = appUnit
     }
 
 }

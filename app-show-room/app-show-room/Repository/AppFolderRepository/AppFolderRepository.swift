@@ -11,12 +11,7 @@ protocol AppFolderRepository {
     
     func fetch(identifier: String) async throws -> AppFolder
     
-    func fetchSavedApp(
-        name: String,
-        id: Int,
-        country: Country,
-        platform: SoftwareType)
-    async -> SavedApp?
+    func fetchSavedApp(_ appUnit: AppUnit) async -> SavedApp?
     
     func fetchSavedApps(
         from appFolder: AppFolder)
@@ -44,7 +39,7 @@ protocol AppFolderRepository {
     
     @discardableResult
     func append(
-        _ savedApp: SavedApp,
+        _ savedApp: AppUnit,
         to appFolder: AppFolder)
     async throws -> AppFolder
     

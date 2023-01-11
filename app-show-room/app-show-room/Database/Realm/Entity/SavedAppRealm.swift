@@ -24,23 +24,25 @@ class SavedAppRealm: Object {
     convenience init(model: SavedApp) {
         self.init()
         identifier = model.identifier
-        name = model.name
-        appID = model.appID
-        countryName = model.country.name
-        softwareTypeName = model.platform.rawValue
+        name = model.appUnit.name
+        appID = model.appUnit.appID
+        countryName = model.appUnit.country.name
+        softwareTypeName = model.appUnit.platform.rawValue
     }
     
     func toDomain() -> SavedApp? {
         guard let country = Country(name: countryName),
-        let software = SoftwareType(rawValue: softwareTypeName) else {
+        let platform = SoftwareType(rawValue: softwareTypeName) else {
             return nil
         }
-        return SavedApp(
-            identifier: identifier,
+        let appUnit = AppUnit(
             name: name,
             appID: appID,
             country: country,
-            platform: software
+            platform: platform)
+        return SavedApp(
+            identifier: identifier,
+            appUnit: appUnit
         )
     }
     
