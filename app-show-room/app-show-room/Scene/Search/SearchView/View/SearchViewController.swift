@@ -53,6 +53,9 @@ final class SearchViewController: UIViewController {
         view = searchBackgroundView
         searchBackgroundView.presentationDelegate = self
         navigationItem.searchController = self.searchController
+        searchController.searchBar.searchTextField.backgroundColor = Color.skyBlue
+        searchController.searchBar.searchTextField.textColor = .white
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor : UIColor.white]
         navigationItem.title = viewModel.navigationItemTitle
         navigationController?.navigationBar.prefersLargeTitles = true
     }

@@ -81,7 +81,7 @@ final class SearchBackgroundView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor(named: "background")
+        backgroundColor = Color.blueGreen
         self.addSubview(iPhoneButton)
         self.addSubview(iPadButton)
         self.addSubview(macButton)
@@ -150,7 +150,7 @@ final class SearchBackgroundView: UIView {
             startAngle: .pi,
             endAngle: 2 * .pi,
             clockwise: true)
-        let smallCircleColor = UIColor.systemGray5
+        let smallCircleColor = Color.lightGray
         smallCircleColor.setFill()
         smallCirclePath.fill()
 
