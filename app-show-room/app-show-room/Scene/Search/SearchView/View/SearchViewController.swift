@@ -53,9 +53,10 @@ final class SearchViewController: UIViewController {
         view = searchBackgroundView
         searchBackgroundView.presentationDelegate = self
         navigationItem.searchController = self.searchController
-        searchController.searchBar.searchTextField.backgroundColor = Color.skyBlue
-        searchController.searchBar.searchTextField.textColor = .white
-        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor : UIColor.white]
+        searchController.searchBar.searchTextField.backgroundColor = Design.searchBarTextFieldBackgroundColor
+        searchController.searchBar.searchTextField.textColor = Design.searchBarTextFieldTextColor
+        searchController.searchBar.tintColor = Design.searchBarTintColor
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor : Design.navigationBarLargeTitleTextColor]
         navigationItem.title = viewModel.navigationItemTitle
         navigationController?.navigationBar.prefersLargeTitles = true
     }
@@ -168,4 +169,12 @@ extension SearchViewController: SettingViewDelegate {
         refreshState()
     }
 
+}
+
+private enum Design {
+    
+    static let navigationBarLargeTitleTextColor = UIColor.white
+    static let searchBarTextFieldBackgroundColor = Color.skyBlue
+    static let searchBarTextFieldTextColor = UIColor.white
+    static let searchBarTintColor: UIColor = Color.blueGreen
 }
