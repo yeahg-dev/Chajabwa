@@ -28,7 +28,7 @@ final class SettingViewController: UIViewController {
                 width: view.frame.width,
                 height: statusBarHeight))
         bar.isTranslucent = false
-        bar.backgroundColor = .systemBackground
+        bar.backgroundColor = Design.backgroundColor
         return bar
     }()
     
@@ -37,12 +37,14 @@ final class SettingViewController: UIViewController {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.placeholder = "나라 검색"
         searchBar.delegate = self
+        searchBar.barTintColor = Design.backgroundColor
         return searchBar
     }()
     
     private let countryTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = Design.backgroundColor
         return tableView
     }()
     
@@ -51,7 +53,7 @@ final class SettingViewController: UIViewController {
         configureNavigationBar()
         configureCountryTableView()
         configureLayout()
-        view.backgroundColor = .white
+        view.backgroundColor = Design.backgroundColor
     }
     
     private func configureLayout() {
@@ -79,10 +81,12 @@ final class SettingViewController: UIViewController {
             barButtonSystemItem: .done,
             target: self,
             action: #selector(dismissWithSaving))
+        doneButton.tintColor = Design.tintColor
         let cancelButton = UIBarButtonItem(
             barButtonSystemItem: .cancel,
             target: self,
             action: #selector(dismissView))
+        cancelButton.tintColor = Design.tintColor
         navigationItem.rightBarButtonItem = doneButton
         navigationItem.leftBarButtonItem = cancelButton
         navigationBar.items = [navigationItem]
@@ -135,6 +139,8 @@ extension SettingViewController: UITableViewDataSource {
         configuration.text = viewModel.countryName(at: indexPath.row)
         configuration.secondaryText = viewModel.countryFlag(at: indexPath.row)
         cell.contentConfiguration = configuration
+        cell.backgroundColor = .clear
+        cell.tintColor = Design.checktMarkTintColor
         
         if viewModel.selectedCountryIndex == indexPath.row {
             cell.accessoryType = .checkmark
@@ -171,4 +177,11 @@ extension SettingViewController: UISearchBarDelegate {
         countryTableView.reloadData()
     }
     
+}
+
+private enum Design {
+    
+    static let backgroundColor: UIColor = Color.lightSkyBlue
+    static let tintColor: UIColor = Color.blueGreen
+    static let checktMarkTintColor: UIColor = .red
 }
