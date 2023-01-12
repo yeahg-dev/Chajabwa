@@ -12,11 +12,11 @@ class AppFolderCreatorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
-        configureLayout()
+        view.backgroundColor = Design.backgroundColor
     }
     
     private lazy var navigationBar: UINavigationBar = {
-        let statusBarHeight: CGFloat = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0
+        let statusBarHeight: CGFloat = 60
         let bar = UINavigationBar(
             frame: .init(
                 x: 0,
@@ -24,7 +24,7 @@ class AppFolderCreatorViewController: UIViewController {
                 width: view.frame.width,
                 height: statusBarHeight))
         bar.isTranslucent = false
-        bar.backgroundColor = .systemBackground
+        bar.backgroundColor = Design.backgroundColor
         return bar
     }()
     
@@ -32,7 +32,7 @@ class AppFolderCreatorViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .none
-        textField.backgroundColor = .systemPink
+        textField.backgroundColor = Design.textFieldBackgroundColor
         textField.placeholder = "폴더 이름(3자 이상)"
         return textField
     }()
@@ -40,6 +40,7 @@ class AppFolderCreatorViewController: UIViewController {
     private let folderDescriptionTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.backgroundColor = Design.textViewBackgroundColor
         return textView
     }()
     
@@ -47,6 +48,8 @@ class AppFolderCreatorViewController: UIViewController {
        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("완료", for: .normal)
+        button.setBackgroundColor(Design.normalButtonColor, for: .normal)
+        button.setBackgroundColor(Design.disabledButtonColor, for: .disabled)
         return button
     }()
     
@@ -114,5 +117,11 @@ private enum Design {
     
     static let descriptionTextViewHeight: CGFloat = 300
     static let doneButtonHeight: CGFloat = 80
+    
+    static let backgroundColor: UIColor = Color.mauveLavender
+    static let textFieldBackgroundColor: UIColor = Color.favoriteLavender
+    static let textViewBackgroundColor: UIColor = Color.favoriteLavender
+    static let disabledButtonColor: UIColor = Color.lightGray
+    static let normalButtonColor: UIColor = Color.lilac
     
 }
