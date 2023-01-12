@@ -343,8 +343,8 @@
 			isa = PBXGroup;
 			children = (
 				630068C92951A7B400BD73C9 /* SearchAppResultsViewController.swift */,
-				63A201D3296FF99600CCE285 /* SearchKeywordTableView */,
-				63A201D0296FF94500CCE285 /* SearchAppTableView */,
+				63A201D3296FF99600CCE285 /* SearchKeywordList */,
+				63A201D0296FF94500CCE285 /* SearchAppList */,
 			);
 			path = SearchAppResults;
 			sourceTree = "<group>";
@@ -703,13 +703,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		63A201D0296FF94500CCE285 /* SearchAppTableView */ = {
+		63A201D0296FF94500CCE285 /* SearchAppList */ = {
 			isa = PBXGroup;
 			children = (
+				63A201D9296FFBB000CCE285 /* AppFolderCreator */,
 				63A201D2296FF96600CCE285 /* View */,
 				63A201D1296FF96000CCE285 /* VIewModel */,
 			);
-			path = SearchAppTableView;
+			path = SearchAppList;
 			sourceTree = "<group>";
 		};
 		63A201D1296FF96000CCE285 /* VIewModel */ = {
@@ -730,13 +731,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		63A201D3296FF99600CCE285 /* SearchKeywordTableView */ = {
+		63A201D3296FF99600CCE285 /* SearchKeywordList */ = {
 			isa = PBXGroup;
 			children = (
 				63A201D5296FF9A900CCE285 /* VIew */,
 				63A201D4296FF9A400CCE285 /* ViewModel */,
 			);
-			path = SearchKeywordTableView;
+			path = SearchKeywordList;
 			sourceTree = "<group>";
 		};
 		63A201D4296FF9A400CCE285 /* ViewModel */ = {
@@ -781,6 +782,29 @@
 				6384E5C328BCD2CD00563FD5 /* Cell */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		63A201D9296FFBB000CCE285 /* AppFolderCreator */ = {
+			isa = PBXGroup;
+			children = (
+				63A201DA296FFE0400CCE285 /* View */,
+				63A201DB296FFEC000CCE285 /* VIewModel */,
+			);
+			path = AppFolderCreator;
+			sourceTree = "<group>";
+		};
+		63A201DA296FFE0400CCE285 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		63A201DB296FFEC000CCE285 /* VIewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = VIewModel;
 			sourceTree = "<group>";
 		};
 		63AA536528BF3DBA000FB5DD /* app-show-room-unitTest */ = {
