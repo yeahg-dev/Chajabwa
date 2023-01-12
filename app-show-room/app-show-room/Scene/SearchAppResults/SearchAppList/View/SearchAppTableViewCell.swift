@@ -164,6 +164,7 @@ final class SearchAppTableViewCell: BaseTableViewCell {
         containerView.addSubview(bookmarkButton)
         containerView.addSubview(screenshotStackView)
         self.contentView.addSubview(containerView)
+        self.backgroundColor = .clear
     }
     
     override func setConstraints() {
@@ -256,7 +257,6 @@ extension SearchAppTableViewCell {
         static let labelStackViewSpacing: CGFloat = 5
         static let ratingStackViewSpacing: CGFloat = 10
         static let defaultSpacing: CGFloat = 23
-        
         
     }
     

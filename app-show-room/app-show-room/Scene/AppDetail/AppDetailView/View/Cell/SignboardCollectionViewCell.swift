@@ -239,11 +239,11 @@ private enum Design {
     static let shareButtonWidth: CGFloat = 18
     static let shareButtonHeight: CGFloat = 10
     
-    // layer
+    // border
     static let iconImageViewCornerRadius: CGFloat = 20
     static let icomImageViewBorderColor: CGColor = UIColor.systemGray4.cgColor
     static let iconImageViewBorderWidth: CGFloat = 0.5
-    static let purchaseButtonCornerRadius: CGFloat = 13
+    static let purchaseButtonCornerRadius: CGFloat = 5
     
     // numberOfLines
     static let appNameLabelNumberOfLines: Int = 2
@@ -256,7 +256,8 @@ private enum Design {
     
     // image
     static let shareButtonImage = UIImage(
-        systemName: "square.and.arrow.up")?.withTintColor(.systemBlue)
+        systemName: "square.and.arrow.up")?
+        .withTintColor(Design.shareButtonTintColor, renderingMode: .alwaysOriginal)
     static let defaultIconImage = UIImage(withBackground: .systemGray4)
     
     // textColor
@@ -264,6 +265,8 @@ private enum Design {
     static let purchaseButtonTextColor: UIColor = .white
     
     // backgroundColor
-    static let purchaseButtonBackgroundColor: UIColor = .systemBlue
+    static let purchaseButtonBackgroundColor: UIColor = Color.blueGreen
     
+    // tintColor
+    static let shareButtonTintColor = Color.blueGreen
 }

@@ -71,6 +71,7 @@ final class ReleaseNoteCollectionViewCell: BaseCollectionViewCell {
         textView.isEditable = false
         textView.textColor = Design.descriptionTextColor
         textView.font = Design.decriptionTextViewFont
+        textView.backgroundColor = .clear
         return textView
     }()
     
@@ -193,7 +194,7 @@ private enum Design {
     // text color
     static let versionTextColor: UIColor = .systemGray
     static let currentVersionReleaseDateTextColor: UIColor = .systemGray
-    static let foldingButtonTextColor: UIColor = .systemBlue
+    static let foldingButtonTextColor: UIColor = Color.blueGreen
     static let descriptionTextColor: UIColor = .label
     
 }

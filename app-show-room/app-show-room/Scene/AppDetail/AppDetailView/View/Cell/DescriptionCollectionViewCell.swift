@@ -31,6 +31,7 @@ final class DescriptionCollectionViewCell: BaseCollectionViewCell {
         textView.isScrollEnabled = false
         textView.isEditable = false
         textView.font = Design.decriptionTextViewFont
+        textView.backgroundColor = .clear
         return textView
     }()
     
@@ -169,6 +170,6 @@ private enum Design {
     static let textContainerMinimumNumberOfLines = 3
     
     // textColor
-    static let foldingButtonTextColor: UIColor = .systemBlue
+    static let foldingButtonTextColor: UIColor = Color.blueGreen
     
 }

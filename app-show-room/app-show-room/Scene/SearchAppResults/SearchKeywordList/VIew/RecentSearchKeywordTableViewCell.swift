@@ -75,6 +75,7 @@ final class RecentSearchKeywordTableViewCell: BaseTableViewCell {
         contentView.addSubview(clockIconImageView)
         contentView.addSubview(keywordStackView)
         contentView.addSubview(dateLabel)
+        self.backgroundColor = .clear
     }
 
     override func setConstraints() {

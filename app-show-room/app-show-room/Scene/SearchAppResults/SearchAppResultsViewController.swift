@@ -182,7 +182,7 @@ extension SearchAppResultsViewController: SearchKeywordTableViewUpdater {
 
 private enum Design {
     
-    static let backgroundColor: UIColor = .systemBackground
+    static let backgroundColor: UIColor = Color.lightSkyBlue
     
 }
 

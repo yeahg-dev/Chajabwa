@@ -62,8 +62,9 @@ final class AppDetailViewController: UIViewController {
     // MARK: - Private Methods
     
     private func configureUI() {
-        view.addSubview(contentCollectionView)
         view.backgroundColor = Design.backgroundColor
+        view.addSubview(contentCollectionView)
+        contentCollectionView.backgroundColor = Design.backgroundColor
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.titleView = iconImage
         navigationItem.titleView?.alpha = 0
@@ -336,6 +337,7 @@ final class AppDetailViewController: UIViewController {
             content.secondaryTextProperties.font = .preferredFont(forTextStyle: .callout)
             content.secondaryTextProperties.color = .label
             cell.contentConfiguration = content
+            cell.backgroundColor = Color.lightSkyBlue
         }
     }
     
@@ -459,7 +461,7 @@ extension AppDetailViewController: UICollectionViewDelegate {
 private enum Design {
     
     // color
-    static let backgroundColor: UIColor = .systemBackground
+    static let backgroundColor: UIColor = Color.lightSkyBlue
     
     // padding
     static let sectionPaddingTop: CGFloat = 20
