@@ -17,5 +17,6 @@ enum Color {
     static let shadeLavender = UIColor(named: "shadeLavender")!
     static let favoriteLavender = UIColor(named: "favoriteLavender")!
     static let lightGray = UIColor(named: "lightGray")!
+    static let lilac = UIColor(named: "lilac")!
    
 }

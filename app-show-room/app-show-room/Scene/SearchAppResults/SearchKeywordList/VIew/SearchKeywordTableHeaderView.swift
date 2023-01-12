@@ -23,6 +23,7 @@ final class SearchKeywordTableHeaderView: UIView {
     private lazy var savingModeSwitch: UISwitch = {
         let savingModeSwitch = UISwitch()
         savingModeSwitch.translatesAutoresizingMaskIntoConstraints = false
+        savingModeSwitch.onTintColor = Design.switchOnColor
         savingModeSwitch.addTarget(
             self,
             action: #selector(savingSwitchValueDidChanged(sender:)),
@@ -76,5 +77,7 @@ private enum Design {
     
     static let paddingLeading: CGFloat = 25
     static let paddingTrailing: CGFloat = 25
+
+    static let switchOnColor: UIColor = Color.lilac
 
 }
