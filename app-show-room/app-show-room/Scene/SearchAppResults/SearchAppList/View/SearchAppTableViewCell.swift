@@ -163,8 +163,15 @@ final class SearchAppTableViewCell: BaseTableViewCell {
         containerView.addSubview(labelsStackView)
         containerView.addSubview(bookmarkButton)
         containerView.addSubview(screenshotStackView)
-        self.contentView.addSubview(containerView)
-        self.backgroundColor = .clear
+        contentView.addSubview(containerView)
+        configureUI()
+    }
+    
+    private func configureUI() {
+        backgroundColor = Design.backgroundColor
+        let selectedBackgroundView = UIView()
+        selectedBackgroundView.backgroundColor = Design.selectedBackgroundColor
+        self.selectedBackgroundView = selectedBackgroundView
     }
     
     override func setConstraints() {
@@ -223,6 +230,10 @@ extension SearchAppTableViewCell {
     // MARK: - Desigin
     
     private enum Design {
+        
+        // backgroundColor
+        static let backgroundColor: UIColor = .clear
+        static let selectedBackgroundColor: UIColor = Color.skyBlue
         
         // layer
         static let iconImageViewCornerRadius: CGFloat = 20

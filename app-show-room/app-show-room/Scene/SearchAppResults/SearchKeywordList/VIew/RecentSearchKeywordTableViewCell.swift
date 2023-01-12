@@ -8,7 +8,7 @@
 import UIKit
 
 final class RecentSearchKeywordTableViewCell: BaseTableViewCell {
-
+    
     private let clockIconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -19,7 +19,7 @@ final class RecentSearchKeywordTableViewCell: BaseTableViewCell {
     }()
     
     private lazy var keywordStackView: UIStackView = {
-       let stackView = UIStackView(arrangedSubviews: [keywordLabel, countryFlagLabel, platformImageView])
+        let stackView = UIStackView(arrangedSubviews: [keywordLabel, countryFlagLabel, platformImageView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .center
@@ -27,7 +27,7 @@ final class RecentSearchKeywordTableViewCell: BaseTableViewCell {
         stackView.setCustomSpacing(5, after: keywordLabel)
         return stackView
     }()
-
+    
     private let keywordLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -37,7 +37,7 @@ final class RecentSearchKeywordTableViewCell: BaseTableViewCell {
         label.lineBreakMode = .byTruncatingTail
         return label
     }()
-
+    
     private let countryFlagLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -46,7 +46,7 @@ final class RecentSearchKeywordTableViewCell: BaseTableViewCell {
         label.setContentHuggingPriority(.required, for: .horizontal)
         return label
     }()
-
+    
     private let platformImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +54,7 @@ final class RecentSearchKeywordTableViewCell: BaseTableViewCell {
         imageView.setContentHuggingPriority(.required, for: .horizontal)
         return imageView
     }()
-
+    
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -63,21 +63,28 @@ final class RecentSearchKeywordTableViewCell: BaseTableViewCell {
         label.textColor = .gray
         return label
     }()
-
+    
     func bind(_ viewModel: RecentSearchKeywordCellModel) {
         keywordLabel.text = viewModel.keyword
         countryFlagLabel.text = viewModel.countryFlag
         platformImageView.image = viewModel.softwareIcon
         dateLabel.text = viewModel.date
     }
-
+    
     override func addSubviews() {
         contentView.addSubview(clockIconImageView)
         contentView.addSubview(keywordStackView)
         contentView.addSubview(dateLabel)
-        self.backgroundColor = .clear
+        configureUI()
     }
-
+    
+    private func configureUI() {
+        backgroundColor = Design.backgroundColor
+        let selectedBackgroundView = UIView()
+        selectedBackgroundView.backgroundColor = Design.selectedBackgroundColor
+        self.selectedBackgroundView = selectedBackgroundView
+    }
+    
     override func setConstraints() {
         NSLayoutConstraint.activate([
             clockIconImageView.leadingAnchor.constraint(
@@ -111,16 +118,19 @@ final class RecentSearchKeywordTableViewCell: BaseTableViewCell {
                 equalTo: contentView.centerYAnchor)
         ])
     }
-
+    
 }
 
 private enum Design {
-
+    
     static let paddingLeading: CGFloat = 25
     static let paddingTrailing: CGFloat = 25
     static let paddingTop: CGFloat = 15
     static let paddingBottom: CGFloat = 15
-
+    
     static let clockImageViewRightMargin: CGFloat = 9
+    
+    static let backgroundColor: UIColor = .clear
+    static let selectedBackgroundColor: UIColor = Color.skyBlue
     
 }
