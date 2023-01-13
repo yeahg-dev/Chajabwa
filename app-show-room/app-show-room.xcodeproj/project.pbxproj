@@ -92,6 +92,7 @@
 		63A201E12970584F00CCE285 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A201E02970584F00CCE285 /* UIButton+Extension.swift */; };
 		63A201E5297064C300CCE285 /* FolderNameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A201E4297064C300CCE285 /* FolderNameTextField.swift */; };
 		63A201E82971245300CCE285 /* AppFolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A201E72971245300CCE285 /* AppFolderTableViewCell.swift */; };
+		63A201EA29712F3500CCE285 /* AppFolderCreationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A201E929712F3500CCE285 /* AppFolderCreationButton.swift */; };
 		63A66F4C28C0889900F3B4D0 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A66F4B28C0889900F3B4D0 /* Text.swift */; };
 		63A66F4E28C0C1FE00F3B4D0 /* LinkInformationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A66F4D28C0C1FE00F3B4D0 /* LinkInformationCollectionViewCell.swift */; };
 		63A764F828BDFF8C003B1EAA /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A764F728BDFF8C003B1EAA /* IconView.swift */; };
@@ -241,6 +242,7 @@
 		63A201E02970584F00CCE285 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		63A201E4297064C300CCE285 /* FolderNameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderNameTextField.swift; sourceTree = "<group>"; };
 		63A201E72971245300CCE285 /* AppFolderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderTableViewCell.swift; sourceTree = "<group>"; };
+		63A201E929712F3500CCE285 /* AppFolderCreationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderCreationButton.swift; sourceTree = "<group>"; };
 		63A66F4B28C0889900F3B4D0 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		63A66F4D28C0C1FE00F3B4D0 /* LinkInformationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkInformationCollectionViewCell.swift; sourceTree = "<group>"; };
 		63A764F728BDFF8C003B1EAA /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
@@ -823,6 +825,7 @@
 			isa = PBXGroup;
 			children = (
 				63A201E72971245300CCE285 /* AppFolderTableViewCell.swift */,
+				63A201E929712F3500CCE285 /* AppFolderCreationButton.swift */,
 			);
 			path = AppFolderDesignation;
 			sourceTree = "<group>";
@@ -1180,6 +1183,7 @@
 				63A201C6296EB2B000CCE285 /* AppUnit.swift in Sources */,
 				63F0341E28D8A0A5003F1751 /* StarRatingView.swift in Sources */,
 				63A201E5297064C300CCE285 /* FolderNameTextField.swift in Sources */,
+				63A201EA29712F3500CCE285 /* AppFolderCreationButton.swift in Sources */,
 				6384EC4D28AB2E7C00D1F821 /* UICollectionView+Extension.swift in Sources */,
 				63962710296560F80037A2B7 /* SearchKeywordTableFooterView.swift in Sources */,
 				63962712296563D00037A2B7 /* SearchKeywordTableFooterViewModel.swift in Sources */,
