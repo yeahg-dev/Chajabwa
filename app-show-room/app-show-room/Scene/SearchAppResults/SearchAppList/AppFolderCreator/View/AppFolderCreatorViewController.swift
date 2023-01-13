@@ -11,28 +11,24 @@ class AppFolderCreatorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureNavigationBar()
         configureLayout()
         view.backgroundColor = Design.backgroundColor
+        folderNameTextField.becomeFirstResponder()
     }
     
-    private lazy var navigationBar: UINavigationBar = {
-        let statusBarHeight: CGFloat = 60
-        let bar = UINavigationBar(
-            frame: .init(
-                x: 0,
-                y: 0,
-                width: view.frame.width,
-                height: statusBarHeight))
+    private let navigationBar: UINavigationBar = {
+        let bar = UINavigationBar()
+        bar.translatesAutoresizingMaskIntoConstraints = false
         bar.isTranslucent = false
         bar.backgroundColor = Design.backgroundColor
         return bar
     }()
     
-    private let folderNameTextField: UITextField = {
-        let textField = UITextField()
+    private let folderNameTextField: FolderNameTextField = {
+        let textField = FolderNameTextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .none
-        textField.backgroundColor = Design.textFieldBackgroundColor
         textField.placeholder = "폴더 이름(3자 이상)"
         return textField
     }()
@@ -41,6 +37,14 @@ class AppFolderCreatorViewController: UIViewController {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = Design.textViewBackgroundColor
+        textView.layer.cornerRadius = Design.cornerRadius
+        textView.textContainerInset = UIEdgeInsets(
+            top: Design.textContainerInsetTop,
+            left: Design.textContainerInsetLeft,
+            bottom: Design.textContainerInsetBottom,
+            right: Design.textContainerInsetRight)
+        textView.isScrollEnabled = false
+        textView.font = Design.textViewFont
         return textView
     }()
     
@@ -50,11 +54,13 @@ class AppFolderCreatorViewController: UIViewController {
         button.setTitle("완료", for: .normal)
         button.setBackgroundColor(Design.normalButtonColor, for: .normal)
         button.setBackgroundColor(Design.disabledButtonColor, for: .disabled)
+        button.titleLabel?.font = Design.buttonFont
         return button
     }()
     
     private func configureNavigationBar() {
-        let navigationItem = UINavigationItem(title: "새 폴더 만들기")
+        let navigationItem = UINavigationItem(title: "새로운 폴더 만들기")
+        navigationBar.titleTextAttributes = [ .font: UIFont.preferredFont(forTextStyle: .title3)]
         navigationBar.items = [navigationItem]
     }
     
@@ -67,12 +73,19 @@ class AppFolderCreatorViewController: UIViewController {
         view.addSubview(doneButton)
         
         NSLayoutConstraint.activate([
+            navigationBar.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor),
+            navigationBar.topAnchor.constraint(
+                equalTo: view.topAnchor),
+            navigationBar.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor),
+            navigationBar.heightAnchor.constraint(
+                equalToConstant: Design.navigationBarHeiht),
+            navigationBar.bottomAnchor.constraint(
+                equalTo: layoutGuide.topAnchor),
             layoutGuide.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: Design.leadingMargin),
-            layoutGuide.topAnchor.constraint(
-                equalTo: view.topAnchor,
-                constant: Design.topMargin),
             layoutGuide.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -Design.trailinMargin),
@@ -82,7 +95,8 @@ class AppFolderCreatorViewController: UIViewController {
             folderNameTextField.leadingAnchor.constraint(
                 equalTo: layoutGuide.leadingAnchor),
             folderNameTextField.topAnchor.constraint(
-                equalTo: layoutGuide.topAnchor),
+                equalTo: layoutGuide.topAnchor,
+                constant: Design.topMargin),
             folderNameTextField.trailingAnchor.constraint(
                 equalTo: layoutGuide.trailingAnchor),
             folderDescriptionTextView.leadingAnchor.constraint(
@@ -109,16 +123,29 @@ class AppFolderCreatorViewController: UIViewController {
 
 private enum Design {
     
-    static let spacing: CGFloat = 15
-    static let topMargin: CGFloat = 20
-    static let leadingMargin: CGFloat = 20
-    static let trailinMargin: CGFloat = 20
-    static let bottomMargin: CGFloat = 20
+    static let spacing: CGFloat = 30
+    static let topMargin: CGFloat = 30
+    static let leadingMargin: CGFloat = 35
+    static let trailinMargin: CGFloat = 35
+    static let bottomMargin: CGFloat = 50
     
-    static let descriptionTextViewHeight: CGFloat = 300
-    static let doneButtonHeight: CGFloat = 80
+    static let cornerRadius: CGFloat = 10
     
-    static let backgroundColor: UIColor = Color.mauveLavender
+    static let navigationBarHeiht: CGFloat = 60
+    static let textFieldHeight: CGFloat = 50
+    static let descriptionTextViewHeight: CGFloat = 150
+    static let doneButtonHeight: CGFloat = 60
+    
+    // textContainer
+    static let textContainerInsetTop: CGFloat = 7
+    static let textContainerInsetLeft: CGFloat = 5
+    static let textContainerInsetBottom: CGFloat = 7
+    static let textContainerInsetRight: CGFloat = 5
+    
+    static let textViewFont: UIFont = .preferredFont(forTextStyle: .footnote)
+    static let buttonFont: UIFont = .preferredFont(forTextStyle: .headline)
+    
+    static let backgroundColor: UIColor = .white
     static let textFieldBackgroundColor: UIColor = Color.favoriteLavender
     static let textViewBackgroundColor: UIColor = Color.favoriteLavender
     static let disabledButtonColor: UIColor = Color.lightGray
