@@ -94,7 +94,6 @@ final class SearchAppTableViewCell: BaseTableViewCell {
         button.setImage(
             UIImage(named: "addFolder"),
             for: .normal)
-//        button.imageView?.frame = CGRect(origin: .zero, size: Design.folderButtonSize)
         button.imageView?.contentMode = .scaleAspectFit
         return button
     }()
