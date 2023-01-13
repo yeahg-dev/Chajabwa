@@ -27,12 +27,7 @@ final class SearchAppTableViewCell: BaseTableViewCell {
     }()
     
     private let iconImageView: UIImageView = {
-        let imageView = UIImageView(
-            frame: CGRect(
-                origin: .zero,
-                size: CGSize(
-                    width: Design.iconImageViewHeight,
-                    height: Design.iconImageViewHeight)))
+        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = Design.iconImageViewCornerRadius
