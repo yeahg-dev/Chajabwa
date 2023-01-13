@@ -88,18 +88,14 @@ final class SearchAppTableViewCell: BaseTableViewCell {
         return label
     }()
     
-    private let bookmarkButton: UIButton = {
-        let button = UIButton(
-            frame: CGRect(origin: .zero, size: Design.bookmarkButtonSize))
+    private let folderButton: UIButton = {
+        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        let configuration = UIImage.SymbolConfiguration(
-            pointSize: Design.bookmarkButtonSize.width,
-            weight: .light,
-            scale: .small)
         button.setImage(
-            UIImage(systemName: "bookmark",
-                    withConfiguration: configuration),
+            UIImage(named: "addFolder"),
             for: .normal)
+//        button.imageView?.frame = CGRect(origin: .zero, size: Design.folderButtonSize)
+        button.imageView?.contentMode = .scaleAspectFit
         return button
     }()
     
@@ -161,7 +157,7 @@ final class SearchAppTableViewCell: BaseTableViewCell {
     override func addSubviews() {
         containerView.addSubview(iconImageView)
         containerView.addSubview(labelsStackView)
-        containerView.addSubview(bookmarkButton)
+        containerView.addSubview(folderButton)
         containerView.addSubview(screenshotStackView)
         contentView.addSubview(containerView)
         configureUI()
@@ -203,14 +199,18 @@ final class SearchAppTableViewCell: BaseTableViewCell {
             labelsStackView.topAnchor.constraint(
                 equalTo: iconImageView.topAnchor),
             labelsStackView.trailingAnchor.constraint(
-                equalTo: bookmarkButton.leadingAnchor),
+                equalTo: containerView.trailingAnchor),
             iconImageView.trailingAnchor.constraint(
                 equalTo: labelsStackView.leadingAnchor,
                 constant: -Design.iconImageViewTrailingMargin),
-            bookmarkButton.trailingAnchor.constraint(
+            folderButton.trailingAnchor.constraint(
                 equalTo: containerView.trailingAnchor),
-            bookmarkButton.centerYAnchor.constraint(
-                equalTo: iconImageView.centerYAnchor),
+            folderButton.bottomAnchor.constraint(
+                equalTo: iconImageView.bottomAnchor),
+            folderButton.widthAnchor.constraint(
+                equalToConstant: Design.folderButtonSize.width),
+            folderButton.heightAnchor.constraint(
+                equalToConstant: Design.folderButtonSize.height),
             screenshotStackViewHeightAnchor,
             screenshotStackView.topAnchor.constraint(
                 equalTo: iconImageView.bottomAnchor,
@@ -256,7 +256,7 @@ extension SearchAppTableViewCell {
         static let starColor: UIColor = .gray
         
         // size
-        static let bookmarkButtonSize: CGSize = .init(width: 35, height: 35)
+        static let folderButtonSize: CGSize = .init(width: 30, height: 30)
         static let iconImageViewHeight: CGFloat = UIScreen.main.bounds.height * 0.1
         
         // padding, margin
