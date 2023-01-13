@@ -18,6 +18,14 @@ final class AppDetailViewController: UIViewController {
         return iconIamge
     }()
     
+    private let folderButton: UIButton = {
+       let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.contentMode = .scaleAspectFit
+        button.setImage(UIImage(named: "addFolder"), for: .normal)
+        return button
+    }()
+    
     private lazy var contentCollectionView: UICollectionView = {
         return UICollectionView(
            frame: view.bounds,
@@ -66,17 +74,22 @@ final class AppDetailViewController: UIViewController {
         view.addSubview(contentCollectionView)
         contentCollectionView.backgroundColor = Design.backgroundColor
         navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationBar.tintColor = Design.navigationBarTintColor
         navigationItem.titleView = iconImage
         navigationItem.titleView?.alpha = 0
         navigationItem.titleView?.isHidden = true
-        let downloadButton =  UIBarButtonItem(customView: DownloadButtonView())
-        navigationItem.setRightBarButton(downloadButton, animated: false)
+        let folderButton = UIBarButtonItem(customView: folderButton)
+        navigationItem.setRightBarButton(folderButton, animated: false)
         navigationItem.rightBarButtonItem?.customView?.alpha = 0
     }
     
     private func setContstraints() {
         contentCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            folderButton.widthAnchor.constraint(
+                equalToConstant: Design.folderButtonSize.width),
+            folderButton.heightAnchor.constraint(
+                equalToConstant: Design.folderButtonSize.height),
             contentCollectionView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor),
             contentCollectionView.topAnchor.constraint(
@@ -462,11 +475,14 @@ private enum Design {
     
     // color
     static let backgroundColor: UIColor = Color.lightSkyBlue
+    static let navigationBarTintColor: UIColor = Color.blueGreen
     
     // padding
     static let sectionPaddingTop: CGFloat = 20
     static let sectionPaddingLeading: CGFloat = 25
     static let sectionBottomPadding: CGFloat = 20
     static let sectionPaddingTrailing: CGFloat = 25
+    
+    static let folderButtonSize: CGSize = .init(width: 25, height: 25)
     
 }
