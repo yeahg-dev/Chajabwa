@@ -24,6 +24,7 @@ private enum SearhKeywordSaving {
 
 final class SearchAppResultsViewController: UITableViewController {
     
+    var showAppResults: Bool = false
     weak var delegate: SearchAppResultsViewDelegate?
     
     private let searchKeywordTableHeaderView = SearchKeywordTableHeaderView()
@@ -49,11 +50,12 @@ final class SearchAppResultsViewController: UITableViewController {
     }
     
     init(viewModel: SearchAppResultsTableViewModel) {
-        self.searchAppResultsViewModel = viewModel
+        self.searchAppResultsViewModel = viewModel 
         super.init(style: .plain)
     }
     
     func showRecentSearchKeywordTableView() {
+        showAppResults = false
         tableView.dataSource = recentSearchKeywordViewModel
         tableView.delegate = recentSearchKeywordViewModel
         refreshSearchKeywordTableView()
@@ -136,6 +138,7 @@ extension SearchAppResultsViewController: AppDetailViewPresenter {
 extension SearchAppResultsViewController: SearchAppResultTableViewUpdater {
     
     func updateSearchAppResultTableView(with searchApps: [AppDetail]) {
+        showAppResults = true
         hideFooterAndHeaderView()
         scrollToTop()
         searchAppResultsViewModel = SearchAppResultsTableViewModel(
