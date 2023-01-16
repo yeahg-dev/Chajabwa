@@ -18,6 +18,7 @@ class SavedAppRealm: Object {
     @Persisted var appID: Int
     @Persisted var countryName: String
     @Persisted var softwareTypeName: String
+    @Persisted var iconImageURL: String?
     
     @Persisted var folders = LinkingObjects(fromType: AppFolderRealm.self, property: "savedApps")
     
@@ -28,6 +29,7 @@ class SavedAppRealm: Object {
         appID = model.appUnit.appID
         countryName = model.appUnit.country.name
         softwareTypeName = model.appUnit.platform.rawValue
+        iconImageURL = model.iconImageURL
     }
     
     func toDomain() -> SavedApp? {
@@ -42,7 +44,8 @@ class SavedAppRealm: Object {
             platform: platform)
         return SavedApp(
             identifier: identifier,
-            appUnit: appUnit
+            appUnit: appUnit,
+            iconImageURL: iconImageURL
         )
     }
     

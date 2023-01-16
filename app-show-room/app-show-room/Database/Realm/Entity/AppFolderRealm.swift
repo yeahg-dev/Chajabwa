@@ -16,16 +16,17 @@ class AppFolderRealm: Object {
     @Persisted(primaryKey: true) var identifier: String
     @Persisted var name: String
     @Persisted var folderDescription: String
-    @Persisted var icon: String
-    
     @Persisted var savedApps = List<SavedAppRealm>()
+    
+    var iconImageURL: String? {
+        return savedApps.first?.iconImageURL
+    }
     
     convenience init(model: AppFolder) {
         self.init()
         identifier = model.identifier
         name = model.name
         folderDescription = model.description
-        icon = model.icon
     }
     
     func toDomain() -> AppFolder? {
@@ -34,7 +35,7 @@ class AppFolderRealm: Object {
             savedApps: savedApps.compactMap{ $0.toDomain()},
             name: name,
             description: folderDescription,
-            icon: icon)
+            iconImageURL: iconImageURL)
     }
     
 }

@@ -167,39 +167,15 @@ struct RealmAppFolderRepository: AppFolderRepository {
         }
     }
     
-    func updateIcon(
-        with icon: String,
-        of appFolder: AppFolder)
-    async throws -> AppFolder
-    {
-        return try await withCheckedThrowingContinuation { continuation in
-            realmQueue.async {
-                if let appFolderRealm = realm.object(
-                    ofType: AppFolderRealm.self,
-                    forPrimaryKey: appFolder.identifier) {
-                    do {
-                        try realm.write {
-                            appFolderRealm.icon = icon
-                        }
-                        continuation.resume(returning: appFolderRealm.toDomain()!)
-                    } catch {
-                        continuation.resume(
-                            throwing: RealmAppFolderRepositoryError.appFolderUpdateError)
-                    }
-                } else {
-                    continuation.resume(throwing: RealmAppFolderRepositoryError.appFolderFetchError)
-                }
-                
-            }
-        }
-    }
-    
     func append(
         _ savedApp: AppUnit,
+        iconImageURL: String?,
         to appFolder: AppFolder)
     async throws -> AppFolder
     {
-        let fetchedSavedApp = await createSavedApp(savedApp)
+        let fetchedSavedApp = await createSavedApp(
+            savedApp,
+            iconImageURL: iconImageURL)
         
         return try await withCheckedThrowingContinuation { continuation in
             realmQueue.async {
@@ -257,7 +233,8 @@ struct RealmAppFolderRepository: AppFolderRepository {
     }
     
     func createSavedApp(
-        _ appUnit: AppUnit)
+        _ appUnit: AppUnit,
+        iconImageURL: String?)
     async -> SavedApp
     {
         if let savedApp = await fetchSavedApp(appUnit) {
@@ -266,7 +243,9 @@ struct RealmAppFolderRepository: AppFolderRepository {
         
         return await withCheckedContinuation { continuation in
             realmQueue.async {
-                let newSavedApp = SavedApp(appUnit: appUnit)
+                let newSavedApp = SavedApp(
+                    appUnit: appUnit,
+                    iconImageURL: iconImageURL)
                 let savedAppRealm = SavedAppRealm(model: newSavedApp)
                 try! realm.write {
                     realm.add(savedAppRealm)

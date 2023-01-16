@@ -11,13 +11,16 @@ struct SavedApp {
     
     let identifier: String
     let appUnit: AppUnit
+    let iconImageURL: String?
     
     init(
         identifier: String = UUID().uuidString,
-        appUnit: AppUnit
+        appUnit: AppUnit,
+        iconImageURL: String?
     ) {
         self.identifier = identifier
         self.appUnit = appUnit
+        self.iconImageURL = iconImageURL
     }
 
 }

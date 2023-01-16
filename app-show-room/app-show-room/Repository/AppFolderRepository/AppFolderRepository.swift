@@ -24,7 +24,8 @@ protocol AppFolderRepository {
     func create(appFolder: AppFolder) async throws -> AppFolder
     
     func createSavedApp(
-        _ appUnit: AppUnit)
+        _ appUnit: AppUnit,
+        iconImageURL: String?)
     async -> SavedApp
     
     @discardableResult
@@ -40,14 +41,9 @@ protocol AppFolderRepository {
     async throws -> AppFolder
     
     @discardableResult
-    func updateIcon(
-        with icon: String,
-        of appFolder: AppFolder)
-    async throws -> AppFolder
-    
-    @discardableResult
     func append(
         _ savedApp: AppUnit,
+        iconImageURL: String?,
         to appFolder: AppFolder)
     async throws -> AppFolder
     
