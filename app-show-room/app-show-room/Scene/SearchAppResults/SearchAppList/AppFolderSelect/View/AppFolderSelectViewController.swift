@@ -1,5 +1,5 @@
 //
-//  AppFolderDesignationViewController.swift
+//  AppFolderSelectViewController.swift
 //  app-show-room
 //
 //  Created by Moon Yeji on 2023/01/13.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AppFolderDesignationViewController: UIViewController {
+class AppFolderSelectViewController: UIViewController {
 
     private lazy var appFolderCreationButton: AppFolderCreationButton = {
         let action = UIAction { [weak self] _ in
@@ -95,9 +95,18 @@ class AppFolderDesignationViewController: UIViewController {
     
     private func presentAppFolderCreationView() {
         let view = AppFolderCreatorViewController()
+        view.appFolderSelectViewUpdater = self
         modalPresentationStyle = .formSheet
         present(view, animated: true)
     }
+}
+
+extension AppFolderSelectViewController: AppFolderSelectViewUpdater {
+    
+    func refreshAppFolderTableView() {
+        appFolderTableView.reloadData()
+    }
+    
 }
 
 private enum Design {
@@ -110,6 +119,8 @@ private enum Design {
     
     static let backgroundColor: UIColor = Color.lightSkyBlue
     static let saveButtonColor: UIColor = Color.lilac
+    static let saveButtonDisableColor: UIColor = Color.lightGray
+    
     static let saveButtonTitleColor: UIColor = .white
     static let saveButtonTitleFont: UIFont = .preferredFont(forTextStyle: .headline)
     

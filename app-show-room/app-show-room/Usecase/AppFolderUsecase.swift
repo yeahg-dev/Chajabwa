@@ -21,8 +21,8 @@ struct AppFolderUsecase {
     
     func createEmptyAppFolder(
         name: String,
-        description: String)
-    async throws
+        description: String?)
+    async throws -> AppFolder
     {
         try await appFolderRepository.create(
             appFolder: AppFolder(
@@ -32,14 +32,14 @@ struct AppFolderUsecase {
                 iconImageURL: nil))
     }
     
-    // textDidChange -> value -> @published Subject (Input) -> transform -> Output
-    //                                              비즈니스 로직
     func validateAppFolderName(
-        _ name: AnyPublisher<String, Never>)
-    -> AnyPublisher<Bool, Never>
+        _ name: String?)
+    -> Bool
     {
-        return name.map { $0.count > 1 }
-            .eraseToAnyPublisher()
+        guard let name else {
+            return false
+        }
+        return name.count > 1
     }
     
     func readAllAppFolder() async -> [AppFolder] {

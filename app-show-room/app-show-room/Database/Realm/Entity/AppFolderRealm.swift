@@ -15,7 +15,7 @@ class AppFolderRealm: Object {
     
     @Persisted(primaryKey: true) var identifier: String
     @Persisted var name: String
-    @Persisted var folderDescription: String
+    @Persisted var folderDescription: String?
     @Persisted var savedApps = List<SavedAppRealm>()
     
     var iconImageURL: String? {

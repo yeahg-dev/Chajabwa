@@ -5,17 +5,24 @@
 //  Created by Moon Yeji on 2023/01/12.
 //
 
+import Combine
 import UIKit
 
-class AppFolderCreatorViewController: UIViewController {
+protocol AppFolderSelectViewUpdater: AnyObject {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureNavigationBar()
-        configureLayout()
-        view.backgroundColor = Design.backgroundColor
-        folderNameTextField.becomeFirstResponder()
-    }
+    func refreshAppFolderTableView()
+    
+}
+
+final class AppFolderCreatorViewController: UIViewController {
+    
+    weak var appFolderSelectViewUpdater: AppFolderSelectViewUpdater?
+    
+    private var viewModel: AppFolderCreatorViewModel!
+    
+    private let appFolderName = PassthroughSubject<String?, Never>()
+    private let appFolderDescritpion = PassthroughSubject<String?, Never>()
+    private var cancellables = Set<AnyCancellable>()
     
     private let navigationBar: UINavigationBar = {
         let bar = UINavigationBar()
@@ -29,7 +36,6 @@ class AppFolderCreatorViewController: UIViewController {
         let textField = FolderNameTextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .none
-        textField.placeholder = "폴더 이름(3자 이상)"
         return textField
     }()
     
@@ -51,12 +57,39 @@ class AppFolderCreatorViewController: UIViewController {
     private let doneButton: UIButton = {
        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("완료", for: .normal)
         button.setBackgroundColor(Design.normalButtonColor, for: .normal)
         button.setBackgroundColor(Design.disabledButtonColor, for: .disabled)
         button.titleLabel?.font = Design.buttonFont
         return button
     }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        bind()
+        configureNavigationBar()
+        configureLayout()
+        view.backgroundColor = Design.backgroundColor
+        folderNameTextField.becomeFirstResponder()
+        folderNameTextField.delegate = self
+    }
+    
+    private func bind() {
+        viewModel = AppFolderCreatorViewModel(
+            appFolderName: appFolderName.eraseToAnyPublisher(),
+            appFolderDescription: appFolderDescritpion.eraseToAnyPublisher())
+        
+        folderNameTextField.placeholder = viewModel.folderNameTextFieldPlaceholder
+        doneButton.setTitle(viewModel.doneButtonTitle, for: .normal)
+        viewModel.doneButtonIsEnabled
+            .receive(on: RunLoop.main)
+            .sink {
+                self.doneButton.isEnabled = $0 }
+            .store(in: &cancellables)
+        doneButton.addTarget(
+            self,
+            action: #selector(doneButtonDidTapped),
+            for: .touchDown)
+    }
     
     private func configureNavigationBar() {
         let navigationItem = UINavigationItem(title: "새로운 폴더 만들기")
@@ -117,6 +150,54 @@ class AppFolderCreatorViewController: UIViewController {
             doneButton.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor)
         ])
         
+    }
+    
+    @objc private func doneButtonDidTapped() {
+        print(doneButton.isEnabled)
+        Task {
+            let result = await viewModel.doneButtonDidTapped(
+                name: folderNameTextField.text,
+                description: folderDescriptionTextView.text)
+            await MainActor.run(body: {
+                switch result {
+                case .success(_):
+                    appFolderSelectViewUpdater?.refreshAppFolderTableView()
+                    self.dismiss(animated: true)
+                case .failure(let alertViewModel):
+                    presentAlert(alertViewModel)
+                }
+            })
+        }
+    }
+    
+    private func presentAlert(_ alertViewModel: AlertViewModel) {
+        let alertController = UIAlertController(
+            title: alertViewModel.alertController.title,
+            message: alertViewModel.alertController.message,
+            preferredStyle: alertViewModel.alertController.preferredStyle.value)
+        if let alertActions = alertViewModel.alertActions {
+            alertActions.forEach { actionViewModel in
+                let action = UIAlertAction(
+                    title: actionViewModel.title,
+                    style: actionViewModel.style.value)
+                alertController.addAction(action)
+            }
+        }
+        
+        present(alertController, animated: false)
+    }
+    
+}
+
+extension AppFolderCreatorViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        appFolderName.send(textField.text)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        appFolderName.send(textField.text)
+        return true
     }
     
 }

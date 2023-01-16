@@ -159,7 +159,7 @@ extension SearchViewController: SearchAppResultsViewDelegate {
     }
     
     func pushAppFolderDesignationView() {
-        let view = AppFolderDesignationViewController()
+        let view = AppFolderSelectViewController()
         navigationController?.pushViewController(view, animated: true)
     }
     

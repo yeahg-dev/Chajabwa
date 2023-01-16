@@ -12,14 +12,14 @@ struct AppFolder {
     let identifier: String
     var savedApps: Set<SavedApp>
     var name: String
-    var description: String
+    var description: String?
     var iconImageURL: String?
    
     init(
         identifier: String = UUID().uuidString,
         savedApps: [SavedApp],
         name: String,
-        description: String,
+        description: String?,
         iconImageURL: String?)
     {
         self.identifier = identifier
