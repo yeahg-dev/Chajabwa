@@ -208,9 +208,22 @@ final class RealmAppFolderRepositoryTestCase: XCTestCase {
         try await sut.updateAppFolder(
             of: savedApp,
             to: [appFolder2, appFolder3])
-        let folders = try await sut.fetchAppFolders(of: savedApp)
+        let folders = await sut.fetchAppFolders(of: savedApp)
         
         XCTAssertEqual(folders, [appFolder2, appFolder3])
+    }
+    
+    func test_appFolder_3개를_저장하고_fetchAllAppFolder호출하면_3개_appFolder가_반환되는지()
+    async throws
+    {
+        let appFolders = [DummyEntity.contentsAppFolder, DummyEntity.uiCoolAppFolder, DummyEntity.travelAppFolder]
+        for appFolder in appFolders {
+            try await sut.create(appFolder: appFolder)
+        }
+        
+        let result = await sut.fetchAllAppFolders()
+        
+        XCTAssertEqual(result, appFolders)
     }
     
 }
