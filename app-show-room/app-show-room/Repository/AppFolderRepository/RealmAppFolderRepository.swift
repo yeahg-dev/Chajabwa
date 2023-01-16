@@ -93,6 +93,7 @@ struct RealmAppFolderRepository: AppFolderRepository {
         }
     }
     
+    @discardableResult
     func create(
         appFolder: AppFolder)
     async throws -> AppFolder
@@ -113,6 +114,7 @@ struct RealmAppFolderRepository: AppFolderRepository {
         }
     }
     
+    @discardableResult
     func updateName(
         with name: String,
         of appFolder: AppFolder)
@@ -167,6 +169,7 @@ struct RealmAppFolderRepository: AppFolderRepository {
         }
     }
     
+    @discardableResult
     func append(
         _ savedApp: AppUnit,
         iconImageURL: String?,
@@ -202,6 +205,7 @@ struct RealmAppFolderRepository: AppFolderRepository {
         }
     }
     
+    @discardableResult
     func delete(
         _ savedApps: [SavedApp],
         in appFolder: AppFolder)
@@ -232,6 +236,7 @@ struct RealmAppFolderRepository: AppFolderRepository {
         }
     }
     
+    @discardableResult
     func createSavedApp(
         _ appUnit: AppUnit,
         iconImageURL: String?)
@@ -255,6 +260,7 @@ struct RealmAppFolderRepository: AppFolderRepository {
         }
     }
     
+    @discardableResult
     func updateAppFolder(
         of savedApp: SavedApp,
         to appFolder: [AppFolder])

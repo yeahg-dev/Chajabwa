@@ -23,7 +23,7 @@ final class RealmAppFolderRepositoryTestCase: XCTestCase {
     func test_AppFolder를_생성하고_해당identifier로_fetch하면_object가_존재하는지()
     async throws
     {
-        let targetAppFolder = DummyEntity.appFolder
+        let targetAppFolder = DummyEntity.contentsAppFolder
         
         _ = try await sut.create(appFolder: targetAppFolder)
         let fetcheAppFolder = try await sut.fetch(identifier: targetAppFolder.identifier)
@@ -35,7 +35,7 @@ final class RealmAppFolderRepositoryTestCase: XCTestCase {
     async throws
     {
         let newName = "새로운 이름"
-        let targetAppFolder = DummyEntity.appFolder
+        let targetAppFolder = DummyEntity.contentsAppFolder
         
         let createdAppFolder = try await sut.create(appFolder: targetAppFolder)
         let updatedAppFolder = try await sut.updateName(
@@ -49,7 +49,7 @@ final class RealmAppFolderRepositoryTestCase: XCTestCase {
     async throws
     {
         let newDescription = "새로운 설명"
-        let targetAppFolder = DummyEntity.appFolder
+        let targetAppFolder = DummyEntity.contentsAppFolder
         
         let createdAppFolder = try await sut.create(appFolder: targetAppFolder)
         let updatedAppFolder = try await sut.updateDescription(
@@ -59,68 +59,69 @@ final class RealmAppFolderRepositoryTestCase: XCTestCase {
         XCTAssertEqual(updatedAppFolder.description, newDescription)
     }
     
-    func test_AppFolder_icon_update가_정상적으로되는지()
-    async throws
-    {
-        let newIcon = "✨"
-        let targetAppFolder = DummyEntity.appFolder
-        
-        let createdAppFolder = try await sut.create(appFolder: targetAppFolder)
-        let updatedAppFolder = try await sut.updateIcon(
-            with: newIcon,
-            of: createdAppFolder)
-        
-        XCTAssertEqual(updatedAppFolder.icon, newIcon)
-    }
-    
     func test_AppFolder에_SavedApp이_정상적으로_추가되는지()
     async throws
     {
-        let targetAppFolder = DummyEntity.appFolder
-        let dummyAppUnit = DummyEntity.appUnit1
+        let targetAppFolder = DummyEntity.contentsAppFolder
+        let dummyAppUnit = DummyEntity.netflixAppUnit
         
         let createdAppFolder = try await sut.create(appFolder: targetAppFolder)
         // MARK: - API 변경
         let updatedAppFolder = try await sut.append(
             dummyAppUnit,
+            iconImageURL: DummyEntity.netflixIconImageURL,
             to: createdAppFolder)
         
         XCTAssertEqual(updatedAppFolder.appCount, 1)
         XCTAssertEqual(updatedAppFolder.savedApps.first!.appUnit, dummyAppUnit)
+        XCTAssertEqual(updatedAppFolder.iconImageURL, DummyEntity.netflixIconImageURL)
     }
     
     func test_AppFolder에_SavedApp3개가_정상적으로_추가되는지()
     async throws
     {
-        let targetAppFolder = DummyEntity.appFolder
-        let dummyAppUnits = [DummyEntity.appUnit1,
-                              DummyEntity.appUnit2,
-                              DummyEntity.appUnit3]
+        let targetAppFolder = DummyEntity.contentsAppFolder
+        let dummyAppUnits = [DummyEntity.netflixAppUnit,
+                              DummyEntity.kurlyAppUnit,
+                              DummyEntity.AirbnbAppUnit]
         
         let createdAppFolder = try await sut.create(appFolder: targetAppFolder)
-        for app in dummyAppUnits {
-            try await sut.append(app, to: createdAppFolder)
-        }
+        try await sut.append(
+            dummyAppUnits[0],
+            iconImageURL: DummyEntity.netflixIconImageURL,
+            to: createdAppFolder)
+        try await sut.append(
+            dummyAppUnits[1],
+            iconImageURL: DummyEntity.kurlyIconImageURL,
+            to: createdAppFolder)
+        try await sut.append(
+            dummyAppUnits[2],
+            iconImageURL: DummyEntity.airbnbIconImageURL,
+            to: createdAppFolder)
         let savedApps = try await sut.fetchSavedApps(from: createdAppFolder)
+        let appFolder = try await sut.fetch(identifier: targetAppFolder.identifier)
         
         XCTAssertEqual(savedApps.map{$0.appUnit}, dummyAppUnits)
+        XCTAssertEqual(appFolder.iconImageURL, DummyEntity.netflixIconImageURL)
     }
     
     func test_AppFolder에서_savedApp을_정상적으로_삭제하는지()
     async throws
     {
-        let targetAppFolder = DummyEntity.appFolder
-        let dummySavedAppUnit = DummyEntity.appUnit1
+        let targetAppFolder = DummyEntity.contentsAppFolder
+        let dummySavedAppUnit = DummyEntity.netflixAppUnit
         
         let createdAppFolder = try await sut.create(appFolder: targetAppFolder)
         let updatedAppFolder = try await sut.append(
             dummySavedAppUnit,
+            iconImageURL: DummyEntity.netflixIconImageURL,
             to: createdAppFolder)
         if let savedApp = await sut.fetchSavedApp(dummySavedAppUnit) {
-            let appFolderDeleted = try await sut.delete(
+            let appFolder = try await sut.delete(
                 [savedApp],
                 in: updatedAppFolder)
-            XCTAssertEqual(appFolderDeleted.appCount, 0)
+            XCTAssertEqual(appFolder.appCount, 0)
+            XCTAssertEqual(appFolder.iconImageURL, nil)
         } else {
             print("Failed to fetch SavedApp")
         }
@@ -130,12 +131,15 @@ final class RealmAppFolderRepositoryTestCase: XCTestCase {
     func test_AppFolder에_savedApp을_추가한뒤_SavedApp이_fetch되는지()
     async throws
     {
-        let dummyAppFolder = DummyEntity.appFolder
-        let dummyAppUnit = DummyEntity.appUnit1
+        let dummyAppFolder = DummyEntity.contentsAppFolder
+        let dummyAppUnit = DummyEntity.netflixAppUnit
         
         let createdAppFolder = try await sut.create(
             appFolder: dummyAppFolder)
-        try await sut.append(dummyAppUnit, to: createdAppFolder)
+        try await sut.append(
+            dummyAppUnit,
+            iconImageURL: DummyEntity.netflixIconImageURL,
+            to: createdAppFolder)
         if let savedApp = await sut.fetchSavedApp(dummyAppUnit) {
             XCTAssertEqual(savedApp.appUnit, dummyAppUnit)
         } else {
@@ -146,9 +150,11 @@ final class RealmAppFolderRepositoryTestCase: XCTestCase {
     func test_savedApp에_연결된appFolder가_없을때_fetchAppFolder를_호출하면_빈배열을_반환하는지()
     async throws
     {
-        let dummySavedAppUnit = DummyEntity.appUnit1
+        let dummySavedAppUnit = DummyEntity.netflixAppUnit
         
-        let savedApp = await sut.createSavedApp(dummySavedAppUnit)
+        let savedApp = await sut.createSavedApp(
+            dummySavedAppUnit,
+            iconImageURL: DummyEntity.netflixIconImageURL)
         let result = try await sut.fetchAppFolders(of: savedApp)
         
         XCTAssertEqual(result.isEmpty, true)
@@ -157,32 +163,43 @@ final class RealmAppFolderRepositoryTestCase: XCTestCase {
     func test_savedApp에_연결된appFolder가_있을때_fetchAppFolder를_호출하면_첫번째AppFolder를_반환하는지()
     async throws
     {
-        let dummyAppFolder = DummyEntity.appFolder
-        let dummyAppFolder2 = DummyEntity.appFolder2
-        let dummySavedAppUnit = DummyEntity.appUnit1
+        let dummyAppFolder = DummyEntity.contentsAppFolder
+        let dummyAppFolder2 = DummyEntity.uiCoolAppFolder
+        let dummySavedAppUnit = DummyEntity.netflixAppUnit
         
         let appFolder = try await sut.create(appFolder: dummyAppFolder)
         let appFolder2 = try await sut.create(appFolder: dummyAppFolder2)
-        let savedApp = await sut.createSavedApp(dummySavedAppUnit)
-        try await sut.append(dummySavedAppUnit, to: dummyAppFolder)
-        try await sut.append(dummySavedAppUnit, to: dummyAppFolder2)
+        let savedApp = await sut.createSavedApp(
+            dummySavedAppUnit,
+            iconImageURL: DummyEntity.netflixIconImageURL)
+        try await sut.append(
+            dummySavedAppUnit,
+            iconImageURL: DummyEntity.netflixIconImageURL,
+            to: dummyAppFolder)
+        try await sut.append(
+            dummySavedAppUnit,
+            iconImageURL: DummyEntity.netflixIconImageURL,
+            to: dummyAppFolder2)
         
         let result = try await sut.fetchAppFolders(of: savedApp).first
         
         XCTAssertEqual(result, appFolder)
     }
 
-    func test_updateAppFodler를_호출하면_SavedApp의_folder에_반영이되는지()
+    func test_2개의AppFolder로_updateAppFolder_호출하면_SavedApp이_변경된Folder를_반환하는지()
     async throws {
-        let dummyAppFolder = DummyEntity.appFolder
-        let dummyAppFolder2 = DummyEntity.appFolder2
-        let dummyAppFolder3 = DummyEntity.appFolder3
-        let dummySavedAppUnit = DummyEntity.appUnit1
+        let dummyAppFolder = DummyEntity.contentsAppFolder
+        let dummyAppFolder2 = DummyEntity.uiCoolAppFolder
+        let dummyAppFolder3 = DummyEntity.travelAppFolder
+        let dummySavedAppUnit = DummyEntity.netflixAppUnit
         
         let appFolder = try await sut.create(appFolder: dummyAppFolder)
         let appFolder2 = try await sut.create(appFolder: dummyAppFolder2)
         let appFolder3 = try await sut.create(appFolder: dummyAppFolder3)
-        try await sut.append(dummySavedAppUnit, to: appFolder)
+        try await sut.append(
+            dummySavedAppUnit,
+            iconImageURL: DummyEntity.netflixIconImageURL,
+            to: appFolder)
         guard let savedApp = await sut.fetchSavedApp(dummySavedAppUnit) else {
             XCTFail("Faild to fetch SavedApp")
             return
@@ -200,37 +217,44 @@ final class RealmAppFolderRepositoryTestCase: XCTestCase {
 
 private enum DummyEntity {
     
-    static let appFolder = AppFolder(
-        savedApps: [],
-        name: "테스트용 앱",
-        description: "테스트 참고용",
-        icon: "👩🏻‍🔬")
+    static let netflixIconImageURL = "https://is4-ssl.mzstatic.com/image/thumb/Purple122/v4/9d/b9/d4/9db9d422-cdb3-4069-e822-c28086892f00/AppIcon-1x_U007emarketing-0-0-0-10-0-0-0-85-220-0.png/60x60bb.jpg"
     
-    static let appFolder2 = AppFolder(
+    static let kurlyIconImageURL = "https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/19/72/91/1972917f-e9c1-ddde-58c4-7a1142c20268/AppIcon-1x_U007emarketing-0-7-0-85-220.png/60x60bb.jpg"
+    
+    static let airbnbIconImageURL =
+    "https://is5-ssl.mzstatic.com/image/thumb/Purple122/v4/69/66/3b/69663b22-6c31-e599-d6ff-9133166692b9/AppIcon-1x_U007emarketing-0-7-0-0-0-85-220-0.png/60x60bb.jpg"
+    
+    static let contentsAppFolder = AppFolder(
+        savedApps: [],
+        name: "컨텐츠 앱",
+        description: "테스트 참고용",
+        iconImageURL: nil)
+    
+    static let uiCoolAppFolder = AppFolder(
         savedApps: [],
         name: "UI Cool 앱",
         description: "참고용",
-        icon: "🎨")
+        iconImageURL: nil)
     
-    static let appFolder3 = AppFolder(
+    static let travelAppFolder = AppFolder(
         savedApps: [],
-        name: "미디어 앱",
+        name: "여행",
         description: "참고용",
-        icon: "🎥")
+        iconImageURL: nil)
     
-    static let appUnit1 = AppUnit(
+    static let netflixAppUnit = AppUnit(
         name: "앱과사전",
         appID: 9090,
         country: .init(name: "South Korea")!,
         platform: .iPhone)
     
-    static let appUnit2 = AppUnit(
+    static let kurlyAppUnit = AppUnit(
         name: "앱과사전",
         appID: 9090,
         country: .init(name: "South Korea")!,
         platform: .iPad)
   
-    static let appUnit3 = AppUnit(
+    static let AirbnbAppUnit = AppUnit(
         name: "앱과사전",
         appID: 9090,
         country: .init(name: "South Korea")!,
