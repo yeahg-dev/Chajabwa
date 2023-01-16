@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 struct RealmAppFolderRepository: AppFolderRepository {
-
+    
     private let realm: Realm
     private let realmQueue: DispatchQueue
     
@@ -36,17 +36,25 @@ struct RealmAppFolderRepository: AppFolderRepository {
         }
     }
     
+    func fetchAllAppFolders() async -> [AppFolder] {
+        await withCheckedContinuation{ continuation in
+            realmQueue.async {
+                let result = realm.objects(AppFolderRealm.self)
+                continuation.resume(returning: result.map{$0.toDomain()!})
+            }
+        }
+    }
+    
     func fetchAppFolders(
         of savedApp: SavedApp)
-    async throws -> [AppFolder]
+    async -> [AppFolder]
     {
-        try await withCheckedThrowingContinuation{ continuation in
+        await withCheckedContinuation{ continuation in
             realmQueue.async {
                 guard let savedAppRealm = realm.object(
                     ofType: SavedAppRealm.self,
                     forPrimaryKey: savedApp.identifier) else {
-                    continuation.resume(
-                        throwing: RealmAppFolderRepositoryError.savedAppFetchError)
+                    continuation.resume(returning: [])
                     return
                 }
                 let appFolders = AnyCollection(savedAppRealm.folders.compactMap({ appFolderRealm in
@@ -55,7 +63,7 @@ struct RealmAppFolderRepository: AppFolderRepository {
             }
         }
     }
-
+    
     func fetchSavedApp(_ appUnit: AppUnit) async -> SavedApp? {
         await withCheckedContinuation{ continuation in
             realmQueue.async {
@@ -300,7 +308,7 @@ struct RealmAppFolderRepository: AppFolderRepository {
             }
         }
     }
-     
+    
 }
 
 enum RealmAppFolderRepositoryError: Error {
