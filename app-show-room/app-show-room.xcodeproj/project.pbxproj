@@ -93,7 +93,7 @@
 		63A201E5297064C300CCE285 /* FolderNameTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A201E4297064C300CCE285 /* FolderNameTextField.swift */; };
 		63A201E82971245300CCE285 /* AppFolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A201E72971245300CCE285 /* AppFolderTableViewCell.swift */; };
 		63A201EA29712F3500CCE285 /* AppFolderCreationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A201E929712F3500CCE285 /* AppFolderCreationButton.swift */; };
-		63A201EE29713D4C00CCE285 /* AppFolderDesignationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A201ED29713D4C00CCE285 /* AppFolderDesignationViewController.swift */; };
+		63A201EE29713D4C00CCE285 /* AppFolderSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A201ED29713D4C00CCE285 /* AppFolderSelectViewController.swift */; };
 		63A202102974EB4F00CCE285 /* AppFolderTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2020F2974EB4F00CCE285 /* AppFolderTableViewCellModel.swift */; };
 		63A20214297579D100CCE285 /* AppFolderUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A20213297579D100CCE285 /* AppFolderUsecase.swift */; };
 		63A66F4C28C0889900F3B4D0 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A66F4B28C0889900F3B4D0 /* Text.swift */; };
@@ -246,7 +246,7 @@
 		63A201E4297064C300CCE285 /* FolderNameTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderNameTextField.swift; sourceTree = "<group>"; };
 		63A201E72971245300CCE285 /* AppFolderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderTableViewCell.swift; sourceTree = "<group>"; };
 		63A201E929712F3500CCE285 /* AppFolderCreationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderCreationButton.swift; sourceTree = "<group>"; };
-		63A201ED29713D4C00CCE285 /* AppFolderDesignationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderDesignationViewController.swift; sourceTree = "<group>"; };
+		63A201ED29713D4C00CCE285 /* AppFolderSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderSelectViewController.swift; sourceTree = "<group>"; };
 		63A2020F2974EB4F00CCE285 /* AppFolderTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderTableViewCellModel.swift; sourceTree = "<group>"; };
 		63A20213297579D100CCE285 /* AppFolderUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderUsecase.swift; sourceTree = "<group>"; };
 		63A66F4B28C0889900F3B4D0 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
@@ -724,7 +724,7 @@
 		63A201D0296FF94500CCE285 /* SearchAppList */ = {
 			isa = PBXGroup;
 			children = (
-				63A201E62971231600CCE285 /* AppFolderDesignation */,
+				63A201E62971231600CCE285 /* AppFolderSelect */,
 				63A201D9296FFBB000CCE285 /* AppFolderCreator */,
 				63A201D2296FF96600CCE285 /* View */,
 				63A201D1296FF96000CCE285 /* VIewModel */,
@@ -828,19 +828,19 @@
 			path = VIewModel;
 			sourceTree = "<group>";
 		};
-		63A201E62971231600CCE285 /* AppFolderDesignation */ = {
+		63A201E62971231600CCE285 /* AppFolderSelect */ = {
 			isa = PBXGroup;
 			children = (
 				63A201EB29713C8000CCE285 /* View */,
 				63A201EC29713C8E00CCE285 /* VIewModel */,
 			);
-			path = AppFolderDesignation;
+			path = AppFolderSelect;
 			sourceTree = "<group>";
 		};
 		63A201EB29713C8000CCE285 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				63A201ED29713D4C00CCE285 /* AppFolderDesignationViewController.swift */,
+				63A201ED29713D4C00CCE285 /* AppFolderSelectViewController.swift */,
 				63A201E72971245300CCE285 /* AppFolderTableViewCell.swift */,
 				63A201E929712F3500CCE285 /* AppFolderCreationButton.swift */,
 			);
@@ -1212,7 +1212,7 @@
 				63A201E5297064C300CCE285 /* FolderNameTextField.swift in Sources */,
 				63A201EA29712F3500CCE285 /* AppFolderCreationButton.swift in Sources */,
 				6384EC4D28AB2E7C00D1F821 /* UICollectionView+Extension.swift in Sources */,
-				63A201EE29713D4C00CCE285 /* AppFolderDesignationViewController.swift in Sources */,
+				63A201EE29713D4C00CCE285 /* AppFolderSelectViewController.swift in Sources */,
 				63962710296560F80037A2B7 /* SearchKeywordTableFooterView.swift in Sources */,
 				63962712296563D00037A2B7 /* SearchKeywordTableFooterViewModel.swift in Sources */,
 				63D52AE929584BC5006F043D /* SearchBackgroundView.swift in Sources */,
