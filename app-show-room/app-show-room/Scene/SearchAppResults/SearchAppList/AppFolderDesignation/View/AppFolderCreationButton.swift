@@ -7,43 +7,54 @@
 
 import UIKit
 
-class AppFolderCreationButton: UIButton {
+final class AppFolderCreationButton: UIControl {
 
     private let plusImage = UIImage(named: "plus")
     
-    private lazy var buttonConfiguratioin: UIButton.Configuration = {
-        var config = UIButton.Configuration.plain()
-        config.contentInsets = .init(
-            top: Design.contentInset,
-            leading: Design.contentInset,
-            bottom: Design.contentInset,
-            trailing: Design.contentInset)
-        config.imagePadding = Design.imagePadding
-        config.image = plusImage
-        return config
+    private lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = plusImage
+        return imageView
     }()
-
+    
+    private let label: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = Design.titleFont
+        label.textColor = Design.tintColor
+        label.text = "폴더 만들기"
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        translatesAutoresizingMaskIntoConstraints = false
-        tintColor = Design.tintColor
-        imageView?.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel?.font = Design.titleFont
-        guard let imageView else {
-            print("imageView 없음")
-            return
-            
-        }
-        NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(
-                equalToConstant: Design.plusImageWidth),
-            imageView.heightAnchor.constraint(
-                equalToConstant: Design.plusImageHeight)
-        ])
+        setConstraints()
+        backgroundColor = .clear
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func addAction(_ action: UIAction) {
+        addAction(action, for: .touchDown)
+    }
+    
+    private func setConstraints() {
+        addSubview(imageView)
+        addSubview(label)
+        NSLayoutConstraint.activate([
+            self.heightAnchor.constraint(equalToConstant: Design.height),
+            imageView.leadingAnchor.constraint(
+                equalTo: self.leadingAnchor,
+                constant: Design.contentInsetLeading),
+            imageView.widthAnchor.constraint(equalToConstant: Design.plusImageWidth),
+            imageView.heightAnchor.constraint(equalToConstant: Design.plusImageHeight),
+            imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: Design.imagePadding),
+            label.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        ])
     }
     
     func bind() {
@@ -54,14 +65,18 @@ class AppFolderCreationButton: UIButton {
 
 private enum Design {
     
-    static let plusImageWidth: CGFloat = 30
-    static let plusImageHeight: CGFloat = 30
+    static let height: CGFloat = contentInsetTop + plusImageHeight + contentInsetBottom
+    static let plusImageWidth: CGFloat = 25
+    static let plusImageHeight: CGFloat = 25
     
     static let titleFont: UIFont = .preferredFont(forTextStyle: .headline)
     
-    static let tintColor: UIColor = Color.lilac
+    static let tintColor: UIColor = Color.tintedLilac
     
-    static let contentInset: CGFloat = 15
+    static let contentInsetLeading: CGFloat = 35
+    static let contentInsetBottom: CGFloat = 15
+    static let contentInsetTop: CGFloat = 15
+    
     static let imagePadding: CGFloat = 10
     
 }

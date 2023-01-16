@@ -7,7 +7,15 @@
 
 import UIKit
 
+protocol AppFolderDesignationNavigator: AnyObject {
+    
+    func pushAppFolderDesignationView()
+    
+}
+
 final class SearchAppTableViewCell: BaseTableViewCell {
+    
+    weak var appFolderDesignationNavigator: AppFolderDesignationNavigator?
     
     private let containerView: UIView = {
         let view = UIView()
@@ -83,13 +91,14 @@ final class SearchAppTableViewCell: BaseTableViewCell {
         return label
     }()
     
-    private let folderButton: UIButton = {
+    private lazy var folderButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(
             UIImage(named: "addFolder"),
             for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
+        button.addTarget(self, action: #selector(pushAppFolderDesignationView), for: .touchUpInside)
         return button
     }()
     
@@ -217,6 +226,12 @@ final class SearchAppTableViewCell: BaseTableViewCell {
                 equalTo: containerView.bottomAnchor)
         ])
     }
+    
+    @objc
+    private func pushAppFolderDesignationView() {
+        appFolderDesignationNavigator?.pushAppFolderDesignationView()
+    }
+    
 }
 
 extension SearchAppTableViewCell {

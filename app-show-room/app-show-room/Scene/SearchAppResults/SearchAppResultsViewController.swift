@@ -11,6 +11,8 @@ protocol SearchAppResultsViewDelegate: AnyObject {
     
     func pushAppDetailView(_ appDetail: AppDetail)
     
+    func pushAppFolderDesignationView()
+    
 }
 
 private enum SearhKeywordSaving {
@@ -120,6 +122,10 @@ final class SearchAppResultsViewController: UITableViewController {
 }
 
 extension SearchAppResultsViewController: AppDetailViewPresenter {
+    
+    func pushAppFolderDesignationView() {
+        delegate?.pushAppFolderDesignationView()
+    }
     
     func pushAppDetailView(of app: AppDetail) {
         delegate?.pushAppDetailView(app)
