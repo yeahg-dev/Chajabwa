@@ -158,23 +158,6 @@ extension SearchAppResultsViewController: SearchAppResultTableViewUpdater {
         tableView.tableFooterView?.isHidden = true
     }
     
-    func presentAlert(_ alertViewModel: AlertViewModel) {
-        let alertController = UIAlertController(
-            title: alertViewModel.alertController.title,
-            message: alertViewModel.alertController.message,
-            preferredStyle: alertViewModel.alertController.preferredStyle.value)
-        if let alertActions = alertViewModel.alertActions {
-            alertActions.forEach { actionViewModel in
-                let action = UIAlertAction(
-                    title: actionViewModel.title,
-                    style: actionViewModel.style.value)
-                alertController.addAction(action)
-            }
-        }
-        
-        present(alertController, animated: false)
-    }
-    
 }
 
 // MARK: - SearchKeywordSavingUpdater
