@@ -172,6 +172,10 @@ final class AppFolderCreatorViewController: UIViewController {
         }
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            self.folderNameTextField.resignFirstResponder()
+            self.folderDescriptionTextView.resignFirstResponder()
+        }
     
 }
 
@@ -185,6 +189,11 @@ extension AppFolderCreatorViewController: UITextFieldDelegate {
         appFolderName.send(textField.text)
         return true
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        folderDescriptionTextView.becomeFirstResponder()
+         return true
+      }
     
 }
 
