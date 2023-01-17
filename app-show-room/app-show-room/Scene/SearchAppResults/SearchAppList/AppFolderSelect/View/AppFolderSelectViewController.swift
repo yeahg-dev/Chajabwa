@@ -63,6 +63,7 @@ class AppFolderSelectViewController: UIViewController {
     
     private func configureNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationBar.tintColor = Design.navigationBarTintColor
     }
     
     private func configureTableView() {
@@ -170,6 +171,7 @@ private enum Design {
     static let saveButtonPaddingLeading: CGFloat = 20
     static let saveButtonPaddingBottom: CGFloat = 40
     
+    static let navigationBarTintColor = Color.blueGreen
     static let backgroundColor: UIColor = Color.lightSkyBlue
     static let saveButtonColor: UIColor = Color.lilac
     static let saveButtonDisableColor: UIColor = Color.lightGray
