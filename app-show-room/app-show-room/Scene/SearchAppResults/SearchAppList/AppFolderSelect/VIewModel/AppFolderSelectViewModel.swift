@@ -60,7 +60,7 @@ final class AppFolderSelectViewModel: NSObject {
         cellDidSelected.send(())
     }
    
-    func saveButtonDidTapped() async throws {
+    func saveButtonDidTapped() async -> Output<Void, AlertViewModel> {
         var selectedIndexes = [Int]()
         for (index, cellModel) in appFolderCellModels.enumerated() {
             if cellModel.isBelongedToFolder == true {
@@ -71,11 +71,15 @@ final class AppFolderSelectViewModel: NSObject {
         for index in selectedIndexes {
             selectedAppFolder.append(appFolders[index])
         }
-        
-        try await appFolderUsecase.updateAppFolder(
-            of: appUnit,
-            iconImageURL: iconImageURL,
-            to: selectedAppFolder)
+        do {
+            _ = try await appFolderUsecase.updateAppFolder(
+                of: appUnit,
+                iconImageURL: iconImageURL,
+                to: selectedAppFolder)
+            return .success(())
+        } catch {
+            return .failure(AppFolderSelectAlertViewModel.SaveFailureAlertViewModel())
+        }
     }
     
 }

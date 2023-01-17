@@ -139,11 +139,33 @@ class AppFolderSelectViewController: UIViewController {
     @objc
     private func saveButtonDidTapped() {
         Task {
-            try await viewModel.saveButtonDidTapped()
+            let result = await viewModel.saveButtonDidTapped()
             await MainActor.run {
-                navigationController?.popViewController(animated:true)
+                switch result {
+                case .success(_):
+                    navigationController?.popViewController(animated:true)
+                case .failure(let alertViewModel):
+                    presentAlert(alertViewModel)
+                }
             }
         }
+    }
+    
+    private func presentAlert(_ alertViewModel: AlertViewModel) {
+        let alertController = UIAlertController(
+            title: alertViewModel.alertController.title,
+            message: alertViewModel.alertController.message,
+            preferredStyle: alertViewModel.alertController.preferredStyle.value)
+        if let alertActions = alertViewModel.alertActions {
+            alertActions.forEach { actionViewModel in
+                let action = UIAlertAction(
+                    title: actionViewModel.title,
+                    style: actionViewModel.style.value)
+                alertController.addAction(action)
+            }
+        }
+        
+        present(alertController, animated: false)
     }
     
 }
