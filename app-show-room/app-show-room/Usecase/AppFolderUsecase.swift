@@ -42,6 +42,10 @@ struct AppFolderUsecase {
         return name.count > 1
     }
     
+    func canSaveAppFolder(with appFolderCount: Int) -> Bool {
+        return appFolderCount > 0
+    }
+    
     func readAllAppFolder() async -> [AppFolder] {
         await appFolderRepository.fetchAllAppFolders()
     }

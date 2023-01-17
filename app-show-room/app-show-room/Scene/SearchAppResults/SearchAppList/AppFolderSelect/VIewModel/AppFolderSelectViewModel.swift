@@ -5,20 +5,40 @@
 //  Created by Moon Yeji on 2023/01/17.
 //
 
+import Combine
 import UIKit
 
 final class AppFolderSelectViewModel: NSObject {
     
-    var navigationTitle = "폴더에 저장하기"
-    var saveButtonTitle = "저장"
-    
     private let appFolderUsecase = AppFolderUsecase()
+    
     private var appFolders = [AppFolder]()
     private var appFolderCellModels = [AppFolderTableViewCellModel]()
     private let appUnit: AppUnit
     private let iconImageURL: String?
     
-    init(appUnit: AppUnit, iconImageURL: String?) {
+    // MARK: - Input
+    
+    private let cellDidSelected = PassthroughSubject<Void, Never>()
+    
+    // MARK: - Output
+    
+    var navigationTitle = "폴더에 저장하기"
+    var saveButtonTitle = "저장"
+    
+    var saveButtonIsEnabled: AnyPublisher<Bool, Never> {
+        return cellDidSelected.map {
+            return self.appFolderCellModels
+                .filter{$0.isBelongedToFolder}.count }
+        .flatMap { selectedAppCount in
+            Just(self.appFolderUsecase.canSaveAppFolder(with: selectedAppCount)) }
+        .eraseToAnyPublisher()
+    }
+    
+    init(
+        appUnit: AppUnit,
+        iconImageURL: String?
+    ) {
         self.appUnit = appUnit
         self.iconImageURL = iconImageURL
         super.init()
@@ -32,10 +52,12 @@ final class AppFolderSelectViewModel: NSObject {
             return AppFolderTableViewCellModel(
                 appFolder: $0,
                 isSelectedAppFolder: isSelectedAppFolder)}
+        cellDidSelected.send(())
     }
     
     func didSelectCell(at indexPath: IndexPath) {
         appFolderCellModels[indexPath.row].isBelongedToFolder.toggle()
+        cellDidSelected.send(())
     }
    
     func saveButtonDidTapped() async throws {

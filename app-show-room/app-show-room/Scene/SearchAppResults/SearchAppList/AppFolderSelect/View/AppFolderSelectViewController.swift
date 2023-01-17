@@ -5,9 +5,12 @@
 //  Created by Moon Yeji on 2023/01/13.
 //
 
+import Combine
 import UIKit
 
 class AppFolderSelectViewController: UIViewController {
+    
+    private var cancellables = Set<AnyCancellable>()
     
     private let viewModel: AppFolderSelectViewModel
     
@@ -30,19 +33,24 @@ class AppFolderSelectViewController: UIViewController {
     private lazy var saveButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = Design.saveButtonColor
+        button.setBackgroundColor(Design.saveButtonColor, for: .normal)
+        button.setBackgroundColor(Design.saveButtonDisableColor, for: .disabled)
         button.titleLabel?.textColor = Design.saveButtonTitleColor
         button.titleLabel?.font = Design.saveButtonTitleFont
         button.layer.cornerRadius = Design.saveButtonCornerRadius
+        button.layer.masksToBounds = true
         button.addTarget(
             self,
             action: #selector(saveButtonDidTapped),
             for: .touchDown)
+        button.isEnabled = false
         return button
     }()
     
     init(appUnit: AppUnit, iconImageURL: String?) {
-        viewModel = AppFolderSelectViewModel(appUnit: appUnit, iconImageURL: iconImageURL)
+        viewModel = AppFolderSelectViewModel(
+            appUnit: appUnit,
+            iconImageURL: iconImageURL)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -57,8 +65,8 @@ class AppFolderSelectViewController: UIViewController {
         configureTableView()
         addSubviews()
         setConstraints()
-        refreshAppFolderTableView()
         bind(viewModel: viewModel)
+        refreshAppFolderTableView()
     }
     
     private func configureNavigationBar() {
@@ -121,6 +129,11 @@ class AppFolderSelectViewController: UIViewController {
     private func bind(viewModel: AppFolderSelectViewModel) {
         saveButton.setTitle(viewModel.saveButtonTitle, for: .normal)
         navigationItem.title = viewModel.navigationTitle
+        viewModel.saveButtonIsEnabled
+            .receive(on: RunLoop.main)
+            .sink {
+                self.saveButton.isEnabled = $0 }
+            .store(in: &cancellables)
     }
     
     @objc
@@ -131,7 +144,6 @@ class AppFolderSelectViewController: UIViewController {
                 navigationController?.popViewController(animated:true)
             }
         }
-        
     }
     
 }
