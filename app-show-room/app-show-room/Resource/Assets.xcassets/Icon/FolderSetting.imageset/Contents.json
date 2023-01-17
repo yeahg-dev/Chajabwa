@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "addToFolder.png",
+      "filename" : "folderSetting.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "addToFolder 1.png",
+      "filename" : "folderSetting 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "addToFolder 2.png",
+      "filename" : "folderSetting 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
