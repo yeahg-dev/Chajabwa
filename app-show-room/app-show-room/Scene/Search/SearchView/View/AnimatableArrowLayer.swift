@@ -63,7 +63,7 @@ final class AnimatableArrowLayer: CAShapeLayer {
             clockwise: clockwise)
         positionAnimation.path = arcPath.cgPath
         positionAnimation.timingFunction = .init(name: CAMediaTimingFunctionName.easeInEaseOut)
-        positionAnimation.duration = 0.5
+        positionAnimation.duration = 0.2
         positionAnimation.fillMode = .forwards
         positionAnimation.isRemovedOnCompletion = false
         if clockwise {
