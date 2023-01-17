@@ -78,6 +78,7 @@ extension SignboardCollectionViewCell {
     private func configureAppNameLabel() {
         appNameLabel.font = Design.appNameLabelFont
         appNameLabel.lineBreakMode = .byTruncatingTail
+        appNameLabel.textColor = Design.appNameLabelTextColor
         appNameLabel.numberOfLines = Design.appNameLabelNumberOfLines
     }
     
@@ -261,7 +262,7 @@ private enum Design {
     static let defaultIconImage = UIImage(withBackground: .systemGray4)
     
     // textColor
-    static let appNameLabelTextColor: UIColor = .systemGray
+    static let appNameLabelTextColor: UIColor = .black
     static let purchaseButtonTextColor: UIColor = .white
     
     // backgroundColor

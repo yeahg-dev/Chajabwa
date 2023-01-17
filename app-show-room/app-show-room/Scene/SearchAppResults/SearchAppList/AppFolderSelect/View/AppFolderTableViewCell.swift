@@ -97,6 +97,7 @@ class AppFolderTableViewCell: BaseTableViewCell {
     
     private func configureUI() {
         tintColor = Design.cellTintColor
+        backgroundColor = Design.backgroundColor
         let selectedBackgroudView = UIView()
         selectedBackgroudView.backgroundColor = Design.selectedBackgroundColor
         selectedBackgroundView = selectedBackgroudView
@@ -175,6 +176,7 @@ private enum Design {
     static let folderNameLabelFont: UIFont = .preferredFont(forTextStyle: .callout)
     static let savedAppCountLabelFont: UIFont = .preferredFont(forTextStyle: .callout)
     
+    static let backgroundColor: UIColor = .clear
     static let folderNameLabelFontColor: UIColor = .black
     static let savedAppCountLabelFontColor: UIColor = Color.mauveLavender
     static let cellTintColor: UIColor = .red

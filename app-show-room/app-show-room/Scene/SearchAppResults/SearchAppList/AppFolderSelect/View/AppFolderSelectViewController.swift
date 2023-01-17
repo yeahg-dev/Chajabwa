@@ -27,6 +27,7 @@ class AppFolderSelectViewController: UIViewController {
     private let appFolderTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = Design.backgroundColor
         return tableView
     }()
     
@@ -72,6 +73,7 @@ class AppFolderSelectViewController: UIViewController {
     private func configureNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.tintColor = Design.navigationBarTintColor
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor : Design.navigtaionBarTitleTextColor]
     }
     
     private func configureTableView() {
@@ -188,6 +190,7 @@ private enum Design {
     static let saveButtonPaddingLeading: CGFloat = 20
     static let saveButtonPaddingBottom: CGFloat = 40
     
+    static let navigtaionBarTitleTextColor: UIColor = .black
     static let navigationBarTintColor = Color.blueGreen
     static let backgroundColor: UIColor = Color.lightSkyBlue
     static let saveButtonColor: UIColor = Color.lilac

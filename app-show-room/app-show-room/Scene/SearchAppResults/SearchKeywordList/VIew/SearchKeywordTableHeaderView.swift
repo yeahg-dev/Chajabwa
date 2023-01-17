@@ -17,6 +17,7 @@ final class SearchKeywordTableHeaderView: UIView {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .title2)
+        label.textColor = Design.titleLabelTextColor
         return label
     }()
     
@@ -79,5 +80,6 @@ private enum Design {
     static let paddingTrailing: CGFloat = 25
 
     static let switchOnColor: UIColor = Color.lilac
+    static let titleLabelTextColor: UIColor = .black
 
 }

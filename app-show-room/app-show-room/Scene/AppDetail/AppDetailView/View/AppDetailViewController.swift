@@ -97,7 +97,7 @@ final class AppDetailViewController: UIViewController {
             contentCollectionView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor),
             contentCollectionView.bottomAnchor.constraint(
-                equalTo: view.bottomAnchor)
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     

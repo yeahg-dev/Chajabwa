@@ -27,8 +27,13 @@ final class AppFolderCreatorViewController: UIViewController {
     private let navigationBar: UINavigationBar = {
         let bar = UINavigationBar()
         bar.translatesAutoresizingMaskIntoConstraints = false
-        bar.isTranslucent = false
-        bar.backgroundColor = Design.backgroundColor
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = Design.backgroundColor
+        appearance.titleTextAttributes = [
+            .foregroundColor: Design.navigationBarTitleTextColor,
+            .font: UIFont.preferredFont(forTextStyle: .title3)]
+        bar.standardAppearance = appearance
         return bar
     }()
     
@@ -36,6 +41,7 @@ final class AppFolderCreatorViewController: UIViewController {
         let textField = FolderNameTextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .none
+        textField.textColor = Design.textFieldTextColor
         return textField
     }()
     
@@ -51,6 +57,7 @@ final class AppFolderCreatorViewController: UIViewController {
             right: Design.textContainerInsetRight)
         textView.isScrollEnabled = false
         textView.font = Design.textViewFont
+        textView.textColor = Design.textViewTextColor
         return textView
     }()
     
@@ -68,7 +75,6 @@ final class AppFolderCreatorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
-        configureNavigationBar()
         configureLayout()
         view.backgroundColor = Design.backgroundColor
         folderNameTextField.becomeFirstResponder()
@@ -80,7 +86,9 @@ final class AppFolderCreatorViewController: UIViewController {
             appFolderName: appFolderName.eraseToAnyPublisher(),
             appFolderDescription: appFolderDescritpion.eraseToAnyPublisher())
         
-        folderNameTextField.placeholder = viewModel.folderNameTextFieldPlaceholder
+        folderNameTextField.attributedPlaceholder = NSAttributedString(
+            string: viewModel.folderNameTextFieldPlaceholder,
+            attributes: [.foregroundColor: Design.textFieldPlaceholderTextColor])
         doneButton.setTitle(viewModel.doneButtonTitle, for: .normal)
         viewModel.doneButtonIsEnabled
             .receive(on: RunLoop.main)
@@ -92,13 +100,7 @@ final class AppFolderCreatorViewController: UIViewController {
             action: #selector(doneButtonDidTapped),
             for: .touchDown)
     }
-    
-    private func configureNavigationBar() {
-        let navigationItem = UINavigationItem(title: "새로운 폴더 만들기")
-        navigationBar.titleTextAttributes = [ .font: UIFont.preferredFont(forTextStyle: .title3)]
-        navigationBar.items = [navigationItem]
-    }
-    
+
     private func configureLayout() {
         let layoutGuide = UILayoutGuide()
         view.addLayoutGuide(layoutGuide)
@@ -223,7 +225,11 @@ private enum Design {
     static let buttonFont: UIFont = .preferredFont(forTextStyle: .headline)
     
     static let backgroundColor: UIColor = .white
-    static let textFieldBackgroundColor: UIColor = Color.favoriteLavender
+    static let navigationBarTitleTextColor: UIColor = .black
+    static let textFieldTextColor: UIColor = .black
+    static let textFieldPlaceholderTextColor: UIColor = Color.shadeLavender
+    static let textFieldBackgroundColor: UIColor = Color.grayLavender
+    static let textViewTextColor: UIColor = .black
     static let textViewBackgroundColor: UIColor = Color.favoriteLavender
     static let disabledButtonColor: UIColor = Color.lightGray
     static let normalButtonColor: UIColor = Color.lilac

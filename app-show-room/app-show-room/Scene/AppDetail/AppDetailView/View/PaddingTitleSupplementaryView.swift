@@ -12,7 +12,12 @@ import UIKit
 
 final class PaddingTitleSupplementaryView: UICollectionReusableView {
   
-    private let titleLabel = UILabel()
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = Design.titleLabelTextColor
+        return label
+    }()
+    
     lazy var separatorLayer: CALayer = {
         let layer = CALayer()
         let origin = CGPoint(x: Design.paddingLeading ,y: 0)
@@ -61,6 +66,8 @@ private enum Design {
     static let paddingTrailing: CGFloat = 25
     
     static let separatorWidth: CGFloat = 0.5
+    
+    static let titleLabelTextColor: UIColor = .black
     static let separatorColor: CGColor = UIColor.systemGray3.cgColor
     
     static let titleFontSize: CGFloat = 22

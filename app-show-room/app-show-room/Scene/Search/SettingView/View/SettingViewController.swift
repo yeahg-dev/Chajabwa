@@ -27,8 +27,11 @@ final class SettingViewController: UIViewController {
                 y: 0,
                 width: view.frame.width,
                 height: statusBarHeight))
-        bar.isTranslucent = false
-        bar.backgroundColor = Design.backgroundColor
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = Design.backgroundColor
+        appearance.titleTextAttributes = [.foregroundColor: Design.navigationBarTitleTextColor]
+        bar.standardAppearance = appearance
         return bar
     }()
     
@@ -137,9 +140,10 @@ extension SettingViewController: UITableViewDataSource {
             for: indexPath)
         var configuration = cell.defaultContentConfiguration()
         configuration.text = viewModel.countryName(at: indexPath.row)
+        configuration.textProperties.color = Design.cellTextColor
         configuration.secondaryText = viewModel.countryFlag(at: indexPath.row)
         cell.contentConfiguration = configuration
-        cell.backgroundColor = .clear
+        cell.backgroundColor = Design.cellBackgroundColor
         cell.tintColor = Design.checktMarkTintColor
         
         if viewModel.selectedCountryIndex == indexPath.row {
@@ -182,6 +186,9 @@ extension SettingViewController: UISearchBarDelegate {
 private enum Design {
     
     static let backgroundColor: UIColor = Color.lightSkyBlue
+    static let navigationBarTitleTextColor: UIColor = .black
     static let tintColor: UIColor = Color.blueGreen
     static let checktMarkTintColor: UIColor = .red
+    static let cellBackgroundColor: UIColor = .clear
+    static let cellTextColor: UIColor = .black
 }

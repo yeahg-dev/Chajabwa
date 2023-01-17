@@ -11,7 +11,12 @@ import UIKit
 
 final class TitleSupplementaryView: UICollectionReusableView {
     
-    private let titleLabel = UILabel()
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = Design.titleLabelTextColor
+        return label
+    }()
+    
     lazy var separatorLayer: CALayer = {
         let layer = CALayer()
         let origin = CGPoint(x: 0 ,y: 0)
@@ -62,6 +67,7 @@ private enum Design {
     static let separatorWidth: CGFloat = 0.5
     
     // color
+    static let titleLabelTextColor: UIColor = .black
     static let separatorColor: CGColor = UIColor.systemGray3.cgColor
     
     // font

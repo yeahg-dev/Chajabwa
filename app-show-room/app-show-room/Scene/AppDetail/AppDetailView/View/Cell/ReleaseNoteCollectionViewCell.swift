@@ -195,6 +195,6 @@ private enum Design {
     static let versionTextColor: UIColor = .systemGray
     static let currentVersionReleaseDateTextColor: UIColor = .systemGray
     static let foldingButtonTextColor: UIColor = Color.blueGreen
-    static let descriptionTextColor: UIColor = .label
+    static let descriptionTextColor: UIColor = .black
     
 }

@@ -32,6 +32,7 @@ final class RecentSearchKeywordTableViewCell: BaseTableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .callout)
+        label.textColor = Design.keywordLabelTextColor
         label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         label.setContentHuggingPriority(.defaultLow, for: .horizontal)
         label.lineBreakMode = .byTruncatingTail
@@ -130,6 +131,7 @@ private enum Design {
     
     static let clockImageViewRightMargin: CGFloat = 9
     
+    static let keywordLabelTextColor: UIColor = .black
     static let backgroundColor: UIColor = .clear
     static let selectedBackgroundColor: UIColor = Color.skyBlue
     

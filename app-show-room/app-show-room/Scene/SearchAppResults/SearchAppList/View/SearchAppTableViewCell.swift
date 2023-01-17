@@ -51,6 +51,7 @@ final class SearchAppTableViewCell: BaseTableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Design.titleLabelFont
+        label.textColor = Design.nameLabelTextColor
         return label
     }()
     
@@ -276,6 +277,7 @@ extension SearchAppTableViewCell {
         static let starRatingLabelFont: UIFont = .preferredFont(forTextStyle: .subheadline)
         
         // textColor
+        static let nameLabelTextColor: UIColor = .black
         static let descriptionLabelTextColor: UIColor = .gray
         static let starRatingLabelTextColor: UIColor = .systemGray3
         
