@@ -7,15 +7,18 @@
 
 import UIKit
 
-protocol AppFolderDesignationNavigator: AnyObject {
+protocol appFolderSelectViewPresnter: AnyObject {
     
-    func pushAppFolderDesignationView()
+    func pushAppFolderSelectView(of appUnit: AppUnit, iconImageURL: String?)
     
 }
 
 final class SearchAppTableViewCell: BaseTableViewCell {
     
-    weak var appFolderDesignationNavigator: AppFolderDesignationNavigator?
+    weak var appFolderSelectViewPresenter: appFolderSelectViewPresnter?
+    
+    private var appUnit: AppUnit?
+    private var iconImageURL: String?
     
     private let containerView: UIView = {
         let view = UIView()
@@ -98,7 +101,7 @@ final class SearchAppTableViewCell: BaseTableViewCell {
             UIImage(named: "addFolder"),
             for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
-        button.addTarget(self, action: #selector(pushAppFolderDesignationView), for: .touchUpInside)
+        button.addTarget(self, action: #selector(pushAppFolderSelectView), for: .touchUpInside)
         return button
     }()
     
@@ -119,6 +122,7 @@ final class SearchAppTableViewCell: BaseTableViewCell {
     private var cancellableTasks: [CancellableTask] = []
     
     func bind(_ viewModel: SearchAppTableViewCellModel) {
+        assignAppUnit(viewModel: viewModel)
         let defaultImage = UIImage(withBackground: .gray)
         Task {
             async let iconImageViewTask = iconImageView.setImage(
@@ -227,9 +231,25 @@ final class SearchAppTableViewCell: BaseTableViewCell {
         ])
     }
     
+    private func assignAppUnit(viewModel: SearchAppTableViewCellModel) {
+        iconImageURL = viewModel.iconImageURL
+        let currentCountry = AppSearchingConfiguration.countryISOCode
+        let currentPlatform = AppSearchingConfiguration.softwareType
+        appUnit = AppUnit(
+            name: viewModel.name!,
+            appID: viewModel.appID!,
+            country: currentCountry,
+            platform: currentPlatform)
+    }
+    
     @objc
-    private func pushAppFolderDesignationView() {
-        appFolderDesignationNavigator?.pushAppFolderDesignationView()
+    private func pushAppFolderSelectView() {
+        guard let appUnit else {
+            return
+        }
+        appFolderSelectViewPresenter?.pushAppFolderSelectView(
+            of: appUnit,
+            iconImageURL: iconImageURL)
     }
     
 }

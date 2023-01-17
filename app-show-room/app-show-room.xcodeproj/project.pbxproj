@@ -98,6 +98,7 @@
 		63A20214297579D100CCE285 /* AppFolderUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A20213297579D100CCE285 /* AppFolderUsecase.swift */; };
 		63A2021A29758E0200CCE285 /* AppFolderCreatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2021929758E0200CCE285 /* AppFolderCreatorViewModel.swift */; };
 		63A2021C2975937400CCE285 /* AppFolderCreatorAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2021B2975937400CCE285 /* AppFolderCreatorAlertViewModel.swift */; };
+		63A2021E2975ABF800CCE285 /* AppFolderSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2021D2975ABF800CCE285 /* AppFolderSelectViewModel.swift */; };
 		63A66F4C28C0889900F3B4D0 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A66F4B28C0889900F3B4D0 /* Text.swift */; };
 		63A66F4E28C0C1FE00F3B4D0 /* LinkInformationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A66F4D28C0C1FE00F3B4D0 /* LinkInformationCollectionViewCell.swift */; };
 		63A764F828BDFF8C003B1EAA /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A764F728BDFF8C003B1EAA /* IconView.swift */; };
@@ -253,6 +254,7 @@
 		63A20213297579D100CCE285 /* AppFolderUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderUsecase.swift; sourceTree = "<group>"; };
 		63A2021929758E0200CCE285 /* AppFolderCreatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderCreatorViewModel.swift; sourceTree = "<group>"; };
 		63A2021B2975937400CCE285 /* AppFolderCreatorAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderCreatorAlertViewModel.swift; sourceTree = "<group>"; };
+		63A2021D2975ABF800CCE285 /* AppFolderSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderSelectViewModel.swift; sourceTree = "<group>"; };
 		63A66F4B28C0889900F3B4D0 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		63A66F4D28C0C1FE00F3B4D0 /* LinkInformationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkInformationCollectionViewCell.swift; sourceTree = "<group>"; };
 		63A764F728BDFF8C003B1EAA /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
@@ -857,6 +859,7 @@
 			isa = PBXGroup;
 			children = (
 				63A2020F2974EB4F00CCE285 /* AppFolderTableViewCellModel.swift */,
+				63A2021D2975ABF800CCE285 /* AppFolderSelectViewModel.swift */,
 			);
 			path = VIewModel;
 			sourceTree = "<group>";
@@ -1249,6 +1252,7 @@
 				63861ED228AAA3C10062A8BD /* ImageCache.swift in Sources */,
 				63A66F4C28C0889900F3B4D0 /* Text.swift in Sources */,
 				63861EC928AA55630062A8BD /* BaseCollectionViewCell.swift in Sources */,
+				63A2021E2975ABF800CCE285 /* AppFolderSelectViewModel.swift in Sources */,
 				6388DE5828A66BF70011D47E /* AppDetail.swift in Sources */,
 				638722E828A948C900A6ED7B /* AppSearchUsecase.swift in Sources */,
 				6384EC4728AB2D2800D1F821 /* ScreenshotCollectionViewCell.swift in Sources */,

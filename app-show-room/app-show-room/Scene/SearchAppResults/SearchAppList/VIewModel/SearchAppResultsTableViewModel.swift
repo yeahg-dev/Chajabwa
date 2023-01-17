@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol AppDetailViewPresenter: AnyObject, AppFolderDesignationNavigator {
+protocol AppDetailViewPresenter: AnyObject, appFolderSelectViewPresnter {
     
     func pushAppDetailView(of app: AppDetail)
     
@@ -49,7 +49,7 @@ extension SearchAppResultsTableViewModel: UITableViewDataSource {
             withClass: SearchAppTableViewCell.self,
             for: indexPath)
         let cellModel = searchAppCellModel[indexPath.row]
-        cell.appFolderDesignationNavigator = appDetailViewPresenter
+        cell.appFolderSelectViewPresenter = appDetailViewPresenter
         cell.bind(cellModel)
         return cell
     }

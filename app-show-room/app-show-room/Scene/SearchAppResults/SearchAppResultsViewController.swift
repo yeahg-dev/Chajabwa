@@ -11,7 +11,7 @@ protocol SearchAppResultsViewDelegate: AnyObject {
     
     func pushAppDetailView(_ appDetail: AppDetail)
     
-    func pushAppFolderDesignationView()
+    func pushAppFolderSelectView(of appUnit: AppUnit, iconImageURL: String?)
     
 }
 
@@ -123,10 +123,12 @@ final class SearchAppResultsViewController: UITableViewController {
     
 }
 
+// MARK: - AppDetailViewPresenter
+
 extension SearchAppResultsViewController: AppDetailViewPresenter {
     
-    func pushAppFolderDesignationView() {
-        delegate?.pushAppFolderDesignationView()
+    func pushAppFolderSelectView(of appUnit: AppUnit, iconImageURL: String?) {
+        delegate?.pushAppFolderSelectView(of: appUnit, iconImageURL: iconImageURL)
     }
     
     func pushAppDetailView(of app: AppDetail) {
@@ -134,6 +136,8 @@ extension SearchAppResultsViewController: AppDetailViewPresenter {
     }
     
 }
+
+// MARK: - SearchAppResultTableViewUpdater
 
 extension SearchAppResultsViewController: SearchAppResultTableViewUpdater {
     
@@ -173,6 +177,8 @@ extension SearchAppResultsViewController: SearchAppResultTableViewUpdater {
     
 }
 
+// MARK: - SearchKeywordSavingUpdater
+
 extension SearchAppResultsViewController: SearchKeywordSavingUpdater {
     
     func didChangedVaule(to isOn: Bool) {
@@ -181,6 +187,8 @@ extension SearchAppResultsViewController: SearchKeywordSavingUpdater {
     
 }
 
+// MARK: - SearchKeywordTableViewUpdater
+
 extension SearchAppResultsViewController: SearchKeywordTableViewUpdater {
     
     func allSearchKeywordDidDeleted() {
@@ -188,6 +196,8 @@ extension SearchAppResultsViewController: SearchKeywordTableViewUpdater {
     }
     
 }
+
+// MARK: - Design
 
 private enum Design {
     

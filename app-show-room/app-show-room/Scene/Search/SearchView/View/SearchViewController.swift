@@ -158,12 +158,16 @@ extension SearchViewController: SearchAppResultsViewDelegate {
             animated: true)
     }
     
-    func pushAppFolderDesignationView() {
-        let view = AppFolderSelectViewController()
+    func pushAppFolderSelectView(of appUnit: AppUnit, iconImageURL: String?) {
+     let view = AppFolderSelectViewController(
+        appUnit: appUnit,
+        iconImageURL: iconImageURL)
         navigationController?.pushViewController(view, animated: true)
     }
     
 }
+
+// MARK: - SearchBackgroundViewPresentaionDelegate
 
 extension SearchViewController: SearchBackgroundViewPresentaionDelegate {
     

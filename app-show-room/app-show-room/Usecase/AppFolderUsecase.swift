@@ -67,4 +67,17 @@ struct AppFolderUsecase {
             to: appFolder)
     }
     
+    func updateAppFolder(
+        of appUnit: AppUnit,
+        iconImageURL: String?,
+        to appFolder: [AppFolder])
+    async throws -> SavedApp {
+        let savedApp = await appFolderRepository.createSavedApp(
+            appUnit,
+            iconImageURL: iconImageURL)
+        return try await appFolderRepository.updateAppFolder(
+            of: savedApp,
+            to: appFolder)
+    }
+    
 }

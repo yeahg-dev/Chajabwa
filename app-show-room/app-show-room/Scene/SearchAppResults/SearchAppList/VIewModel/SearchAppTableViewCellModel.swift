@@ -9,6 +9,7 @@ import Foundation
 
 struct SearchAppTableViewCellModel: Hashable {
     
+    let appID: Int?
     let iconImageURL: String?
     let name: String?
     let provider: String?
@@ -17,6 +18,7 @@ struct SearchAppTableViewCellModel: Hashable {
     let screenshotImageURLs: [String]?
     
     init(app: AppDetail) {
+        self.appID = app.id
         self.iconImageURL = app.iconImageURL
         self.name = app.appName
         self.provider = app.provider

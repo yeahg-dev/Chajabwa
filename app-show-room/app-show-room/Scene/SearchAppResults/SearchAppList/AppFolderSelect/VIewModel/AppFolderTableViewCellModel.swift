@@ -11,19 +11,14 @@ struct AppFolderTableViewCellModel {
     
     let folderName: String
     let folderCount: String
-    let iconImageURL: String
-    let isBelongedToFolder: Bool
-    
-    init(
-        folderName: String,
-        folderCount: Int,
-        iconImageURL: String,
-        isBelongedToFolder: Bool)
-    {
-        self.folderName = folderName
-        self.folderCount = "(\(folderCount))"
-        self.iconImageURL = iconImageURL
-        self.isBelongedToFolder = isBelongedToFolder
+    let iconImageURL: String?
+    var isBelongedToFolder: Bool
+   
+    init(appFolder: AppFolder, isSelectedAppFolder: Bool) {
+        self.folderName = appFolder.name
+        self.folderCount = "(\(appFolder.appCount))"
+        self.iconImageURL = appFolder.iconImageURL
+        self.isBelongedToFolder = isSelectedAppFolder
     }
     
 }

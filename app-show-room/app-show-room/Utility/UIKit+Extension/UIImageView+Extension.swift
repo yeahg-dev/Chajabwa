@@ -16,6 +16,7 @@ extension UIImageView {
     {
         guard let urlString = urlString,
               let url = URL(string: urlString) else {
+            print("nil이니깐 defaultImage")
             DispatchQueue.main.async {
                 self.image = defaultImage
             }
@@ -30,9 +31,9 @@ extension UIImageView {
             return nil
         }
         
-        let task = Task{
+        return Task{
             if Task.isCancelled {
-                self.image = nil
+                self.image = defaultImage
                 return
             }
             
@@ -50,9 +51,7 @@ extension UIImageView {
                 }
                 return
             }
-            
         }
-        return task
     }
     
 }

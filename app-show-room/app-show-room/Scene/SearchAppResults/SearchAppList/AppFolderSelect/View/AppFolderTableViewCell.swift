@@ -9,6 +9,8 @@ import UIKit
 
 class AppFolderTableViewCell: BaseTableViewCell {
     
+    private var cancellableTask: CancellableTask?
+    
     private let layoutGuide: UILayoutGuide = UILayoutGuide()
     
     private let iconImageView: UIImageView = {
@@ -63,24 +65,28 @@ class AppFolderTableViewCell: BaseTableViewCell {
         return imageView
     }()
     
-    override func prepareForReuse() {
-        savedAppCountLabel.text = nil
-        savedAppCountLabel.text = nil
-        accessoryType = .none
-        iconImageView.image = defaultIconImage
-    }
-    
     func bind(_ viewModel: AppFolderTableViewCellModel) {
+        print("🎨bind with iconURL: \(viewModel.iconImageURL)")
         folderNameLabel.text = viewModel.folderName
         savedAppCountLabel.text = viewModel.folderCount
         checkmarkView.isHidden = !viewModel.isBelongedToFolder
         Task {
-            try await iconImageView.setImage(
+            cancellableTask = try await iconImageView.setImage(
                 with: viewModel.iconImageURL,
                 defaultImage: defaultIconImage)
         }
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        print("✨prepareForReuse✨")
+        savedAppCountLabel.text = nil
+        savedAppCountLabel.text = nil
+        iconImageView.image = defaultIconImage
+        cancellableTask?.cancelTask()
+        accessoryType = .none
+    }
+   
     override func addSubviews() {
         contentView.addLayoutGuide(layoutGuide)
         contentView.addSubview(iconImageView)
@@ -90,7 +96,10 @@ class AppFolderTableViewCell: BaseTableViewCell {
     }
     
     private func configureUI() {
-        self.tintColor = Design.cellTintColor
+        tintColor = Design.cellTintColor
+        let selectedBackgroudView = UIView()
+        selectedBackgroudView.backgroundColor = Design.selectedBackgroundColor
+        selectedBackgroundView = selectedBackgroudView
     }
     
     override func setConstraints() {
@@ -170,5 +179,6 @@ private enum Design {
     static let savedAppCountLabelFontColor: UIColor = Color.mauveLavender
     static let cellTintColor: UIColor = .red
     static let defaultImageBackgroundColor: UIColor = Color.lightGray
+    static let selectedBackgroundColor = Color.lilac
     
 }
