@@ -95,16 +95,16 @@ class AppFolderSelectViewController: UIViewController {
                 equalTo: view.trailingAnchor),
             appFolderTableView.bottomAnchor.constraint(
                 equalTo: saveButton.topAnchor,
-                constant: -Design.saveButtonPadding),
+                constant: -Design.saveButtonPaddingLeading),
             saveButton.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: Design.saveButtonPadding),
+                constant: Design.saveButtonPaddingLeading),
             saveButton.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -Design.saveButtonPadding),
+                constant: -Design.saveButtonPaddingLeading),
             saveButton.bottomAnchor.constraint(
                 equalTo: view.bottomAnchor,
-                constant: -Design.saveButtonPadding),
+                constant: -Design.saveButtonPaddingBottom),
             saveButton.heightAnchor.constraint(
                 equalToConstant: Design.saveButtonHeight)
         ])
@@ -163,11 +163,12 @@ extension AppFolderSelectViewController: AppFolderSelectViewUpdater {
 
 private enum Design {
     
-    static let saveButtonHeight: CGFloat = 50
+    static let saveButtonHeight: CGFloat = 60
     
     static let saveButtonCornerRadius: CGFloat = 10
     
-    static let saveButtonPadding: CGFloat = 20
+    static let saveButtonPaddingLeading: CGFloat = 20
+    static let saveButtonPaddingBottom: CGFloat = 40
     
     static let backgroundColor: UIColor = Color.lightSkyBlue
     static let saveButtonColor: UIColor = Color.lilac
