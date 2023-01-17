@@ -18,11 +18,15 @@ final class AppDetailViewController: UIViewController {
         return iconIamge
     }()
     
-    private let folderButton: UIButton = {
+    private lazy var folderButton: UIButton = {
        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.imageView?.contentMode = .scaleAspectFit
         button.setImage(UIImage(named: "addFolder"), for: .normal)
+        button.addTarget(
+            self,
+            action: #selector(pushAppFolderSelectView),
+            for: .touchDown)
         return button
     }()
     
@@ -38,6 +42,8 @@ final class AppDetailViewController: UIViewController {
     
     private let viewModel: AppDetailViewModel
     private let elementKind = AppDetailViewModel.SupplementaryElementKind.self
+    private let appUnit: AppUnit
+    private let appIconImageURL: String?
     
     // MARK: - UI Properties
     
@@ -49,6 +55,14 @@ final class AppDetailViewController: UIViewController {
     
     init(appDetailViewModel: AppDetailViewModel) {
         viewModel = appDetailViewModel
+        let currentCountry = AppSearchingConfiguration.countryISOCode
+        let currentPlatform = AppSearchingConfiguration.softwareType
+        appUnit = AppUnit(
+            name: appDetailViewModel.name,
+            appID: appDetailViewModel.appID,
+            country: currentCountry,
+            platform: currentPlatform)
+        appIconImageURL = appDetailViewModel.iconImageURL
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -385,6 +399,14 @@ final class AppDetailViewController: UIViewController {
             let sectionTitle = self.viewModel.sections[indexPath.section].title
             supplementaryView.bind(title: sectionTitle)
         }
+    }
+    
+    @objc
+    private func pushAppFolderSelectView() {
+        let view = AppFolderSelectViewController(
+           appUnit: appUnit,
+           iconImageURL: appIconImageURL)
+        navigationController?.pushViewController(view, animated: true)
     }
     
 }

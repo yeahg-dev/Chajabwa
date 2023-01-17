@@ -46,7 +46,13 @@ struct AppDetailViewModel {
     
     init(app: AppDetail) {
         self.app = app
+        self.appID = app.id!
+        self.name = app.appName!
     }
+    
+    let appID: Int
+    
+    let name: String
    
     var screenshotURLs: [String]? {
         return app.screenShotURLs
