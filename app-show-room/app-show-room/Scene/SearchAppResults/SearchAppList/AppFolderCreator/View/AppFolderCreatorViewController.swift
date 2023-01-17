@@ -43,7 +43,7 @@ final class AppFolderCreatorViewController: UIViewController {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = Design.textViewBackgroundColor
-        textView.layer.cornerRadius = Design.cornerRadius
+        textView.layer.cornerRadius = Design.descriptionTextViewCornerRadius
         textView.textContainerInset = UIEdgeInsets(
             top: Design.textContainerInsetTop,
             left: Design.textContainerInsetLeft,
@@ -60,6 +60,8 @@ final class AppFolderCreatorViewController: UIViewController {
         button.setBackgroundColor(Design.normalButtonColor, for: .normal)
         button.setBackgroundColor(Design.disabledButtonColor, for: .disabled)
         button.titleLabel?.font = Design.buttonFont
+        button.layer.cornerRadius = Design.doneButtonCornerRadius
+        button.layer.masksToBounds = true
         return button
     }()
     
@@ -210,7 +212,8 @@ private enum Design {
     static let trailinMargin: CGFloat = 35
     static let bottomMargin: CGFloat = 50
     
-    static let cornerRadius: CGFloat = 10
+    static let descriptionTextViewCornerRadius: CGFloat = 10
+    static let doneButtonCornerRadius: CGFloat = 10
     
     static let navigationBarHeiht: CGFloat = 60
     static let textFieldHeight: CGFloat = 50
@@ -218,10 +221,10 @@ private enum Design {
     static let doneButtonHeight: CGFloat = 60
     
     // textContainer
-    static let textContainerInsetTop: CGFloat = 7
-    static let textContainerInsetLeft: CGFloat = 5
-    static let textContainerInsetBottom: CGFloat = 7
-    static let textContainerInsetRight: CGFloat = 5
+    static let textContainerInsetTop: CGFloat = 10
+    static let textContainerInsetLeft: CGFloat = 10
+    static let textContainerInsetBottom: CGFloat = 10
+    static let textContainerInsetRight: CGFloat = 10
     
     static let textViewFont: UIFont = .preferredFont(forTextStyle: .footnote)
     static let buttonFont: UIFont = .preferredFont(forTextStyle: .headline)
