@@ -5,7 +5,7 @@
 //  Created by Moon Yeji on 2023/01/18.
 //
 
-import Foundation
+import UIKit
 
 enum Device: String {
     
@@ -13,6 +13,19 @@ enum Device: String {
     case iPad
     case appleWatch
     case mac
+    
+    var iconImage: UIImage? {
+        switch self {
+        case .iPhone:
+            return UIImage(named: "iPhone")
+        case .iPad:
+            return UIImage(named: "iPad")
+        case .appleWatch:
+            return UIImage(named: "appleWatch")
+        case .mac:
+            return UIImage(named: "mac")
+        }
+    }
     
     static func create(with deviceName: String) -> Device? {
         if deviceName.contains("iphone") {
