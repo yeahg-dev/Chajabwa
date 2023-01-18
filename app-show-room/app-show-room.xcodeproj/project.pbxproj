@@ -15,6 +15,7 @@
 		630068D42953377800BD73C9 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630068D32953377800BD73C9 /* Array+Extension.swift */; };
 		63075FBF28C1D7590094E117 /* ReleaseNoteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63075FBE28C1D7590094E117 /* ReleaseNoteCollectionViewCell.swift */; };
 		63075FC528C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63075FC428C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift */; };
+		631CDA762977A02E00ED71C8 /* AppFolderListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631CDA752977A02E00ED71C8 /* AppFolderListViewModel.swift */; };
 		631F096528D088B3002419B7 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631F096428D088B3002419B7 /* Int+Extension.swift */; };
 		631F096928D0C539002419B7 /* numberFormattingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631F096828D0C539002419B7 /* numberFormattingTest.swift */; };
 		631F096B28D0D05C002419B7 /* PaddingTitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631F096A28D0D05C002419B7 /* PaddingTitleSupplementaryView.swift */; };
@@ -169,6 +170,7 @@
 		630068D32953377800BD73C9 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		63075FBE28C1D7590094E117 /* ReleaseNoteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseNoteCollectionViewCell.swift; sourceTree = "<group>"; };
 		63075FC428C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailCollectionViewCellDesign.swift; sourceTree = "<group>"; };
+		631CDA752977A02E00ED71C8 /* AppFolderListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderListViewModel.swift; sourceTree = "<group>"; };
 		631F096428D088B3002419B7 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		631F096828D0C539002419B7 /* numberFormattingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = numberFormattingTest.swift; sourceTree = "<group>"; };
 		631F096A28D0D05C002419B7 /* PaddingTitleSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingTitleSupplementaryView.swift; sourceTree = "<group>"; };
@@ -327,6 +329,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		631CDA7229779FFB00ED71C8 /* AppFolderList */ = {
+			isa = PBXGroup;
+			children = (
+				631CDA742977A01700ED71C8 /* View */,
+				631CDA732977A00500ED71C8 /* ViewModel */,
+			);
+			path = AppFolderList;
+			sourceTree = "<group>";
+		};
+		631CDA732977A00500ED71C8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				631CDA752977A02E00ED71C8 /* AppFolderListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		631CDA742977A01700ED71C8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		6322E706296C23C100134B30 /* AppFolder */ = {
 			isa = PBXGroup;
 			children = (
@@ -494,6 +520,7 @@
 			isa = PBXGroup;
 			children = (
 				6388DE5B28A6907C0011D47E /* CommonNamespace */,
+				631CDA7229779FFB00ED71C8 /* AppFolderList */,
 				63861EC028AA41F90062A8BD /* Search */,
 				632B93262942010C004CAD58 /* SearchAppResults */,
 				63861EC328AA432C0062A8BD /* AppDetail */,
@@ -1257,6 +1284,7 @@
 				63861EB928AA1ACB0062A8BD /* App.swift in Sources */,
 				63AFB9B428DC36EF008E13A4 /* StarLayer.swift in Sources */,
 				63F0342728D9FA5C003F1751 /* RatingTypeSummaryView.swift in Sources */,
+				631CDA762977A02E00ED71C8 /* AppFolderListViewModel.swift in Sources */,
 				63861ED228AAA3C10062A8BD /* ImageCache.swift in Sources */,
 				63A66F4C28C0889900F3B4D0 /* Text.swift in Sources */,
 				63861EC928AA55630062A8BD /* BaseCollectionViewCell.swift in Sources */,
