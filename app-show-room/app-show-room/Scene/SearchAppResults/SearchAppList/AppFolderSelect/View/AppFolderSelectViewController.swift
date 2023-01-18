@@ -67,7 +67,7 @@ class AppFolderSelectViewController: UIViewController {
         addSubviews()
         setConstraints()
         bind(viewModel: viewModel)
-        refreshAppFolderTableView()
+        refreshView()
     }
     
     private func configureNavigationBar() {
@@ -123,7 +123,7 @@ class AppFolderSelectViewController: UIViewController {
     
     private func presentAppFolderCreationView() {
         let view = AppFolderCreatorViewController()
-        view.appFolderSelectViewUpdater = self
+        view.appFolderCreatorViewPresenting = self
         modalPresentationStyle = .formSheet
         present(view, animated: true)
     }
@@ -168,9 +168,9 @@ extension AppFolderSelectViewController: UITableViewDelegate {
     
 }
 
-extension AppFolderSelectViewController: AppFolderSelectViewUpdater {
-    
-    func refreshAppFolderTableView() {
+extension AppFolderSelectViewController: AppFolderCreatorViewPresenting {
+
+    func refreshView() {
         Task {
             await viewModel.fetchLatestData()
             await MainActor.run {

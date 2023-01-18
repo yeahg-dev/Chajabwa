@@ -17,12 +17,16 @@ final class SearchViewController: UIViewController {
     private lazy var searchController = UISearchController(
         searchResultsController: searchAppResultsController)
     
-    private let folderButton: UIButton = {
+    private lazy var folderButton: UIButton = {
         let button = UIButton()
         button.setImage(
             UIImage(named: "folder"),
             for: .normal)
         button.contentMode = .scaleAspectFit
+        button.addTarget(
+            self,
+            action: #selector(pushAppFolderListView),
+            for: .touchDown)
         return button
     }()
     
@@ -95,6 +99,12 @@ final class SearchViewController: UIViewController {
             flag: viewModel.countryFlag,
             name: viewModel.countryName)
         searchBackgroundView.bindPlatform(viewModel.platformType)
+    }
+    
+    @objc
+    private func pushAppFolderListView() {
+        let view = AppFolderListViewController()
+        navigationController?.pushViewController(view, animated: true)
     }
     
 }

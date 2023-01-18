@@ -5,6 +5,7 @@
 //  Created by Moon Yeji on 2023/01/18.
 //
 
+import Combine
 import UIKit
 
 final class AppFolderListViewModel: NSObject {
@@ -14,16 +15,32 @@ final class AppFolderListViewModel: NSObject {
     private var appFolders = [AppFolder]()
     private var appFolderCellModels = [AppFolderTableViewCellModel]()
     
-    let navigationTitle = "폴더 리스트"
+    struct Input {
+        
+        let appFolderCellDidSelected: AnyPublisher<IndexPath, Never>
+        
+    }
+    
+    struct Output {
+        
+        let navigationTitle = "폴더 리스트"
+        let slectedAppFolder: AnyPublisher<AppFolder?, Never>
+        
+    }
+    
+    func transform(input: Input) -> Output {
+        let selectedAppFolder = input.appFolderCellDidSelected
+            .map{$0.row}
+            .map{ self.appFolders[safe: $0] }
+            .eraseToAnyPublisher()
+        
+        return Output(slectedAppFolder: selectedAppFolder)
+    }
     
     func fetchLatestData() async {
         appFolders = await appFolderUsecase.readAllAppFolder()
         appFolderCellModels = appFolders.map{
             AppFolderTableViewCellModel(appFolder: $0, isSelectedAppFolder: false)}
-    }
-    
-    func appFolderCellDidSelected(at indexPath: IndexPath) -> AppFolder? {
-        return appFolders[safe: indexPath.row]
     }
     
 }

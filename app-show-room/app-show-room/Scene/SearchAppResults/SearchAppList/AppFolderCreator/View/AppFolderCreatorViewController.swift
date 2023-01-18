@@ -8,17 +8,17 @@
 import Combine
 import UIKit
 
-protocol AppFolderSelectViewUpdater: AnyObject {
+protocol AppFolderCreatorViewPresenting: AnyObject {
     
-    func refreshAppFolderTableView()
+    func refreshView()
     
 }
 
 final class AppFolderCreatorViewController: UIViewController {
     
-    weak var appFolderSelectViewUpdater: AppFolderSelectViewUpdater?
+    weak var appFolderCreatorViewPresenting: AppFolderCreatorViewPresenting?
     
-    private var viewModel: AppFolderCreatorViewModel!
+    private var viewModel: AppFolderCreatorViewModel! 
     
     private let appFolderName = PassthroughSubject<String?, Never>()
     private let appFolderDescritpion = PassthroughSubject<String?, Never>()
@@ -165,7 +165,7 @@ final class AppFolderCreatorViewController: UIViewController {
             await MainActor.run(body: {
                 switch result {
                 case .success(_):
-                    appFolderSelectViewUpdater?.refreshAppFolderTableView()
+                    appFolderCreatorViewPresenting?.refreshView()
                     self.dismiss(animated: true)
                 case .failure(let alertViewModel):
                     presentAlert(alertViewModel)
