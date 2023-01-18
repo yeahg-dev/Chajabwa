@@ -38,7 +38,6 @@ class AppFolderListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Design.backgroundColor
-        navigationController?.navigationBar.prefersLargeTitles = false
         addSubviews()
         setConstraints()
         configureNavigationBar()

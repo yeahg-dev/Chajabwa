@@ -178,7 +178,7 @@ private enum Design {
     
     static let backgroundColor: UIColor = .clear
     static let folderNameLabelFontColor: UIColor = .black
-    static let savedAppCountLabelFontColor: UIColor = Color.mauveLavender
+    static let savedAppCountLabelFontColor: UIColor = Color.grayLavender
     static let cellTintColor: UIColor = .red
     static let defaultImageBackgroundColor: UIColor = Color.lightGray
     static let selectedBackgroundColor = Color.lilac

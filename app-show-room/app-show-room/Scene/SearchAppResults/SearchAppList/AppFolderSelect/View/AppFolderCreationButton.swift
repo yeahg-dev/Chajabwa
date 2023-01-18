@@ -77,6 +77,6 @@ private enum Design {
     static let contentInsetBottom: CGFloat = 15
     static let contentInsetTop: CGFloat = 15
     
-    static let imagePadding: CGFloat = 10
+    static let imagePadding: CGFloat = 14
     
 }
