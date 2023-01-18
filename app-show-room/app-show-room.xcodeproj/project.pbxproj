@@ -586,8 +586,8 @@
 			children = (
 				638722E728A948C900A6ED7B /* AppSearchUsecase.swift */,
 				63CEA73A2940B0A2009684A7 /* AppSearchingConfiguration.swift */,
-				63D52B3C29617996006F043D /* RecentSearchKeywordManagementUsecase.swift */,
 				63A20213297579D100CCE285 /* AppFolderUsecase.swift */,
+				63D52B3C29617996006F043D /* RecentSearchKeywordManagementUsecase.swift */,
 			);
 			path = Usecase;
 			sourceTree = "<group>";

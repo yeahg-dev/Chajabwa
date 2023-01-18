@@ -11,6 +11,7 @@ import Foundation
 struct AppFolderUsecase {
     
     private let appFolderRepository: AppFolderRepository
+    private let appDetailRepository = ItunesAppDetailRepository()
     
     init(
         appFolderRepository: AppFolderRepository = RealmAppFolderRepository(
@@ -82,6 +83,21 @@ struct AppFolderUsecase {
         return try await appFolderRepository.updateAppFolder(
             of: savedApp,
             to: appFolder)
+    }
+    
+    func readSavedAppDetail(
+        of savedApp: SavedApp)
+    -> AnyPublisher<SavedAppDetail, Error>
+    {
+        return appDetailRepository.fetchAppDetail(
+            of: savedApp.appUnit.appID,
+            country: savedApp.appUnit.country,
+            software: savedApp.appUnit.platform)
+        .map { appDetail in
+            return SavedAppDetail(
+                appDetail: appDetail,
+                appUnit: savedApp.appUnit) }
+        .eraseToAnyPublisher()
     }
     
 }

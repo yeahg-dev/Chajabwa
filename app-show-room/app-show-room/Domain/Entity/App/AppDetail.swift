@@ -27,5 +27,6 @@ struct AppDetail {
     let version: String?
     let currentVersionReleaseDate: String?
     let releaseDescription: String?
+    let supportedDevices: [String]?
     
 }

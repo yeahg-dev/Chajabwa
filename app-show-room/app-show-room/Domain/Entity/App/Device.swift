@@ -13,6 +13,19 @@ enum Device: String {
     case iPad
     case appleWatch
     case mac
-    case appleTV
+    
+    static func create(with deviceName: String) -> Device? {
+        if deviceName.contains("iphone") {
+            return .iPhone
+        } else if deviceName.contains("ipad") {
+            return .iPad
+        } else if deviceName.contains("watch") {
+            return .appleWatch
+        } else if deviceName.contains("mac") {
+            return .mac
+        } else {
+            return nil
+        }
+    }
     
 }
