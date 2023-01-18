@@ -184,10 +184,15 @@ struct RealmAppFolderRepository: AppFolderRepository {
         to appFolder: AppFolder)
     async throws -> AppFolder
     {
-        let fetchedSavedApp = await createSavedApp(
-            savedApp,
-            iconImageURL: iconImageURL)
-        
+        let app: SavedApp
+        if let savedApp = await fetchSavedApp(savedApp) {
+            app = savedApp
+        } else {
+            app = await createSavedApp(
+                savedApp,
+                iconImageURL: iconImageURL)
+        }
+    
         return try await withCheckedThrowingContinuation { continuation in
             realmQueue.async {
                 if let appFolderRealm = realm.object(
@@ -195,7 +200,7 @@ struct RealmAppFolderRepository: AppFolderRepository {
                     forPrimaryKey: appFolder.identifier),
                    let savedAppRealm = realm.object(
                     ofType: SavedAppRealm.self,
-                    forPrimaryKey: fetchedSavedApp.identifier) {
+                    forPrimaryKey: app.identifier) {
                     do {
                         try realm.write {
                             appFolderRealm.savedApps.append(savedAppRealm)
@@ -244,17 +249,12 @@ struct RealmAppFolderRepository: AppFolderRepository {
         }
     }
     
-    // MARK: - 함수명..
     @discardableResult
     func createSavedApp(
         _ appUnit: AppUnit,
         iconImageURL: String?)
     async -> SavedApp
     {
-        if let savedApp = await fetchSavedApp(appUnit) {
-            return savedApp
-        }
-        
         return await withCheckedContinuation { continuation in
             realmQueue.async {
                 let newSavedApp = SavedApp(
