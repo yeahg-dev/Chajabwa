@@ -51,8 +51,8 @@ class AppDetailPreview: UIView {
     private let providerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Design.descriptionLabelFont
-        label.textColor = Design.descriptionLabelTextColor
+        label.font = Design.providerLabelFont
+        label.textColor = Design.providerLabelTextColor
         label.lineBreakMode = .byTruncatingTail
         return label
     }()
@@ -204,12 +204,12 @@ private enum Design {
     
     // font
     static let titleLabelFont: UIFont = .preferredFont(forTextStyle: .title3)
-    static let descriptionLabelFont: UIFont = .preferredFont(forTextStyle: .subheadline)
+    static let providerLabelFont: UIFont = .preferredFont(forTextStyle: .subheadline)
     static let starRatingLabelFont: UIFont = .preferredFont(forTextStyle: .subheadline)
     
     // textColor
     static let nameLabelTextColor: UIColor = .black
-    static let descriptionLabelTextColor: UIColor = .gray
+    static let providerLabelTextColor: UIColor = .gray
     static let starRatingLabelTextColor: UIColor = .systemGray3
     
     // starRatingView
