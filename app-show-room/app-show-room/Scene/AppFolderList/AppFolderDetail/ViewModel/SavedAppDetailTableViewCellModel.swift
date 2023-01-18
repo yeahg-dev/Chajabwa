@@ -7,11 +7,15 @@
 
 import UIKit
 
-struct SavedAppDetailTableViewCellModel {
+struct SavedAppDetailTableViewCellModel: AppDetailPreviewViewModel {
     
     let supportedDevices: [UIImage?]
     let countryName: String
     let countryFlag: String
+    
+    // MARK: - AppDetailPreviewViewModel
+    
+    let appID: Int?
     let name: String?
     let iconImageURL: String?
     let provider: String?
@@ -23,6 +27,7 @@ struct SavedAppDetailTableViewCellModel {
         self.supportedDevices = savedAppDetail.supportedDevices.map{ $0.iconImage }
         self.countryName = savedAppDetail.country.name
         self.countryFlag = savedAppDetail.country.flag
+        self.appID = savedAppDetail.id
         self.name = savedAppDetail.name
         self.iconImageURL = savedAppDetail.iconImageURL
         self.provider = savedAppDetail.provider

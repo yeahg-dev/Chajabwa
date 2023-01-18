@@ -13,7 +13,7 @@ protocol AppDetailPreviewViewModel {
     var iconImageURL: String? { get }
     var name: String? { get }
     var provider: String? { get }
-    var rating: Double? { get }
+    var averageUserRating: Double? { get }
     var screenshotURLs: [String]? { get }
     
 }
