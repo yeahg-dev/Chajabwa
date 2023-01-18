@@ -17,6 +17,15 @@ final class SearchViewController: UIViewController {
     private lazy var searchController = UISearchController(
         searchResultsController: searchAppResultsController)
     
+    private let folderButton: UIButton = {
+        let button = UIButton()
+        button.setImage(
+            UIImage(named: "folder"),
+            for: .normal)
+        button.contentMode = .scaleAspectFit
+        return button
+    }()
+    
     private let searchBackgroundView = SearchBackgroundView()
 
     // MARK: - ViewModel
@@ -39,12 +48,22 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        configureNavigationItem()
         configureSearchController()
         configureIntialState()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    private func configureNavigationItem() {
+        let rightBarButtonItem = UIBarButtonItem(customView: folderButton)
+        navigationItem.setRightBarButton(rightBarButtonItem, animated: false)
+        NSLayoutConstraint.activate([
+            folderButton.widthAnchor.constraint(equalToConstant: Design.appFolderButtonWidth),
+            folderButton.heightAnchor.constraint(equalToConstant: Design.appFolderButtonWidth)
+        ])
     }
     
     // MARK: - Private Methods
@@ -174,6 +193,8 @@ extension SearchViewController: SettingViewDelegate {
 }
 
 private enum Design {
+    
+    static let appFolderButtonWidth: CGFloat = 30
     
     static let navigationBarLargeTitleTextColor = UIColor.white
     static let searchBarTextFieldBackgroundColor = Color.skyBlue
