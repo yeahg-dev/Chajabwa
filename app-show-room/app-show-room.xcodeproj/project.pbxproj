@@ -19,6 +19,7 @@
 		631CDA782977A35F00ED71C8 /* AppFolderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631CDA772977A35F00ED71C8 /* AppFolderListViewController.swift */; };
 		631CDA7A2977F8D700ED71C8 /* SavedAppDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631CDA792977F8D700ED71C8 /* SavedAppDetail.swift */; };
 		631CDA7C2977F9A300ED71C8 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631CDA7B2977F9A300ED71C8 /* Device.swift */; };
+		631CDA7E29784C6900ED71C8 /* SavedAppDetailTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631CDA7D29784C6900ED71C8 /* SavedAppDetailTableViewCellModel.swift */; };
 		631F096528D088B3002419B7 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631F096428D088B3002419B7 /* Int+Extension.swift */; };
 		631F096928D0C539002419B7 /* numberFormattingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631F096828D0C539002419B7 /* numberFormattingTest.swift */; };
 		631F096B28D0D05C002419B7 /* PaddingTitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631F096A28D0D05C002419B7 /* PaddingTitleSupplementaryView.swift */; };
@@ -177,6 +178,7 @@
 		631CDA772977A35F00ED71C8 /* AppFolderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderListViewController.swift; sourceTree = "<group>"; };
 		631CDA792977F8D700ED71C8 /* SavedAppDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAppDetail.swift; sourceTree = "<group>"; };
 		631CDA7B2977F9A300ED71C8 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		631CDA7D29784C6900ED71C8 /* SavedAppDetailTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAppDetailTableViewCellModel.swift; sourceTree = "<group>"; };
 		631F096428D088B3002419B7 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		631F096828D0C539002419B7 /* numberFormattingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = numberFormattingTest.swift; sourceTree = "<group>"; };
 		631F096A28D0D05C002419B7 /* PaddingTitleSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingTitleSupplementaryView.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 		631CDA7229779FFB00ED71C8 /* AppFolderList */ = {
 			isa = PBXGroup;
 			children = (
+				631CDA7F29784CAC00ED71C8 /* AppFolderDetail */,
 				631CDA742977A01700ED71C8 /* View */,
 				631CDA732977A00500ED71C8 /* ViewModel */,
 			);
@@ -356,6 +359,30 @@
 			isa = PBXGroup;
 			children = (
 				631CDA772977A35F00ED71C8 /* AppFolderListViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		631CDA7F29784CAC00ED71C8 /* AppFolderDetail */ = {
+			isa = PBXGroup;
+			children = (
+				631CDA8129784CBA00ED71C8 /* View */,
+				631CDA8029784CB500ED71C8 /* ViewModel */,
+			);
+			path = AppFolderDetail;
+			sourceTree = "<group>";
+		};
+		631CDA8029784CB500ED71C8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				631CDA7D29784C6900ED71C8 /* SavedAppDetailTableViewCellModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		631CDA8129784CBA00ED71C8 /* View */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1292,6 +1319,7 @@
 				630068CC2951E15600BD73C9 /* SearchAppResultsTableViewModel.swift in Sources */,
 				638722D828A8D3E100A6ED7B /* ItunesAppDetailRepository.swift in Sources */,
 				63D52B3029602048006F043D /* SearchKeywordRepository.swift in Sources */,
+				631CDA7E29784C6900ED71C8 /* SavedAppDetailTableViewCellModel.swift in Sources */,
 				63075FC528C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift in Sources */,
 				63861EB928AA1ACB0062A8BD /* App.swift in Sources */,
 				63AFB9B428DC36EF008E13A4 /* StarLayer.swift in Sources */,
