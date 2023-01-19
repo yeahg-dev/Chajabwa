@@ -11,6 +11,8 @@ struct SavedAppDetail {
     
     private let supportedDevicesNames: [String]?
     
+    let appDetali: AppDetail
+    
     let name: String?
     let id: Int?
     let description: String?
@@ -32,6 +34,7 @@ struct SavedAppDetail {
     }
     
     init(appDetail: AppDetail, appUnit: AppUnit) {
+        self.appDetali = appDetail
         self.name = appDetail.appName
         self.id = appDetail.id
         self.description = appDetail.description

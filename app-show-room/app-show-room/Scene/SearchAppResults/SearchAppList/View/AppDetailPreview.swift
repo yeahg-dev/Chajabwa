@@ -7,12 +7,8 @@
 
 import UIKit
 
-// selecteBackgrouncView는 Cell에서 지정
-// buttonAction
-// ViewModel Protocol
-
 class AppDetailPreview: UIView {
-
+    
     private let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -112,6 +108,11 @@ class AppDetailPreview: UIView {
     private let screenshotImageView2 = ScreenshotImageView(frame: .zero)
     private let screenshotImageView3 = ScreenshotImageView(frame: .zero)
     
+    convenience init(isFolderButtonHidden: Bool) {
+        self.init(frame: frame)
+        folderButton.isHidden = isFolderButtonHidden
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
@@ -187,6 +188,29 @@ class AppDetailPreview: UIView {
             screenshotStackView.bottomAnchor.constraint(
                 equalTo: containerView.bottomAnchor)
         ])
+    }
+    
+    func bind(_ viewModel: AppDetailPreviewViewModel) async throws -> [CancellableTask?] {
+        let defaultImage = UIImage(withBackground: .gray)
+        nameLabel.text = viewModel.name
+        providerLabel.text = viewModel.provider
+        userRatingCountLabel.text = viewModel.userRatingCount
+        if let rating = viewModel.averageUserRating {
+            averageStarRatingView.update(rating: rating)
+        }
+        async let iconImageViewTask = iconImageView.setImage(
+            with: viewModel.iconImageURL,
+            defaultImage: defaultImage)
+        async let screenshotImageView1Task = screenshotImageView1.setImage(
+            with: viewModel.screenshotURLs?[safe: 0],
+            defaultImage: defaultImage)
+        async let screenshotImageView2Task = screenshotImageView2.setImage(
+            with: viewModel.screenshotURLs?[safe: 1],
+            defaultImage: defaultImage)
+        async let screenshotImageView3Task = screenshotImageView3.setImage(
+            with: viewModel.screenshotURLs?[safe: 2],
+            defaultImage: defaultImage)
+        return try await [iconImageViewTask, screenshotImageView1Task, screenshotImageView2Task, screenshotImageView3Task]
     }
     
 }

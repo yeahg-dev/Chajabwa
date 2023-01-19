@@ -7,33 +7,21 @@
 
 import UIKit
 
-struct SavedAppDetailTableViewCellModel: AppDetailPreviewViewModel {
+struct SavedAppDetailTableViewCellModel {
     
-    let supportedDevices: [UIImage?]
+    let supportedDeviceText = "지원 기기 "
+    let appStoreText = "앱 스토어 국가"
+    let supportedDeviceIconImages: [UIImage?]
     let countryName: String
     let countryFlag: String
     
-    // MARK: - AppDetailPreviewViewModel
-    
-    let appID: Int?
-    let name: String?
-    let iconImageURL: String?
-    let provider: String?
-    let averageUserRating: Double?
-    let userRatingCount: Int?
-    let screenshotURLs: [String]?
+    let appDetailprevieViewModel: AppDetailPreviewViewModel
     
     init(savedAppDetail: SavedAppDetail) {
-        self.supportedDevices = savedAppDetail.supportedDevices.map{ $0.iconImage }
+        self.supportedDeviceIconImages = savedAppDetail.supportedDevices.map{ $0.iconImage }
         self.countryName = savedAppDetail.country.name
         self.countryFlag = savedAppDetail.country.flag
-        self.appID = savedAppDetail.id
-        self.name = savedAppDetail.name
-        self.iconImageURL = savedAppDetail.iconImageURL
-        self.provider = savedAppDetail.provider
-        self.averageUserRating = savedAppDetail.averageUserRating
-        self.userRatingCount = savedAppDetail.userRatingCount
-        self.screenshotURLs = savedAppDetail.screenshotURLs
+        self.appDetailprevieViewModel = AppDetailPreviewViewModel(appDetail: savedAppDetail.appDetali)
     }
     
 }
