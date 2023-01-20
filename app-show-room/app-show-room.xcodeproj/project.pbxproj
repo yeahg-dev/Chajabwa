@@ -109,6 +109,8 @@
 		63A2021E2975ABF800CCE285 /* AppFolderSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2021D2975ABF800CCE285 /* AppFolderSelectViewModel.swift */; };
 		63A202202976DD4C00CCE285 /* AppFolderSelectAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2021F2976DD4C00CCE285 /* AppFolderSelectAlertViewModel.swift */; };
 		63A202222976DFDD00CCE285 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A202212976DFDD00CCE285 /* UIViewController+Extension.swift */; };
+		63A4F12729791C37005247AF /* AppFolderDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A4F12629791C37005247AF /* AppFolderDetailViewModel.swift */; };
+		63A4F129297AD339005247AF /* AppFolderDetailAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A4F128297AD339005247AF /* AppFolderDetailAlertViewModel.swift */; };
 		63A66F4C28C0889900F3B4D0 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A66F4B28C0889900F3B4D0 /* Text.swift */; };
 		63A66F4E28C0C1FE00F3B4D0 /* LinkInformationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A66F4D28C0C1FE00F3B4D0 /* LinkInformationCollectionViewCell.swift */; };
 		63A764F828BDFF8C003B1EAA /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A764F728BDFF8C003B1EAA /* IconView.swift */; };
@@ -275,6 +277,8 @@
 		63A2021D2975ABF800CCE285 /* AppFolderSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderSelectViewModel.swift; sourceTree = "<group>"; };
 		63A2021F2976DD4C00CCE285 /* AppFolderSelectAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderSelectAlertViewModel.swift; sourceTree = "<group>"; };
 		63A202212976DFDD00CCE285 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		63A4F12629791C37005247AF /* AppFolderDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderDetailViewModel.swift; sourceTree = "<group>"; };
+		63A4F128297AD339005247AF /* AppFolderDetailAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderDetailAlertViewModel.swift; sourceTree = "<group>"; };
 		63A66F4B28C0889900F3B4D0 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		63A66F4D28C0C1FE00F3B4D0 /* LinkInformationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkInformationCollectionViewCell.swift; sourceTree = "<group>"; };
 		63A764F728BDFF8C003B1EAA /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
@@ -381,7 +385,9 @@
 		631CDA8029784CB500ED71C8 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				63A4F12629791C37005247AF /* AppFolderDetailViewModel.swift */,
 				631CDA7D29784C6900ED71C8 /* SavedAppDetailTableViewCellModel.swift */,
+				63A4F128297AD339005247AF /* AppFolderDetailAlertViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1330,6 +1336,7 @@
 				630068CC2951E15600BD73C9 /* SearchAppResultsTableViewModel.swift in Sources */,
 				638722D828A8D3E100A6ED7B /* ItunesAppDetailRepository.swift in Sources */,
 				63D52B3029602048006F043D /* SearchKeywordRepository.swift in Sources */,
+				63A4F12729791C37005247AF /* AppFolderDetailViewModel.swift in Sources */,
 				631CDA7E29784C6900ED71C8 /* SavedAppDetailTableViewCellModel.swift in Sources */,
 				63075FC528C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift in Sources */,
 				63861EB928AA1ACB0062A8BD /* App.swift in Sources */,
@@ -1367,6 +1374,7 @@
 				63861EBB28AA1AF50062A8BD /* AppLookupResults.swift in Sources */,
 				63A66F4E28C0C1FE00F3B4D0 /* LinkInformationCollectionViewCell.swift in Sources */,
 				63D52B692962D590006F043D /* RecentSearchKeywordTableViewCell.swift in Sources */,
+				63A4F129297AD339005247AF /* AppFolderDetailAlertViewModel.swift in Sources */,
 				6388DE6228A6A56A0011D47E /* APIRequest.swift in Sources */,
 				631F096B28D0D05C002419B7 /* PaddingTitleSupplementaryView.swift in Sources */,
 				6322E70E296CEF5F00134B30 /* AppFolderRepository.swift in Sources */,

@@ -109,7 +109,7 @@ class AppDetailPreview: UIView {
     private let screenshotImageView3 = ScreenshotImageView(frame: .zero)
     
     convenience init(isFolderButtonHidden: Bool) {
-        self.init(frame: frame)
+        self.init(frame: .zero)
         folderButton.isHidden = isFolderButtonHidden
     }
     

@@ -51,6 +51,10 @@ struct AppFolderUsecase {
         await appFolderRepository.fetchAllAppFolders()
     }
     
+    func readSavedApps(of appFolder: AppFolder) async throws -> [SavedApp] {
+        return try await appFolderRepository.fetchSavedApps(from: appFolder)
+    }
+    
     func readAppFolders(
         of appUnit: AppUnit)
     async -> [AppFolder] {

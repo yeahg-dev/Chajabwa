@@ -5,6 +5,7 @@
 //  Created by Moon Yeji on 2023/01/19.
 //
 
+import Combine
 import UIKit
 
 final class SavedAppDetailTableViewCell: BaseTableViewCell {
@@ -97,6 +98,7 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
     }()
     
     private var cancellableTasks = [CancellableTask?]()
+    private var cancellables = Set<AnyCancellable>()
     
     override func addSubviews() {
         contentView.addSubview(appDetailPreview)
@@ -152,17 +154,21 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
         }
     }
     
-    func bind(_ viewModel: SavedAppDetailTableViewCellModel) {
-        supportedDeviceLabel.text = viewModel.supportedDeviceText
-        appStoreLabel.text = viewModel.appStoreText
-        countryNameLabel.text = "\(viewModel.countryName) \(viewModel.countryFlag)"
-        Task {
-            cancellableTasks = try await appDetailPreview.bind(
-                viewModel.appDetailprevieViewModel)
-        }
-        viewModel.supportedDeviceIconImages.enumerated().forEach { (index, image) in
-            iconImageViews[index].image = image
-        }
+    func bind(_ viewModel: AnyPublisher<SavedAppDetailTableViewCellModel, Never>) {
+        viewModel
+            .receive(on: RunLoop.main)
+            .sink { viewModel in
+                self.supportedDeviceLabel.text = viewModel.supportedDeviceText
+                self.appStoreLabel.text = viewModel.appStoreText
+                self.countryNameLabel.text = "\(viewModel.countryName) \(viewModel.countryFlag)"
+                Task {
+                    self.cancellableTasks = try await self.appDetailPreview.bind(
+                        viewModel.appDetailprevieViewModel)
+                }
+                viewModel.supportedDeviceIconImages.enumerated().forEach { (index, image) in
+                    self.iconImageViews[index].image = image
+                }
+            }.store(in: &cancellables)
     }
     
 }
