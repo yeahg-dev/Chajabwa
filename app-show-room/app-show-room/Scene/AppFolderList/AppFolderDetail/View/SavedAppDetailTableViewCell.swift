@@ -18,13 +18,12 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
     
     private lazy var supportedDeviceStackView: UIStackView = {
         let stackView = UIStackView(
-            arrangedSubviews: [supportedDeviceLabel,
-                               iphoneIconImageView,
+            arrangedSubviews: [iphoneIconImageView,
                                ipadIconImageView,
                                macIconImageView,
                                appleWatchIconImageView])
         stackView.axis = .horizontal
-        stackView.alignment = .fill
+        stackView.alignment = .center
         stackView.distribution = .equalSpacing
         stackView.spacing = 5
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -84,6 +83,7 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Design.appStoreLabelFont
         label.textColor = Design.appStoreLabelTextColor
+        label.setContentHuggingPriority(.required, for: .horizontal)
         return label
     }()
     
@@ -92,8 +92,8 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Design.countryNameLabelFont
         label.textColor = Design.countryNameLabelTextColor
-        label.textAlignment = .left
-        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        label.textAlignment = .right
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
         return label
     }()
     
@@ -102,12 +102,14 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
     
     override func addSubviews() {
         contentView.addSubview(appDetailPreview)
+        contentView.addSubview(supportedDeviceLabel)
         contentView.addSubview(supportedDeviceStackView)
         contentView.addSubview(countryStackView)
         configureUI()
     }
     
     private func configureUI() {
+        self.backgroundColor = .clear
         let selectedBackgroundView = UIView()
         selectedBackgroundView.backgroundColor = Design.selectedBackgroundColor
         self.selectedBackgroundView = selectedBackgroundView
@@ -121,11 +123,12 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
                 equalTo: contentView.topAnchor),
             appDetailPreview.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor),
-            supportedDeviceStackView.topAnchor.constraint(
-                equalTo: appDetailPreview.bottomAnchor),
-            supportedDeviceStackView.leadingAnchor.constraint(
+            supportedDeviceLabel.topAnchor.constraint(equalTo: appDetailPreview.bottomAnchor),
+            supportedDeviceLabel.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor,
                 constant: Design.contentViewPadding),
+            supportedDeviceStackView.topAnchor.constraint(
+                equalTo: appDetailPreview.bottomAnchor),
             supportedDeviceStackView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
                 constant: -Design.contentViewPadding),
@@ -140,7 +143,25 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
                 constant: -Design.contentViewPadding),
             countryStackView.bottomAnchor.constraint(
                 equalTo: contentView.bottomAnchor,
-                constant: -Design.contentViewPadding)
+                constant: -Design.contentViewPadding),
+            countryStackView.heightAnchor.constraint(
+                equalToConstant: Design.countryStackViewHeight),
+            iphoneIconImageView.widthAnchor.constraint(
+                equalToConstant: Design.deviceImageViewWidth),
+            iphoneIconImageView.heightAnchor.constraint(
+                equalToConstant: Design.deviceImageViewHeight),
+            ipadIconImageView.widthAnchor.constraint(
+                equalToConstant: Design.deviceImageViewWidth),
+            ipadIconImageView.heightAnchor.constraint(
+                equalToConstant: Design.deviceImageViewHeight),
+            appleWatchIconImageView.widthAnchor.constraint(
+                equalToConstant: Design.deviceImageViewWidth),
+            appleWatchIconImageView.heightAnchor.constraint(
+                equalToConstant: Design.deviceImageViewHeight),
+            macIconImageView.widthAnchor.constraint(
+                equalToConstant: Design.deviceImageViewWidth),
+            macIconImageView.heightAnchor.constraint(
+                equalToConstant: Design.deviceImageViewHeight)
         ])
     }
     
@@ -181,6 +202,7 @@ private enum Design {
     static let supportedDeviceStackViewHeight: CGFloat = 30
     static let deviceImageViewWidth: CGFloat = 27
     static let deviceImageViewHeight: CGFloat = 27
+    static let countryStackViewHeight: CGFloat = 13
     
     static let supportedDeviceLabelFont: UIFont = .preferredFont(forTextStyle: .subheadline)
     static let appStoreLabelFont: UIFont = .preferredFont(forTextStyle: .subheadline)

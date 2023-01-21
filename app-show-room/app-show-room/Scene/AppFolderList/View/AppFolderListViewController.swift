@@ -82,8 +82,8 @@ class AppFolderListViewController: UIViewController {
         navigationController?.navigationItem.title = output.navigationTitle
         output.slectedAppFolder
             .receive(on: RunLoop.main)
-            .sink { _ in
-                self.pushAppFolderDetailView() }
+            .sink { [weak self] appFolder in
+                self?.pushAppFolderDetailView(appFolder) }
             .store(in: &cancellables)
     }
     
@@ -96,8 +96,13 @@ class AppFolderListViewController: UIViewController {
         }
     }
     
-    private func pushAppFolderDetailView() {
-        print("pushAppFolderDetailView호출")
+    private func pushAppFolderDetailView(_ appFolder: AppFolder?) {
+        guard let appFolder else {
+            print("appFolder does not exist")
+            return
+        }
+        let appFolderDetailView = AppFolderDetailViewController(appFolder: appFolder)
+        navigationController?.pushViewController(appFolderDetailView, animated: true)
     }
     
     private func presentAppFolderCreatiorView() {

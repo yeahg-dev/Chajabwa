@@ -111,6 +111,8 @@
 		63A202222976DFDD00CCE285 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A202212976DFDD00CCE285 /* UIViewController+Extension.swift */; };
 		63A4F12729791C37005247AF /* AppFolderDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A4F12629791C37005247AF /* AppFolderDetailViewModel.swift */; };
 		63A4F129297AD339005247AF /* AppFolderDetailAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A4F128297AD339005247AF /* AppFolderDetailAlertViewModel.swift */; };
+		63A4F12B297BB82C005247AF /* AppFolderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A4F12A297BB82C005247AF /* AppFolderDetailViewController.swift */; };
+		63A4F12D297C408D005247AF /* AppFolderDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A4F12C297C408D005247AF /* AppFolderDetailHeaderView.swift */; };
 		63A66F4C28C0889900F3B4D0 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A66F4B28C0889900F3B4D0 /* Text.swift */; };
 		63A66F4E28C0C1FE00F3B4D0 /* LinkInformationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A66F4D28C0C1FE00F3B4D0 /* LinkInformationCollectionViewCell.swift */; };
 		63A764F828BDFF8C003B1EAA /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A764F728BDFF8C003B1EAA /* IconView.swift */; };
@@ -279,6 +281,8 @@
 		63A202212976DFDD00CCE285 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		63A4F12629791C37005247AF /* AppFolderDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderDetailViewModel.swift; sourceTree = "<group>"; };
 		63A4F128297AD339005247AF /* AppFolderDetailAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderDetailAlertViewModel.swift; sourceTree = "<group>"; };
+		63A4F12A297BB82C005247AF /* AppFolderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderDetailViewController.swift; sourceTree = "<group>"; };
+		63A4F12C297C408D005247AF /* AppFolderDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderDetailHeaderView.swift; sourceTree = "<group>"; };
 		63A66F4B28C0889900F3B4D0 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		63A66F4D28C0C1FE00F3B4D0 /* LinkInformationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkInformationCollectionViewCell.swift; sourceTree = "<group>"; };
 		63A764F728BDFF8C003B1EAA /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
@@ -395,7 +399,9 @@
 		631CDA8129784CBA00ED71C8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				63A4F12A297BB82C005247AF /* AppFolderDetailViewController.swift */,
 				631CDA862978548500ED71C8 /* SavedAppDetailTableViewCell.swift */,
+				63A4F12C297C408D005247AF /* AppFolderDetailHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1354,6 +1360,7 @@
 				6384E5CE28BCED6E00563FD5 /* ScreenshotCollectionViewCellDesign.swift in Sources */,
 				6388DE6728A6CAB70011D47E /* iTunesAPIRequest.swift in Sources */,
 				63D52B4129617FD7006F043D /* RecentSearchKeywordCellModel.swift in Sources */,
+				63A4F12B297BB82C005247AF /* AppFolderDetailViewController.swift in Sources */,
 				630068D22952949800BD73C9 /* AppSummary.swift in Sources */,
 				6384EC7E28AC83B100D1F821 /* AppDetailViewController.swift in Sources */,
 				63D52B1C295C800B006F043D /* SettingViewController.swift in Sources */,
@@ -1365,6 +1372,7 @@
 				63CEA73529408457009684A7 /* Country.swift in Sources */,
 				6322E708296C23F500134B30 /* SavedApp.swift in Sources */,
 				6388DE4028A6404E0011D47E /* SceneDelegate.swift in Sources */,
+				63A4F12D297C408D005247AF /* AppFolderDetailHeaderView.swift in Sources */,
 				6384EC8528AD2A5C00D1F821 /* ScreenshotGalleryViewController.swift in Sources */,
 				63D52B342960247A006F043D /* RecentSearchKeywordRealm.swift in Sources */,
 				63D52B3229602338006F043D /* RealmSearchKeywordRepository.swift in Sources */,

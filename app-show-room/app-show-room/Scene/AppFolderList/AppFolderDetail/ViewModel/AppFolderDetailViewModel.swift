@@ -35,7 +35,7 @@ final class AppFolderDetailViewModel: NSObject {
     // TODO: - Refactoring
     var blurIconImage: UIImage? {
         get async {
-            return await self.image(downloadFrom: iconImageURL)
+            return await self.blurImage(downloadFrom: iconImageURL)
         }
     }
     
@@ -118,7 +118,8 @@ extension AppFolderDetailViewModel: UITableViewDataSource {
         return cell
     }
     
-    private func image(downloadFrom urlString: String?) async -> UIImage? {
+    private func blurImage(downloadFrom urlString: String?) async -> UIImage? {
+        print("blurImage")
         guard let urlString = urlString,
               let url = URL(string: urlString) else {
             return nil
@@ -128,7 +129,7 @@ extension AppFolderDetailViewModel: UITableViewDataSource {
         let cacheKey = urlString
         
         if let cachedImage = imageCache.getImage(of: cacheKey) {
-            return cachedImage
+            return cachedImage.applyBlurUsingClamp(radius: 50)
         }
         
         do {
@@ -136,8 +137,10 @@ extension AppFolderDetailViewModel: UITableViewDataSource {
             guard (response as? HTTPURLResponse)?.statusCode == 200 else {
                 return nil
             }
-            let image = UIImage(data: data)
-            return image
+            guard let image = UIImage(data: data) else {
+                return nil
+            }
+            return image.applyBlurUsingClamp(radius: 50)
         } catch {
             return nil
         }
