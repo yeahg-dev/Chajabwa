@@ -63,7 +63,6 @@ class AppFolderDetailHeaderView: UIView {
     }
     
     private func setConstraints() {
-        let statusBarHeight: CGFloat = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0
         NSLayoutConstraint.activate([
             blurBackgroundImageView.leadingAnchor.constraint(
                 equalTo: self.leadingAnchor),
@@ -81,7 +80,7 @@ class AppFolderDetailHeaderView: UIView {
                 equalTo: self.centerXAnchor),
             appFolderIconImageView.topAnchor.constraint(
                 equalTo: self.topAnchor,
-                constant: statusBarHeight + Design.iconImageViewMarginTop),
+                constant: Design.iconImageViewMarginTop),
             appFolderNameLabel.centerXAnchor.constraint(
                 equalTo: self.centerXAnchor),
             appFolderNameLabel.topAnchor.constraint(
@@ -120,20 +119,20 @@ class AppFolderDetailHeaderView: UIView {
 }
 
 private enum Design {
-    static let blurBacgkrounImageViewHeiht: CGFloat = 50 + iconImageViewMarginTop + appFolderIconImageViewWidth + iconImageViewMarginBottom + appFolderDescriptionTextViewHeight + appFolderDescriptionTextViewMarginBottom + 20
+
     static let appFolderIconImageViewWidth: CGFloat = 120
     static let appFolderIconImageViewCornerRadius: CGFloat = 12
     static let appFolderNameLabelHeight: CGFloat = 20
     static let appFolderDescriptionTextViewHeight: CGFloat = 60
     
-    static let iconImageViewMarginTop: CGFloat = 30
+    static let iconImageViewMarginTop: CGFloat = 100
     static let iconImageViewMarginBottom: CGFloat = 30
     static let appFolderDescriptionTextViewMarginLeading: CGFloat = 20
     static let appFolderDescriptionTextViewMarginTrailing: CGFloat = 20
     static let appFolderDescriptionTextViewMarginBottom: CGFloat = 15
     static let sapcing: CGFloat = 10
     
-    static let appFolderNameLabelFont: UIFont = .preferredFont(forTextStyle: .title3)
+    static let appFolderNameLabelFont: UIFont = .preferredFont(forTextStyle: .title2)
     static let appFolderDescriptionTextViewFont: UIFont = .preferredFont(forTextStyle: .callout)
     
     static let appFolderNameLabelTextColor: UIColor = .white

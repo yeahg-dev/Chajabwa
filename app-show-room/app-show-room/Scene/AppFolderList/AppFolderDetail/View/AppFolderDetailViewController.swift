@@ -45,14 +45,20 @@ class AppFolderDetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = Design.backgroundColor
         configureNavigationBar()
+        configureHeaderView()
         addSubviews()
         setConstraints()
+        bind()
+    }
+    
+    private func configureHeaderView() {
+        savedAppDetailTableView.contentInsetAdjustmentBehavior = .never
+        edgesForExtendedLayout = .all
         self.headerView = AppFolderDetailHeaderView()
         let size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         headerView.translatesAutoresizingMaskIntoConstraints = true
         headerView.frame = .init(origin: .zero, size: size)
         savedAppDetailTableView.tableHeaderView = headerView
-        bind()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -66,6 +72,7 @@ class AppFolderDetailViewController: UIViewController {
             barButtonSystemItem: .edit,
             target: self,
             action: #selector(rightNavigationBarButtonDidTapped))
+        navigationItem.rightBarButtonItem = editButton
         navigationController?.navigationItem.setRightBarButton(editButton, animated: true)
         let appearacne = UINavigationBarAppearance()
         appearacne.configureWithTransparentBackground()
@@ -112,13 +119,13 @@ class AppFolderDetailViewController: UIViewController {
 }
 
 extension AppFolderDetailViewController: UITableViewDelegate {
-    
+
     func tableView(
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath) {
         cellDidSelectedAt.send(indexPath)
     }
-    
+
 }
 
 private enum Design {
