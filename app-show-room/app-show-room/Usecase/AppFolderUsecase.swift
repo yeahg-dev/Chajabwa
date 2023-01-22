@@ -104,4 +104,15 @@ struct AppFolderUsecase {
         .eraseToAnyPublisher()
     }
     
+    func readAppDetail(
+        of savedApp: SavedApp)
+    -> AnyPublisher<AppDetail, Error>
+    {
+        return appDetailRepository.fetchAppDetail(
+            of: savedApp.appUnit.appID,
+            country: savedApp.appUnit.country,
+            software: savedApp.appUnit.platform)
+        .eraseToAnyPublisher()
+    }
+    
 }

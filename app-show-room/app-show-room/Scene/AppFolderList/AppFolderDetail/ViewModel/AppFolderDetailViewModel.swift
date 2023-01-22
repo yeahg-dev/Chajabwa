@@ -28,7 +28,7 @@ final class AppFolderDetailViewModel: NSObject {
         let appFolderName: String?
         let appFolderDescription: String?
         let errorAlertViewModel: AnyPublisher<AlertViewModel, Never>
-        let selectedSavedApp: AnyPublisher<SavedApp?, Never>
+        let selectedSavedAppDetail: AnyPublisher<AppDetail, Error>
         
         let EmptyViewguideLabelText: String?
         let goToSearchButtonTitle: String?
@@ -63,9 +63,12 @@ final class AppFolderDetailViewModel: NSObject {
     }
     
     func transform(_ input: Input) -> Output {
-        let selectedSavedApp = input.selectedIndexPath
+        let selectedSavedAppDetail = input.selectedIndexPath
             .map { [weak self] indexPath in
                 self?.savedApps?[safe: indexPath.row] }
+            .flatMap({ savedApp in
+                return self.appFolderUsecase.readAppDetail(of: savedApp!)
+            })
             .eraseToAnyPublisher()
         
         return Output(
@@ -74,7 +77,7 @@ final class AppFolderDetailViewModel: NSObject {
             appFolderName: appFolderName,
             appFolderDescription: appFolderDescription,
             errorAlertViewModel: errorAlertViewModel.eraseToAnyPublisher(),
-            selectedSavedApp: selectedSavedApp,
+            selectedSavedAppDetail: selectedSavedAppDetail,
             EmptyViewguideLabelText: Text.appFolderDetailEmptryViewGuide.rawValue,
             goToSearchButtonTitle: Text.goToSearch.rawValue,
             showEmptyView: showEmptyView.prefix(1).eraseToAnyPublisher()

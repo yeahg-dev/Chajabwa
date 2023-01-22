@@ -109,20 +109,42 @@ class AppFolderDetailViewController: UIViewController {
         emptyView.bind(
             guideLabelText: output.EmptyViewguideLabelText,
             goToSearchButtonTitle: output.goToSearchButtonTitle)
+        
         output.showEmptyView
             .receive(on: RunLoop.main)
             .sink { showEmptyView in
                 self.savedAppDetailTableView.backgroundView?.isHidden = !showEmptyView
             }.store(in: &cancellables)
+        
+        output.selectedSavedAppDetail
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { error in
+                print(error)
+            }, receiveValue: { appDetail in
+                self.pushAppDetailView(of: appDetail)
+            }).store(in: &cancellables)
+        
+        output.errorAlertViewModel
+            .receive(on: RunLoop.main)
+            .sink {
+                self.presentAlert($0)
+            }.store(in: &cancellables)
+            
         headerView.bind(
             iconImageURL: output.iconImagURL,
             blurImageURL: output.blurIconImageURL,
             name: output.appFolderName,
             description: output.appFolderDescription)
-        }
+    }
     
-    private func pushAppDetailView(of savedApp: SavedApp?) {
-        
+    private func pushAppDetailView(of appDetail: AppDetail?) {
+        guard let appDetail else {
+            return
+        }
+        let appDetailViewModel = AppDetailViewModel(app: appDetail)
+        let appDetailView = AppDetailViewController(
+            appDetailViewModel: appDetailViewModel)
+        navigationController?.pushViewController(appDetailView, animated: true)
     }
     
     private func navigateToSearchView() {
@@ -136,6 +158,7 @@ extension AppFolderDetailViewController: UITableViewDelegate {
     func tableView(
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath) {
+            savedAppDetailTableView.deselectRow(at: indexPath, animated: true)
         cellDidSelectedAt.send(indexPath)
     }
 
