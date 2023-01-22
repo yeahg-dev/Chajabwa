@@ -11,7 +11,7 @@ enum Device: String {
     
     case iPhone
     case iPad
-    case appleWatch
+    case watch
     case mac
     
     var iconImage: UIImage? {
@@ -20,7 +20,7 @@ enum Device: String {
             return UIImage(named: "iPhone")
         case .iPad:
             return UIImage(named: "iPad")
-        case .appleWatch:
+        case .watch:
             return UIImage(named: "appleWatch")
         case .mac:
             return UIImage(named: "mac")
@@ -28,13 +28,13 @@ enum Device: String {
     }
     
     static func create(with deviceName: String) -> Device? {
-        if deviceName.contains("iphone") {
+        if deviceName.lowercased().contains(Device.iPhone.rawValue.lowercased()) {
             return .iPhone
-        } else if deviceName.contains("ipad") {
+        } else if deviceName.lowercased().contains(Device.iPad.rawValue.lowercased()) {
             return .iPad
-        } else if deviceName.contains("watch") {
-            return .appleWatch
-        } else if deviceName.contains("mac") {
+        } else if deviceName.lowercased().contains(Device.watch.rawValue.lowercased()) {
+            return .watch
+        } else if deviceName.lowercased().contains(Device.mac.rawValue.lowercased()) {
             return .mac
         } else {
             return nil

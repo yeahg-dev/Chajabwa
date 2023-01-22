@@ -37,9 +37,7 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
         label.setContentHuggingPriority(.required, for: .horizontal)
         return label
     }()
-    
-    private let iconImageViews = [UIImageView]()
-    
+
     private let iphoneIconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -170,8 +168,10 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
             task?.cancelTask()
         }
         countryNameLabel.text = nil
-        iconImageViews.forEach { imageView in
-            imageView.image = nil
+        self.supportedDeviceStackView.arrangedSubviews.forEach { imageView in
+            if let iconImageView = imageView as? UIImageView {
+                iconImageView.image = nil
+            }
         }
     }
     
@@ -187,7 +187,10 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
                         viewModel.appDetailprevieViewModel)
                 }
                 viewModel.supportedDeviceIconImages.enumerated().forEach { (index, image) in
-                    self.iconImageViews[index].image = image
+                    
+                    if let iconImageView = self.supportedDeviceStackView.arrangedSubviews[safe: index] as? UIImageView {
+                        iconImageView.image =  image
+                    }
                 }
             }.store(in: &cancellables)
     }
