@@ -24,7 +24,7 @@ class AppFolderTableViewCell: BaseTableViewCell {
     }()
     
     private let defaultIconImage = UIImage(
-        withBackground: Design.defaultImageBackgroundColor)
+        named: "defaultAppIcon")!
     
     private lazy var labelStackView: UIStackView = {
         let stackView = UIStackView(

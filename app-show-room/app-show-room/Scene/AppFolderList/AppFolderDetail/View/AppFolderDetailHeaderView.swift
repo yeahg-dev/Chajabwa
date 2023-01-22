@@ -45,6 +45,8 @@ class AppFolderDetailHeaderView: UIView {
         return textView
     }()
     
+    private let defaultAppIconImage = UIImage(named: "defaultAppIcon")!
+    
     private var cancellableTasks = [CancellableTask?]()
     
     override init(frame: CGRect) {
@@ -59,7 +61,7 @@ class AppFolderDetailHeaderView: UIView {
     
     deinit {
         cancellableTasks.forEach { task in
-            task.cancelTask()
+            task?.cancelTask()
         }
     }
     
@@ -119,11 +121,11 @@ class AppFolderDetailHeaderView: UIView {
         Task {
             let iconImageViewTask = try await appFolderIconImageView.setImage(
                 with: iconImageURL,
-                defaultImage: UIImage(withBackground: Color.mauveLavender))
+                defaultImage: defaultAppIconImage)
             let backgroundImageTask = try await blurBackgroundImageView.setImage(
                 with: blurImageURL,
                 applying: 40,
-                defaultImage: UIImage(withBackground: Color.mauveLavender))
+                defaultImage: defaultAppIconImage)
             cancellableTasks.append(contentsOf: [iconImageViewTask, backgroundImageTask])
         }
     }

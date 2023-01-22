@@ -110,7 +110,6 @@ class AppFolderDetailViewController: UIViewController {
             name: output.appFolderName,
             description: output.appFolderDescription)
         }
-    }
     
     private func pushAppDetailView(of savedApp: SavedApp?) {
         
