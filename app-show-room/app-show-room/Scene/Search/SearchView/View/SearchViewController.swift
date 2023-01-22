@@ -68,6 +68,8 @@ final class SearchViewController: UIViewController {
     }
     
     private func configureNavigationItem() {
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor : Design.navigationBarLargeTitleTextColor]
+        navigationItem.title = viewModel.navigationItemTitle
         let rightBarButtonItem = UIBarButtonItem(customView: folderButton)
         navigationItem.setRightBarButton(rightBarButtonItem, animated: false)
         NSLayoutConstraint.activate([
@@ -85,9 +87,6 @@ final class SearchViewController: UIViewController {
         searchController.searchBar.searchTextField.backgroundColor = Design.searchBarTextFieldBackgroundColor
         searchController.searchBar.searchTextField.textColor = Design.searchBarTextFieldTextColor
         searchController.searchBar.tintColor = Design.searchBarTintColor
-        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor : Design.navigationBarLargeTitleTextColor]
-        navigationItem.title = viewModel.navigationItemTitle
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     private func configureSearchController() {
