@@ -73,6 +73,7 @@ extension SignboardCollectionViewCell {
         iconImageView.layer.borderColor = Design.icomImageViewBorderColor
         iconImageView.layer.borderWidth = Design.iconImageViewBorderWidth
         iconImageView.clipsToBounds = true
+        iconImageView.contentMode = .scaleAspectFill
     }
     
     private func configureAppNameLabel() {

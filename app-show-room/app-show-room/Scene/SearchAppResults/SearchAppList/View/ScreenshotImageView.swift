@@ -14,7 +14,7 @@ final class ScreenshotImageView: UIImageView {
     override init(frame: CGRect) {
         super.init(frame: CGRect(origin: frame.origin, size: CGSize(width: Design.width, height: Design.height)))
         translatesAutoresizingMaskIntoConstraints = false
-        contentMode = .scaleAspectFill
+        contentMode = .scaleAspectFit
         designBorder()
     }
     
