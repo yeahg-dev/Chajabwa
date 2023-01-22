@@ -171,8 +171,6 @@ private enum Design {
     static let supportedDeviceStackViewMarginBottom: CGFloat = 7
     
     static let supportedDeviceStackViewHeight: CGFloat = 30
-    static let deviceImageViewWidth: CGFloat = 27
-    static let deviceImageViewHeight: CGFloat = 27
     static let countryStackViewHeight: CGFloat = 13
     
     static let supportedDeviceLabelFont: UIFont = .preferredFont(forTextStyle: .subheadline)

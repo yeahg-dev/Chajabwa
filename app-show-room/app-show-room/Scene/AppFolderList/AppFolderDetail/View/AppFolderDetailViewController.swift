@@ -36,11 +36,6 @@ class AppFolderDetailViewController: UIViewController {
         return tableView
     }()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Design.backgroundColor
@@ -60,13 +55,7 @@ class AppFolderDetailViewController: UIViewController {
         headerView.frame = .init(origin: .zero, size: size)
         savedAppDetailTableView.tableHeaderView = headerView
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        let appearacne = UINavigationBarAppearance()
-        navigationController?.navigationBar.standardAppearance = appearacne
-    }
-    
+
     private func configureNavigationBar() {
         let editButton = UIBarButtonItem(
             barButtonSystemItem: .edit,
@@ -75,8 +64,11 @@ class AppFolderDetailViewController: UIViewController {
         navigationItem.rightBarButtonItem = editButton
         navigationController?.navigationItem.setRightBarButton(editButton, animated: true)
         let appearacne = UINavigationBarAppearance()
-        appearacne.configureWithTransparentBackground()
         navigationController?.navigationBar.standardAppearance = appearacne
+        let scrollAppearance = UINavigationBarAppearance()
+        scrollAppearance.configureWithTransparentBackground()
+        scrollAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.scrollEdgeAppearance = scrollAppearance
     }
     
     private func addSubviews() {
