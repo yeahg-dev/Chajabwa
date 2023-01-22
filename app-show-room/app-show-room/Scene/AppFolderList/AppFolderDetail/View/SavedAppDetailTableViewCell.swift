@@ -100,6 +100,8 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
             supportedDeviceStackView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
                 constant: -Design.contentViewPadding),
+            supportedDeviceStackView.heightAnchor.constraint(
+                equalToConstant: Design.supportedDeviceStackViewHeight),
             countryStackView.topAnchor.constraint(
                 equalTo: supportedDeviceStackView.bottomAnchor,
                 constant: Design.supportedDeviceStackViewMarginBottom),
