@@ -135,7 +135,7 @@ class AppFolderDetailHeaderView: UIView {
 private enum Design {
 
     static let appFolderIconImageViewWidth: CGFloat = 120
-    static let appFolderIconImageViewCornerRadius: CGFloat = 12
+    static let appFolderIconImageViewCornerRadius: CGFloat = 20
     static let appFolderNameLabelHeight: CGFloat = 20
     static let appFolderDescriptionTextViewHeight: CGFloat = 60
     
