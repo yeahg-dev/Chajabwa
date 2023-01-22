@@ -13,6 +13,7 @@ enum Device: String {
     case iPad
     case watch
     case mac
+    case iPod
     
     var iconImage: UIImage? {
         switch self {
@@ -24,17 +25,21 @@ enum Device: String {
             return UIImage(named: "appleWatch")
         case .mac:
             return UIImage(named: "mac")
+        case .iPod:
+            return UIImage(named: "iPod")
         }
     }
     
     static func create(with deviceName: String) -> Device? {
-        if deviceName.lowercased().contains(Device.iPhone.rawValue.lowercased()) {
+        if deviceName.isContainCaseInsensitive(string: Device.iPhone.rawValue) {
             return .iPhone
-        } else if deviceName.lowercased().contains(Device.iPad.rawValue.lowercased()) {
+        } else if deviceName.isContainCaseInsensitive(string: Device.iPad.rawValue) {
             return .iPad
-        } else if deviceName.lowercased().contains(Device.watch.rawValue.lowercased()) {
+        } else if deviceName.isContainCaseInsensitive(string: Device.watch.rawValue) {
             return .watch
-        } else if deviceName.lowercased().contains(Device.mac.rawValue.lowercased()) {
+        } else if deviceName.isContainCaseInsensitive(string: Device.mac.rawValue) {
+            return .mac
+        } else if deviceName.isContainCaseInsensitive(string: Device.iPod.rawValue) {
             return .mac
         } else {
             return nil
