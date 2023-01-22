@@ -26,6 +26,13 @@ class AppFolderDetailViewController: UIViewController {
     
     private var headerView: AppFolderDetailHeaderView!
     
+    private lazy var emptyView = AppFolderDetailTableViewEmptyView(
+        frame: .zero,
+        goToSearchButtonAction: UIAction(handler: { [weak self] _ in
+            self?.navigateToSearchView()
+        })
+    )
+    
     private lazy var savedAppDetailTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,6 +40,8 @@ class AppFolderDetailViewController: UIViewController {
         tableView.backgroundColor = .clear
         tableView.dataSource = viewModel
         tableView.delegate = self
+        tableView.backgroundView = emptyView
+        tableView.backgroundView?.isHidden = true
         return tableView
     }()
     
@@ -96,6 +105,15 @@ class AppFolderDetailViewController: UIViewController {
     private func bind() {
         let input = AppFolderDetailViewModel.Input(selectedIndexPath: cellDidSelectedAt.eraseToAnyPublisher())
         let output = viewModel.transform(input)
+        
+        emptyView.bind(
+            guideLabelText: output.EmptyViewguideLabelText,
+            goToSearchButtonTitle: output.goToSearchButtonTitle)
+        output.showEmptyView
+            .receive(on: RunLoop.main)
+            .sink { showEmptyView in
+                self.savedAppDetailTableView.backgroundView?.isHidden = !showEmptyView
+            }.store(in: &cancellables)
         headerView.bind(
             iconImageURL: output.iconImagURL,
             blurImageURL: output.blurIconImageURL,
@@ -105,6 +123,10 @@ class AppFolderDetailViewController: UIViewController {
     
     private func pushAppDetailView(of savedApp: SavedApp?) {
         
+    }
+    
+    private func navigateToSearchView() {
+        navigationController?.popToRootViewController(animated: true)
     }
     
 }

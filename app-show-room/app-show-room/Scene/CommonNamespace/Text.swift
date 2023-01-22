@@ -37,6 +37,9 @@ enum Text: String {
     case recentSearchKeyword = "최근 검색어"
     case savingIsDeactivate = "검색어 저장 기능이 꺼져 있습니다."
     
+    case appFolderDetailEmptryViewGuide =  "저장된 앱이 없습니다. \n 검색을 통해 앱을 추가해보세요!"
+    case goToSearch = "검색하러 가기"
+    
     var value: String {
         return self.rawValue
     }

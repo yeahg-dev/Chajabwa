@@ -30,6 +30,10 @@ final class AppFolderDetailViewModel: NSObject {
         let errorAlertViewModel: AnyPublisher<AlertViewModel, Never>
         let selectedSavedApp: AnyPublisher<SavedApp?, Never>
         
+        let EmptyViewguideLabelText: String?
+        let goToSearchButtonTitle: String?
+        let showEmptyView: AnyPublisher<Bool, Never>
+        
     }
     
     var iconImageURL: String?
@@ -39,6 +43,8 @@ final class AppFolderDetailViewModel: NSObject {
     var appFolderDescription: String?
     
     let errorAlertViewModel = PassthroughSubject<AlertViewModel, Never>()
+    
+    let showEmptyView = PassthroughSubject<Bool, Never>()
     
     init(_ appFolder: AppFolder) {
         self.appFolder = appFolder
@@ -68,7 +74,11 @@ final class AppFolderDetailViewModel: NSObject {
             appFolderName: appFolderName,
             appFolderDescription: appFolderDescription,
             errorAlertViewModel: errorAlertViewModel.eraseToAnyPublisher(),
-            selectedSavedApp: selectedSavedApp)
+            selectedSavedApp: selectedSavedApp,
+            EmptyViewguideLabelText: Text.appFolderDetailEmptryViewGuide.rawValue,
+            goToSearchButtonTitle: Text.goToSearch.rawValue,
+            showEmptyView: showEmptyView.prefix(1).eraseToAnyPublisher()
+        )
     }
     
     private func fetchLatestData() async throws {
@@ -84,6 +94,12 @@ extension AppFolderDetailViewModel: UITableViewDataSource {
         numberOfRowsInSection section: Int)
     -> Int
     {
+        if let savedApps,
+           savedApps.isEmpty {
+            showEmptyView.send(true)
+        } else {
+            showEmptyView.send(false)
+        }
         return savedApps?.count ?? 0
     }
     
