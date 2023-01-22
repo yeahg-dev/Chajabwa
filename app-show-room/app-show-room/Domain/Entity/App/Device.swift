@@ -40,7 +40,7 @@ enum Device: String {
         } else if deviceName.isContainCaseInsensitive(string: Device.mac.rawValue) {
             return .mac
         } else if deviceName.isContainCaseInsensitive(string: Device.iPod.rawValue) {
-            return .mac
+            return .iPod
         } else {
             return nil
         }

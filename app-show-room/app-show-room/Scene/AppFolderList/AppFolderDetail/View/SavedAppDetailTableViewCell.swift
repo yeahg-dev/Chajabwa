@@ -16,12 +16,10 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
         return view
     }()
     
+    private let reuseableDeviceIconImageViews = [DeviceIconImageView]()
+    
     private lazy var supportedDeviceStackView: UIStackView = {
-        let stackView = UIStackView(
-            arrangedSubviews: [iphoneIconImageView,
-                               ipadIconImageView,
-                               macIconImageView,
-                               appleWatchIconImageView])
+        let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .equalSpacing
@@ -36,34 +34,6 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
         label.font = Design.supportedDeviceLabelFont
         label.setContentHuggingPriority(.required, for: .horizontal)
         return label
-    }()
-
-    private let iphoneIconImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    
-    private let ipadIconImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    
-    private let macIconImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    
-    private let appleWatchIconImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        return imageView
     }()
     
     private lazy var countryStackView: UIStackView = {
@@ -143,23 +113,7 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
                 equalTo: contentView.bottomAnchor,
                 constant: -Design.contentViewPadding),
             countryStackView.heightAnchor.constraint(
-                equalToConstant: Design.countryStackViewHeight),
-            iphoneIconImageView.widthAnchor.constraint(
-                equalToConstant: Design.deviceImageViewWidth),
-            iphoneIconImageView.heightAnchor.constraint(
-                equalToConstant: Design.deviceImageViewHeight),
-            ipadIconImageView.widthAnchor.constraint(
-                equalToConstant: Design.deviceImageViewWidth),
-            ipadIconImageView.heightAnchor.constraint(
-                equalToConstant: Design.deviceImageViewHeight),
-            appleWatchIconImageView.widthAnchor.constraint(
-                equalToConstant: Design.deviceImageViewWidth),
-            appleWatchIconImageView.heightAnchor.constraint(
-                equalToConstant: Design.deviceImageViewHeight),
-            macIconImageView.widthAnchor.constraint(
-                equalToConstant: Design.deviceImageViewWidth),
-            macIconImageView.heightAnchor.constraint(
-                equalToConstant: Design.deviceImageViewHeight)
+                equalToConstant: Design.countryStackViewHeight)
         ])
     }
     
@@ -168,11 +122,6 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
             task?.cancelTask()
         }
         countryNameLabel.text = nil
-        self.supportedDeviceStackView.arrangedSubviews.forEach { imageView in
-            if let iconImageView = imageView as? UIImageView {
-                iconImageView.image = nil
-            }
-        }
     }
     
     func bind(_ viewModel: AnyPublisher<SavedAppDetailTableViewCellModel, Never>) {
@@ -186,13 +135,32 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
                     self.cancellableTasks = try await self.appDetailPreview.bind(
                         viewModel.appDetailprevieViewModel)
                 }
-                viewModel.supportedDeviceIconImages.enumerated().forEach { (index, image) in
-                    
-                    if let iconImageView = self.supportedDeviceStackView.arrangedSubviews[safe: index] as? UIImageView {
-                        iconImageView.image =  image
-                    }
-                }
+                self.updateSupportedDeviceStackView(with: viewModel.supportedDeviceIconImages)
             }.store(in: &cancellables)
+    }
+    
+    private func updateSupportedDeviceStackView(with images: [UIImage?]) {
+        guard var deviceIconImageViews = supportedDeviceStackView.arrangedSubviews as? [DeviceIconImageView] else {
+            return
+        }
+        
+        for image in images {
+            let deviceIconImageView: DeviceIconImageView? = {
+                if let imageView = deviceIconImageViews.first {
+                    deviceIconImageViews.removeFirst()
+                    return imageView
+                } else {
+                    let imageView = DeviceIconImageView(frame: .zero)
+                    supportedDeviceStackView.addArrangedSubview(imageView)
+                    return imageView
+                }
+            }()
+            deviceIconImageView?.image = image
+        }
+        
+        for deviceIconImageView in deviceIconImageViews {
+            deviceIconImageView.removeFromSuperview()
+        }
     }
     
 }
