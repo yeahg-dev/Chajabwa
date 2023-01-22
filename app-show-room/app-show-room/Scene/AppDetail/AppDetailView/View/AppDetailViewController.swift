@@ -111,7 +111,7 @@ final class AppDetailViewController: UIViewController {
             contentCollectionView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor),
             contentCollectionView.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+                equalTo: view.bottomAnchor)
         ])
     }
     
@@ -225,7 +225,8 @@ final class AppDetailViewController: UIViewController {
                 
             case .information:
                 
-                let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+                var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+                configuration.backgroundColor = Design.backgroundColor
                 section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
