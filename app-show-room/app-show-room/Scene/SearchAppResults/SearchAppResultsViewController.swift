@@ -24,11 +24,29 @@ private enum SearhKeywordSaving {
 
 final class SearchAppResultsViewController: UITableViewController {
     
-    var showAppResults: Bool = false
+    var showAppResults: Bool = false {
+        willSet(isTableHeaderFooterHidden) {
+            if isTableHeaderFooterHidden {
+                tableView.tableHeaderView = nil
+                tableView.tableFooterView = nil
+                view.layoutIfNeeded()
+            } else {
+                tableView.tableHeaderView = searchKeywordTableHeaderView
+                tableView.tableFooterView = searchKeywordTableFooterView
+                view.layoutIfNeeded()
+            }
+        }
+    }
     weak var delegate: SearchAppResultsViewDelegate?
     
-    private let searchKeywordTableHeaderView = SearchKeywordTableHeaderView()
-    private let searchKeywordTableFooterView = SearchKeywordTableFooterView()
+    private lazy var searchKeywordTableHeaderView = SearchKeywordTableHeaderView(
+        frame: .init(
+            origin: .zero,
+            size: .init(width: view.bounds.width, height: Design.searchKeywordHedaerViewHeight)))
+    private lazy var searchKeywordTableFooterView = SearchKeywordTableFooterView(
+        frame: .init(
+            origin: .zero,
+            size: .init(width: view.bounds.width, height: Design.searchKeywordFooterViewHeight)))
     
     private let searchKeywordTableHeaderViewModel = SearchKeywordTableHeaderViewModel()
     private let searchKeywordTableFooterViewModel = SearchKeywordTableFooterViewModel()
@@ -105,17 +123,11 @@ final class SearchAppResultsViewController: UITableViewController {
         searchAppResultsViewModel.appDetailViewPresenter = self
         recentSearchKeywordViewModel.appDetailViewPresenter = self
         recentSearchKeywordViewModel.searchAppResultTableViewUpdater = self
-        
-        searchKeywordTableHeaderView.frame = .init(
-            origin: .zero,
-            size: .init(width: view.bounds.width, height: 75))
+ 
         tableView.tableHeaderView = searchKeywordTableHeaderView
         searchKeywordTableHeaderView.recentKeywordSavingUpdater = self
         searchKeywordTableHeaderView.bind(searchKeywordTableHeaderViewModel)
         
-        searchKeywordTableFooterView.frame = .init(
-            origin: .zero,
-            size: .init(width: view.bounds.width, height: 60))
         tableView.tableFooterView = searchKeywordTableFooterView
         searchKeywordTableFooterView.searchKeywordTableViewUpdater = self
         searchKeywordTableFooterView.bind(searchKeywordTableFooterViewModel)
@@ -143,7 +155,6 @@ extension SearchAppResultsViewController: SearchAppResultTableViewUpdater {
     
     func updateSearchAppResultTableView(with searchApps: [AppDetail]) {
         showAppResults = true
-        hideFooterAndHeaderView()
         scrollToTop()
         searchAppResultsViewModel = SearchAppResultsTableViewModel(
             searchAppDetails: searchApps)
@@ -151,11 +162,6 @@ extension SearchAppResultsViewController: SearchAppResultTableViewUpdater {
         tableView.dataSource = searchAppResultsViewModel
         tableView.delegate = searchAppResultsViewModel
         tableView.reloadData()
-    }
-    
-    private func hideFooterAndHeaderView() {
-        tableView.tableHeaderView?.isHidden = true
-        tableView.tableFooterView?.isHidden = true
     }
     
 }
@@ -185,6 +191,9 @@ extension SearchAppResultsViewController: SearchKeywordTableViewUpdater {
 private enum Design {
     
     static let backgroundColor: UIColor = Color.lightSkyBlue
+    
+    static let searchKeywordHedaerViewHeight: CGFloat =  75
+    static let searchKeywordFooterViewHeight: CGFloat = 60
     
 }
 
