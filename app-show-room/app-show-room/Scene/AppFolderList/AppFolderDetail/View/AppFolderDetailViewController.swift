@@ -101,14 +101,14 @@ class AppFolderDetailViewController: UIViewController {
         
     }
     
-    // TODO: - Refactoring
     private func bind() {
         let input = AppFolderDetailViewModel.Input(selectedIndexPath: cellDidSelectedAt.eraseToAnyPublisher())
-        Task {
-            let output = await viewModel.transform(input)
-            await MainActor.run {
-                headerView.bind(iconImageURL: output.iconImagURL, blurImage: output.blurIconImage, name: output.appFolderName, description: output.appFolderDescription)
-            }
+        let output = viewModel.transform(input)
+        headerView.bind(
+            iconImageURL: output.iconImagURL,
+            blurImageURL: output.blurIconImageURL,
+            name: output.appFolderName,
+            description: output.appFolderDescription)
         }
     }
     

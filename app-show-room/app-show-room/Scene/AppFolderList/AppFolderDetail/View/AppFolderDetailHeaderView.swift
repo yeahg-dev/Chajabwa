@@ -45,6 +45,8 @@ class AppFolderDetailHeaderView: UIView {
         return textView
     }()
     
+    private var cancellableTasks = [CancellableTask?]()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
@@ -53,6 +55,12 @@ class AppFolderDetailHeaderView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        cancellableTasks.forEach { task in
+            task.cancelTask()
+        }
     }
     
     private func addSubviews() {
@@ -105,14 +113,18 @@ class AppFolderDetailHeaderView: UIView {
         ])
     }
     
-    func bind(iconImageURL: String?, blurImage: UIImage?, name: String?, description: String?) {
-        blurBackgroundImageView.image = blurImage
+    func bind(iconImageURL: String?, blurImageURL: String?, name: String?, description: String?) {
         appFolderNameLabel.text = name
         appFolderDescriptionTextView.text = description
         Task {
-            try await appFolderIconImageView.setImage(
+            let iconImageViewTask = try await appFolderIconImageView.setImage(
                 with: iconImageURL,
                 defaultImage: UIImage(withBackground: Color.mauveLavender))
+            let backgroundImageTask = try await blurBackgroundImageView.setImage(
+                with: blurImageURL,
+                applying: 40,
+                defaultImage: UIImage(withBackground: Color.mauveLavender))
+            cancellableTasks.append(contentsOf: [iconImageViewTask, backgroundImageTask])
         }
     }
     

@@ -54,6 +54,50 @@ extension UIImageView {
         }
     }
     
+    func setImage(
+        with urlString: String?,
+        applying blurFilterRaidus: CGFloat,
+        defaultImage: UIImage)
+    async throws -> CancellableTask? {
+        guard let urlString = urlString,
+              let url = URL(string: urlString) else {
+            DispatchQueue.main.async {
+                self.image = defaultImage.applyBlurUsingClamp(radius: blurFilterRaidus)
+            }
+            return nil
+        }
+        
+        let imageCache = ImageCache()
+        let cacheKey = urlString
+        
+        if let cachedImage = imageCache.getImage(of: cacheKey) {
+            self.image = cachedImage.applyBlurUsingClamp(radius: blurFilterRaidus)
+            return nil
+        }
+        
+        return Task{
+            if Task.isCancelled {
+                self.image = defaultImage.applyBlurUsingClamp(radius: blurFilterRaidus)
+                return
+            }
+            
+            do {
+                let (data, _) = try await URLSession.shared.data(from:url)
+                DispatchQueue.main.async {
+                    guard let image = UIImage(data: data) else {
+                        return }
+                    self.image = image.applyBlurUsingClamp(radius: blurFilterRaidus)
+                    imageCache.cache(image, of: cacheKey)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.image = defaultImage.applyBlurUsingClamp(radius: blurFilterRaidus)
+                }
+                return
+            }
+        }
+    }
+    
 }
 
 protocol CancellableTask {

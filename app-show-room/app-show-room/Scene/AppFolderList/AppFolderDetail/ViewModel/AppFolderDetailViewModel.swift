@@ -23,20 +23,13 @@ final class AppFolderDetailViewModel: NSObject {
     
     struct Output {
         
-        let blurIconImage: UIImage?
+        let blurIconImageURL: String?
         let iconImagURL: String?
         let appFolderName: String?
         let appFolderDescription: String?
         let errorAlertViewModel: AnyPublisher<AlertViewModel, Never>
         let selectedSavedApp: AnyPublisher<SavedApp?, Never>
         
-    }
-    
-    // TODO: - Refactoring
-    var blurIconImage: UIImage? {
-        get async {
-            return await self.blurImage(downloadFrom: iconImageURL)
-        }
     }
     
     var iconImageURL: String?
@@ -63,14 +56,14 @@ final class AppFolderDetailViewModel: NSObject {
         }
     }
     
-    func transform(_ input: Input) async -> Output {
+    func transform(_ input: Input) -> Output {
         let selectedSavedApp = input.selectedIndexPath
             .map { [weak self] indexPath in
                 self?.savedApps?[safe: indexPath.row] }
             .eraseToAnyPublisher()
         
-        return await Output(
-            blurIconImage: blurIconImage,
+        return Output(
+            blurIconImageURL: iconImageURL,
             iconImagURL: iconImageURL,
             appFolderName: appFolderName,
             appFolderDescription: appFolderDescription,
@@ -116,34 +109,6 @@ extension AppFolderDetailViewModel: UITableViewDataSource {
         
         cell.bind(cellModel)
         return cell
-    }
-    
-    private func blurImage(downloadFrom urlString: String?) async -> UIImage? {
-        print("blurImage")
-        guard let urlString = urlString,
-              let url = URL(string: urlString) else {
-            return nil
-        }
-        
-        let imageCache = ImageCache()
-        let cacheKey = urlString
-        
-        if let cachedImage = imageCache.getImage(of: cacheKey) {
-            return cachedImage.applyBlurUsingClamp(radius: 50)
-        }
-        
-        do {
-            let (data, response) = try await URLSession.shared.data(from: url)
-            guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-                return nil
-            }
-            guard let image = UIImage(data: data) else {
-                return nil
-            }
-            return image.applyBlurUsingClamp(radius: 50)
-        } catch {
-            return nil
-        }
     }
     
 }
