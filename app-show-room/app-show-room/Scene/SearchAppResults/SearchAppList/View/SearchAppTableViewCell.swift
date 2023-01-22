@@ -44,6 +44,7 @@ final class SearchAppTableViewCell: BaseTableViewCell {
         imageView.layer.cornerRadius = Design.iconImageViewCornerRadius
         imageView.layer.borderWidth = Design.iconImageViewBorderWidth
         imageView.layer.borderColor = Design.icomImageViewBorderColor
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
