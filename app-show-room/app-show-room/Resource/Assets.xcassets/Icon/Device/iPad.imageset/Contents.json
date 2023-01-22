@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "icons8-아이-패드-80 3.png",
+      "filename" : "iPad.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "icons8-아이-패드-80 4.png",
+      "filename" : "iPad 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "icons8-아이-패드-80.png",
+      "filename" : "iPad 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

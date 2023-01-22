@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "icons8-맥-클라이언트-80 3.png",
+      "filename" : "imac.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "icons8-맥-클라이언트-80 4.png",
+      "filename" : "imac 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "icons8-맥-클라이언트-80.png",
+      "filename" : "imac 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -112,6 +112,10 @@ final class RecentSearchKeywordTableViewCell: BaseTableViewCell {
             keywordStackView.trailingAnchor.constraint(
                 lessThanOrEqualTo: dateLabel.leadingAnchor,
                 constant: -5),
+            platformImageView.widthAnchor.constraint(
+                equalToConstant: Design.platformImageViewWidth),
+            platformImageView.heightAnchor.constraint(
+                equalToConstant: Design.platformImageViewWidth),
             dateLabel.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor,
                 constant: -Design.paddingTrailing),
@@ -128,6 +132,7 @@ private enum Design {
     static let paddingTrailing: CGFloat = 25
     static let paddingTop: CGFloat = 15
     static let paddingBottom: CGFloat = 15
+    static let platformImageViewWidth: CGFloat = 27
     
     static let clockImageViewRightMargin: CGFloat = 9
     

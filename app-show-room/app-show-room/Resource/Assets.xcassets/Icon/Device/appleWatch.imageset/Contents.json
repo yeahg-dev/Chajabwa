@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "appleWatch.png",
+      "filename" : "watch.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "appleWatch 1.png",
+      "filename" : "watch 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "appleWatch 2.png",
+      "filename" : "watch 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
