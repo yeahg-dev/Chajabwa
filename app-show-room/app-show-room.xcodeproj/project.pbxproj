@@ -51,6 +51,7 @@
 		633A926C28A7D94600B3435F /* lookupAPISuccessResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 633A926728A7D29C00B3435F /* lookupAPISuccessResponse.json */; };
 		633A927028A7DDD200B3435F /* CacheTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633A926F28A7DDD200B3435F /* CacheTest.swift */; };
 		635D696028C321900002C755 /* TextSymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635D695F28C321900002C755 /* TextSymbolView.swift */; };
+		637E10E3297E5934000E74B1 /* AppFolderEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637E10E2297E5934000E74B1 /* AppFolderEditViewModel.swift */; };
 		6384E5CA28BCDD3800563FD5 /* ScreenshotGalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6384E5C928BCDD3800563FD5 /* ScreenshotGalleryViewModel.swift */; };
 		6384E5CC28BCE54600563FD5 /* LargeScreenshotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6384E5CB28BCE54600563FD5 /* LargeScreenshotCollectionViewCell.swift */; };
 		6384E5CE28BCED6E00563FD5 /* ScreenshotCollectionViewCellDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6384E5CD28BCED6E00563FD5 /* ScreenshotCollectionViewCellDesign.swift */; };
@@ -221,6 +222,7 @@
 		633A926A28A7D38B00B3435F /* ParsingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingTest.swift; sourceTree = "<group>"; };
 		633A926F28A7DDD200B3435F /* CacheTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTest.swift; sourceTree = "<group>"; };
 		635D695F28C321900002C755 /* TextSymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSymbolView.swift; sourceTree = "<group>"; };
+		637E10E2297E5934000E74B1 /* AppFolderEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderEditViewModel.swift; sourceTree = "<group>"; };
 		6384E5C928BCDD3800563FD5 /* ScreenshotGalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotGalleryViewModel.swift; sourceTree = "<group>"; };
 		6384E5CB28BCE54600563FD5 /* LargeScreenshotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeScreenshotCollectionViewCell.swift; sourceTree = "<group>"; };
 		6384E5CD28BCED6E00563FD5 /* ScreenshotCollectionViewCellDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCollectionViewCellDesign.swift; sourceTree = "<group>"; };
@@ -384,6 +386,7 @@
 		631CDA7F29784CAC00ED71C8 /* AppFolderDetail */ = {
 			isa = PBXGroup;
 			children = (
+				637E10DF297E590A000E74B1 /* AppFolderEdit */,
 				631CDA8129784CBA00ED71C8 /* View */,
 				631CDA8029784CB500ED71C8 /* ViewModel */,
 			);
@@ -490,6 +493,30 @@
 				63CEA7412940BE7C009684A7 /* searchAPISuccessResponse.json */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		637E10DF297E590A000E74B1 /* AppFolderEdit */ = {
+			isa = PBXGroup;
+			children = (
+				637E10E1297E591F000E74B1 /* View */,
+				637E10E0297E5914000E74B1 /* ViewModel */,
+			);
+			path = AppFolderEdit;
+			sourceTree = "<group>";
+		};
+		637E10E0297E5914000E74B1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				637E10E2297E5934000E74B1 /* AppFolderEditViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		637E10E1297E591F000E74B1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		6384E5C328BCD2CD00563FD5 /* Cell */ = {
@@ -1351,6 +1378,7 @@
 				63D52B3029602048006F043D /* SearchKeywordRepository.swift in Sources */,
 				63AAE951297D2F570025936A /* AppFolderDetailTableViewEmptyView.swift in Sources */,
 				63A4F12729791C37005247AF /* AppFolderDetailViewModel.swift in Sources */,
+				637E10E3297E5934000E74B1 /* AppFolderEditViewModel.swift in Sources */,
 				631CDA7E29784C6900ED71C8 /* SavedAppDetailTableViewCellModel.swift in Sources */,
 				63075FC528C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift in Sources */,
 				63861EB928AA1ACB0062A8BD /* App.swift in Sources */,
