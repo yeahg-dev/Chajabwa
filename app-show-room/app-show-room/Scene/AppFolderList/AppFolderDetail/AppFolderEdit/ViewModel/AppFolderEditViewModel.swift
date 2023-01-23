@@ -12,12 +12,14 @@ class AppFolderEditViewModel {
     
     private let appFolderUsecase = AppFolderUsecase()
     
-    private let appFolder: AppFolder
+    private var appFolder: AppFolder!
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(appFolder: AppFolder) {
-        self.appFolder = appFolder
+    init(appFolderIdentifier: String) {
+        Task {
+            self.appFolder = await fetchLatedstAppFolder(appFolderIdentifier)
+        }
     }
     
     struct Input {
@@ -38,6 +40,7 @@ class AppFolderEditViewModel {
         let navigationBarTitle: String
         let doneButtonIsEnabled: AnyPublisher<Bool, Never>
         let alertViewModel: AnyPublisher<AlertViewModel, Never>
+        let presentingViewWillUpdate: AnyPublisher<Void, Never>
         let dismiss: AnyPublisher<Void, Never>
         
     }
@@ -51,6 +54,7 @@ class AppFolderEditViewModel {
         
         let alertViewModel = PassthroughSubject<AlertViewModel, Never>()
         let dismiss = PassthroughSubject<Void, Never>()
+        let presentingViewWillUpdate = PassthroughSubject<Void, Never>()
         
         input.saveButtonDidTapped
             .sink { data in
@@ -60,6 +64,7 @@ class AppFolderEditViewModel {
                             self.appFolder,
                             name: data.name,
                             description: data.descritpion)
+                        presentingViewWillUpdate.send(())
                         dismiss.send(())
                     } catch {
                         alertViewModel.send(
@@ -75,7 +80,16 @@ class AppFolderEditViewModel {
             navigationBarTitle: Text.appFolderEdit.rawValue,
             doneButtonIsEnabled: doneButtonIsEnabled,
             alertViewModel: alertViewModel.eraseToAnyPublisher(),
+            presentingViewWillUpdate: presentingViewWillUpdate.eraseToAnyPublisher(),
             dismiss: dismiss.eraseToAnyPublisher())
+    }
+    
+    private func fetchLatedstAppFolder(_ identifier: String) async -> AppFolder {
+        do {
+            return try await appFolderUsecase.readAppFolder(identifer: identifier)
+        } catch {
+            return AppFolder.placeholder
+        }
     }
     
 }

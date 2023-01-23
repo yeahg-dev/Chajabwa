@@ -46,3 +46,13 @@ extension AppFolder: Hashable {
     }
 
 }
+
+extension AppFolder {
+    
+    static let placeholder = AppFolder(
+        savedApps: [],
+        name: Text.fetchFailurePlaceHodler.rawValue,
+        description: Text.fetchFailurePlaceHodler.rawValue,
+        iconImageURL: nil)
+    
+}

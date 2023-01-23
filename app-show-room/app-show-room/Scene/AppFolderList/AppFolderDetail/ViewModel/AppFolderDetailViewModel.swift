@@ -12,11 +12,12 @@ final class AppFolderDetailViewModel: NSObject {
     
     private let appFolderUsecase = AppFolderUsecase()
     
-    private let appFolder: AppFolder
+    private var appFolder: AppFolder!
     private var savedApps: [SavedApp]?
-    
+
     struct Input {
         
+        let viewWillRefresh: AnyPublisher<Void, Never>
         let selectedIndexPath: AnyPublisher<IndexPath, Never>
         let editButtonDidTapped: AnyPublisher<Void, Never>
         let deleteButtonDidTapped: AnyPublisher<Void, Never>
@@ -25,10 +26,7 @@ final class AppFolderDetailViewModel: NSObject {
     
     struct Output {
         
-        let blurIconImageURL: String?
-        let iconImagURL: String?
-        let appFolderName: String?
-        let appFolderDescription: String?
+        let headerViewModel: AnyPublisher<AppFolderDetailHeaderViewModel, Never>
         let errorAlertViewModel: AnyPublisher<AlertViewModel, Never>
         let selectedSavedAppDetail: AnyPublisher<AppDetail, Error>
         let presentAppFolderEditAlert: AnyPublisher<(AlertViewModel, AppFolder), Never>
@@ -50,14 +48,11 @@ final class AppFolderDetailViewModel: NSObject {
     
     let showEmptyView = PassthroughSubject<Bool, Never>()
     
-    init(_ appFolder: AppFolder) {
-        self.appFolder = appFolder
-        self.iconImageURL = appFolder.iconImageURL
-        self.appFolderName = appFolder.name
-        self.appFolderDescription = appFolder.description
+    init(_ appFolderIdentifier: String) {
         super.init()
         Task {
             do {
+                self.appFolder = await fetchLatedstAppFolder(appFolderIdentifier)
                 try await fetchLatestData()
             } catch {
                 errorAlertViewModel.send(
@@ -67,6 +62,20 @@ final class AppFolderDetailViewModel: NSObject {
     }
     
     func transform(_ input: Input) -> Output {
+        
+        let haederViewModelPublisher = input.viewWillRefresh
+            .asyncMap {
+                await self.fetchLatedstAppFolder(self.appFolder.identifier)
+            }
+            .map { appFolder in
+                return AppFolderDetailHeaderViewModel(
+                    blurIconImageURL: appFolder.iconImageURL,
+                    iconImagURL: appFolder.iconImageURL,
+                    appFolderName: appFolder.name,
+                    appFolderDescription: appFolder.description)
+            }
+            .eraseToAnyPublisher()
+        
         let selectedSavedAppDetail = input.selectedIndexPath
             .map { [weak self] indexPath in
                 self?.savedApps?[safe: indexPath.row] }
@@ -77,8 +86,9 @@ final class AppFolderDetailViewModel: NSObject {
         
         let presentAppFolderEditAlert = input.editButtonDidTapped
             .map{
-                return ((AppFolderDetailAlertViewModel.AppFolderEditAlertViewModel() as AlertViewModel), self.appFolder)
+                return ((AppFolderDetailAlertViewModel.AppFolderEditAlertViewModel() as AlertViewModel), self.appFolder ?? AppFolder.placeholder)
             }
+            .eraseToAnyPublisher()
         
         let presentAppFolderDeleteAlert = input.deleteButtonDidTapped
             .map {
@@ -89,16 +99,14 @@ final class AppFolderDetailViewModel: NSObject {
                 //                }
                 return (alertViewModel as AlertViewModel)
             }
+            .eraseToAnyPublisher()
         
         return Output(
-            blurIconImageURL: iconImageURL,
-            iconImagURL: iconImageURL,
-            appFolderName: appFolderName,
-            appFolderDescription: appFolderDescription,
+            headerViewModel: haederViewModelPublisher,
             errorAlertViewModel: errorAlertViewModel.eraseToAnyPublisher(),
             selectedSavedAppDetail: selectedSavedAppDetail,
-            presentAppFolderEditAlert: presentAppFolderEditAlert.eraseToAnyPublisher(),
-            presentAppFolderDeleteAlert: presentAppFolderDeleteAlert.eraseToAnyPublisher(),
+            presentAppFolderEditAlert: presentAppFolderEditAlert,
+            presentAppFolderDeleteAlert: presentAppFolderDeleteAlert,
             EmptyViewguideLabelText: Text.appFolderDetailEmptryViewGuide.rawValue,
             goToSearchButtonTitle: Text.goToSearch.rawValue,
             showEmptyView: showEmptyView.prefix(1).eraseToAnyPublisher()
@@ -107,6 +115,14 @@ final class AppFolderDetailViewModel: NSObject {
     
     private func fetchLatestData() async throws {
         savedApps = try await appFolderUsecase.readSavedApps(of: appFolder)
+    }
+    
+    private func fetchLatedstAppFolder(_ identifier: String) async -> AppFolder {
+        do {
+            return try await appFolderUsecase.readAppFolder(identifer: identifier)
+        } catch {
+            return AppFolder.placeholder
+        }
     }
     
 }

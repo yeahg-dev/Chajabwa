@@ -115,15 +115,15 @@ class AppFolderDetailHeaderView: UIView {
         ])
     }
     
-    func bind(iconImageURL: String?, blurImageURL: String?, name: String?, description: String?) {
-        appFolderNameLabel.text = name
-        appFolderDescriptionTextView.text = description
+    func bind(_ viewModel: AppFolderDetailHeaderViewModel) {
+        appFolderNameLabel.text = viewModel.appFolderName
+        appFolderDescriptionTextView.text = viewModel.appFolderDescription
         Task {
             let iconImageViewTask = try await appFolderIconImageView.setImage(
-                with: iconImageURL,
+                with: viewModel.iconImagURL,
                 defaultImage: defaultAppIconImage)
             let backgroundImageTask = try await blurBackgroundImageView.setImage(
-                with: blurImageURL,
+                with: viewModel.blurIconImageURL,
                 applying: 40,
                 defaultImage: defaultAppIconImage)
             cancellableTasks.append(contentsOf: [iconImageViewTask, backgroundImageTask])

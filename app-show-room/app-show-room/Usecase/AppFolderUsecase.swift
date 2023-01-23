@@ -47,6 +47,10 @@ struct AppFolderUsecase {
         return appFolderCount > 0
     }
     
+    func readAppFolder(identifer: String) async throws -> AppFolder {
+        return try await appFolderRepository.fetch(identifier: identifer)
+    }
+    
     func readAllAppFolder() async -> [AppFolder] {
         await appFolderRepository.fetchAllAppFolders()
     }

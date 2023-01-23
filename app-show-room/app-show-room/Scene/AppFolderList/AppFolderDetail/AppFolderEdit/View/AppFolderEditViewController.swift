@@ -8,8 +8,16 @@
 import Combine
 import UIKit
 
+protocol AppFolderEditPresentingViewUpdater: AnyObject {
+
+    func viewWillAppear()
+    
+}
+
 class AppFolderEditViewController: UIViewController {
 
+    var appFolderEditPresentingViewUpdater: AppFolderEditPresentingViewUpdater?
+    
     private let viewModel: AppFolderEditViewModel
     
     private let navigationBar: UINavigationBar = {
@@ -72,8 +80,8 @@ class AppFolderEditViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     
     
-    init(appFolder: AppFolder) {
-        self.viewModel = AppFolderEditViewModel(appFolder: appFolder)
+    init(appFolderIdentifier: String) {
+        self.viewModel = AppFolderEditViewModel(appFolderIdentifier: appFolderIdentifier)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -171,6 +179,12 @@ class AppFolderEditViewController: UIViewController {
             .receive(on: RunLoop.main)
             .sink { alertViewModel in
                 self.presentAlert(alertViewModel)
+            }.store(in: &cancellables)
+        
+        output.presentingViewWillUpdate
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.appFolderEditPresentingViewUpdater?.viewWillAppear()
             }.store(in: &cancellables)
         
         output.dismiss

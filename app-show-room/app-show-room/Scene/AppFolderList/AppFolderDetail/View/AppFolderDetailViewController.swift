@@ -13,7 +13,7 @@ class AppFolderDetailViewController: UIViewController {
     private let viewModel: AppFolderDetailViewModel
     
     init(appFolder: AppFolder) {
-        viewModel = AppFolderDetailViewModel(appFolder)
+        viewModel = AppFolderDetailViewModel(appFolder.identifier)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -21,6 +21,7 @@ class AppFolderDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private let viewWillRefresh = PassthroughSubject<Void, Never>()
     private let cellDidSelectedAt = PassthroughSubject<IndexPath, Never>()
     private let editButtonDidTapped = PassthroughSubject<Void, Never>()
     private let deleteActionDidTapped = PassthroughSubject<Void, Never>()
@@ -55,6 +56,11 @@ class AppFolderDetailViewController: UIViewController {
         addSubviews()
         setConstraints()
         bind()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewWillRefresh.send(())
     }
     
     private func configureHeaderView() {
@@ -101,6 +107,7 @@ class AppFolderDetailViewController: UIViewController {
 
     private func bind() {
         let input = AppFolderDetailViewModel.Input(
+            viewWillRefresh: viewWillRefresh.eraseToAnyPublisher(),
             selectedIndexPath: cellDidSelectedAt.eraseToAnyPublisher(),
             editButtonDidTapped: editButtonDidTapped.eraseToAnyPublisher(),
             deleteButtonDidTapped: deleteActionDidTapped.eraseToAnyPublisher()
@@ -149,12 +156,12 @@ class AppFolderDetailViewController: UIViewController {
             .sink {
                 self.presentAlert($0)
             }.store(in: &cancellables)
-            
-        headerView.bind(
-            iconImageURL: output.iconImagURL,
-            blurImageURL: output.blurIconImageURL,
-            name: output.appFolderName,
-            description: output.appFolderDescription)
+        
+        output.headerViewModel
+            .receive(on: RunLoop.main)
+            .sink {
+                self.headerView.bind($0)
+            }.store(in: &cancellables)
     }
     
     @objc
@@ -173,7 +180,8 @@ class AppFolderDetailViewController: UIViewController {
     }
     
     private func presentAppFolderEditView(appFolder: AppFolder) {
-        let appFolderEditView = AppFolderEditViewController(appFolder: appFolder)
+        let appFolderEditView = AppFolderEditViewController(appFolderIdentifier: appFolder.identifier)
+        appFolderEditView.appFolderEditPresentingViewUpdater = self
         present(appFolderEditView, animated: true)
     }
     
@@ -192,6 +200,14 @@ extension AppFolderDetailViewController: UITableViewDelegate {
         cellDidSelectedAt.send(indexPath)
     }
 
+}
+
+extension AppFolderDetailViewController: AppFolderEditPresentingViewUpdater {
+    
+    func viewWillAppear() {
+        viewWillRefresh.send(())
+    }
+    
 }
 
 private enum Design {
