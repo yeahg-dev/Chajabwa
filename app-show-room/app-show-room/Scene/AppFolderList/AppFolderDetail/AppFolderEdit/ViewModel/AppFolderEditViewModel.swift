@@ -20,7 +20,6 @@ class AppFolderEditViewModel {
         self.appFolder = appFolder
     }
     
-    // Input
     struct Input {
         
         let appFolderNameDidChange: AnyPublisher<String?, Never>
@@ -36,11 +35,10 @@ class AppFolderEditViewModel {
         let appFolderDescription: String?
         let navigationBarTitle: String
         let doneButtonIsEnabled: AnyPublisher<Bool, Never>
+        let alertViewModel: AnyPublisher<AlertViewModel, Never>
         let dismiss: AnyPublisher<Void, Never>
         
     }
-    
-    // TODO: - deleteConfirmAlert, AlertViewModel에 handelr 추가
     
     func transform(_ input: Input) -> Output {
         let doneButtonIsEnabled = input.appFolderNameDidChange
@@ -49,6 +47,7 @@ class AppFolderEditViewModel {
             }
             .eraseToAnyPublisher()
         
+        let alertViewModel = PassthroughSubject<AlertViewModel, Never>()
         let dismiss = PassthroughSubject<Void, Never>()
         input.saveButtonDidTapped
             .sink { data in
@@ -60,7 +59,8 @@ class AppFolderEditViewModel {
                             description: data.descritpion)
                         dismiss.send(())
                     } catch {
-                        // TODO: - Alert send
+                        alertViewModel.send(
+                            AppFolderEditAlertViewModel.AppFolderSaveFailureAlertViewModel())
                     }
                 }
             }.store(in: &cancellables)
@@ -71,6 +71,7 @@ class AppFolderEditViewModel {
             appFolderDescription: appFolder.description,
             navigationBarTitle: Text.appFolderEdit.rawValue,
             doneButtonIsEnabled: doneButtonIsEnabled,
+            alertViewModel: alertViewModel.eraseToAnyPublisher(),
             dismiss: dismiss.eraseToAnyPublisher())
     }
     
