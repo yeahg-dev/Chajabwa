@@ -42,6 +42,10 @@ class AppFolderListViewController: UIViewController {
         setConstraints()
         configureNavigationBar()
         bind()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         refreshView()
     }
     
