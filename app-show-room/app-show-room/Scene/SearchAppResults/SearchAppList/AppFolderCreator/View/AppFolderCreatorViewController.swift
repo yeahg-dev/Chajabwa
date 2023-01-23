@@ -86,6 +86,9 @@ final class AppFolderCreatorViewController: UIViewController {
             appFolderName: appFolderName.eraseToAnyPublisher(),
             appFolderDescription: appFolderDescritpion.eraseToAnyPublisher())
         
+        let navigationItem = UINavigationItem(title: viewModel.navigationBarTitle)
+        navigationBar.items = [navigationItem]
+        
         folderNameTextField.attributedPlaceholder = NSAttributedString(
             string: viewModel.folderNameTextFieldPlaceholder,
             attributes: [.foregroundColor: Design.textFieldPlaceholderTextColor])
