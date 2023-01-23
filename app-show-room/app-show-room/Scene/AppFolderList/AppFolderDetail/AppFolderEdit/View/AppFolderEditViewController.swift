@@ -49,7 +49,7 @@ class AppFolderEditViewController: UIViewController {
         return textView
     }()
     
-    private let doneButton: UIButton = {
+    private lazy var doneButton: UIButton = {
        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setBackgroundColor(Design.normalButtonColor, for: .normal)
@@ -57,6 +57,10 @@ class AppFolderEditViewController: UIViewController {
         button.titleLabel?.font = Design.buttonFont
         button.layer.cornerRadius = Design.doneButtonCornerRadius
         button.layer.masksToBounds = true
+        button.addTarget(
+            self,
+            action: #selector(doneButtonDidTapped),
+            for: .touchDown)
         return button
     }()
     
@@ -79,8 +83,10 @@ class AppFolderEditViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = Design.backgroundColor
         configureLayout()
         bind()
+        folderNameTextField.delegate = self
     }
 
     private func configureLayout() {
@@ -147,6 +153,8 @@ class AppFolderEditViewController: UIViewController {
         
         let output = viewModel.transform(input)
         
+        folderNameTextField.placeholder = output.folderNameTextFieldPlaceholder
+        doneButton.setTitle(output.doneButtonTitle, for: .normal)
         folderNameTextField.text = output.appFolderName
         folderDescriptionTextView.text = output.appFolderDescription
         
@@ -173,7 +181,6 @@ class AppFolderEditViewController: UIViewController {
   
     }
 
-    
     @objc private func doneButtonDidTapped() {
         let appFolderData = AppFolderEditViewModel.AppFolderData(
             name: folderNameTextField.text ?? "",
@@ -189,10 +196,6 @@ class AppFolderEditViewController: UIViewController {
 }
 
 extension AppFolderEditViewController: UITextFieldDelegate {
-    
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        appFolderName.send(textField.text)
-//    }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         appFolderNameDidChanged.send(textField.text)

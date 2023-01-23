@@ -18,7 +18,9 @@ extension UIViewController {
             alertActions.forEach { actionViewModel in
                 let action = UIAlertAction(
                     title: actionViewModel.title,
-                    style: actionViewModel.style.value)
+                    style: actionViewModel.style.value,
+                    handler: actionViewModel.handler
+                )
                 alertController.addAction(action)
             }
         }

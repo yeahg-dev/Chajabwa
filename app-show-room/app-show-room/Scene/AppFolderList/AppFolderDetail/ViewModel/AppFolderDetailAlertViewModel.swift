@@ -30,4 +30,62 @@ struct AppFolderDetailAlertViewModel {
         
     }
     
+    // MARK: - AppFolderEditAlertViewModel
+    
+    struct AppFolderEditAlertViewModel: AlertViewModel {
+        
+        var alertController: UIAlertControllerViewModel = AppFolderEditAlertControllerViewModel()
+        var alertActions: [UIAlertActionViewModel]? = [
+            EditActionViewModel(), DeleteActionViewModel()]
+        
+    }
+
+    struct AppFolderEditAlertControllerViewModel: UIAlertControllerViewModel {
+        
+        var title: String? = nil
+        var message: String? = nil
+        var preferredStyle: UIAlertControllerStyle = .actionSheet
+    }
+    
+    struct EditActionViewModel: UIAlertActionViewModel {
+        
+        var title: String? = "폴더 수정"
+        var style: UIAlertActionStyle = .defaults
+        var handler: ((UIAlertAction) -> Void)?
+        
+    }
+    
+    struct DeleteActionViewModel: UIAlertActionViewModel {
+        
+        var title: String? = "폴더 삭제"
+        var style: UIAlertActionStyle = .destructive
+        var handler: ((UIAlertAction) -> Void)?
+        
+    }
+    
+    // MARK: - AppFolderDeleteConfirmAlertViewModel
+    
+    struct AppFolderDeleteConfirmAlertViewModel: AlertViewModel {
+        
+        var alertController: UIAlertControllerViewModel = AppFolderDeleteConfirmAlertControllerViewModel()
+        var alertActions: [UIAlertActionViewModel]? = [
+            CancelActionViewModel(), ConfirmActionViewModel()]
+        
+    }
+
+    struct AppFolderDeleteConfirmAlertControllerViewModel: UIAlertControllerViewModel {
+        
+        var title: String? = "폴더를 삭제하시겠어요?"
+        var message: String? = "삭제하면 다시 복구할 수 없어요"
+        var preferredStyle: UIAlertControllerStyle = .alert
+    }
+    
+    struct CancelActionViewModel: UIAlertActionViewModel {
+        
+        var title: String? = "취소"
+        var style: UIAlertActionStyle = .defaults
+        var handler: ((UIAlertAction) -> Void)?
+        
+    }
+    
 }

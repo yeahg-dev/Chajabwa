@@ -18,6 +18,8 @@ final class AppFolderDetailViewModel: NSObject {
     struct Input {
         
         let selectedIndexPath: AnyPublisher<IndexPath, Never>
+        let editButtonDidTapped: AnyPublisher<Void, Never>
+        let deleteButtonDidTapped: AnyPublisher<Void, Never>
         
     }
     
@@ -29,6 +31,8 @@ final class AppFolderDetailViewModel: NSObject {
         let appFolderDescription: String?
         let errorAlertViewModel: AnyPublisher<AlertViewModel, Never>
         let selectedSavedAppDetail: AnyPublisher<AppDetail, Error>
+        let presentAppFolderEditAlert: AnyPublisher<(AlertViewModel, AppFolder), Never>
+        let presentAppFolderDeleteAlert: AnyPublisher<AlertViewModel, Never>
         
         let EmptyViewguideLabelText: String?
         let goToSearchButtonTitle: String?
@@ -71,6 +75,21 @@ final class AppFolderDetailViewModel: NSObject {
             })
             .eraseToAnyPublisher()
         
+        let presentAppFolderEditAlert = input.editButtonDidTapped
+            .map{
+                return ((AppFolderDetailAlertViewModel.AppFolderEditAlertViewModel() as AlertViewModel), self.appFolder)
+            }
+        
+        let presentAppFolderDeleteAlert = input.deleteButtonDidTapped
+            .map {
+                var alertViewModel = AppFolderDetailAlertViewModel.AppFolderDeleteConfirmAlertViewModel()
+                //                alertViewModel.alertActions?[1].handler = {
+                //                    // appFolder delete
+                //                    // navigate to AppFolderList
+                //                }
+                return (alertViewModel as AlertViewModel)
+            }
+        
         return Output(
             blurIconImageURL: iconImageURL,
             iconImagURL: iconImageURL,
@@ -78,6 +97,8 @@ final class AppFolderDetailViewModel: NSObject {
             appFolderDescription: appFolderDescription,
             errorAlertViewModel: errorAlertViewModel.eraseToAnyPublisher(),
             selectedSavedAppDetail: selectedSavedAppDetail,
+            presentAppFolderEditAlert: presentAppFolderEditAlert.eraseToAnyPublisher(),
+            presentAppFolderDeleteAlert: presentAppFolderDeleteAlert.eraseToAnyPublisher(),
             EmptyViewguideLabelText: Text.appFolderDetailEmptryViewGuide.rawValue,
             goToSearchButtonTitle: Text.goToSearch.rawValue,
             showEmptyView: showEmptyView.prefix(1).eraseToAnyPublisher()

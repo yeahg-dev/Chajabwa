@@ -31,6 +31,8 @@ class AppFolderEditViewModel {
     
     struct Output {
         
+        let folderNameTextFieldPlaceholder = "폴더 이름 (2글자 이상)"
+        let doneButtonTitle = "완료"
         let appFolderName: String
         let appFolderDescription: String?
         let navigationBarTitle: String
@@ -49,6 +51,7 @@ class AppFolderEditViewModel {
         
         let alertViewModel = PassthroughSubject<AlertViewModel, Never>()
         let dismiss = PassthroughSubject<Void, Never>()
+        
         input.saveButtonDidTapped
             .sink { data in
                 Task {

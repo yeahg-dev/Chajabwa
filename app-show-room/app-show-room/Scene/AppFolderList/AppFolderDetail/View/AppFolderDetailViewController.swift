@@ -22,6 +22,8 @@ class AppFolderDetailViewController: UIViewController {
     }
     
     private let cellDidSelectedAt = PassthroughSubject<IndexPath, Never>()
+    private let editButtonDidTapped = PassthroughSubject<Void, Never>()
+    private let deleteActionDidTapped = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
     
     private var headerView: AppFolderDetailHeaderView!
@@ -69,7 +71,7 @@ class AppFolderDetailViewController: UIViewController {
         let editButton = UIBarButtonItem(
             barButtonSystemItem: .edit,
             target: self,
-            action: #selector(rightNavigationBarButtonDidTapped))
+            action: #selector(editBarButtonDidTapped))
         navigationItem.rightBarButtonItem = editButton
         navigationController?.navigationItem.setRightBarButton(editButton, animated: true)
         let appearacne = UINavigationBarAppearance()
@@ -96,14 +98,13 @@ class AppFolderDetailViewController: UIViewController {
                 equalTo: view.bottomAnchor)
         ])
     }
-    
-    @objc
-    private func rightNavigationBarButtonDidTapped() {
-        
-    }
-    
+
     private func bind() {
-        let input = AppFolderDetailViewModel.Input(selectedIndexPath: cellDidSelectedAt.eraseToAnyPublisher())
+        let input = AppFolderDetailViewModel.Input(
+            selectedIndexPath: cellDidSelectedAt.eraseToAnyPublisher(),
+            editButtonDidTapped: editButtonDidTapped.eraseToAnyPublisher(),
+            deleteButtonDidTapped: deleteActionDidTapped.eraseToAnyPublisher()
+        )
         let output = viewModel.transform(input)
         
         emptyView.bind(
@@ -124,6 +125,25 @@ class AppFolderDetailViewController: UIViewController {
                 self.pushAppDetailView(of: appDetail)
             }).store(in: &cancellables)
         
+        output.presentAppFolderEditAlert
+            .receive(on: RunLoop.main)
+            .sink{ (alert, appFolder) in
+                var alertViewModel = alert
+                alertViewModel.alertActions?[0].handler = { _ in
+                    self.presentAppFolderEditView(appFolder: appFolder)
+                }
+                alertViewModel.alertActions?[1].handler = { _ in
+                    self.deleteActionDidTapped.send(())
+                }
+                self.presentAlert(alertViewModel)
+            }.store(in: &cancellables)
+        
+        output.presentAppFolderDeleteAlert
+            .receive(on: RunLoop.main)
+            .sink { alertViewModel in
+                self.presentAlert(alertViewModel)
+            }.store(in: &cancellables)
+        
         output.errorAlertViewModel
             .receive(on: RunLoop.main)
             .sink {
@@ -137,6 +157,11 @@ class AppFolderDetailViewController: UIViewController {
             description: output.appFolderDescription)
     }
     
+    @objc
+    private func editBarButtonDidTapped() {
+        editButtonDidTapped.send(())
+    }
+    
     private func pushAppDetailView(of appDetail: AppDetail?) {
         guard let appDetail else {
             return
@@ -145,6 +170,11 @@ class AppFolderDetailViewController: UIViewController {
         let appDetailView = AppDetailViewController(
             appDetailViewModel: appDetailViewModel)
         navigationController?.pushViewController(appDetailView, animated: true)
+    }
+    
+    private func presentAppFolderEditView(appFolder: AppFolder) {
+        let appFolderEditView = AppFolderEditViewController(appFolder: appFolder)
+        present(appFolderEditView, animated: true)
     }
     
     private func navigateToSearchView() {
