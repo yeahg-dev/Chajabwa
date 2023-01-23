@@ -14,7 +14,7 @@ final class AppFolderDetailViewModel: NSObject {
     
     private var appFolder: AppFolder!
     private var savedApps: [SavedApp]?
-
+    
     struct Input {
         
         let viewWillRefresh: AnyPublisher<Void, Never>
@@ -31,6 +31,7 @@ final class AppFolderDetailViewModel: NSObject {
         let selectedSavedAppDetail: AnyPublisher<AppDetail, Error>
         let presentAppFolderEditAlert: AnyPublisher<(AlertViewModel, AppFolder), Never>
         let presentAppFolderDeleteAlert: AnyPublisher<AlertViewModel, Never>
+        let navigateToAppFolderListView: AnyPublisher<Void, Never>
         
         let EmptyViewguideLabelText: String?
         let goToSearchButtonTitle: String?
@@ -90,13 +91,21 @@ final class AppFolderDetailViewModel: NSObject {
             }
             .eraseToAnyPublisher()
         
+        let navigateToAppFolderListView = PassthroughSubject<Void, Never>()
+        
         let presentAppFolderDeleteAlert = input.deleteButtonDidTapped
             .map {
                 var alertViewModel = AppFolderDetailAlertViewModel.AppFolderDeleteConfirmAlertViewModel()
-                //                alertViewModel.alertActions?[1].handler = {
-                //                    // appFolder delete
-                //                    // navigate to AppFolderList
-                //                }
+                alertViewModel.alertActions?[1].handler = { _ in
+                    Task {
+                        do {
+                            try await self.appFolderUsecase.deleteAppFolder(self.appFolder)
+                            navigateToAppFolderListView.send(())
+                        } catch {
+                            self.errorAlertViewModel.send(AppFolderDetailAlertViewModel.AppFolderDeleteErrorAlertViewModel() as AlertViewModel)
+                        }
+                    }
+                }
                 return (alertViewModel as AlertViewModel)
             }
             .eraseToAnyPublisher()
@@ -107,6 +116,7 @@ final class AppFolderDetailViewModel: NSObject {
             selectedSavedAppDetail: selectedSavedAppDetail,
             presentAppFolderEditAlert: presentAppFolderEditAlert,
             presentAppFolderDeleteAlert: presentAppFolderDeleteAlert,
+            navigateToAppFolderListView: navigateToAppFolderListView.eraseToAnyPublisher(),
             EmptyViewguideLabelText: Text.appFolderDetailEmptryViewGuide.rawValue,
             goToSearchButtonTitle: Text.goToSearch.rawValue,
             showEmptyView: showEmptyView.prefix(1).eraseToAnyPublisher()

@@ -88,4 +88,21 @@ struct AppFolderDetailAlertViewModel {
         
     }
     
+    // MARK: - AppFolderDeleteErrorAlertViewModel
+    
+    struct AppFolderDeleteErrorAlertViewModel: AlertViewModel {
+        
+        var alertController: UIAlertControllerViewModel = AppFolderDeleteErrorAlertControllerViewModel()
+        var alertActions: [UIAlertActionViewModel]? = [ConfirmActionViewModel()]
+        
+    }
+    
+    struct AppFolderDeleteErrorAlertControllerViewModel: UIAlertControllerViewModel {
+        
+        var title: String? = "삭제를 실패했어요"
+        var message: String? = "다시 시도해주세요"
+        var preferredStyle: UIAlertControllerStyle = .alert
+    }
+    
+    
 }

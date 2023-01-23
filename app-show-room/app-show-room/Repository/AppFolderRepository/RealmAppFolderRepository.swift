@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 struct RealmAppFolderRepository: AppFolderRepository {
-    
+
     private let realm: Realm
     private let realmQueue: DispatchQueue
     
@@ -249,6 +249,24 @@ struct RealmAppFolderRepository: AppFolderRepository {
         }
     }
     
+    func deleteAppFolder(_ appFolder: AppFolder) async throws {
+        return try await withCheckedThrowingContinuation { continuation in
+            realmQueue.async {
+                if let appFolder = realm.object(ofType: AppFolderRealm.self, forPrimaryKey: appFolder.identifier) {
+                      do {
+                          try realm.write{
+                              realm.delete(appFolder)
+                          }
+                          continuation.resume()
+                      } catch {
+                          print("failed in \(self): \(error)")
+                          continuation.resume(throwing: RealmAppFolderRepositoryError.appFolderDeleteError)
+                      }
+                }
+            }
+        }
+    }
+    
     @discardableResult
     func createSavedApp(
         _ appUnit: AppUnit,
@@ -318,6 +336,7 @@ enum RealmAppFolderRepositoryError: Error {
     case appFolderCreationError
     case appFolderFetchError
     case appFolderUpdateError
+    case appFolderDeleteError
     
     case savedAppFetchError
     case savedAppFolderUpdatingError

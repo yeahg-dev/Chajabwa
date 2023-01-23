@@ -131,4 +131,8 @@ struct AppFolderUsecase {
         .eraseToAnyPublisher()
     }
     
+    func deleteAppFolder(_ appFolder: AppFolder) async throws {
+        try await appFolderRepository.deleteAppFolder(appFolder)
+    }
+    
 }

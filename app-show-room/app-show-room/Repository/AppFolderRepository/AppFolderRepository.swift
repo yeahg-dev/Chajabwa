@@ -57,6 +57,8 @@ protocol AppFolderRepository {
         in appFolder: AppFolder)
     async throws -> AppFolder
     
+    func deleteAppFolder(_ appFolder: AppFolder) async throws
+    
     func updateAppFolder(
         of savedApp: SavedApp,
         to appFolder: [AppFolder])
