@@ -52,8 +52,17 @@ class AppFolderEditViewModel {
         let dismiss = PassthroughSubject<Void, Never>()
         input.saveButtonDidTapped
             .sink { data in
-                // TOOD: - AppFolderUsecase folder eidt
-                dismiss.send(())
+                Task {
+                    do {
+                        try await self.appFolderUsecase.updateAppFolder(
+                            self.appFolder,
+                            name: data.name,
+                            description: data.descritpion)
+                        dismiss.send(())
+                    } catch {
+                        // TODO: - Alert send
+                    }
+                }
             }.store(in: &cancellables)
         
 
@@ -72,7 +81,7 @@ extension AppFolderEditViewModel {
     struct AppFolderData {
         
         let name: String
-        let descritpion: String?
+        let descritpion: String
         
     }
     

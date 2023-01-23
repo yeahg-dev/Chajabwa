@@ -76,6 +76,18 @@ struct AppFolderUsecase {
             to: appFolder)
     }
     
+    @discardableResult
+    func updateAppFolder(
+        _ appFolder: AppFolder,
+        name: String,
+        description: String)
+    async throws -> AppFolder {
+        try await appFolderRepository.updateName(with: name, of: appFolder)
+        return try await appFolderRepository.updateDescription(
+            with: description,
+            of: appFolder)
+    }
+    
     func updateAppFolder(
         of appUnit: AppUnit,
         iconImageURL: String?,
