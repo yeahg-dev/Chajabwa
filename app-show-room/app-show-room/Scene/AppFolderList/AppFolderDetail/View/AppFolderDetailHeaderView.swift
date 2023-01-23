@@ -136,7 +136,7 @@ private enum Design {
 
     static let appFolderIconImageViewWidth: CGFloat = 120
     static let appFolderIconImageViewCornerRadius: CGFloat = 20
-    static let appFolderNameLabelHeight: CGFloat = 20
+    static let appFolderNameLabelHeight: CGFloat = 25
     static let appFolderDescriptionTextViewHeight: CGFloat = 60
     
     static let iconImageViewMarginTop: CGFloat = 100
