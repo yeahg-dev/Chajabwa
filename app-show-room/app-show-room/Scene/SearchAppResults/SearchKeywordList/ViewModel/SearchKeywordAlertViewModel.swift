@@ -5,7 +5,7 @@
 //  Created by Moon Yeji on 2023/01/05.
 //
 
-import Foundation
+import UIKit
 
 struct SearchKeywordAlertViewModel {
     
@@ -66,6 +66,7 @@ struct SearchKeywordAlertViewModel {
         
         var title: String? = "확인"
         var style: UIAlertActionStyle = .defaults
+        var handler: ((UIAlertAction) -> Void)?
         
     }
     
@@ -73,6 +74,7 @@ struct SearchKeywordAlertViewModel {
         
         var title: String? = "재시도"
         var style: UIAlertActionStyle = .defaults
+        var handler: ((UIAlertAction) -> Void)?
         
     }
     
@@ -80,6 +82,7 @@ struct SearchKeywordAlertViewModel {
         
         var title: String? = "개발자에게 버그 제보하기"
         var style: UIAlertActionStyle = .defaults
+        var handler: ((UIAlertAction) -> Void)?
         
     }
     

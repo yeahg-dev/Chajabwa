@@ -5,7 +5,7 @@
 //  Created by Moon Yeji on 2023/01/17.
 //
 
-import Foundation
+import UIKit
 
 struct AppFolderSelectAlertViewModel {
     
@@ -28,6 +28,7 @@ struct AppFolderSelectAlertViewModel {
         
         var title: String? = "확인"
         var style: UIAlertActionStyle = .defaults
+        var handler: ((UIAlertAction) -> Void)?
     
     }
     

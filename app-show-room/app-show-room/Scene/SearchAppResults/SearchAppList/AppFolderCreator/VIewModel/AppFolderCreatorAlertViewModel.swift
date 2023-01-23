@@ -5,7 +5,7 @@
 //  Created by Moon Yeji on 2023/01/16.
 //
 
-import Foundation
+import UIKit
 
 struct AppFolderCreatorAlertViewModel {
     
@@ -29,6 +29,7 @@ struct AppFolderCreatorAlertViewModel {
         
         var title: String? = "확인"
         var style: UIAlertActionStyle = .defaults
+        var handler: ((UIAlertAction) -> Void)?
     
     }
     

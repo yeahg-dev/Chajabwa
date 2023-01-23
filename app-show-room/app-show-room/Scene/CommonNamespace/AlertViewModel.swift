@@ -25,6 +25,7 @@ protocol UIAlertActionViewModel {
     
     var title: String? { get }
     var style: UIAlertActionStyle { get }
+    var handler: ((UIAlertAction) -> Void)? { get }
 }
 
 enum UIAlertControllerStyle {

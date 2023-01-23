@@ -5,7 +5,7 @@
 //  Created by Moon Yeji on 2022/08/12.
 //
 
-import Foundation
+import UIKit
 
 enum SearchAlertViewModel {
     
@@ -63,12 +63,16 @@ enum SearchAlertViewModel {
         
         var title: String? = "확인"
         var style: UIAlertActionStyle = .defaults
+        var handler: ((UIAlertAction) -> Void)?
+        
     }
     
     struct SearchFailureAlertActionViewModel: UIAlertActionViewModel {
         
         var title: String? = "확인"
         var style: UIAlertActionStyle = .defaults
+        var handler: ((UIAlertAction) -> Void)?
+        
     }
     
 }

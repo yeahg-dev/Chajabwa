@@ -26,6 +26,8 @@ struct AppFolderDetailAlertViewModel {
         
         var title: String? = "확인"
         var style: UIAlertActionStyle = .defaults
+        var handler: ((UIAlertAction) -> Void)?
+        
     }
     
 }
