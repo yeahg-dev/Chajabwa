@@ -44,6 +44,8 @@ enum Text: String {
     
     case appFolderEdit = "폴더 수정"
     
+    case delete = "삭제"
+    
     var value: String {
         return self.rawValue
     }

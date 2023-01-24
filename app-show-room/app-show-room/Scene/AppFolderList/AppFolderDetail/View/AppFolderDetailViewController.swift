@@ -23,6 +23,7 @@ class AppFolderDetailViewController: UIViewController {
     
     private let viewWillRefresh = PassthroughSubject<Void, Never>()
     private let cellDidSelectedAt = PassthroughSubject<IndexPath, Never>()
+    private let cellWillDeletedAt = PassthroughSubject<IndexPath, Never>()
     private let editButtonDidTapped = PassthroughSubject<Void, Never>()
     private let deleteActionDidTapped = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
@@ -57,7 +58,7 @@ class AppFolderDetailViewController: UIViewController {
         setConstraints()
         bind()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewWillRefresh.send(())
@@ -72,7 +73,7 @@ class AppFolderDetailViewController: UIViewController {
         headerView.frame = .init(origin: .zero, size: size)
         savedAppDetailTableView.tableHeaderView = headerView
     }
-
+    
     private func configureNavigationBar() {
         let editButton = UIBarButtonItem(
             barButtonSystemItem: .edit,
@@ -104,11 +105,12 @@ class AppFolderDetailViewController: UIViewController {
                 equalTo: view.bottomAnchor)
         ])
     }
-
+    
     private func bind() {
         let input = AppFolderDetailViewModel.Input(
             viewWillRefresh: viewWillRefresh.eraseToAnyPublisher(),
             selectedIndexPath: cellDidSelectedAt.eraseToAnyPublisher(),
+            cellWillDeleteAt: cellWillDeletedAt.eraseToAnyPublisher(),
             editButtonDidTapped: editButtonDidTapped.eraseToAnyPublisher(),
             deleteButtonDidTapped: deleteActionDidTapped.eraseToAnyPublisher()
         )
@@ -131,6 +133,15 @@ class AppFolderDetailViewController: UIViewController {
             }, receiveValue: { appDetail in
                 self.pushAppDetailView(of: appDetail)
             }).store(in: &cancellables)
+        
+        output.cellDidDeletedAt
+            .receive(on: RunLoop.main)
+            .sink { indexPath in
+                guard let indexPath else {
+                    return
+                }
+                self.savedAppDetailTableView.deleteRows(at: [indexPath], with: .automatic)
+            }.store(in: &cancellables)
         
         output.presentAppFolderEditAlert
             .receive(on: RunLoop.main)
@@ -198,14 +209,32 @@ class AppFolderDetailViewController: UIViewController {
 }
 
 extension AppFolderDetailViewController: UITableViewDelegate {
-
+    
     func tableView(
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath) {
             savedAppDetailTableView.deselectRow(at: indexPath, animated: true)
-        cellDidSelectedAt.send(indexPath)
+            cellDidSelectedAt.send(indexPath)
+        }
+    
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
+    -> UISwipeActionsConfiguration?
+    {
+        let deleteAction = UIContextualAction(
+            style: .destructive,
+            title: Text.delete.rawValue
+        ) {  [unowned self] _, _, _ in
+            cellWillDeletedAt.send(indexPath)
+            viewWillRefresh.send(())
+        }
+        
+        let actionConfigurations = UISwipeActionsConfiguration(
+            actions: [deleteAction])
+        return actionConfigurations
     }
-
+    
 }
 
 extension AppFolderDetailViewController: AppFolderEditPresentingViewUpdater {
@@ -220,5 +249,5 @@ private enum Design {
     
     static let backgroundColor: UIColor = Color.favoriteLavender
     static let navigationBarTintColor = Color.blueGreen
-
+    
 }

@@ -19,6 +19,7 @@ final class AppFolderDetailViewModel: NSObject {
         
         let viewWillRefresh: AnyPublisher<Void, Never>
         let selectedIndexPath: AnyPublisher<IndexPath, Never>
+        let cellWillDeleteAt: AnyPublisher<IndexPath, Never>
         let editButtonDidTapped: AnyPublisher<Void, Never>
         let deleteButtonDidTapped: AnyPublisher<Void, Never>
         
@@ -29,6 +30,7 @@ final class AppFolderDetailViewModel: NSObject {
         let headerViewModel: AnyPublisher<AppFolderDetailHeaderViewModel, Never>
         let errorAlertViewModel: AnyPublisher<AlertViewModel, Never>
         let selectedSavedAppDetail: AnyPublisher<AppDetail, Error>
+        let cellDidDeletedAt: AnyPublisher<IndexPath?, Never>
         let presentAppFolderEditAlert: AnyPublisher<(AlertViewModel, AppFolder), Never>
         let presentAppFolderDeleteAlert: AnyPublisher<AlertViewModel, Never>
         let navigateToAppFolderListView: AnyPublisher<Void, Never>
@@ -54,7 +56,7 @@ final class AppFolderDetailViewModel: NSObject {
         Task {
             do {
                 self.appFolder = await fetchLatedstAppFolder(appFolderIdentifier)
-                try await fetchLatestData()
+                self.savedApps = try await fetchLatestSavedApps()
             } catch {
                 errorAlertViewModel.send(
                     AppFolderDetailAlertViewModel.SavedAppFetchFailureAlertViewModel())
@@ -82,6 +84,26 @@ final class AppFolderDetailViewModel: NSObject {
                 self?.savedApps?[safe: indexPath.row] }
             .flatMap({ savedApp in
                 return self.appFolderUsecase.readAppDetail(of: savedApp!)
+            })
+            .eraseToAnyPublisher()
+        
+        let cellDidDeletedAt = input.cellWillDeleteAt
+            .asyncMap({ (indexPath) -> IndexPath? in
+                guard let savedApp = self.savedApps?[safe: indexPath.row],
+                      let appFolder = self.appFolder else {
+                    self.errorAlertViewModel.send(
+                        AppFolderDetailAlertViewModel.AppFolderDeleteErrorAlertViewModel())
+                    return nil
+                }
+                do {
+                    _ = try await self.appFolderUsecase.delete([savedApp], in: appFolder)
+                    self.savedApps = try await self.fetchLatestSavedApps()
+                    return indexPath
+                } catch {
+                    self.errorAlertViewModel.send(
+                        AppFolderDetailAlertViewModel.AppFolderDeleteErrorAlertViewModel())
+                    return nil
+                }
             })
             .eraseToAnyPublisher()
         
@@ -114,17 +136,18 @@ final class AppFolderDetailViewModel: NSObject {
             headerViewModel: haederViewModelPublisher,
             errorAlertViewModel: errorAlertViewModel.eraseToAnyPublisher(),
             selectedSavedAppDetail: selectedSavedAppDetail,
+            cellDidDeletedAt: cellDidDeletedAt,
             presentAppFolderEditAlert: presentAppFolderEditAlert,
             presentAppFolderDeleteAlert: presentAppFolderDeleteAlert,
             navigateToAppFolderListView: navigateToAppFolderListView.eraseToAnyPublisher(),
             EmptyViewguideLabelText: Text.appFolderDetailEmptryViewGuide.rawValue,
             goToSearchButtonTitle: Text.goToSearch.rawValue,
-            showEmptyView: showEmptyView.prefix(1).eraseToAnyPublisher()
+            showEmptyView: showEmptyView.eraseToAnyPublisher()
         )
     }
     
-    private func fetchLatestData() async throws {
-        savedApps = try await appFolderUsecase.readSavedApps(of: appFolder)
+    private func fetchLatestSavedApps() async throws -> [SavedApp] {
+        try await appFolderUsecase.readSavedApps(of: appFolder)
     }
     
     private func fetchLatedstAppFolder(_ identifier: String) async -> AppFolder {
@@ -176,5 +199,5 @@ extension AppFolderDetailViewModel: UITableViewDataSource {
         cell.bind(cellModel)
         return cell
     }
-    
+
 }

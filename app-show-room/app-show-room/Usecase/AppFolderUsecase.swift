@@ -135,4 +135,13 @@ struct AppFolderUsecase {
         try await appFolderRepository.deleteAppFolder(appFolder)
     }
     
+    func delete(
+        _ savedApps: [SavedApp],
+        in appFolder: AppFolder)
+    async throws -> AppFolder {
+        try await appFolderRepository.delete(
+            savedApps,
+            in: appFolder)
+    }
+    
 }

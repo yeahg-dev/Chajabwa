@@ -104,5 +104,4 @@ struct AppFolderDetailAlertViewModel {
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     
-    
 }
