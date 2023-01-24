@@ -65,6 +65,18 @@ class AppFolderDetailHeaderView: UIView {
         }
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        addGradientLayer()
+    }
+    
+    private func addGradientLayer() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = blurBackgroundImageView.bounds
+        gradientLayer.colors = [ UIColor.clear.cgColor, Design.gradientEndColor.cgColor]
+        blurBackgroundImageView.layer.addSublayer(gradientLayer)
+    }
+    
     private func addSubviews() {
         addSubview(blurBackgroundImageView)
         addSubview(appFolderIconImageView)
@@ -126,7 +138,7 @@ class AppFolderDetailHeaderView: UIView {
                 with: viewModel.blurIconImageURL,
                 applying: 40,
                 defaultImage: defaultAppIconImage)
-            cancellableTasks.append(contentsOf: [iconImageViewTask, backgroundImageTask])
+            cancellableTasks.append(contentsOf: [iconImageViewTask])
         }
     }
     
@@ -152,4 +164,5 @@ private enum Design {
     static let appFolderNameLabelTextColor: UIColor = .white
     static let appFolderDescriptionTextViewTextColor: UIColor = .white
     static let appFolderDescriptionTextViewBackgroundColor: UIColor = .clear
+    static let gradientEndColor: UIColor = Color.favoriteLavender
 }
