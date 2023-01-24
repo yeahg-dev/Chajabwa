@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "앱과사전 LaunchScreen.png",
+      "filename" : "앱과사전 AppIcon (1) 1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "앱과사전 LaunchScreen 1.png",
+      "filename" : "앱과사전 AppIcon (1) 2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "앱과사전 LaunchScreen 2.png",
+      "filename" : "앱과사전 AppIcon (1) 3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
