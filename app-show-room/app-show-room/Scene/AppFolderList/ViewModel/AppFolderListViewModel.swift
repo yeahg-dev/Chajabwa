@@ -31,7 +31,7 @@ final class AppFolderListViewModel: NSObject {
     func transform(input: Input) -> Output {
         let selectedAppFolder = input.appFolderCellDidSelected
             .map{$0.row}
-            .map{ self.appFolders[safe: $0] }
+            .map{ [unowned self] in self.appFolders[safe: $0] }
             .eraseToAnyPublisher()
         
         return Output(slectedAppFolder: selectedAppFolder)
