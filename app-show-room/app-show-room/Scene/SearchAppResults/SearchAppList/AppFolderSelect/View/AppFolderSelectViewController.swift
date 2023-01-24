@@ -133,8 +133,8 @@ class AppFolderSelectViewController: UIViewController {
         navigationItem.title = viewModel.navigationTitle
         viewModel.saveButtonIsEnabled
             .receive(on: RunLoop.main)
-            .sink {
-                self.saveButton.isEnabled = $0 }
+            .sink { [weak self] in
+                self?.saveButton.isEnabled = $0 }
             .store(in: &cancellables)
     }
     

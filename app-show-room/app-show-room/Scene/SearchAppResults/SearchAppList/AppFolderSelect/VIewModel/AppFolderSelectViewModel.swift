@@ -27,10 +27,10 @@ final class AppFolderSelectViewModel: NSObject {
     var saveButtonTitle = "저장"
     
     var saveButtonIsEnabled: AnyPublisher<Bool, Never> {
-        return cellDidSelected.map {
+        return cellDidSelected.map { [unowned self] in
             return self.appFolderCellModels
                 .filter{$0.isBelongedToFolder}.count }
-        .flatMap { selectedAppCount in
+        .flatMap {  [unowned self] selectedAppCount in
             Just(self.appFolderUsecase.canSaveAppFolder(with: selectedAppCount)) }
         .eraseToAnyPublisher()
     }

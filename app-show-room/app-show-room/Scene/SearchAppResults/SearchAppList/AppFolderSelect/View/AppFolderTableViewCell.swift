@@ -66,7 +66,6 @@ class AppFolderTableViewCell: BaseTableViewCell {
     }()
     
     func bind(_ viewModel: AppFolderTableViewCellModel) {
-        print("🎨bind with iconURL: \(viewModel.iconImageURL)")
         folderNameLabel.text = viewModel.folderName
         savedAppCountLabel.text = viewModel.folderCount
         checkmarkView.isHidden = !viewModel.isBelongedToFolder
@@ -79,7 +78,6 @@ class AppFolderTableViewCell: BaseTableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        print("✨prepareForReuse✨")
         savedAppCountLabel.text = nil
         savedAppCountLabel.text = nil
         iconImageView.image = defaultIconImage
