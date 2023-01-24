@@ -16,7 +16,7 @@ final class ScreenshotGalleryViewController: UIViewController {
             height: ScreenShotCollectionViewCellStyle.Large.height)
         layout.minimumLineSpacing = CGFloat(15)
         layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 25, bottom: 20, right: 25)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 25, bottom: 20, right: 35)
         return UICollectionView(frame: .zero, collectionViewLayout: layout)
     }()
     
