@@ -16,8 +16,6 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
         return view
     }()
     
-    private let reuseableDeviceIconImageViews = [DeviceIconImageView]()
-    
     private lazy var supportedDeviceStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal

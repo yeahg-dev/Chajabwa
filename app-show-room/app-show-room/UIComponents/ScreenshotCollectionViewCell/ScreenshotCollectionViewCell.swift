@@ -30,8 +30,8 @@ class ScreenShotCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func prepareForReuse() {
+        screenShotView.image = nil
         cancellableTask?.cancelTask()
-        screenShotView.image = design.defaultImage
     }
     
     func fill(with imageURLString: String) {
