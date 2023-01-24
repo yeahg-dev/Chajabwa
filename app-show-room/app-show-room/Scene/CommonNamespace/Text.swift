@@ -8,6 +8,9 @@
 import Foundation
 
 enum Text: String {
+    
+    case searchTitle = "찾아봐"
+    case searchBarPlaceholder = "이름 또는 ID를 입력해주세요"
 
     case provider = "제공자"
     case fileSize = "크기"
@@ -45,6 +48,7 @@ enum Text: String {
     case appFolderEdit = "폴더 수정"
     
     case delete = "삭제"
+    case confirm = "확인"
     
     var value: String {
         return self.rawValue

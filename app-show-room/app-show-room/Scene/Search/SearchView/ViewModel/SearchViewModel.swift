@@ -45,10 +45,10 @@ struct SearchViewModel {
 
 extension SearchViewModel: SearchViewModelInput {
 
-    var navigationItemTitle: String { SearchAlertViewModel.navigationTitle }
+    var navigationItemTitle: String { Text.searchTitle.rawValue }
     
     var searchBarPlaceholder: String {
-        return SearchAlertViewModel.searchBarPlaceholder
+        return Text.searchBarPlaceholder.rawValue
     }
     
     var platformType: SoftwareType {

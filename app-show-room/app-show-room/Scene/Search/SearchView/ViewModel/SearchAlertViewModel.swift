@@ -9,11 +9,6 @@ import UIKit
 
 enum SearchAlertViewModel {
     
-    // MARK: - Namespace
-    
-    static let searchBarPlaceholder = "이름 또는 ID를 입력해주세요"
-    static let navigationTitle = "Search for"
-    
     // MARK: - UIAlertActionViewModel
     
     struct InvalidInputAlertViewModel: AlertViewModel {
@@ -61,7 +56,7 @@ enum SearchAlertViewModel {
     
     struct InvalidInputAlertActionViewModel: UIAlertActionViewModel {
         
-        var title: String? = "확인"
+        var title: String? = Text.confirm.rawValue
         var style: UIAlertActionStyle = .defaults
         var handler: ((UIAlertAction) -> Void)?
         
@@ -69,7 +64,7 @@ enum SearchAlertViewModel {
     
     struct SearchFailureAlertActionViewModel: UIAlertActionViewModel {
         
-        var title: String? = "확인"
+        var title: String? = Text.confirm.rawValue
         var style: UIAlertActionStyle = .defaults
         var handler: ((UIAlertAction) -> Void)?
         
