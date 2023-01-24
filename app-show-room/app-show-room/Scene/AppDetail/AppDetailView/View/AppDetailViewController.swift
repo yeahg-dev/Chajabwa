@@ -337,14 +337,14 @@ final class AppDetailViewController: UIViewController {
     }
     
     private func createReleaseNoteCellRegistration() -> UICollectionView.CellRegistration<ReleaseNoteCollectionViewCell, AppDetailViewModel.Item> {
-        return UICollectionView.CellRegistration<ReleaseNoteCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
+        return UICollectionView.CellRegistration<ReleaseNoteCollectionViewCell, AppDetailViewModel.Item> {  [unowned self] (cell, indexPath, item) in
             cell.bind(model: item)
             cell.delegate = self
         }
     }
     
     private func createScreenshotCellRegistration() -> UICollectionView.CellRegistration<ScreenShotCollectionViewCell, AppDetailViewModel.Item> {
-        return UICollectionView.CellRegistration<ScreenShotCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
+        return UICollectionView.CellRegistration<ScreenShotCollectionViewCell, AppDetailViewModel.Item> { [unowned self] (cell, indexPath, item) in
             guard case let .screenshot(screenshotData) = item else {
                 return
             }
@@ -376,7 +376,7 @@ final class AppDetailViewController: UIViewController {
     }
     
     private func createDescriptionCellRegistration() -> UICollectionView.CellRegistration<DescriptionCollectionViewCell, AppDetailViewModel.Item> {
-        return UICollectionView.CellRegistration<DescriptionCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
+        return UICollectionView.CellRegistration<DescriptionCollectionViewCell, AppDetailViewModel.Item> { [unowned self] (cell, indexPath, item) in
             cell.bind(model: item)
             cell.delegate = self
         }
