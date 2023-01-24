@@ -95,8 +95,8 @@ final class AppFolderCreatorViewController: UIViewController {
         doneButton.setTitle(viewModel.doneButtonTitle, for: .normal)
         viewModel.doneButtonIsEnabled
             .receive(on: RunLoop.main)
-            .sink {
-                self.doneButton.isEnabled = $0 }
+            .sink { [weak self] in
+                self?.doneButton.isEnabled = $0 }
             .store(in: &cancellables)
         doneButton.addTarget(
             self,
