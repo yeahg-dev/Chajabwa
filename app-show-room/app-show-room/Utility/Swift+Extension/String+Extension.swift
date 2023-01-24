@@ -23,6 +23,10 @@ extension String {
         
     }
     
+    func isContainCaseInsensitive(string: String) -> Bool {
+        return  self.lowercased().contains(string.lowercased())
+    }
+    
     var formattedByte: String {
         let invalidText = "제공하지 않음"
         var integerPart = Substring(self)

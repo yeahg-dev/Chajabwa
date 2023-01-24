@@ -88,6 +88,7 @@ extension AppSummary: Decodable {
             providerURL: self.sellerURL,
             version: self.version,
             currentVersionReleaseDate: self.currentVersionReleaseDate,
-            releaseDescription: self.releaseNotes)
+            releaseDescription: self.releaseNotes,
+            supportedDevices: self.supportedDevices)
     }
 }

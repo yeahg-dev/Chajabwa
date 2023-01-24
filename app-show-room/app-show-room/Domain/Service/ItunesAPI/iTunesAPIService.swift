@@ -5,6 +5,7 @@
 //  Created by Moon Yeji on 2022/08/13.
 //
 
+import Combine
 import Foundation
 
 struct iTunesAPIService: APIService {
@@ -23,7 +24,6 @@ struct iTunesAPIService: APIService {
         let (data, response) = try await session.data(for: urlRequest)
         guard let response = response as? HTTPURLResponse,
               (200...299).contains(response.statusCode) else {
-            print(response)
             print("\(T.self) failed to receive success response(status code: 200-299)")
             throw APIError.HTTPResponseFailure
         }
@@ -34,6 +34,27 @@ struct iTunesAPIService: APIService {
         }
         
         return parsedData
+    }
+    
+    func getResponse<T: APIRequest>(
+        request: T)
+    -> AnyPublisher<T.APIResponse, Error>
+    {
+        guard let urlRequest = request.urlRequest else {
+            return Result.Publisher(.failure(APIError.invalidURL))
+                .eraseToAnyPublisher()
+        }
+       
+        return URLSession.shared.dataTaskPublisher(for: urlRequest)
+            .tryMap { (data, response) -> Data in
+                guard let httpResponse = response as? HTTPURLResponse,
+                      (200...299).contains(httpResponse.statusCode) else {
+                    throw APIError.HTTPResponseFailure
+                }
+                return data
+            }
+            .decode(type: T.APIResponse.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
     }
     
 }

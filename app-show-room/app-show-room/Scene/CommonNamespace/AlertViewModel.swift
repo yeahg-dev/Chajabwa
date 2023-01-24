@@ -10,7 +10,7 @@ import UIKit
 protocol AlertViewModel {
     
     var alertController: UIAlertControllerViewModel  { get }
-    var alertActions: [UIAlertActionViewModel]?  { get }
+    var alertActions: [UIAlertActionViewModel]?  { get set }
     
 }
 
@@ -25,6 +25,7 @@ protocol UIAlertActionViewModel {
     
     var title: String? { get }
     var style: UIAlertActionStyle { get }
+    var handler: ((UIAlertAction) -> Void)? { get set }
 }
 
 enum UIAlertControllerStyle {
