@@ -57,7 +57,7 @@ class AppFolderEditViewModel {
         let presentingViewWillUpdate = PassthroughSubject<Void, Never>()
         
         input.saveButtonDidTapped
-            .sink { data in
+            .sink { [unowned self] data in
                 Task {
                     do {
                         try await self.appFolderUsecase.updateAppFolder(

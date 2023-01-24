@@ -171,26 +171,26 @@ class AppFolderEditViewController: UIViewController {
         
         output.doneButtonIsEnabled
             .receive(on: RunLoop.main)
-            .sink { isEnabled in
-                self.doneButton.isEnabled = isEnabled
+            .sink { [weak self] isEnabled in
+                self?.doneButton.isEnabled = isEnabled
             }.store(in: &cancellables)
         
         output.alertViewModel
             .receive(on: RunLoop.main)
-            .sink { alertViewModel in
-                self.presentAlert(alertViewModel)
+            .sink { [weak self] alertViewModel in
+                self?.presentAlert(alertViewModel)
             }.store(in: &cancellables)
         
         output.presentingViewWillUpdate
             .receive(on: RunLoop.main)
-            .sink { _ in
-                self.appFolderEditPresentingViewUpdater?.viewWillAppear()
+            .sink { [weak self] _ in
+                self?.appFolderEditPresentingViewUpdater?.viewWillAppear()
             }.store(in: &cancellables)
         
         output.dismiss
             .receive(on: RunLoop.main)
-            .sink { _ in
-                self.dismiss(animated: true)
+            .sink { [weak self] _ in
+                self?.dismiss(animated: true)
             }.store(in: &cancellables)
   
     }
