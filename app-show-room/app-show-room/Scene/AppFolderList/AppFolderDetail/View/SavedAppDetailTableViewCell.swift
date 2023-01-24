@@ -33,6 +33,7 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Design.supportedDeviceLabelFont
         label.setContentHuggingPriority(.required, for: .horizontal)
+        label.textColor = Design.supportedDeviceLabelTextColor
         return label
     }()
     
