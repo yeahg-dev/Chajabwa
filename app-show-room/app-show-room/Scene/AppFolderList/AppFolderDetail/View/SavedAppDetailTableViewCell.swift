@@ -64,7 +64,7 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
         return label
     }()
     
-    private var cancellableTasks = [CancellableTask?]()
+    private var cancellableTasks: [CancellableTask?]? = [CancellableTask?]()
     private var cancellables = Set<AnyCancellable>()
     
     override func addSubviews() {
@@ -119,7 +119,7 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
     }
     
     override func prepareForReuse() {
-        cancellableTasks.forEach { task in
+        cancellableTasks?.forEach { task in
             task?.cancelTask()
         }
         countryNameLabel.text = nil
@@ -128,15 +128,15 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
     func bind(_ viewModel: AnyPublisher<SavedAppDetailTableViewCellModel, Never>) {
         viewModel
             .receive(on: RunLoop.main)
-            .sink { viewModel in
-                self.supportedDeviceLabel.text = viewModel.supportedDeviceText
-                self.appStoreLabel.text = viewModel.appStoreText
-                self.countryNameLabel.text = "\(viewModel.countryName) \(viewModel.countryFlag)"
+            .sink { [weak self] viewModel in
+                self?.supportedDeviceLabel.text = viewModel.supportedDeviceText
+                self?.appStoreLabel.text = viewModel.appStoreText
+                self?.countryNameLabel.text = "\(viewModel.countryName) \(viewModel.countryFlag)"
                 Task {
-                    self.cancellableTasks = try await self.appDetailPreview.bind(
+                    self?.cancellableTasks = try await self?.appDetailPreview.bind(
                         viewModel.appDetailprevieViewModel)
                 }
-                self.updateSupportedDeviceStackView(with: viewModel.supportedDeviceIconImages)
+                self?.updateSupportedDeviceStackView(with: viewModel.supportedDeviceIconImages)
             }.store(in: &cancellables)
     }
     

@@ -122,62 +122,62 @@ class AppFolderDetailViewController: UIViewController {
         
         output.showEmptyView
             .receive(on: RunLoop.main)
-            .sink { showEmptyView in
-                self.savedAppDetailTableView.backgroundView?.isHidden = !showEmptyView
+            .sink { [weak self] showEmptyView in
+                self?.savedAppDetailTableView.backgroundView?.isHidden = !showEmptyView
             }.store(in: &cancellables)
         
         output.selectedSavedAppDetail
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { error in
                 print(error)
-            }, receiveValue: { appDetail in
-                self.pushAppDetailView(of: appDetail)
+            }, receiveValue: { [weak self] appDetail in
+                self?.pushAppDetailView(of: appDetail)
             }).store(in: &cancellables)
         
         output.cellDidDeletedAt
             .receive(on: RunLoop.main)
-            .sink { indexPath in
+            .sink { [weak self] indexPath in
                 guard let indexPath else {
                     return
                 }
-                self.savedAppDetailTableView.deleteRows(at: [indexPath], with: .automatic)
+                self?.savedAppDetailTableView.deleteRows(at: [indexPath], with: .automatic)
             }.store(in: &cancellables)
         
         output.presentAppFolderEditAlert
             .receive(on: RunLoop.main)
-            .sink{ (alert, appFolder) in
+            .sink{ [weak self] (alert, appFolder) in
                 var alertViewModel = alert
                 alertViewModel.alertActions?[0].handler = { _ in
-                    self.presentAppFolderEditView(appFolder: appFolder)
+                    self?.presentAppFolderEditView(appFolder: appFolder)
                 }
                 alertViewModel.alertActions?[1].handler = { _ in
-                    self.deleteActionDidTapped.send(())
+                    self?.deleteActionDidTapped.send(())
                 }
-                self.presentAlert(alertViewModel)
+                self?.presentAlert(alertViewModel)
             }.store(in: &cancellables)
         
         output.presentAppFolderDeleteAlert
             .receive(on: RunLoop.main)
-            .sink { alertViewModel in
-                self.presentAlert(alertViewModel)
+            .sink { [weak self] alertViewModel in
+                self?.presentAlert(alertViewModel)
             }.store(in: &cancellables)
         
         output.navigateToAppFolderListView
             .receive(on: RunLoop.main)
-            .sink { _ in
-                self.navigationController?.popViewController(animated: true)
+            .sink { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
             }.store(in: &cancellables)
         
         output.errorAlertViewModel
             .receive(on: RunLoop.main)
-            .sink {
-                self.presentAlert($0)
+            .sink { [weak self] in
+                self?.presentAlert($0)
             }.store(in: &cancellables)
         
         output.headerViewModel
             .receive(on: RunLoop.main)
-            .sink {
-                self.headerView.bind($0)
+            .sink { [weak self] in
+                self?.headerView.bind($0)
             }.store(in: &cancellables)
     }
     

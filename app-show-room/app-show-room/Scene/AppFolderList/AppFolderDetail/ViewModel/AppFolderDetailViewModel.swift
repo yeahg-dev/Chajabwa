@@ -67,10 +67,10 @@ final class AppFolderDetailViewModel: NSObject {
     func transform(_ input: Input) -> Output {
         
         let haederViewModelPublisher = input.viewWillRefresh
-            .asyncMap {
+            .asyncMap { [unowned self] in
                 await self.fetchLatedstAppFolder(self.appFolder.identifier)
             }
-            .map { appFolder in
+            .map { [unowned self] appFolder in
                 return AppFolderDetailHeaderViewModel(
                     blurIconImageURL: appFolder.iconImageURL,
                     iconImagURL: appFolder.iconImageURL,
@@ -80,15 +80,15 @@ final class AppFolderDetailViewModel: NSObject {
             .eraseToAnyPublisher()
         
         let selectedSavedAppDetail = input.selectedIndexPath
-            .map { [weak self] indexPath in
-                self?.savedApps?[safe: indexPath.row] }
-            .flatMap({ savedApp in
+            .map { [unowned self] indexPath in
+                self.savedApps?[safe: indexPath.row] }
+            .flatMap({ [unowned self] savedApp in
                 return self.appFolderUsecase.readAppDetail(of: savedApp!)
             })
             .eraseToAnyPublisher()
         
         let cellDidDeletedAt = input.cellWillDeleteAt
-            .asyncMap({ (indexPath) -> IndexPath? in
+            .asyncMap({ [unowned self] (indexPath) -> IndexPath? in
                 guard let savedApp = self.savedApps?[safe: indexPath.row],
                       let appFolder = self.appFolder else {
                     self.errorAlertViewModel.send(
@@ -108,7 +108,7 @@ final class AppFolderDetailViewModel: NSObject {
             .eraseToAnyPublisher()
         
         let presentAppFolderEditAlert = input.editButtonDidTapped
-            .map{
+            .map{ [unowned self] in
                 return ((AppFolderDetailAlertViewModel.AppFolderEditAlertViewModel() as AlertViewModel), self.appFolder ?? AppFolder.placeholder)
             }
             .eraseToAnyPublisher()
@@ -116,7 +116,7 @@ final class AppFolderDetailViewModel: NSObject {
         let navigateToAppFolderListView = PassthroughSubject<Void, Never>()
         
         let presentAppFolderDeleteAlert = input.deleteButtonDidTapped
-            .map {
+            .map { [unowned self] in
                 var alertViewModel = AppFolderDetailAlertViewModel.AppFolderDeleteConfirmAlertViewModel()
                 alertViewModel.alertActions?[1].handler = { _ in
                     Task {
