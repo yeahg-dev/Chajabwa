@@ -145,7 +145,7 @@ class AppFolderSelectViewController: UIViewController {
             await MainActor.run {
                 switch result {
                 case .success(_):
-                    navigationController?.popViewController(animated:true)
+                    _ = navigationController?.popViewController(animated:true)
                 case .failure(let alertViewModel):
                     presentAlert(alertViewModel)
                 }
