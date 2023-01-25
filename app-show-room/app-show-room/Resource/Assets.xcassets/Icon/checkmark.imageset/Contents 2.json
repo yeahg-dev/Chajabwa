@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "appStore 1 2.png",
+      "filename" : "checkmark.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "appStore 3.png",
+      "filename" : "checkmark 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "appStore 4.png",
+      "filename" : "checkmark 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

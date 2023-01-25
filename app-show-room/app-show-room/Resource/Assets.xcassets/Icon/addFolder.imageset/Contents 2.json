@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "appStore 1 2.png",
+      "filename" : "addToFolder.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "appStore 3.png",
+      "filename" : "addToFolder 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "appStore 4.png",
+      "filename" : "addToFolder 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
