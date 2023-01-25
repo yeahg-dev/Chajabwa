@@ -57,7 +57,7 @@ final class SearchBackgroundView: UIView {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 90)
         button.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         button.addTarget(
-            self,
+            SearchBackgroundView.self,
             action: #selector(presentSettingView),
             for: .touchUpInside)
         return button
@@ -71,7 +71,7 @@ final class SearchBackgroundView: UIView {
             ofSize: 23,
             weight: .semibold)
         button.addTarget(
-            self,
+            SearchBackgroundView.self,
             action: #selector(presentSettingView),
             for: .touchUpInside)
         return button
