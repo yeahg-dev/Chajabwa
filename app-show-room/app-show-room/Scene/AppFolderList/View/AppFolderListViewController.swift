@@ -9,9 +9,13 @@ import Combine
 import UIKit
 
 class AppFolderListViewController: UIViewController {
-    
-    weak var coordinator: AppFolderListCoordinator?
 
+    weak var coordinator: AppFolderListCoordinator?
+    
+    deinit {
+        coordinator?.didFinish()
+    }
+    
     private let viewModel = AppFolderListViewModel()
     
     private let appFolderCellDidSelected = PassthroughSubject<IndexPath, Never>()
@@ -49,11 +53,6 @@ class AppFolderListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         refreshView()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        coordinator?.appFolderListWillDisapper()
     }
     
     private func addSubviews() {

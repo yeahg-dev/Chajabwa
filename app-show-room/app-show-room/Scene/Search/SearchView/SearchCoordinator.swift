@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SearchCoordinator: Coordinator {
+final class SearchCoordinator: NSObject, Coordinator {
     
     var childCoordinator = [Coordinator]()
     var navigationController: UINavigationController
@@ -17,6 +17,7 @@ final class SearchCoordinator: Coordinator {
     }
     
     func start() {
+        navigationController.delegate = self
         let searchKeywordRepository = RealmSearchKeywordRepository()
         let appSearchUseacase = AppSearchUsecase(
             searchKeywordRepository: searchKeywordRepository)
@@ -58,4 +59,24 @@ extension SearchCoordinator {
         return settinVC
     }
     
+}
+
+
+extension SearchCoordinator: UINavigationControllerDelegate {
+    
+//    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+//
+//        guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
+//            return
+//        }
+//
+//        if navigationController.viewControllers.contains(fromViewController) {
+//            return
+//        }
+//
+//        if let buyViewController = fromViewController as? BuyViewController {
+//            // We're popping a buy view controller; end its coordinator
+//            childDidFinish(buyViewController.coordinator)
+//        }
+//    }
 }

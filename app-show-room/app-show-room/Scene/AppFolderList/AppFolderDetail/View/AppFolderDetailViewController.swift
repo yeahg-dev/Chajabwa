@@ -10,6 +10,8 @@ import UIKit
 
 class AppFolderDetailViewController: UIViewController {
     
+    weak var coordinator: AppFolderDetailCoordinator?
+    
     private let viewModel: AppFolderDetailViewModel
     
     init(appFolder: AppFolder) {
@@ -19,6 +21,10 @@ class AppFolderDetailViewController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        coordinator?.didFinish()
     }
     
     private let viewWillRefresh = PassthroughSubject<Void, Never>()
@@ -187,23 +193,17 @@ class AppFolderDetailViewController: UIViewController {
     }
     
     private func pushAppDetailView(of appDetail: AppDetail?) {
-        guard let appDetail else {
-            return
-        }
-        let appDetailViewModel = AppDetailViewModel(app: appDetail)
-        let appDetailView = AppDetailViewController(
-            appDetailViewModel: appDetailViewModel)
-        navigationController?.pushViewController(appDetailView, animated: true)
+        coordinator?.pushAppDetailView(of: appDetail)
     }
     
     private func presentAppFolderEditView(appFolder: AppFolder) {
-        let appFolderEditView = AppFolderEditViewController(appFolderIdentifier: appFolder.identifier)
-        appFolderEditView.appFolderEditPresentingViewUpdater = self
-        present(appFolderEditView, animated: true)
+        let appFolderEditVC = coordinator?.presentAppFolderEditView(
+            appFolder: appFolder)
+        appFolderEditVC?.presenter = self
     }
     
     private func navigateToSearchView() {
-        navigationController?.popToRootViewController(animated: true)
+        coordinator?.popToSearchView()
     }
     
 }
@@ -237,7 +237,7 @@ extension AppFolderDetailViewController: UITableViewDelegate {
     
 }
 
-extension AppFolderDetailViewController: AppFolderEditPresentingViewUpdater {
+extension AppFolderDetailViewController: AppFoldrDetailViewPresenter {
     
     func viewWillAppear() {
         viewWillRefresh.send(())

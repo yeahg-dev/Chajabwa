@@ -38,11 +38,16 @@ extension AppFolderListCoordinator {
             print("appFolder does not exist")
             return
         }
-        let appFolderDetailVC = AppFolderDetailViewController(appFolder: appFolder)
-        navigationController.pushViewController(appFolderDetailVC, animated: true)
+        
+        let appFolderDetailCoordinator = AppFolderDetailCoordinator(
+            appFolder: appFolder,
+            navigationController: navigationController)
+        childCoordinator.append(appFolderDetailCoordinator)
+        appFolderDetailCoordinator.parentCoordintaor = self
+        appFolderDetailCoordinator.start()
     }
     
-    func appFolderListWillDisapper() {
+    func didFinish() {
         parentCoordinator?.childDidFinish(self)
     }
     
