@@ -48,8 +48,7 @@ final class AppDetailViewController: UIViewController {
     private let appIconImageURL: String?
     
     // MARK: - UI Properties
-    
-    private var isNavigationItemHidden: Bool = true
+
     private var isReleaseNoteFolded: Bool = true
     private var isDescriptionViewFolded: Bool = true
     
@@ -96,11 +95,8 @@ final class AppDetailViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.tintColor = Design.navigationBarTintColor
         navigationItem.titleView = iconImage
-        navigationItem.titleView?.alpha = 0
-        navigationItem.titleView?.isHidden = true
         let folderButton = UIBarButtonItem(customView: folderButton)
         navigationItem.setRightBarButton(folderButton, animated: false)
-        navigationItem.rightBarButtonItem?.customView?.alpha = 0
     }
     
     private func setContstraints() {
@@ -470,24 +466,6 @@ extension AppDetailViewController: UICollectionViewDelegate {
             self.present(developerWebsiteView, animated: true, completion: nil)
         }
         
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if contentCollectionView.contentOffset.y > 45 && isNavigationItemHidden {
-            isNavigationItemHidden.toggle()
-            navigationItem.titleView?.isHidden = false
-            UIView.animate(
-                withDuration: 0.3,
-                animations: { [unowned self] in
-                    self.navigationItem.titleView?.alpha = 1
-                    self.navigationItem.rightBarButtonItem?.customView?.alpha = 1
-                } ,
-                completion: nil)
-        } else if contentCollectionView.contentOffset.y < 45 && isNavigationItemHidden == false {
-            isNavigationItemHidden.toggle()
-            self.navigationItem.titleView?.alpha = 0
-            self.navigationItem.rightBarButtonItem?.customView?.alpha = 0
-        }
     }
     
 }
