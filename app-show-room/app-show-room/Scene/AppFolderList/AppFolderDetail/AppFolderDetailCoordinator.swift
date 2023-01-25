@@ -42,10 +42,12 @@ extension AppFolderDetailCoordinator {
         guard let appDetail else {
             return
         }
-        let appDetailViewModel = AppDetailViewModel(app: appDetail)
-        let appDetailVC = AppDetailViewController(
-            appDetailViewModel: appDetailViewModel)
-        navigationController.pushViewController(appDetailVC, animated: true)
+        let appDetailCoordinator = AppDetailCoordinator(
+            appDetail: appDetail,
+            navigationController: navigationController)
+        appDetailCoordinator.parentCoordinator = self
+        childCoordinator.append(appDetailCoordinator)
+        appDetailCoordinator.start()
     }
     
     func popToSearchView() {

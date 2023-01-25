@@ -10,6 +10,8 @@ import SafariServices
 
 final class AppDetailViewController: UIViewController {
     
+    weak var coordinator: AppDetailCoordinator?
+    
     // MARK: - UI Components
     
     private lazy var iconImage: IconView = {
@@ -68,6 +70,10 @@ final class AppDetailViewController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        coordinator?.didFinish()
     }
     
     // MARK: - Override
@@ -404,10 +410,9 @@ final class AppDetailViewController: UIViewController {
     
     @objc
     private func pushAppFolderSelectView() {
-        let view = AppFolderSelectViewController(
-           appUnit: appUnit,
-           iconImageURL: appIconImageURL)
-        navigationController?.pushViewController(view, animated: true)
+        coordinator?.pushAppFolderSelectView(
+            appUnit: appUnit,
+            appIconImageURL: appIconImageURL)
     }
     
 }
@@ -450,12 +455,7 @@ extension AppDetailViewController: UICollectionViewDelegate {
         let section = indexPath.section
         
         if .screenshot == AppDetailViewModel.Section(rawValue: section) {
-            let screenshotGalleryViewModel = ScreenshotGalleryViewModel(
-                screenshotURLs: viewModel.screenshotURLs)
-            let screenshotGalleryVC = ScreenshotGalleryViewController(
-                viewModel: screenshotGalleryViewModel)
-            screenshotGalleryVC.modalPresentationStyle = .overFullScreen
-            present(screenshotGalleryVC, animated: true)
+            coordinator?.presentScreenshotGallery(screenshotURLs: viewModel.screenshotURLs)
         }
         
         if .information == AppDetailViewModel.Section(rawValue: section) && viewModel.linkInformationsIndexPaths.contains(indexPath) {

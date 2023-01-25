@@ -17,7 +17,6 @@ final class SearchCoordinator: NSObject, Coordinator {
     }
     
     func start() {
-        navigationController.delegate = self
         let searchKeywordRepository = RealmSearchKeywordRepository()
         let appSearchUseacase = AppSearchUsecase(
             searchKeywordRepository: searchKeywordRepository)
@@ -41,9 +40,12 @@ extension SearchCoordinator {
     }
     
     func pushAppDetailView(_ appDetail: AppDetail) {
-        let appDetailVC = AppDetailViewController(
-            appDetailViewModel: AppDetailViewModel(app: appDetail))
-        navigationController.pushViewController(appDetailVC, animated: true)
+        let appDetailCoordinator = AppDetailCoordinator(
+            appDetail: appDetail,
+            navigationController: navigationController)
+        appDetailCoordinator.parentCoordinator = self
+        childCoordinator.append(appDetailCoordinator)
+        appDetailCoordinator.start()
     }
     
     func pushAppFolderSelectView(of appUnit: AppUnit, iconImageURL: String?) {
@@ -59,24 +61,4 @@ extension SearchCoordinator {
         return settinVC
     }
     
-}
-
-
-extension SearchCoordinator: UINavigationControllerDelegate {
-    
-//    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-//
-//        guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
-//            return
-//        }
-//
-//        if navigationController.viewControllers.contains(fromViewController) {
-//            return
-//        }
-//
-//        if let buyViewController = fromViewController as? BuyViewController {
-//            // We're popping a buy view controller; end its coordinator
-//            childDidFinish(buyViewController.coordinator)
-//        }
-//    }
 }
