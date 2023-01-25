@@ -49,10 +49,13 @@ extension SearchCoordinator {
     }
     
     func pushAppFolderSelectView(of appUnit: AppUnit, iconImageURL: String?) {
-     let appFoldeSelectVC = AppFolderSelectViewController(
-        appUnit: appUnit,
-        iconImageURL: iconImageURL)
-        navigationController.pushViewController(appFoldeSelectVC, animated: true)
+        let appFolderSelectCoordniator = AppFolderSelectCoordinator(
+            appUnit: appUnit,
+            appIconImageURL: iconImageURL,
+            navigationController: navigationController)
+        appFolderSelectCoordniator.parentCoordintaor = self
+        childCoordinator.append(appFolderSelectCoordniator)
+        appFolderSelectCoordniator.start()
     }
     
     func presentSettingView() -> SettingViewController {

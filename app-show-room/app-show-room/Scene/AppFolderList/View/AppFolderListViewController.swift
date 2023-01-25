@@ -129,7 +129,7 @@ extension AppFolderListViewController: UITableViewDelegate {
 
 // MARK: - AppFolderCreatorViewPresenting
 
-extension AppFolderListViewController: AppFolderCreatorViewPresenting {
+extension AppFolderListViewController: AppFolderCreatorViewPresenter {
     
     func refreshView() {
         refreshAppFolderTableView()

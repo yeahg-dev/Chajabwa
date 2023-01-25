@@ -10,6 +10,8 @@ import UIKit
 
 class AppFolderSelectViewController: UIViewController {
     
+    weak var coordinator: AppFolderSelectCoordinator?
+    
     private var cancellables = Set<AnyCancellable>()
     
     private let viewModel: AppFolderSelectViewModel
@@ -122,10 +124,8 @@ class AppFolderSelectViewController: UIViewController {
     }
     
     private func presentAppFolderCreationView() {
-        let view = AppFolderCreatorViewController()
-        view.appFolderCreatorViewPresenting = self
-        modalPresentationStyle = .formSheet
-        present(view, animated: true)
+        let appFolderCreatorVC = coordinator?.presentAppFolderCreatorView()
+        appFolderCreatorVC?.appFolderCreatorViewPresenting = self
     }
     
     private func bind(viewModel: AppFolderSelectViewModel) {
@@ -168,7 +168,7 @@ extension AppFolderSelectViewController: UITableViewDelegate {
     
 }
 
-extension AppFolderSelectViewController: AppFolderCreatorViewPresenting {
+extension AppFolderSelectViewController: AppFolderCreatorViewPresenter {
 
     func refreshView() {
         Task {

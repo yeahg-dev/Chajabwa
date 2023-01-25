@@ -32,10 +32,13 @@ final class AppDetailCoordinator: Coordinator {
 extension AppDetailCoordinator {
     
     func pushAppFolderSelectView(appUnit: AppUnit, appIconImageURL: String?) {
-        let view = AppFolderSelectViewController(
-           appUnit: appUnit,
-           iconImageURL: appIconImageURL)
-        navigationController.pushViewController(view, animated: true)
+        let appFolderSelectCoordinator = AppFolderSelectCoordinator(
+            appUnit: appUnit,
+            appIconImageURL: appIconImageURL,
+            navigationController: navigationController)
+        appFolderSelectCoordinator.parentCoordintaor = self
+        childCoordinator.append(appFolderSelectCoordinator)
+        appFolderSelectCoordinator.start()
     }
     
     func presentScreenshotGallery(screenshotURLs: [String]?) {
