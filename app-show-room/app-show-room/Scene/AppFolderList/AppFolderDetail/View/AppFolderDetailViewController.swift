@@ -49,6 +49,7 @@ class AppFolderDetailViewController: UIViewController {
         tableView.register(cellWithClass: SavedAppDetailTableViewCell.self)
         tableView.backgroundColor = .clear
         tableView.dataSource = viewModel
+        tableView.prefetchDataSource = viewModel
         tableView.delegate = self
         tableView.backgroundView = emptyView
         tableView.backgroundView?.isHidden = true

@@ -106,6 +106,20 @@ struct AppFolderUsecase {
     }
     
     func readSavedAppDetail(
+        of savedApp: SavedApp,
+        index: Int)
+    -> AnyPublisher<(Int, SavedAppDetail), Error>
+    {
+        return appDetailRepository.fetchAppDetail(
+            of: savedApp.appUnit.appID,
+            country: savedApp.appUnit.country,
+            software: savedApp.appUnit.platform)
+        .map { appDetail in
+            return ( index, SavedAppDetail(appDetail: appDetail, appUnit: savedApp.appUnit)) }
+        .eraseToAnyPublisher()
+    }
+    
+    func readSavedAppDetail(
         of savedApp: SavedApp)
     -> AnyPublisher<SavedAppDetail, Error>
     {
@@ -114,9 +128,7 @@ struct AppFolderUsecase {
             country: savedApp.appUnit.country,
             software: savedApp.appUnit.platform)
         .map { appDetail in
-            return SavedAppDetail(
-                appDetail: appDetail,
-                appUnit: savedApp.appUnit) }
+            return SavedAppDetail(appDetail: appDetail, appUnit: savedApp.appUnit) }
         .eraseToAnyPublisher()
     }
     

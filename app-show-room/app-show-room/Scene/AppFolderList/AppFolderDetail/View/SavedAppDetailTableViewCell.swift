@@ -125,6 +125,17 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
         countryNameLabel.text = nil
     }
     
+    func bind(_ viewModel: SavedAppDetailTableViewCellModel) {
+        self.supportedDeviceLabel.text = viewModel.supportedDeviceText
+        self.appStoreLabel.text = viewModel.appStoreText
+        self.countryNameLabel.text = "\(viewModel.countryName) \(viewModel.countryFlag)"
+        Task {
+            self.cancellableTasks = try await self.appDetailPreview.bind(
+                viewModel.appDetailprevieViewModel)
+        }
+        self.updateSupportedDeviceStackView(with: viewModel.supportedDeviceIconImages)
+    }
+    
     func bind(_ viewModel: AnyPublisher<SavedAppDetailTableViewCellModel, Never>) {
         viewModel
             .receive(on: RunLoop.main)

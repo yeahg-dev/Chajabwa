@@ -51,12 +51,17 @@ final class AppFolderDetailViewModel: NSObject {
     
     let showEmptyView = PassthroughSubject<Bool, Never>()
     
+    private var fetchedCellModels: [SavedAppDetailTableViewCellModel?] = []
+    
+    private var cancellable = Set<AnyCancellable>()
+    
     init(_ appFolderIdentifier: String) {
         super.init()
         Task {
             do {
                 self.appFolder = await fetchLatedstAppFolder(appFolderIdentifier)
                 self.savedApps = try await fetchLatestSavedApps()
+                fetchedCellModels = .init(repeating: nil, count: savedApps?.count ?? 0)
             } catch {
                 errorAlertViewModel.send(
                     AppFolderDetailAlertViewModel.SavedAppFetchFailureAlertViewModel())
@@ -147,7 +152,9 @@ final class AppFolderDetailViewModel: NSObject {
     }
     
     private func fetchLatestSavedApps() async throws -> [SavedApp] {
-        try await appFolderUsecase.readSavedApps(of: appFolder)
+        let savedApps = try await appFolderUsecase.readSavedApps(of: appFolder)
+        fetchedCellModels = .init(repeating: nil, count: savedApps.count ?? 0)
+        return savedApps
     }
     
     private func fetchLatedstAppFolder(_ identifier: String) async -> AppFolder {
@@ -158,6 +165,33 @@ final class AppFolderDetailViewModel: NSObject {
         }
     }
     
+}
+
+extension AppFolderDetailViewModel: UITableViewDataSourcePrefetching {
+    
+    func tableView(
+        _ tableView: UITableView,
+        prefetchRowsAt indexPaths: [IndexPath])
+    {
+        guard let savedApps else {
+            return
+        }
+        Publishers.Sequence<[IndexPath], Never>(sequence: indexPaths)
+            .map({ indexPath in
+                return (indexPath.row, savedApps[indexPath.row])
+            })
+            .flatMap { (index, savedApp) -> AnyPublisher<(Int, SavedAppDetail), Error> in
+                return self.appFolderUsecase.readSavedAppDetail(of: savedApp, index: index)
+            }
+            .map{ savedAppDetail in
+                return (savedAppDetail.0, SavedAppDetailTableViewCellModel(savedAppDetail: savedAppDetail.1))
+            }
+            .assertNoFailure()
+            .sink { [unowned self] cellModel in
+                self.fetchedCellModels[cellModel.0] = cellModel.1
+            }.store(in: &cancellable)
+    }
+
 }
 
 extension AppFolderDetailViewModel: UITableViewDataSource {
@@ -188,15 +222,19 @@ extension AppFolderDetailViewModel: UITableViewDataSource {
             return cell
         }
         
-        // TODO: - Error Handling
-        let cellModel = appFolderUsecase.readSavedAppDetail(of: savedApp)
-            .map { savedAppDetail in
-                return SavedAppDetailTableViewCellModel(savedAppDetail: savedAppDetail)
-            }
-            .assertNoFailure()
-            .eraseToAnyPublisher()
-        
-        cell.bind(cellModel)
+        if let cellModel = fetchedCellModels[indexPath.row] {
+            cell.bind(cellModel)
+        } else {
+            let cellModel = appFolderUsecase.readSavedAppDetail(of: savedApp)
+                .map { savedAppDetail in
+                    return SavedAppDetailTableViewCellModel(savedAppDetail: savedAppDetail)
+                }
+                .assertNoFailure()
+                .eraseToAnyPublisher()
+
+            cell.bind(cellModel)
+        }
+
         return cell
     }
 
