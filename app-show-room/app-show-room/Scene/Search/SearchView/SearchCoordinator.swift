@@ -32,8 +32,11 @@ final class SearchCoordinator: Coordinator {
 extension SearchCoordinator {
     
     func pushAppFolderListView() {
-        let appFolderListVC = AppFolderListViewController()
-        navigationController.pushViewController(appFolderListVC, animated: true)
+        let appFolderCoordintor = AppFolderListCoordinator(
+            navigationController: navigationController)
+        appFolderCoordintor.parentCoordinator = self
+        childCoordinator.append(appFolderCoordintor)
+        appFolderCoordintor.start()
     }
     
     func pushAppDetailView(_ appDetail: AppDetail) {

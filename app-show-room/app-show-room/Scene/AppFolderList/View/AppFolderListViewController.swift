@@ -9,6 +9,8 @@ import Combine
 import UIKit
 
 class AppFolderListViewController: UIViewController {
+    
+    weak var coordinator: AppFolderListCoordinator?
 
     private let viewModel = AppFolderListViewModel()
     
@@ -47,6 +49,11 @@ class AppFolderListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         refreshView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        coordinator?.appFolderListWillDisapper()
     }
     
     private func addSubviews() {
@@ -101,19 +108,12 @@ class AppFolderListViewController: UIViewController {
     }
     
     private func pushAppFolderDetailView(_ appFolder: AppFolder?) {
-        guard let appFolder else {
-            print("appFolder does not exist")
-            return
-        }
-        let appFolderDetailView = AppFolderDetailViewController(appFolder: appFolder)
-        navigationController?.pushViewController(appFolderDetailView, animated: true)
+        coordinator?.pushAppFolderDetailView(appFolder)
     }
     
     private func presentAppFolderCreatiorView() {
-        let view = AppFolderCreatorViewController()
-        view.appFolderCreatorViewPresenting = self
-        modalPresentationStyle = .formSheet
-        present(view, animated: true)
+        let appFolderCreatorVC = coordinator?.presentAppFolderCreatorView()
+        appFolderCreatorVC?.appFolderCreatorViewPresenting = self
     }
 
 }
