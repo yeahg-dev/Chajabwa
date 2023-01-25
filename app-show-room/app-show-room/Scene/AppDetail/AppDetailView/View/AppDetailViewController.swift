@@ -331,7 +331,7 @@ final class AppDetailViewController: UIViewController {
     }
     
     private func createSummaryCellRegistration() -> UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> {
-        return UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> { [unowned self] (cell, indexPath, item) in
+        return UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
             cell.bind(model: item)
         }
     }
@@ -344,7 +344,7 @@ final class AppDetailViewController: UIViewController {
     }
     
     private func createScreenshotCellRegistration() -> UICollectionView.CellRegistration<ScreenShotCollectionViewCell, AppDetailViewModel.Item> {
-        return UICollectionView.CellRegistration<ScreenShotCollectionViewCell, AppDetailViewModel.Item> { [unowned self] (cell, indexPath, item) in
+        return UICollectionView.CellRegistration<ScreenShotCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
             guard case let .screenshot(screenshotData) = item else {
                 return
             }

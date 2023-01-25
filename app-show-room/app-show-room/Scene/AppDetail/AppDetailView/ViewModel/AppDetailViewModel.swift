@@ -132,7 +132,7 @@ struct AppDetailViewModel {
         var userRatingPrimaryText: String?
         var userRatingSymbolImage: UIImage?
         var contentAdivisoryRatingSymbolImage: UIImage?
-        var providerSymbolImage = UIImage(systemName: "person.crop.square")
+        let providerSymbolImage = UIImage(systemName: "person.crop.square")
         var genreSymbolImage: UIImage?
         var languageSymbolImage: UIImage?
         var languageSecondaryText: String?
