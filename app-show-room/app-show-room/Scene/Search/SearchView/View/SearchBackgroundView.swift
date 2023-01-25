@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol SearchBackgroundViewPresentaionDelegate: AnyObject {
+protocol SearchBackgroundViewDelegate: AnyObject {
     
     func presentSettingView(view: SettingViewController.Type)
     
@@ -15,7 +15,7 @@ protocol SearchBackgroundViewPresentaionDelegate: AnyObject {
 
 final class SearchBackgroundView: UIView {
     
-    weak var presentationDelegate: SearchBackgroundViewPresentaionDelegate?
+    weak var delegate: SearchBackgroundViewDelegate?
     
     private lazy var iPhoneButton: PlatformButton = {
         let button = PlatformButton(type: .iPhone)
@@ -57,7 +57,7 @@ final class SearchBackgroundView: UIView {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 90)
         button.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         button.addTarget(
-            SearchBackgroundView.self,
+            self,
             action: #selector(presentSettingView),
             for: .touchUpInside)
         return button
@@ -71,7 +71,7 @@ final class SearchBackgroundView: UIView {
             ofSize: 23,
             weight: .semibold)
         button.addTarget(
-            SearchBackgroundView.self,
+            self,
             action: #selector(presentSettingView),
             for: .touchUpInside)
         return button
@@ -177,7 +177,7 @@ final class SearchBackgroundView: UIView {
     }
     
     @objc func presentSettingView() {
-        presentationDelegate?.presentSettingView(
+        delegate?.presentSettingView(
             view: SettingViewController.self)
     }
         

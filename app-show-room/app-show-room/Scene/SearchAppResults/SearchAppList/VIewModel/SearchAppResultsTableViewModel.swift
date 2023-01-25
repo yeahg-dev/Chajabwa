@@ -7,7 +7,9 @@
 
 import UIKit
 
-protocol AppDetailViewPresenter: AnyObject, appFolderSelectViewPresnter {
+// MARK: - SearchAppResultsViewController
+
+protocol SearchAppResultsTableViewCellDelegate: AnyObject, SearchAppTableViewCellDelegate {
     
     func pushAppDetailView(of app: AppDetail)
     
@@ -15,7 +17,7 @@ protocol AppDetailViewPresenter: AnyObject, appFolderSelectViewPresnter {
 
 final class SearchAppResultsTableViewModel: NSObject {
     
-    weak var appDetailViewPresenter: AppDetailViewPresenter?
+    weak var appDetailViewPresenter: SearchAppResultsTableViewCellDelegate?
     
     private let searchAppDetails: [AppDetail]
     private let searchAppCellModel: [SearchAppTableViewCellModel]

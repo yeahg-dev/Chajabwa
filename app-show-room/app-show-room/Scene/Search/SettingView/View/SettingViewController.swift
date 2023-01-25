@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol SettingViewDelegate: AnyObject {
+protocol SettingViewPresenter: AnyObject {
     
     func didSettingChanged()
     
@@ -15,7 +15,7 @@ protocol SettingViewDelegate: AnyObject {
 
 final class SettingViewController: UIViewController {
     
-    weak var settingViewdelegate: SettingViewDelegate?
+    weak var settingViewdelegate: SettingViewPresenter?
     
     private var viewModel = SettingViewModel()
     

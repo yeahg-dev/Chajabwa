@@ -7,7 +7,9 @@
 
 import UIKit
 
-protocol SearchAppResultsViewDelegate: AnyObject {
+// MARK: - SearchAppResultsDelegate
+
+protocol SearchAppResultsDelegate: AnyObject {
     
     func pushAppDetailView(_ appDetail: AppDetail)
     
@@ -15,12 +17,16 @@ protocol SearchAppResultsViewDelegate: AnyObject {
     
 }
 
+// MARK: - SearhKeywordSaving
+
 private enum SearhKeywordSaving {
     
     case active
     case deactive
     
 }
+
+// MARK: - SearchAppResultsViewController
 
 final class SearchAppResultsViewController: UITableViewController {
     
@@ -37,7 +43,7 @@ final class SearchAppResultsViewController: UITableViewController {
             }
         }
     }
-    weak var delegate: SearchAppResultsViewDelegate?
+    weak var delegate: SearchAppResultsDelegate?
     
     private lazy var searchKeywordTableHeaderView = SearchKeywordTableHeaderView(
         frame: .init(
@@ -125,7 +131,7 @@ final class SearchAppResultsViewController: UITableViewController {
         recentSearchKeywordViewModel.searchAppResultTableViewUpdater = self
  
         tableView.tableHeaderView = searchKeywordTableHeaderView
-        searchKeywordTableHeaderView.recentKeywordSavingUpdater = self
+        searchKeywordTableHeaderView.delegate = self
         searchKeywordTableHeaderView.bind(searchKeywordTableHeaderViewModel)
         
         tableView.tableFooterView = searchKeywordTableFooterView
@@ -135,9 +141,9 @@ final class SearchAppResultsViewController: UITableViewController {
     
 }
 
-// MARK: - AppDetailViewPresenter
+// MARK: - SearchResultsTableViewCellDelegate
 
-extension SearchAppResultsViewController: AppDetailViewPresenter {
+extension SearchAppResultsViewController: SearchAppResultsTableViewCellDelegate {
     
     func pushAppFolderSelectView(of appUnit: AppUnit, iconImageURL: String?) {
         delegate?.pushAppFolderSelectView(of: appUnit, iconImageURL: iconImageURL)
@@ -166,9 +172,9 @@ extension SearchAppResultsViewController: SearchAppResultTableViewUpdater {
     
 }
 
-// MARK: - SearchKeywordSavingUpdater
+// MARK: - SearchKeywordTableHeaderViewDelegate
 
-extension SearchAppResultsViewController: SearchKeywordSavingUpdater {
+extension SearchAppResultsViewController: SearchKeywordTableHeaderViewDelegate {
     
     func didChangedVaule(to isOn: Bool) {
         refreshSearchKeywordTableView()
@@ -176,9 +182,9 @@ extension SearchAppResultsViewController: SearchKeywordSavingUpdater {
     
 }
 
-// MARK: - SearchKeywordTableViewUpdater
+// MARK: - SearchKeywordTableFooterViewDelegate
 
-extension SearchAppResultsViewController: SearchKeywordTableViewUpdater {
+extension SearchAppResultsViewController: SearchKeywordTableFooterViewDelegate {
     
     func allSearchKeywordDidDeleted() {
         refreshSearchKeywordTableView()
