@@ -8,15 +8,19 @@
 import Combine
 import UIKit
 
-protocol AppFolderEditPresentingViewUpdater: AnyObject {
+// MARK: - AppFoldrDetailViewPresenter
+
+protocol AppFoldrDetailViewPresenter: AnyObject {
 
     func viewWillAppear()
     
 }
 
-class AppFolderEditViewController: UIViewController {
+// MARK: - AppFolderEditViewController
 
-    var appFolderEditPresentingViewUpdater: AppFolderEditPresentingViewUpdater?
+final class AppFolderEditViewController: UIViewController {
+
+    var presenter: AppFoldrDetailViewPresenter?
     
     private let viewModel: AppFolderEditViewModel
     
@@ -184,7 +188,7 @@ class AppFolderEditViewController: UIViewController {
         output.presentingViewWillUpdate
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
-                self?.appFolderEditPresentingViewUpdater?.viewWillAppear()
+                self?.presenter?.viewWillAppear()
             }.store(in: &cancellables)
         
         output.dismiss

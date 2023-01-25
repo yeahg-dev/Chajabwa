@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 protocol SearchAppResultTableViewUpdater: AnyObject {
     
     func updateSearchAppResultTableView(with searchApps: [AppDetail])
@@ -15,9 +16,10 @@ protocol SearchAppResultTableViewUpdater: AnyObject {
     
 }
 
+
 final class RecentSearchKeywordTableViewModel: NSObject {
     
-    weak var appDetailViewPresenter: AppDetailViewPresenter?
+    weak var appDetailViewPresenter: SearchAppResultsTableViewCellDelegate?
     weak var searchAppResultTableViewUpdater: SearchAppResultTableViewUpdater?
     
     private let recentSearchKeywordUsecase: RecentSearchKeywordManagementUsecase?

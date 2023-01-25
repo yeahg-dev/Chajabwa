@@ -7,9 +7,19 @@
 
 import UIKit
 
+// MARK: - SearchKeywordTableFooterViewDelegate
+
+protocol SearchKeywordTableFooterViewDelegate: AnyObject {
+    
+    func allSearchKeywordDidDeleted()
+    
+}
+
+// MARK: - SearchKeywordTableFooterView
+
 final class SearchKeywordTableFooterView: UIView {
     
-    weak var searchKeywordTableViewUpdater: SearchKeywordTableViewUpdater?
+    weak var searchKeywordTableViewUpdater: SearchKeywordTableFooterViewDelegate?
     
     private var viewModel: SearchKeywordTableFooterViewModel?
     

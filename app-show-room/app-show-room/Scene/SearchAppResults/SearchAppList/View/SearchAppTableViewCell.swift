@@ -7,15 +7,19 @@
 
 import UIKit
 
-protocol appFolderSelectViewPresnter: AnyObject {
+// MARK: - SearchAppTableViewCellDelegate
+
+protocol SearchAppTableViewCellDelegate: AnyObject {
     
     func pushAppFolderSelectView(of appUnit: AppUnit, iconImageURL: String?)
     
 }
 
+// MARK: - SearchAppTableViewCell
+
 final class SearchAppTableViewCell: BaseTableViewCell {
     
-    weak var appFolderSelectViewPresenter: appFolderSelectViewPresnter?
+    weak var appFolderSelectViewPresenter: SearchAppTableViewCellDelegate?
     
     private var appUnit: AppUnit?
     private var iconImageURL: String?

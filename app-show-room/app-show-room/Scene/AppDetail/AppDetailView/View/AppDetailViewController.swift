@@ -10,6 +10,8 @@ import SafariServices
 
 final class AppDetailViewController: UIViewController {
     
+    weak var coordinator: AppDetailCoordinator?
+    
     // MARK: - UI Components
     
     private lazy var iconImage: IconView = {
@@ -46,8 +48,7 @@ final class AppDetailViewController: UIViewController {
     private let appIconImageURL: String?
     
     // MARK: - UI Properties
-    
-    private var isNavigationItemHidden: Bool = true
+
     private var isReleaseNoteFolded: Bool = true
     private var isDescriptionViewFolded: Bool = true
     
@@ -70,6 +71,10 @@ final class AppDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        coordinator?.didFinish()
+    }
+    
     // MARK: - Override
     
     override func viewDidLoad() {
@@ -90,11 +95,8 @@ final class AppDetailViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.tintColor = Design.navigationBarTintColor
         navigationItem.titleView = iconImage
-        navigationItem.titleView?.alpha = 0
-        navigationItem.titleView?.isHidden = true
         let folderButton = UIBarButtonItem(customView: folderButton)
         navigationItem.setRightBarButton(folderButton, animated: false)
-        navigationItem.rightBarButtonItem?.customView?.alpha = 0
     }
     
     private func setContstraints() {
@@ -331,7 +333,7 @@ final class AppDetailViewController: UIViewController {
     }
     
     private func createSummaryCellRegistration() -> UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> {
-        return UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> { [unowned self] (cell, indexPath, item) in
+        return UICollectionView.CellRegistration<SummaryCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
             cell.bind(model: item)
         }
     }
@@ -344,7 +346,7 @@ final class AppDetailViewController: UIViewController {
     }
     
     private func createScreenshotCellRegistration() -> UICollectionView.CellRegistration<ScreenShotCollectionViewCell, AppDetailViewModel.Item> {
-        return UICollectionView.CellRegistration<ScreenShotCollectionViewCell, AppDetailViewModel.Item> { [unowned self] (cell, indexPath, item) in
+        return UICollectionView.CellRegistration<ScreenShotCollectionViewCell, AppDetailViewModel.Item> { (cell, indexPath, item) in
             guard case let .screenshot(screenshotData) = item else {
                 return
             }
@@ -404,10 +406,9 @@ final class AppDetailViewController: UIViewController {
     
     @objc
     private func pushAppFolderSelectView() {
-        let view = AppFolderSelectViewController(
-           appUnit: appUnit,
-           iconImageURL: appIconImageURL)
-        navigationController?.pushViewController(view, animated: true)
+        coordinator?.pushAppFolderSelectView(
+            appUnit: appUnit,
+            appIconImageURL: appIconImageURL)
     }
     
 }
@@ -450,12 +451,7 @@ extension AppDetailViewController: UICollectionViewDelegate {
         let section = indexPath.section
         
         if .screenshot == AppDetailViewModel.Section(rawValue: section) {
-            let screenshotGalleryViewModel = ScreenshotGalleryViewModel(
-                screenshotURLs: viewModel.screenshotURLs)
-            let screenshotGalleryVC = ScreenshotGalleryViewController(
-                viewModel: screenshotGalleryViewModel)
-            screenshotGalleryVC.modalPresentationStyle = .overFullScreen
-            present(screenshotGalleryVC, animated: true)
+            coordinator?.presentScreenshotGallery(screenshotURLs: viewModel.screenshotURLs)
         }
         
         if .information == AppDetailViewModel.Section(rawValue: section) && viewModel.linkInformationsIndexPaths.contains(indexPath) {
@@ -470,24 +466,6 @@ extension AppDetailViewController: UICollectionViewDelegate {
             self.present(developerWebsiteView, animated: true, completion: nil)
         }
         
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if contentCollectionView.contentOffset.y > 45 && isNavigationItemHidden {
-            isNavigationItemHidden.toggle()
-            navigationItem.titleView?.isHidden = false
-            UIView.animate(
-                withDuration: 0.3,
-                animations: { [unowned self] in
-                    self.navigationItem.titleView?.alpha = 1
-                    self.navigationItem.rightBarButtonItem?.customView?.alpha = 1
-                } ,
-                completion: nil)
-        } else if contentCollectionView.contentOffset.y < 45 && isNavigationItemHidden == false {
-            isNavigationItemHidden.toggle()
-            self.navigationItem.titleView?.alpha = 0
-            self.navigationItem.rightBarButtonItem?.customView?.alpha = 0
-        }
     }
     
 }

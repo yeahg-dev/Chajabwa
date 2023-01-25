@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-protocol AppFolderCreatorViewPresenting: AnyObject {
+protocol AppFolderCreatorViewPresenter: AnyObject {
     
     func refreshView()
     
@@ -16,7 +16,7 @@ protocol AppFolderCreatorViewPresenting: AnyObject {
 
 final class AppFolderCreatorViewController: UIViewController {
     
-    weak var appFolderCreatorViewPresenting: AppFolderCreatorViewPresenting?
+    weak var appFolderCreatorViewPresenting: AppFolderCreatorViewPresenter?
     
     private var viewModel: AppFolderCreatorViewModel! 
     

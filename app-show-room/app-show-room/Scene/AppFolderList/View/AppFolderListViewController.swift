@@ -10,6 +10,12 @@ import UIKit
 
 class AppFolderListViewController: UIViewController {
 
+    weak var coordinator: AppFolderListCoordinator?
+    
+    deinit {
+        coordinator?.didFinish()
+    }
+    
     private let viewModel = AppFolderListViewModel()
     
     private let appFolderCellDidSelected = PassthroughSubject<IndexPath, Never>()
@@ -83,7 +89,7 @@ class AppFolderListViewController: UIViewController {
             appFolderCellDidSelected: appFolderCellDidSelected.eraseToAnyPublisher())
         let output = viewModel.transform(input: input)
         
-        navigationController?.navigationItem.title = output.navigationTitle
+        navigationItem.title = output.navigationTitle
         output.slectedAppFolder
             .receive(on: RunLoop.main)
             .sink { [weak self] appFolder in
@@ -101,19 +107,12 @@ class AppFolderListViewController: UIViewController {
     }
     
     private func pushAppFolderDetailView(_ appFolder: AppFolder?) {
-        guard let appFolder else {
-            print("appFolder does not exist")
-            return
-        }
-        let appFolderDetailView = AppFolderDetailViewController(appFolder: appFolder)
-        navigationController?.pushViewController(appFolderDetailView, animated: true)
+        coordinator?.pushAppFolderDetailView(appFolder)
     }
     
     private func presentAppFolderCreatiorView() {
-        let view = AppFolderCreatorViewController()
-        view.appFolderCreatorViewPresenting = self
-        modalPresentationStyle = .formSheet
-        present(view, animated: true)
+        let appFolderCreatorVC = coordinator?.presentAppFolderCreatorView()
+        appFolderCreatorVC?.appFolderCreatorViewPresenting = self
     }
 
 }
@@ -130,7 +129,7 @@ extension AppFolderListViewController: UITableViewDelegate {
 
 // MARK: - AppFolderCreatorViewPresenting
 
-extension AppFolderListViewController: AppFolderCreatorViewPresenting {
+extension AppFolderListViewController: AppFolderCreatorViewPresenter {
     
     func refreshView() {
         refreshAppFolderTableView()

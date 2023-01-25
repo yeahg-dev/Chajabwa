@@ -70,7 +70,7 @@ final class AppFolderDetailViewModel: NSObject {
             .asyncMap { [unowned self] in
                 await self.fetchLatedstAppFolder(self.appFolder.identifier)
             }
-            .map { [unowned self] appFolder in
+            .map { appFolder in
                 return AppFolderDetailHeaderViewModel(
                     blurIconImageURL: appFolder.iconImageURL,
                     iconImagURL: appFolder.iconImageURL,

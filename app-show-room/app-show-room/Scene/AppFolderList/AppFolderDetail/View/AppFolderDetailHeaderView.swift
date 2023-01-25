@@ -138,7 +138,8 @@ class AppFolderDetailHeaderView: UIView {
                 with: viewModel.blurIconImageURL,
                 applying: 40,
                 defaultImage: defaultAppIconImage)
-            cancellableTasks.append(contentsOf: [iconImageViewTask])
+            cancellableTasks.append(
+                contentsOf: [iconImageViewTask, backgroundImageTask])
         }
     }
     

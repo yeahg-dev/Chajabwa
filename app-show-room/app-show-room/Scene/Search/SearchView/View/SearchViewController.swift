@@ -8,6 +8,8 @@
 import UIKit
 
 final class SearchViewController: UIViewController {
+    
+    var coordinator: SearchCoordinator?
 
     // MARK: - UIComponents
     
@@ -82,7 +84,7 @@ final class SearchViewController: UIViewController {
     
     private func configureView() {
         view = searchBackgroundView
-        searchBackgroundView.presentationDelegate = self
+        searchBackgroundView.delegate = self
         navigationItem.searchController = self.searchController
         searchController.searchBar.searchTextField.backgroundColor = Design.searchBarTextFieldBackgroundColor
         searchController.searchBar.searchTextField.textColor = Design.searchBarTextFieldTextColor
@@ -108,8 +110,7 @@ final class SearchViewController: UIViewController {
     
     @objc
     private func pushAppFolderListView() {
-        let view = AppFolderListViewController()
-        navigationController?.pushViewController(view, animated: true)
+        coordinator?.pushAppFolderListView()
     }
     
 }
@@ -140,15 +141,11 @@ extension SearchViewController: UISearchBarDelegate {
             let result = await viewModel.didTappedSearch(with: input)
             searchAppResultsController.refreshSearchKeywordTableView()
             switch result {
-            case .success(let appDetail):
-                if appDetail.count == 1 {
-                    let appDetailViewController = AppDetailViewController(
-                        appDetailViewModel: AppDetailViewModel(app: appDetail.first!))
-                    navigationController?.pushViewController(
-                        appDetailViewController,
-                        animated: true)
+            case .success(let appDetails):
+                if appDetails.count == 1 {
+                    coordinator?.pushAppDetailView(appDetails.first!)
                 } else {
-                    searchAppResultsController.updateSearchAppResultTableView(with: appDetail)
+                    searchAppResultsController.updateSearchAppResultTableView(with: appDetails)
                 }
             case .failure(let alertViewModel):
                 self.presentAlert(alertViewModel)
@@ -165,41 +162,32 @@ extension SearchViewController: UISearchBarDelegate {
 
 // MARK: - SearchAppResultsViewDelegate
 
-extension SearchViewController: SearchAppResultsViewDelegate {
+extension SearchViewController: SearchAppResultsDelegate {
     
     func pushAppDetailView(_ appDetail: AppDetail) {
-        let appDetailViewController = AppDetailViewController(
-            appDetailViewModel: AppDetailViewModel(app: appDetail))
-        navigationController?.pushViewController(
-            appDetailViewController,
-            animated: true)
+        coordinator?.pushAppDetailView(appDetail)
     }
     
     func pushAppFolderSelectView(of appUnit: AppUnit, iconImageURL: String?) {
-     let view = AppFolderSelectViewController(
-        appUnit: appUnit,
-        iconImageURL: iconImageURL)
-        navigationController?.pushViewController(view, animated: true)
+        coordinator?.pushAppFolderSelectView(of: appUnit, iconImageURL: iconImageURL)
     }
     
 }
 
 // MARK: - SearchBackgroundViewPresentaionDelegate
 
-extension SearchViewController: SearchBackgroundViewPresentaionDelegate {
+extension SearchViewController: SearchBackgroundViewDelegate {
     
     func presentSettingView(view: SettingViewController.Type) {
-        let settingView = view.init()
-        settingView.settingViewdelegate = self
-        settingView.modalPresentationStyle = .formSheet
-        present(settingView, animated: true)
+        let settingView = coordinator?.presentSettingView()
+        settingView?.settingViewdelegate = self
     }
     
 }
 
 // MARK: - SettingViewDelegate
 
-extension SearchViewController: SettingViewDelegate {
+extension SearchViewController: SettingViewPresenter {
     
     func didSettingChanged() {
         refreshState()

@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol SearchKeywordTableHeaderViewDelegate: AnyObject {
+    
+    func didChangedVaule(to isOn: Bool)
+    
+}
+
 final class SearchKeywordTableHeaderView: UIView {
     
-    weak var recentKeywordSavingUpdater: SearchKeywordSavingUpdater?
+    weak var delegate: SearchKeywordTableHeaderViewDelegate?
     
     private var viewModel: SearchKeywordTableHeaderViewModel?
 
@@ -69,7 +75,7 @@ final class SearchKeywordTableHeaderView: UIView {
     @objc
     private func savingSwitchValueDidChanged(sender: UISwitch) {
         viewModel?.switchStateDidChanged(to: sender.isOn)
-        recentKeywordSavingUpdater?.didChangedVaule(to: sender.isOn)
+        delegate?.didChangedVaule(to: sender.isOn)
     }
 
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol SearchBackgroundViewPresentaionDelegate: AnyObject {
+protocol SearchBackgroundViewDelegate: AnyObject {
     
     func presentSettingView(view: SettingViewController.Type)
     
@@ -15,7 +15,7 @@ protocol SearchBackgroundViewPresentaionDelegate: AnyObject {
 
 final class SearchBackgroundView: UIView {
     
-    weak var presentationDelegate: SearchBackgroundViewPresentaionDelegate?
+    weak var delegate: SearchBackgroundViewDelegate?
     
     private lazy var iPhoneButton: PlatformButton = {
         let button = PlatformButton(type: .iPhone)
@@ -177,7 +177,7 @@ final class SearchBackgroundView: UIView {
     }
     
     @objc func presentSettingView() {
-        presentationDelegate?.presentSettingView(
+        delegate?.presentSettingView(
             view: SettingViewController.self)
     }
         
