@@ -83,7 +83,7 @@ class AppFolderListViewController: UIViewController {
             appFolderCellDidSelected: appFolderCellDidSelected.eraseToAnyPublisher())
         let output = viewModel.transform(input: input)
         
-        navigationController?.navigationItem.title = output.navigationTitle
+        navigationItem.title = output.navigationTitle
         output.slectedAppFolder
             .receive(on: RunLoop.main)
             .sink { [weak self] appFolder in
