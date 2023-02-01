@@ -153,7 +153,7 @@ final class AppFolderDetailViewModel: NSObject {
     
     private func fetchLatestSavedApps() async throws -> [SavedApp] {
         let savedApps = try await appFolderUsecase.readSavedApps(of: appFolder)
-        fetchedCellModels = .init(repeating: nil, count: savedApps.count ?? 0)
+        fetchedCellModels = .init(repeating: nil, count: savedApps.count )
         return savedApps
     }
     
@@ -181,14 +181,18 @@ extension AppFolderDetailViewModel: UITableViewDataSourcePrefetching {
                 return (indexPath.row, savedApps[indexPath.row])
             })
             .flatMap { (index, savedApp) -> AnyPublisher<(Int, SavedAppDetail), Error> in
-                return self.appFolderUsecase.readSavedAppDetail(of: savedApp, index: index)
+                return self.appFolderUsecase.readSavedAppDetail(of: savedApp)
+                    .map { savedAppDetail in
+                        return (index, savedAppDetail)
+                    }
+                    .eraseToAnyPublisher()
             }
-            .map{ savedAppDetail in
-                return (savedAppDetail.0, SavedAppDetailTableViewCellModel(savedAppDetail: savedAppDetail.1))
+            .map{ (index, savedAppDetail) in
+                return (index, SavedAppDetailTableViewCellModel(savedAppDetail: savedAppDetail))
             }
             .assertNoFailure()
-            .sink { [unowned self] cellModel in
-                self.fetchedCellModels[cellModel.0] = cellModel.1
+            .sink { [unowned self] (index, cellModel) in
+                self.fetchedCellModels[index] = cellModel
             }.store(in: &cancellable)
     }
 
@@ -223,6 +227,7 @@ extension AppFolderDetailViewModel: UITableViewDataSource {
         }
         
         if let cellModel = fetchedCellModels[indexPath.row] {
+            print("prefetch로 😆")
             cell.bind(cellModel)
         } else {
             let cellModel = appFolderUsecase.readSavedAppDetail(of: savedApp)
