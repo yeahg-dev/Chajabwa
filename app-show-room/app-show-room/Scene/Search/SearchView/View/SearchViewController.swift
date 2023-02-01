@@ -163,7 +163,7 @@ extension SearchViewController: UISearchBarDelegate {
 // MARK: - SearchAppResultsViewDelegate
 
 extension SearchViewController: SearchAppResultsDelegate {
-    
+
     func pushAppDetailView(_ appDetail: AppDetail) {
         coordinator?.pushAppDetailView(appDetail)
     }
@@ -172,6 +172,10 @@ extension SearchViewController: SearchAppResultsDelegate {
         coordinator?.pushAppFolderSelectView(of: appUnit, iconImageURL: iconImageURL)
     }
     
+    func resignSearchBarFirstResponder() {
+        searchController.searchBar.resignFirstResponder()
+    }
+
 }
 
 // MARK: - SearchBackgroundViewPresentaionDelegate

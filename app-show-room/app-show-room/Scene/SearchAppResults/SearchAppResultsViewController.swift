@@ -15,6 +15,8 @@ protocol SearchAppResultsDelegate: AnyObject {
     
     func pushAppFolderSelectView(of appUnit: AppUnit, iconImageURL: String?)
     
+    func resignSearchBarFirstResponder()
+    
 }
 
 // MARK: - SearhKeywordSaving
@@ -86,6 +88,7 @@ final class SearchAppResultsViewController: UITableViewController {
     }
     
     func refreshSearchKeywordTableView() {
+        scrollToTop()
         Task {
             await recentSearchKeywordViewModel.fetchLatestData()
             await MainActor.run(body: {
@@ -162,6 +165,7 @@ extension SearchAppResultsViewController: SearchAppResultTableViewUpdater {
     func updateSearchAppResultTableView(with searchApps: [AppDetail]) {
         showAppResults = true
         scrollToTop()
+        delegate?.resignSearchBarFirstResponder()
         searchAppResultsViewModel = SearchAppResultsTableViewModel(
             searchAppDetails: searchApps)
         searchAppResultsViewModel.appDetailViewPresenter = self
