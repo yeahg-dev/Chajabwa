@@ -1,0 +1,45 @@
+/* 
+  Localizable.strings
+  app-show-room
+
+  Created by Moon Yeji on 2023/02/07.
+  
+*/
+
+app_name = "Chajabwa";
+please_enter_name_or_id = "Enter App name or ID";
+provider = "Provider";
+file_size = "Size";
+content_advisory_rating = "rating";
+genre = "genre";
+minimum_os_version = "minimum OS version";
+developer_website = "Developer Website";
+version = "Version";
+age = "Age";
+old = "Years Old";
+developer = "Developer";
+language = "Languages";
+rating_unit = " Ratings";
+language_unit = " Languages";
+new_feature = "What's New";
+screenshot_preview = "Preview";
+information = "Information";
+more_details = "more";
+shortly = "shortly";
+
+delete_all = "Delete All";
+save = "Save";
+delete = "Delete";
+confirm = "OK";
+
+recent_search_keyword = "Recent Search Word";
+search_word_storage_feature_is_turned_off = "Search word storage feature is turned off";
+
+no_saved_app =  "No apps have been saved. \n Try adding apps by searching!";
+go_search = "Go Search";
+
+unable_to_download = "Unable to download";
+
+app_folder_eidt = "Edit Folder";
+
+

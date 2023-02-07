@@ -77,7 +77,7 @@ class AppFolderEditViewModel {
         return Output(
             appFolderName: appFolder.name,
             appFolderDescription: appFolder.description,
-            navigationBarTitle: Text.appFolderEdit.rawValue,
+            navigationBarTitle: Text.app_folder_eidt,
             doneButtonIsEnabled: doneButtonIsEnabled,
             alertViewModel: alertViewModel.eraseToAnyPublisher(),
             presentingViewWillUpdate: presentingViewWillUpdate.eraseToAnyPublisher(),

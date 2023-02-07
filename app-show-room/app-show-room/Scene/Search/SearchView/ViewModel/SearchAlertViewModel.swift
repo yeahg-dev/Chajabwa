@@ -56,7 +56,7 @@ enum SearchAlertViewModel {
     
     struct InvalidInputAlertActionViewModel: UIAlertActionViewModel {
         
-        var title: String? = Text.confirm.rawValue
+        var title: String? = Text.confirm
         var style: UIAlertActionStyle = .defaults
         var handler: ((UIAlertAction) -> Void)?
         
@@ -64,7 +64,7 @@ enum SearchAlertViewModel {
     
     struct SearchFailureAlertActionViewModel: UIAlertActionViewModel {
         
-        var title: String? = Text.confirm.rawValue
+        var title: String? = Text.confirm
         var style: UIAlertActionStyle = .defaults
         var handler: ((UIAlertAction) -> Void)?
         

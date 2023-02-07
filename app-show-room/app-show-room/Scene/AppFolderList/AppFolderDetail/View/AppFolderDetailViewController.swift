@@ -225,7 +225,7 @@ extension AppFolderDetailViewController: UITableViewDelegate {
     {
         let deleteAction = UIContextualAction(
             style: .destructive,
-            title: Text.delete.rawValue
+            title: Text.delete
         ) {  [unowned self] _, _, _ in
             cellWillDeletedAt.send(indexPath)
             viewWillRefresh.send(())

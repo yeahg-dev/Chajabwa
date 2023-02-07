@@ -24,13 +24,13 @@ struct AppDetailViewModel {
             case .summary:
                 return nil
             case .releaseNote:
-                return Text.newFeature.value
+                return Text.new_feature
             case .screenshot:
-                return Text.screenshotView.value
+                return Text.screenshot_preview
             case .descritption:
                 return nil
             case .information:
-                return Text.information.value
+                return Text.information
             }
         }
     }
@@ -143,7 +143,7 @@ struct AppDetailViewModel {
             numberFormatter.maximumFractionDigits = 1
             let averageUserRatingText = numberFormatter.string(from: averageUserRating as NSNumber)
             
-            userRatingPrimaryText = Text.ratingCount.value(with: userRatingCount)
+            userRatingPrimaryText = Text.numberOfRating(userRatingCount)
             userRatingSymbolImage = TextSymbolView(averageUserRatingText ?? "_").image
         }
     
@@ -159,23 +159,23 @@ struct AppDetailViewModel {
         if let languageCodes = app.languageCodesISO2A,
            let firstLanguageCode = languageCodes.first {
             languageSymbolImage = TextSymbolView(firstLanguageCode).image
-            languageSecondaryText = Text.languageCount.value(with: languageCodes.count)
+            languageSecondaryText = Text.numberOfLanguage(languageCodes.count)
         }
         
         let summary = Summary(
             userRatingPrimaryText: userRatingPrimaryText,
             userRatingSymbolImage: userRatingSymbolImage,
             userRatingSecondaryValue: app.averageUserRating,
-            contentAdivisoryRatingPrimaryText: Text.age.value,
+            contentAdivisoryRatingPrimaryText: Text.age,
             contentAdivisoryRatingSymbolImage: contentAdivisoryRatingSymbolImage,
-            contentAdivisoryRatingSecondaryText: Text.old.value,
-            providerPrimaryText: Text.developer.value,
+            contentAdivisoryRatingSecondaryText: Text.old,
+            providerPrimaryText: Text.developer,
             providerSymbolImage: providerSymbolImage,
             providerSecondaryText: app.provider,
-            genrePrimaryText: Text.genre.value,
+            genrePrimaryText: Text.genre,
             genreSymbolImage: genreSymbolImage,
             genreSecondaryText: app.primaryGenreName,
-            languagePrimaryText: Text.language.value,
+            languagePrimaryText: Text.language,
             languageSymbolImage: languageSymbolImage,
             languageSecondaryText: languageSecondaryText)
         return Item.summary(summary)
@@ -186,35 +186,35 @@ struct AppDetailViewModel {
         
         if let provider = app.provider {
             inforamtions.append(Information(
-                category: Text.provider.value,
+                category: Text.provider,
                 value: provider,
                 image: nil))
         }
         
         if let fileSize = app.fileSize {
             inforamtions.append(Information(
-                category: Text.fileSize.value,
+                category: Text.file_size,
                 value: fileSize.formattedByte,
                 image: nil))
         }
         
         if let genre = app.primaryGenreName {
             inforamtions.append(Information(
-                category: Text.genre.value,
+                category: Text.genre,
                 value: genre,
                 image: nil))
         }
         
         if let contentAdvisoryRating = app.contentAdvisoryRating {
             inforamtions.append(Information(
-                category: Text.contentAdvisoryRating.value,
+                category: Text.content_advisory_rating,
                 value: contentAdvisoryRating,
                 image: nil))
         }
         
         if let minimumOSVersion = app.minimumOSVersion {
             inforamtions.append(Information(
-                category: Text.minimumOSVersion.value,
+                category: Text.minimum_os_version,
                 value: minimumOSVersion,
                 image: nil))
         }
@@ -227,7 +227,7 @@ struct AppDetailViewModel {
         
         if let sellerURL = app.providerURL {
             inforamtions.append(Information(
-                category: Text.developerWebsite.value,
+                category: Text.developer_website,
                 value: sellerURL,
                 image: UIImage(systemName: "safari.fill")))
         }
@@ -302,7 +302,7 @@ extension AppDetailViewModel {
         
         var version: String? {
             if let versionValue = versionValue {
-                return Text.version.value + " " + versionValue
+                return Text.version + " " + versionValue
             }
             return nil
         }
@@ -312,7 +312,7 @@ extension AppDetailViewModel {
         }
         
         var buttonTitle: String? {
-            return isTrucated ? Text.moreDetails.value : Text.preview.value
+            return isTrucated ? Text.more_details : Text.shortly
         }
         
         private func releaseDateRepresentation(_ string: String?) -> String? {
@@ -334,7 +334,7 @@ extension AppDetailViewModel {
         let text: String?
         var isTrucated: Bool = true
         var buttonTitle: String {
-            return isTrucated ? Text.moreDetails.value : Text.preview.value
+            return isTrucated ? Text.more_details : Text.shortly
         }
     }
     

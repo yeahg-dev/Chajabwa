@@ -48,19 +48,19 @@ final class RecentSearchKeywordTableViewModel: NSObject {
     }
     
     var title: String {
-        return Text.recentSearchKeyword.rawValue
+        return Text.recent_search_keyword
     }
     
     var savingSwtichTitle: String {
-        return Text.save.rawValue
+        return Text.save
     }
     
     var deleteAllButtonTitle: String {
-        return Text.deleteAll.rawValue
+        return Text.delete_all
     }
     
     var savingModeOffDescription: String {
-        return Text.savingIsDeactivate.rawValue
+        return Text.search_word_storage_feature_is_turned_off
     }
     
     var isActivateSavingButton: Bool {

@@ -1,0 +1,32 @@
+struct Text {
+    static let app_name = "app_name".localized
+    static let please_enter_name_or_id = "please_enter_name_or_id".localized
+    static let provider = "provider".localized
+    static let file_size = "file_size".localized
+    static let content_advisory_rating = "content_advisory_rating".localized
+    static let genre = "genre".localized
+    static let minimum_os_version = "minimum_os_version".localized
+    static let developer_website = "developer_website".localized
+    static let version = "version".localized
+    static let age = "age".localized
+    static let old = "old".localized
+    static let developer = "developer".localized
+    static let language = "language".localized
+    static let rating_unit = "rating_unit".localized
+    static let language_unit = "language_unit".localized
+    static let new_feature = "new_feature".localized
+    static let screenshot_preview = "screenshot_preview".localized
+    static let information = "information".localized
+    static let more_details = "more_details".localized
+    static let shortly = "shortly".localized
+    static let delete_all = "delete_all".localized
+    static let save = "save".localized
+    static let delete = "delete".localized
+    static let confirm = "confirm".localized
+    static let recent_search_keyword = "recent_search_keyword".localized
+    static let search_word_storage_feature_is_turned_off = "search_word_storage_feature_is_turned_off".localized
+    static let no_saved_app = "no_saved_app".localized
+    static let go_search = "go_search".localized
+    static let unable_to_download = "unable_to_download".localized
+    static let app_folder_eidt = "app_folder_eidt".localized
+}
