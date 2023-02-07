@@ -18,8 +18,8 @@ struct AppFolderCreatorAlertViewModel {
     
     struct AppFolderCreationFailureAlertControllerViewModel: UIAlertControllerViewModel{
         
-        var title: String? = "폴더가 정상적으로 만들어지지 않았습니다"
-        var message: String? = "다시 시도해주세요"
+        var title: String? = Text.save_failed
+        var message: String? = Text.please_try_again
         var preferredStyle: UIAlertControllerStyle = .alert
 
     }
@@ -27,7 +27,7 @@ struct AppFolderCreatorAlertViewModel {
     
     struct ConfirmActionViewModel: UIAlertActionViewModel {
         
-        var title: String? = "확인"
+        var title: String? = Text.confirm
         var style: UIAlertActionStyle = .defaults
         var handler: ((UIAlertAction) -> Void)?
     

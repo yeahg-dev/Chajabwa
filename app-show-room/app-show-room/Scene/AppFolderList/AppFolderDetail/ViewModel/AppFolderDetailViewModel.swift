@@ -227,7 +227,6 @@ extension AppFolderDetailViewModel: UITableViewDataSource {
         }
         
         if let cellModel = fetchedCellModels[indexPath.row] {
-            print("prefetch로 😆")
             cell.bind(cellModel)
         } else {
             let cellModel = appFolderUsecase.readSavedAppDetail(of: savedApp)

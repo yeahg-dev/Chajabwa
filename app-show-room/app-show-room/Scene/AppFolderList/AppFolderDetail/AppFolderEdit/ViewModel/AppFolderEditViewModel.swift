@@ -33,8 +33,8 @@ class AppFolderEditViewModel {
     
     struct Output {
         
-        let folderNameTextFieldPlaceholder = "폴더 이름 (2글자 이상)"
-        let doneButtonTitle = "완료"
+        let folderNameTextFieldPlaceholder = Text.folder_name_condition
+        let doneButtonTitle = Text.save
         let appFolderName: String
         let appFolderDescription: String?
         let navigationBarTitle: String

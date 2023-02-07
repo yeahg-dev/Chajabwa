@@ -27,9 +27,9 @@ struct AppFolderCreatorViewModel {
     
     // MARK: - Output
     
-    let navigationBarTitle = "폴더 만들기"
-    let folderNameTextFieldPlaceholder = "폴더 이름 (2글자 이상)"
-    let doneButtonTitle = "완료"
+    let navigationBarTitle = Text.create_new_folder
+    let folderNameTextFieldPlaceholder = Text.folder_name_condition
+    let doneButtonTitle = Text.save
     
     var doneButtonIsEnabled: AnyPublisher<Bool, Never> {
         return appFolderName.flatMap({ name in

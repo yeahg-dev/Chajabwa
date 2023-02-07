@@ -20,14 +20,14 @@ struct AppFolderEditAlertViewModel {
 
     struct AppFolderSaveFailureAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = "저장을 실패했어요"
-        var message: String? = "다시 시도해주세요"
+        var title: String? = Text.save_failed
+        var message: String? = Text.please_try_again
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     
     struct ConfirmActionViewModel: UIAlertActionViewModel {
         
-        var title: String? = "확인"
+        var title: String? = Text.confirm
         var style: UIAlertActionStyle = .destructive
         var handler: ((UIAlertAction) -> Void)?
         

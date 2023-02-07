@@ -10,9 +10,9 @@ app_name = "Chajabwa";
 please_enter_name_or_id = "Enter App name or ID";
 provider = "Provider";
 file_size = "Size";
-content_advisory_rating = "rating";
-genre = "genre";
-minimum_os_version = "minimum OS version";
+content_advisory_rating = "Rating";
+genre = "Genre";
+minimum_os_version = "Minimum OS version";
 developer_website = "Developer Website";
 version = "Version";
 age = "Age";
@@ -26,11 +26,25 @@ screenshot_preview = "Preview";
 information = "Information";
 more_details = "more";
 shortly = "shortly";
+report_bug = "Report bug";
+error = "Error";
+supporting_device = "Supporting Device";
+app_store = "App store";
 
 delete_all = "Delete All";
+done = "Done";
 save = "Save";
 delete = "Delete";
 confirm = "OK";
+cancel = "Cacnel";
+country_setting = "Country Setting";
+search_country = "Search country";
+create_new_folder = "Create folder";
+save_to_folder = "Save to folder";
+folder_name_condition = "Folder name (more than 2 charcter)";
+folder_list = "Folder list";
+app_folder_delete = "Delete folder";
+app_folder_eidt = "Edit Folder";
 
 recent_search_keyword = "Recent Search Word";
 search_word_storage_feature_is_turned_off = "Search word storage feature is turned off";
@@ -39,7 +53,8 @@ no_saved_app =  "No apps have been saved. \n Try adding apps by searching!";
 go_search = "Go Search";
 
 unable_to_download = "Unable to download";
-
-app_folder_eidt = "Edit Folder";
-
-
+please_try_again = "Please try again";
+app_folder_delete_reconfirm = "Are you sure you want to delete the folder?";
+delete_warning = "If you delete it, you can't restore it.";
+delete_failed = "Delete failed";
+save_failed = "Save failed";

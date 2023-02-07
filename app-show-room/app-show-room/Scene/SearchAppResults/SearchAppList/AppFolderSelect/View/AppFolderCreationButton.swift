@@ -23,7 +23,7 @@ final class AppFolderCreationButton: UIControl {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Design.titleFont
         label.textColor = Design.tintColor
-        label.text = "폴더 만들기"
+        label.text = Text.create_new_folder
         return label
     }()
     

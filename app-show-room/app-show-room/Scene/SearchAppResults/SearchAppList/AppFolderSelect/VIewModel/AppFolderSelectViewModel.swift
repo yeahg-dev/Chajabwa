@@ -23,8 +23,8 @@ final class AppFolderSelectViewModel: NSObject {
     
     // MARK: - Output
     
-    var navigationTitle = "폴더에 저장하기"
-    var saveButtonTitle = "저장"
+    var navigationTitle = Text.save_to_folder
+    var saveButtonTitle = Text.save
     
     var saveButtonIsEnabled: AnyPublisher<Bool, Never> {
         return cellDidSelected.map { [unowned self] in

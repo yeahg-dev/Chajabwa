@@ -38,7 +38,7 @@ final class SettingViewController: UIViewController {
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.placeholder = "나라 검색"
+        searchBar.placeholder = Text.search_country
         searchBar.delegate = self
         searchBar.barTintColor = Design.backgroundColor
         return searchBar
