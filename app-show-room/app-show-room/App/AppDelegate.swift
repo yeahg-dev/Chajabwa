@@ -37,7 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let allCountryCodes = try? await CountryCodeAPIService().requestAllCountryCode() else {
                 return
             }
-            print(allCountryCodes)
             Country.list += allCountryCodes.compactMap { $0.toDomain() }
         }
     }

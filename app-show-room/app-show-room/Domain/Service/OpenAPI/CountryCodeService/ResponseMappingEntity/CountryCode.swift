@@ -48,10 +48,43 @@ extension CountryCode: Decodable {
               let isoCode = countryISOAlp2 else {
             return nil
         }
+        
+        if isInternationOrganization(isoCode: isoCode) {
+            return nil
+        }
+        
         return Country(
             englishName: englishName,
             koreanName: koreanName,
             isoCode: isoCode)
+    }
+    
+    private func isInternationOrganization(isoCode: String) -> Bool {
+        if InternationOrganization(rawValue: isoCode) != nil {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+}
+
+extension CountryCode {
+    
+    /**
+        국제 기구 및 이슬람 국가
+     
+      rawValue: isoCode
+    */
+    
+    private enum InternationOrganization: String {
+        
+        case oecd = "XD"
+        case un = "UN"
+        case asean = "XA"
+        case unesco = "XB"
+        case islamicState = "XC"
+        
     }
     
 }

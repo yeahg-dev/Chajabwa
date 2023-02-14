@@ -39,6 +39,7 @@ struct SettingViewModel {
         guard let country = countries[safe: indexPath.row] else {
             return
         }
+        print(country)
         selecteCountry = country
     }
     
