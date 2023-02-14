@@ -13,7 +13,7 @@ import Foundation
     참고 : [공공데이터포털 외교부_국가·지역별 표준코드](https://www.data.go.kr/data/15075346/openapi.do)
 */
 
-struct CountryCodeList: Codable {
+struct CountryCodeList: Decodable {
     
     let currentCount: Int
     let data: [CountryCode]

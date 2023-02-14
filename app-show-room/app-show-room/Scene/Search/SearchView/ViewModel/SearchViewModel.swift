@@ -60,7 +60,7 @@ extension SearchViewModel: SearchViewModelInput {
     }
     
     var countryName: String {
-        return AppSearchingConfiguration.countryISOCode.name
+        return AppSearchingConfiguration.countryISOCode.englishName
     }
     
   

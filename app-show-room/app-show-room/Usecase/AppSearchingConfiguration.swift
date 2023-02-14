@@ -24,7 +24,7 @@ struct AppSearchingConfiguration {
     
     static var countryISOCode: Country {
         guard let code = defaults.string(forKey: "countryISOCode"),
-              let country = Country.hashTable[code] else {
+              let country = Country(isoCode: code) else {
             let defaultCountry = DefaultConfiguration.country
             setCountry(by: defaultCountry)
             print("Can not found Country.  SoftwareType is set to default: \(defaultCountry.isoCode)")
@@ -57,8 +57,8 @@ extension AppSearchingConfiguration {
         
         static let softwareType: SoftwareType = SoftwareType.iPhone
         static let country: Country = Country(
-            name: "Korea, Republic of South Korea",
-            dialCode: "+82",
+            englishName: "Korea",
+            koreanName: "대한민국",
             isoCode: "KR")
         static let isActiveSavingSearchKeyword: Bool = false
         

@@ -27,13 +27,13 @@ class SavedAppRealm: Object {
         identifier = model.identifier
         name = model.appUnit.name
         appID = model.appUnit.appID
-        countryName = model.appUnit.country.name
+        countryName = model.appUnit.country.englishName
         softwareTypeName = model.appUnit.platform.rawValue
         iconImageURL = model.iconImageURL
     }
     
     func toDomain() -> SavedApp? {
-        guard let country = Country(name: countryName),
+        guard let country = Country(englishName: countryName),
         let platform = SoftwareType(rawValue: softwareTypeName) else {
             return nil
         }

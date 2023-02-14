@@ -70,7 +70,7 @@ struct RealmAppFolderRepository: AppFolderRepository {
                 if let fetchedSaveapp = realm.objects(SavedAppRealm.self)
                     .where ({ savedApp in
                         savedApp.appID == appUnit.appID &&
-                        savedApp.countryName == appUnit.country.name &&
+                        savedApp.countryName == appUnit.country.englishName &&
                         savedApp.softwareTypeName == appUnit.platform.rawValue })
                         .first {
                     continuation.resume(returning: fetchedSaveapp.toDomain())

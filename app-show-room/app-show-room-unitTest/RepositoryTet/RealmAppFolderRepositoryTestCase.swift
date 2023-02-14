@@ -258,19 +258,19 @@ private enum DummyEntity {
     static let netflixAppUnit = AppUnit(
         name: "앱과사전",
         appID: 9090,
-        country: .init(name: "South Korea")!,
+        country: .init(englishName: "South Korea")!,
         platform: .iPhone)
     
     static let kurlyAppUnit = AppUnit(
         name: "앱과사전",
         appID: 9090,
-        country: .init(name: "South Korea")!,
+        country: .init(englishName: "South Korea")!,
         platform: .iPad)
   
     static let AirbnbAppUnit = AppUnit(
         name: "앱과사전",
         appID: 9090,
-        country: .init(name: "South Korea")!,
+        country: .init(englishName: "South Korea")!,
         platform: .mac)
     
 }

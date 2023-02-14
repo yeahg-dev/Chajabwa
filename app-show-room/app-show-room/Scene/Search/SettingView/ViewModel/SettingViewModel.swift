@@ -24,7 +24,7 @@ struct SettingViewModel {
     }
     
     func countryName(at row: Int) -> String? {
-        return countries[safe: row]?.name
+        return countries[safe: row]?.englishName
     }
     
     func countryFlag(at row: Int) -> String? {
@@ -52,7 +52,7 @@ struct SettingViewModel {
             return
         }
         countries = allCountries.filter{
-            $0.name.localizedCaseInsensitiveContains(text)
+            $0.englishName.localizedCaseInsensitiveContains(text)
         }
     }
     
