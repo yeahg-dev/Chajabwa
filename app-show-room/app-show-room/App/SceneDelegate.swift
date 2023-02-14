@@ -16,28 +16,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let navigationController = UINavigationController()
+        let launchScreen = LaunchScreenViewController()
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = navigationController
+        window?.rootViewController = launchScreen
         window?.makeKeyAndVisible()
         
-        let mainCooordinator = SearchCoordinator(
-            navigationController: navigationController)
+        let mainCooordinator = SearchCoordinator(rootViewController: launchScreen)
         mainCoordinator = mainCooordinator
         mainCooordinator.start()
-        
-//        window = UIWindow(windowScene: windowScene)
-//
-//        let rootiViewController = SearchViewController(
-//            searchViewModel: SearchViewModel(
-//                appSearchUsecase: AppSearchUsecase(
-//                    searchKeywordRepository: RealmSearchKeywordRepository()!))
-//        )
-//        let navigationController = UINavigationController(rootViewController: rootiViewController)
-//
-//        window?.rootViewController = navigationController
-//        window?.makeKeyAndVisible()
-        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

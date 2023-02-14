@@ -10,7 +10,7 @@ import UIKit
 final class AppFolderSelectCoordinator: Coordinator {
     
     var childCoordinator: [Coordinator] = []
-    var navigationController: UINavigationController
+    var navigationController: UINavigationController!
     weak var parentCoordintaor: Coordinator?
     
     private let appUnit: AppUnit

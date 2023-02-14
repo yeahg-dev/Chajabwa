@@ -10,7 +10,7 @@ import UIKit
 final class AppDetailCoordinator: Coordinator {
     
     var childCoordinator: [Coordinator] = []
-    var navigationController: UINavigationController
+    var navigationController: UINavigationController!
     weak var parentCoordinator: Coordinator?
     
     private let appDetail: AppDetail
