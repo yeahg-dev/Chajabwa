@@ -56,7 +56,7 @@ final class AppDetailViewController: UIViewController {
     
     init(appDetailViewModel: AppDetailViewModel) {
         viewModel = appDetailViewModel
-        let currentCountry = AppSearchingConfiguration.countryISOCode
+        let currentCountry = AppSearchingConfiguration.country
         let currentPlatform = AppSearchingConfiguration.softwareType
         appUnit = AppUnit(
             name: appDetailViewModel.name,

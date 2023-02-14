@@ -56,11 +56,11 @@ extension SearchViewModel: SearchViewModelInput {
     }
     
     var countryFlag: String {
-        return AppSearchingConfiguration.countryISOCode.flag
+        return AppSearchingConfiguration.country.flag
     }
     
     var countryName: String {
-        return AppSearchingConfiguration.countryISOCode.englishName
+        return AppSearchingConfiguration.country.localizedName
     }
     
   

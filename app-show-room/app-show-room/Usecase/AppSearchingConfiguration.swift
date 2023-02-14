@@ -22,7 +22,7 @@ struct AppSearchingConfiguration {
         return software
     }
     
-    static var countryISOCode: Country {
+    static var country: Country {
         guard let code = defaults.string(forKey: "countryISOCode"),
               let country = Country(isoCode: code) else {
             let defaultCountry = DefaultConfiguration.country
@@ -38,7 +38,7 @@ struct AppSearchingConfiguration {
     }
     
     static func setCountry(by country: Country) {
-        defaults.set(country.isoCode, forKey: "countryISOCode")
+        defaults.set(country.isoCode, forKey: "country")
     }
     
     static func setSoftwareType(by type: SoftwareType) {

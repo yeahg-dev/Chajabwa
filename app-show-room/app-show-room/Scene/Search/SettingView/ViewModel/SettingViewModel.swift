@@ -9,9 +9,9 @@ import UIKit
 
 struct SettingViewModel {
     
-    private let allCountries: [Country] = Country.list
-    private var countries: [Country] = Country.list
-    private var selecteCountry: Country = AppSearchingConfiguration.countryISOCode
+    private let allCountries: [Country] = Country.localizedSortedList
+    private var countries: [Country] = Country.localizedSortedList
+    private var selecteCountry: Country = AppSearchingConfiguration.country
     
     var navigationBarTitle: String = Text.country_setting
     
@@ -24,7 +24,7 @@ struct SettingViewModel {
     }
     
     func countryName(at row: Int) -> String? {
-        return countries[safe: row]?.englishName
+        return countries[safe: row]?.localizedName
     }
     
     func countryFlag(at row: Int) -> String? {
@@ -52,7 +52,7 @@ struct SettingViewModel {
             return
         }
         countries = allCountries.filter{
-            $0.englishName.localizedCaseInsensitiveContains(text)
+            $0.localizedName.localizedCaseInsensitiveContains(text)
         }
     }
     

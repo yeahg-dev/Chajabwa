@@ -239,7 +239,7 @@ final class SearchAppTableViewCell: BaseTableViewCell {
     
     private func assignAppUnit(viewModel: SearchAppTableViewCellModel) {
         iconImageURL = viewModel.iconImageURL
-        let currentCountry = AppSearchingConfiguration.countryISOCode
+        let currentCountry = AppSearchingConfiguration.country
         let currentPlatform = AppSearchingConfiguration.softwareType
         appUnit = AppUnit(
             name: viewModel.name!,

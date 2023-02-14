@@ -9,8 +9,16 @@ import UIKit
 
 struct Country: Decodable, Equatable {
     
-    // TODO: - 지역별로 이름순 sorted 핸들링
     static var list: [Country] = []
+    
+    static var localizedSortedList: [Country] {
+        switch DeviceSetting.currentLanguage {
+        case .korean:
+            return list.sorted { $0.koreanName < $1.koreanName }
+        case .english:
+            return list.sorted { $0.englishName < $1.englishName }
+        }
+    }
     
     let englishName: String
     let koreanName: String
@@ -23,6 +31,15 @@ struct Country: Decodable, Equatable {
             .compactMap(UnicodeScalar.init)
             .map(String.init)
             .joined()
+    }
+    
+    var localizedName: String {
+        switch DeviceSetting.currentLanguage {
+        case .korean:
+            return self.koreanName
+        case .english:
+            return self.englishName
+        }
     }
     
     init(englishName: String, koreanName: String, isoCode: String) {
