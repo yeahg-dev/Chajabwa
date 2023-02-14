@@ -5,6 +5,7 @@
 //  Created by Moon Yeji on 2023/01/25.
 //
 
+import Combine
 import UIKit
 
 final class SearchCoordinator: NSObject, Coordinator {
@@ -17,14 +18,18 @@ final class SearchCoordinator: NSObject, Coordinator {
     }
     
     func start() {
-        let searchKeywordRepository = RealmSearchKeywordRepository()
-        let appSearchUseacase = AppSearchUsecase(
-            searchKeywordRepository: searchKeywordRepository)
-        let seachViewModel = SearchViewModel(appSearchUsecase: appSearchUseacase)
-        let searchVC = SearchViewController(searchViewModel: seachViewModel)
-        searchVC.coordinator = self
-        
-        navigationController.pushViewController(searchVC, animated: false)
+        Task {
+            await AppSearchingConfiguration().downloadCountryCode()
+            await MainActor.run {
+                let searchKeywordRepository = RealmSearchKeywordRepository()
+                let appSearchUseacase = AppSearchUsecase(
+                    searchKeywordRepository: searchKeywordRepository)
+                let seachViewModel = SearchViewModel(appSearchUsecase: appSearchUseacase)
+                let searchVC = SearchViewController(searchViewModel: seachViewModel)
+                searchVC.coordinator = self
+                navigationController.pushViewController(searchVC, animated: false)
+            }
+        }
     }
     
 }
