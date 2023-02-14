@@ -11,12 +11,12 @@ struct SettingViewModel {
     
     private let allCountries: [Country] = Country.localizedSortedList
     private var countries: [Country] = Country.localizedSortedList
-    private var selecteCountry: Country = AppSearchingConfiguration.country
+    private var selectedCountry: Country = AppSearchingConfiguration.country
     
     var navigationBarTitle: String = Text.country_setting
     
     var selectedCountryIndex: Int? {
-        return countries.firstIndex { $0 == selecteCountry }
+        return countries.firstIndex { $0 == selectedCountry }
     }
     
     func numberOfCountry() -> Int {
@@ -39,12 +39,11 @@ struct SettingViewModel {
         guard let country = countries[safe: indexPath.row] else {
             return
         }
-        print(country)
-        selecteCountry = country
+        selectedCountry = country
     }
     
     func saveSetting() {
-        AppSearchingConfiguration.setCountry(by: selecteCountry)
+        AppSearchingConfiguration.setCountry(by: selectedCountry)
     }
     
     mutating func searchBarTextDidChange(to text: String) {

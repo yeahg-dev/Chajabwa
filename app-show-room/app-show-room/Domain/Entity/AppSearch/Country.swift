@@ -60,7 +60,7 @@ struct Country: Decodable, Equatable {
     
     init?(isoCode: String) {
         if let country = Country.list.first(where: { $0.isoCode == isoCode }) {
-            self.englishName = country.isoCode
+            self.englishName = country.englishName
             self.koreanName = country.koreanName
             self.isoCode = country.isoCode
         } else {

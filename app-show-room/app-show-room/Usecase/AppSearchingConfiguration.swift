@@ -5,6 +5,7 @@
 //  Created by Moon Yeji on 2022/12/07.
 //
 
+import Combine
 import Foundation
 
 struct AppSearchingConfiguration {
@@ -12,7 +13,7 @@ struct AppSearchingConfiguration {
     static let defaults = UserDefaults.standard
     
     static var softwareType: SoftwareType {
-        guard let softwareTypeName = defaults.string(forKey: "softwareType"),
+        guard let softwareTypeName = defaults.string(forKey: UserDefaultsKey.softwareType),
               let software = SoftwareType(rawValue: softwareTypeName) else {
             let defaultSoftwareType = DefaultConfiguration.softwareType
             setSoftwareType(by: defaultSoftwareType)
@@ -23,7 +24,7 @@ struct AppSearchingConfiguration {
     }
     
     static var country: Country {
-        guard let code = defaults.string(forKey: "countryISOCode"),
+        guard let code = defaults.string(forKey: UserDefaultsKey.isoCode),
               let country = Country(isoCode: code) else {
             let defaultCountry = DefaultConfiguration.country
             setCountry(by: defaultCountry)
@@ -38,20 +39,22 @@ struct AppSearchingConfiguration {
     }
     
     static func setCountry(by country: Country) {
-        defaults.set(country.isoCode, forKey: "country")
+        defaults.set(country.isoCode, forKey: UserDefaultsKey.isoCode)
     }
     
     static func setSoftwareType(by type: SoftwareType) {
-        defaults.set(type.rawValue, forKey: "softwareType")
+        defaults.set(type.rawValue, forKey: UserDefaultsKey.softwareType)
     }
     
     static func setSavingSearchKeywordState(with bool: Bool) {
-        defaults.set(bool, forKey: "isActiveSavingSearchKeyword")
+        defaults.set(bool, forKey: UserDefaultsKey.isActiveSavingSearchKeyword)
     }
     
 }
 
 extension AppSearchingConfiguration {
+    
+    // MARK: - DefaultConfiguration
     
     private enum DefaultConfiguration {
         
@@ -61,6 +64,16 @@ extension AppSearchingConfiguration {
             koreanName: "대한민국",
             isoCode: "KR")
         static let isActiveSavingSearchKeyword: Bool = false
+        
+    }
+    
+    // MARK: - UserDefaultsKey
+    
+    private struct UserDefaultsKey {
+        
+        static let isoCode = "countryISOCode"
+        static let softwareType = "softwareType"
+        static let isActiveSavingSearchKeyword = "isActiveSavingSearchKeyword"
         
     }
     
