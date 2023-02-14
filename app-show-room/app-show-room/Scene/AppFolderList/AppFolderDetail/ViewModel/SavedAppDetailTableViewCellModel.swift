@@ -19,7 +19,7 @@ struct SavedAppDetailTableViewCellModel {
     
     init(savedAppDetail: SavedAppDetail) {
         self.supportedDeviceIconImages = savedAppDetail.supportedDevices.map{ $0.iconImage }
-        self.countryName = savedAppDetail.country.englishName
+        self.countryName = savedAppDetail.country.localizedName
         self.countryFlag = savedAppDetail.country.flag
         self.appDetailprevieViewModel = AppDetailPreviewViewModel(appDetail: savedAppDetail.appDetali)
     }
