@@ -74,7 +74,7 @@ final class SearchAppTableViewCell: BaseTableViewCell {
             arrangedSubviews: [averageStarRatingView, userRatingCountLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.alignment = .fill
+        stackView.alignment = .center
         stackView.distribution = .fill
         stackView.spacing = Design.ratingStackViewSpacing
         return stackView
