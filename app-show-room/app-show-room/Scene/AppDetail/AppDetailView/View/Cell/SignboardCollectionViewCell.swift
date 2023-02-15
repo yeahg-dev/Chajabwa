@@ -87,6 +87,7 @@ extension SignboardCollectionViewCell {
         providerLabel.font = Design.providerLabelFont
         providerLabel.textColor = Design.appNameLabelTextColor
         providerLabel.numberOfLines = Design.providerLabelNumberOfLines
+        providerLabel.lineBreakMode = .byTruncatingTail
     }
     
     private func configurePurchaseButton() {
@@ -166,7 +167,7 @@ extension SignboardCollectionViewCell {
                 equalTo: appNameLabel.bottomAnchor,
                 constant: Design.providerLabelTopMargin),
             providerLabel.trailingAnchor.constraint(
-                greaterThanOrEqualTo: contentView.trailingAnchor,
+                lessThanOrEqualTo: contentView.trailingAnchor,
                 constant: -Design.paddingTrailing)
         ])
     }
