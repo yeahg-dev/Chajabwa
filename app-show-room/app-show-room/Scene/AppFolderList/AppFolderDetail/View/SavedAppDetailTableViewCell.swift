@@ -90,7 +90,7 @@ final class SavedAppDetailTableViewCell: BaseTableViewCell {
                 equalTo: contentView.topAnchor),
             appDetailPreview.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor),
-            supportedDeviceLabel.topAnchor.constraint(equalTo: appDetailPreview.bottomAnchor),
+            supportedDeviceLabel.centerYAnchor.constraint(equalTo: supportedDeviceStackView.centerYAnchor),
             supportedDeviceLabel.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor,
                 constant: Design.contentViewPadding),
@@ -189,9 +189,9 @@ private enum Design {
     static let appStoreLabelFont: UIFont = .preferredFont(forTextStyle: .subheadline)
     static let countryNameLabelFont: UIFont = .preferredFont(forTextStyle: .subheadline)
     
-    static let supportedDeviceLabelTextColor: UIColor = .black
-    static let appStoreLabelTextColor: UIColor = .black
-    static let countryNameLabelTextColor: UIColor = .black
+    static let supportedDeviceLabelTextColor: UIColor = .gray
+    static let appStoreLabelTextColor: UIColor = .gray
+    static let countryNameLabelTextColor: UIColor = Color.grayLavender
     
     static let selectedBackgroundColor: UIColor = Color.lilac
     
