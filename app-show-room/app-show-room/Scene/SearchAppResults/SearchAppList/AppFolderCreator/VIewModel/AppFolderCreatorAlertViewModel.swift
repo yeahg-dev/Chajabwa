@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct AppFolderCreatorAlertViewModel {
+extension AppFolderCreatorViewModel {
     
     struct AppFolderCreationFailureAlertViewModel: AlertViewModel {
         
@@ -16,7 +16,7 @@ struct AppFolderCreatorAlertViewModel {
         
     }
     
-    struct AppFolderCreationFailureAlertControllerViewModel: UIAlertControllerViewModel{
+    private struct AppFolderCreationFailureAlertControllerViewModel: UIAlertControllerViewModel{
         
         var title: String? = Text.save_failed
         var message: String? = Text.please_try_again
@@ -25,7 +25,7 @@ struct AppFolderCreatorAlertViewModel {
     }
     
     
-    struct ConfirmActionViewModel: UIAlertActionViewModel {
+    private struct ConfirmActionViewModel: UIAlertActionViewModel {
         
         var title: String? = Text.confirm
         var style: UIAlertActionStyle = .defaults

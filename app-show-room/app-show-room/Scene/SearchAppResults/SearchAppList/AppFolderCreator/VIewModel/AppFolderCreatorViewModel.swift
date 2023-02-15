@@ -43,7 +43,7 @@ struct AppFolderCreatorViewModel {
     async -> Output<AppFolder, AlertViewModel>
     {
         guard let name else {
-            return .failure(AppFolderCreatorAlertViewModel.AppFolderCreationFailureAlertViewModel())
+            return .failure(AppFolderCreationFailureAlertViewModel())
         }
         
         do {
@@ -52,7 +52,7 @@ struct AppFolderCreatorViewModel {
                 description: description)
             return .success(appFolder)
         } catch {
-            return .failure(AppFolderCreatorAlertViewModel.AppFolderCreationFailureAlertViewModel())
+            return .failure(AppFolderCreationFailureAlertViewModel())
         }
     }
     
