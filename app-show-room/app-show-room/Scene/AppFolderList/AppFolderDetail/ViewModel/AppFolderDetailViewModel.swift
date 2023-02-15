@@ -64,7 +64,7 @@ final class AppFolderDetailViewModel: NSObject {
                 fetchedCellModels = .init(repeating: nil, count: savedApps?.count ?? 0)
             } catch {
                 errorAlertViewModel.send(
-                    AppFolderDetailAlertViewModel.SavedAppFetchFailureAlertViewModel())
+                    SavedAppFetchFailureAlertViewModel())
             }
         }
     }
@@ -97,7 +97,7 @@ final class AppFolderDetailViewModel: NSObject {
                 guard let savedApp = self.savedApps?[safe: indexPath.row],
                       let appFolder = self.appFolder else {
                     self.errorAlertViewModel.send(
-                        AppFolderDetailAlertViewModel.AppFolderDeleteErrorAlertViewModel())
+                        AppFolderDeleteErrorAlertViewModel())
                     return nil
                 }
                 do {
@@ -106,7 +106,7 @@ final class AppFolderDetailViewModel: NSObject {
                     return indexPath
                 } catch {
                     self.errorAlertViewModel.send(
-                        AppFolderDetailAlertViewModel.AppFolderDeleteErrorAlertViewModel())
+                        AppFolderDeleteErrorAlertViewModel())
                     return nil
                 }
             })
@@ -114,7 +114,7 @@ final class AppFolderDetailViewModel: NSObject {
         
         let presentAppFolderEditAlert = input.editButtonDidTapped
             .map{ [unowned self] in
-                return ((AppFolderDetailAlertViewModel.AppFolderEditAlertViewModel() as AlertViewModel), self.appFolder ?? AppFolder.placeholder)
+                return ((AppFolderEditAlertViewModel() as AlertViewModel), self.appFolder ?? AppFolder.placeholder)
             }
             .eraseToAnyPublisher()
         
@@ -122,14 +122,14 @@ final class AppFolderDetailViewModel: NSObject {
         
         let presentAppFolderDeleteAlert = input.deleteButtonDidTapped
             .map { [unowned self] in
-                var alertViewModel = AppFolderDetailAlertViewModel.AppFolderDeleteConfirmAlertViewModel()
+                var alertViewModel = AppFolderDeleteConfirmAlertViewModel()
                 alertViewModel.alertActions?[1].handler = { _ in
                     Task {
                         do {
                             try await self.appFolderUsecase.deleteAppFolder(self.appFolder)
                             navigateToAppFolderListView.send(())
                         } catch {
-                            self.errorAlertViewModel.send(AppFolderDetailAlertViewModel.AppFolderDeleteErrorAlertViewModel() as AlertViewModel)
+                            self.errorAlertViewModel.send(AppFolderDeleteErrorAlertViewModel() as AlertViewModel)
                         }
                     }
                 }

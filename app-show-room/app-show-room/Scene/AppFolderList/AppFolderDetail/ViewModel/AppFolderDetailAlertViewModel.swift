@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct AppFolderDetailAlertViewModel {
+extension AppFolderDetailViewModel {
     
     struct SavedAppFetchFailureAlertViewModel: AlertViewModel {
         
@@ -15,14 +15,14 @@ struct AppFolderDetailAlertViewModel {
         var alertActions: [UIAlertActionViewModel]? = [ConfirmActionViewModel()]
     }
     
-    struct SavedAppFetchFailureAlertControllerViewModel: UIAlertControllerViewModel {
+    private struct SavedAppFetchFailureAlertControllerViewModel: UIAlertControllerViewModel {
         
         var title: String? = Text.unable_to_download
         var message: String? = Text.please_try_again
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     
-    struct ConfirmActionViewModel: UIAlertActionViewModel {
+    private struct ConfirmActionViewModel: UIAlertActionViewModel {
         
         var title: String? = Text.confirm
         var style: UIAlertActionStyle = .defaults
@@ -40,14 +40,14 @@ struct AppFolderDetailAlertViewModel {
         
     }
 
-    struct AppFolderEditAlertControllerViewModel: UIAlertControllerViewModel {
+    private struct AppFolderEditAlertControllerViewModel: UIAlertControllerViewModel {
         
         var title: String? = nil
         var message: String? = nil
         var preferredStyle: UIAlertControllerStyle = .actionSheet
     }
     
-    struct EditActionViewModel: UIAlertActionViewModel {
+    private struct EditActionViewModel: UIAlertActionViewModel {
         
         var title: String? = Text.app_folder_eidt
         var style: UIAlertActionStyle = .defaults
@@ -55,7 +55,7 @@ struct AppFolderDetailAlertViewModel {
         
     }
     
-    struct DeleteActionViewModel: UIAlertActionViewModel {
+    private struct DeleteActionViewModel: UIAlertActionViewModel {
         
         var title: String? = Text.app_folder_delete
         var style: UIAlertActionStyle = .destructive
@@ -73,14 +73,14 @@ struct AppFolderDetailAlertViewModel {
         
     }
 
-    struct AppFolderDeleteConfirmAlertControllerViewModel: UIAlertControllerViewModel {
+    private struct AppFolderDeleteConfirmAlertControllerViewModel: UIAlertControllerViewModel {
         
         var title: String? = Text.app_folder_delete_reconfirm
         var message: String? = Text.delete_warning
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     
-    struct CancelActionViewModel: UIAlertActionViewModel {
+    private struct CancelActionViewModel: UIAlertActionViewModel {
         
         var title: String? = Text.cancel
         var style: UIAlertActionStyle = .defaults
@@ -97,7 +97,7 @@ struct AppFolderDetailAlertViewModel {
         
     }
     
-    struct AppFolderDeleteErrorAlertControllerViewModel: UIAlertControllerViewModel {
+    private struct AppFolderDeleteErrorAlertControllerViewModel: UIAlertControllerViewModel {
         
         var title: String? = Text.delete_failed
         var message: String? = Text.please_try_again
