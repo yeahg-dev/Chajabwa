@@ -78,7 +78,7 @@ final class AppFolderSelectViewModel: NSObject {
                 to: selectedAppFolder)
             return .success(())
         } catch {
-            return .failure(AppFolderSelectAlertViewModel.SaveFailureAlertViewModel())
+            return .failure(SaveFailureAlertViewModel())
         }
     }
     
