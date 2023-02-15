@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum SearchAlertViewModel {
+extension SearchViewModel {
     
     // MARK: - UIAlertActionViewModel
     
@@ -31,21 +31,21 @@ enum SearchAlertViewModel {
     
     // MARK: - UIAlertControllerViewModel
     
-    struct InvalidInputAlertControllerViewModel: UIAlertControllerViewModel {
+    private struct InvalidInputAlertControllerViewModel: UIAlertControllerViewModel {
         
         var title: String? = "ID를 다시 확인해주세요"
         var message: String? = "숫자만 입력 할 수 있어요"
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     
-    struct SearchFailureAlertControllerViewModel: UIAlertControllerViewModel {
+    private struct SearchFailureAlertControllerViewModel: UIAlertControllerViewModel {
         
         var title: String? = "검색에 실패했습니다"
         var message: String? = "다시 시도해주세요🙏🏻"
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     
-    struct EmptyResultAlertControllerViewModel: UIAlertControllerViewModel {
+    private struct EmptyResultAlertControllerViewModel: UIAlertControllerViewModel {
         
         var title: String? = "결과가 없습니다"
         var message: String? = "검색어를 확인해주세요"
@@ -54,7 +54,7 @@ enum SearchAlertViewModel {
     
     // MARK: - UIAlertActionViewModel
     
-    struct InvalidInputAlertActionViewModel: UIAlertActionViewModel {
+    private struct InvalidInputAlertActionViewModel: UIAlertActionViewModel {
         
         var title: String? = Text.confirm
         var style: UIAlertActionStyle = .defaults
@@ -62,7 +62,7 @@ enum SearchAlertViewModel {
         
     }
     
-    struct SearchFailureAlertActionViewModel: UIAlertActionViewModel {
+    private struct SearchFailureAlertActionViewModel: UIAlertActionViewModel {
         
         var title: String? = Text.confirm
         var style: UIAlertActionStyle = .defaults

@@ -72,12 +72,12 @@ extension SearchViewModel: SearchViewModelInput {
             let appDetails = try await self.appSearchUsecase.searchAppDetail(
                 of: input)
             if appDetails.isEmpty {
-                return .failure(SearchAlertViewModel.EmptyResultAlertViewModel())
+                return .failure(EmptyResultAlertViewModel())
             } else {
                 return .success(appDetails)
             }
         } catch {
-            return .failure(SearchAlertViewModel.SearchFailureAlertViewModel())
+            return .failure(SearchFailureAlertViewModel())
         }
     }
     

@@ -81,12 +81,12 @@ final class RecentSearchKeywordTableViewModel: NSObject {
             let result = try await self.appSearchUsecase?.searchAppDetail(of: keyword)
             if let appDetails = result,
                appDetails.isEmpty {
-                return .failure(SearchAlertViewModel.EmptyResultAlertViewModel())
+                return .failure(SearchViewModel.EmptyResultAlertViewModel())
             } else {
                 return .success(result!)
             }
         } catch {
-            return .failure(SearchAlertViewModel.SearchFailureAlertViewModel())
+            return .failure(SearchViewModel.SearchFailureAlertViewModel())
         }
     }
     
