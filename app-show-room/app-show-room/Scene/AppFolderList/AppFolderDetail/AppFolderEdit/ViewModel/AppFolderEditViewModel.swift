@@ -68,7 +68,7 @@ class AppFolderEditViewModel {
                         dismiss.send(())
                     } catch {
                         alertViewModel.send(
-                            AppFolderEditAlertViewModel.AppFolderSaveFailureAlertViewModel())
+                            AppFolderSaveFailureAlertViewModel())
                     }
                 }
             }.store(in: &cancellables)
