@@ -69,6 +69,10 @@ final class SearchViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
     }
     
+    func presentCountryCodeDownloadErrorAlert() {
+        presentAlert(SearchViewModel.CountryCodeDownloadErrorAlertViewModel())
+    }
+    
     private func configureNavigationItem() {
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor : Design.navigationBarLargeTitleTextColor]
         navigationItem.title = viewModel.navigationItemTitle

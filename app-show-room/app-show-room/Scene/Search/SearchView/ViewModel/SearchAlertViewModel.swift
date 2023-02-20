@@ -9,24 +9,27 @@ import UIKit
 
 extension SearchViewModel {
     
-    // MARK: - UIAlertActionViewModel
-    
     struct InvalidInputAlertViewModel: AlertViewModel {
         
         var alertController: UIAlertControllerViewModel = InvalidInputAlertControllerViewModel()
-        var alertActions: [UIAlertActionViewModel]? = [InvalidInputAlertActionViewModel()]
+        var alertActions: [UIAlertActionViewModel]? = [ConfirmActionViewModel()]
     }
     
     struct SearchFailureAlertViewModel: AlertViewModel {
         
         var alertController: UIAlertControllerViewModel = SearchFailureAlertControllerViewModel()
-        var alertActions: [UIAlertActionViewModel]? = [SearchFailureAlertActionViewModel()]
+        var alertActions: [UIAlertActionViewModel]? = [ConfirmActionViewModel()]
     }
     
     struct EmptyResultAlertViewModel: AlertViewModel {
         
         var alertController: UIAlertControllerViewModel = EmptyResultAlertControllerViewModel()
-        var alertActions: [UIAlertActionViewModel]? = [SearchFailureAlertActionViewModel()]
+        var alertActions: [UIAlertActionViewModel]? = [ConfirmActionViewModel()]
+    }
+    
+    struct CountryCodeDownloadErrorAlertViewModel: AlertViewModel {
+        var alertController: UIAlertControllerViewModel = CountryCodeDownloadErrorAlertControllerViewModel()
+        var alertActions: [UIAlertActionViewModel]? = [ConfirmActionViewModel()]
     }
     
     // MARK: - UIAlertControllerViewModel
@@ -52,17 +55,17 @@ extension SearchViewModel {
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     
-    // MARK: - UIAlertActionViewModel
-    
-    private struct InvalidInputAlertActionViewModel: UIAlertActionViewModel {
+    private struct CountryCodeDownloadErrorAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = Text.confirm
-        var style: UIAlertActionStyle = .defaults
-        var handler: ((UIAlertAction) -> Void)?
+        var title: String? = "앱 데이터 다운로드를 실패했습니다"
+        var message: String? = "다시 시도해주세요🙏🏻"
+        var preferredStyle: UIAlertControllerStyle = .alert
         
     }
     
-    private struct SearchFailureAlertActionViewModel: UIAlertActionViewModel {
+    // MARK: - UIAlertActionViewModel
+    
+    private struct ConfirmActionViewModel: UIAlertActionViewModel {
         
         var title: String? = Text.confirm
         var style: UIAlertActionStyle = .defaults

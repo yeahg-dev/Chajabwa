@@ -50,7 +50,7 @@ struct AppSearchingConfiguration {
         defaults.set(bool, forKey: UserDefaultsKey.isActiveSavingSearchKeyword)
     }
     
-    func downloadCountryCode() async {
+    func downloadCountryCode() async throws {
         guard Country.list.isEmpty else {
             return
         }
@@ -59,7 +59,7 @@ struct AppSearchingConfiguration {
             Country.list += countryCodes.compactMap {$0.toDomain()}
         } catch {
             print("CountryCodeAPIService 실패")
-            return
+            throw AppSearchConfigurationError.conturyCodeDownloadError
         }
     }
 }
@@ -88,5 +88,11 @@ extension AppSearchingConfiguration {
         static let isActiveSavingSearchKeyword = "isActiveSavingSearchKeyword"
         
     }
+    
+}
+
+enum AppSearchConfigurationError: Error {
+    
+    case conturyCodeDownloadError
     
 }

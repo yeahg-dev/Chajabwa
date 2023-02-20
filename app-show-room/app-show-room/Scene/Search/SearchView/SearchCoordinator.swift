@@ -20,19 +20,32 @@ final class SearchCoordinator: NSObject, Coordinator {
     
     func start() {
         Task {
-            await AppSearchingConfiguration().downloadCountryCode()
-            await MainActor.run {
-                let searchKeywordRepository = RealmSearchKeywordRepository()
-                let appSearchUseacase = AppSearchUsecase(
-                    searchKeywordRepository: searchKeywordRepository)
-                let seachViewModel = SearchViewModel(appSearchUsecase: appSearchUseacase)
-                let searchVC = SearchViewController(searchViewModel: seachViewModel)
-                searchVC.coordinator = self
-                navigationController = UINavigationController(rootViewController: searchVC)
-                navigationController.modalPresentationStyle = .fullScreen
-                launchScreenViewController.present(navigationController, animated: false)
+            do {
+                try await AppSearchingConfiguration().downloadCountryCode()
+                await MainActor.run {
+                    _ = presentSearchViewController()
+                }
+            } catch {
+                await MainActor.run {
+                    let searchVC = presentSearchViewController()
+                    searchVC.presentCountryCodeDownloadErrorAlert()
+                }
             }
         }
+    }
+    
+    @discardableResult
+    private func presentSearchViewController() -> SearchViewController {
+        let searchKeywordRepository = RealmSearchKeywordRepository()
+        let appSearchUseacase = AppSearchUsecase(
+            searchKeywordRepository: searchKeywordRepository)
+        let seachViewModel = SearchViewModel(appSearchUsecase: appSearchUseacase)
+        let searchVC = SearchViewController(searchViewModel: seachViewModel)
+        searchVC.coordinator = self
+        navigationController = UINavigationController(rootViewController: searchVC)
+        navigationController.modalPresentationStyle = .fullScreen
+        launchScreenViewController.present(navigationController, animated: false)
+        return searchVC
     }
     
 }
