@@ -244,8 +244,8 @@ final class SearchAppTableViewCell: BaseTableViewCell {
         appUnit = AppUnit(
             name: viewModel.name!,
             appID: viewModel.appID!,
-            country: currentCountry,
-            platform: currentPlatform)
+            searchingContury: currentCountry,
+            searchingPlatform: currentPlatform)
     }
     
     @objc

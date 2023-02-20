@@ -39,7 +39,7 @@ struct SavedAppDetail {
         self.id = appDetail.id
         self.description = appDetail.description
         self.supportedDevicesNames = appDetail.supportedDevices
-        self.country = appUnit.country
+        self.country = appUnit.searchingContury
         self.provider = appDetail.provider
         self.averageUserRating = appDetail.averageUserRating
         self.userRatingCount = appDetail.userRatingCount

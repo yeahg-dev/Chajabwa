@@ -111,8 +111,8 @@ struct AppFolderUsecase {
     {
         return appDetailRepository.fetchAppDetail(
             of: savedApp.appUnit.appID,
-            country: savedApp.appUnit.country,
-            software: savedApp.appUnit.platform)
+            country: savedApp.appUnit.searchingContury,
+            software: savedApp.appUnit.searchingPlatform)
         .map { appDetail in
             return SavedAppDetail(appDetail: appDetail, appUnit: savedApp.appUnit) }
         .eraseToAnyPublisher()
@@ -124,8 +124,8 @@ struct AppFolderUsecase {
     {
         return appDetailRepository.fetchAppDetail(
             of: savedApp.appUnit.appID,
-            country: savedApp.appUnit.country,
-            software: savedApp.appUnit.platform)
+            country: savedApp.appUnit.searchingContury,
+            software: savedApp.appUnit.searchingPlatform)
         .eraseToAnyPublisher()
     }
     

@@ -29,6 +29,7 @@ final class AppFolderSelectCoordinator: Coordinator {
         let appFolderSelectVC = AppFolderSelectViewController(
             appUnit: appUnit,
             iconImageURL: appIconImageURL)
+        appFolderSelectVC.coordinator = self
         navigationController.pushViewController(appFolderSelectVC, animated: true)
     }
     

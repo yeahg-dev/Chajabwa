@@ -61,8 +61,8 @@ final class AppDetailViewController: UIViewController {
         appUnit = AppUnit(
             name: appDetailViewModel.name,
             appID: appDetailViewModel.appID,
-            country: currentCountry,
-            platform: currentPlatform)
+            searchingContury: currentCountry,
+            searchingPlatform: currentPlatform)
         appIconImageURL = appDetailViewModel.iconImageURL
         super.init(nibName: nil, bundle: nil)
     }

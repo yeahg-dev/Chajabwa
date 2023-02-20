@@ -12,7 +12,7 @@ final class AppFolderSelectViewModel: NSObject {
     
     private let appFolderUsecase = AppFolderUsecase()
     
-    private var appFolders = [AppFolder]()
+    private var allAppFolders = [AppFolder]()
     private var appFolderCellModels = [AppFolderTableViewCellModel]()
     private let appUnit: AppUnit
     private let iconImageURL: String?
@@ -45,10 +45,10 @@ final class AppFolderSelectViewModel: NSObject {
     }
     
     func fetchLatestData() async {
-        appFolders = await appFolderUsecase.readAllAppFolder()
-        let selectedAppFolder = await appFolderUsecase.readAppFolders(of: appUnit)
-        appFolderCellModels = appFolders.map{
-            let isSelectedAppFolder = selectedAppFolder.contains($0)
+        allAppFolders = await appFolderUsecase.readAllAppFolder()
+        let selectedAppFolders = await appFolderUsecase.readAppFolders(of: appUnit)
+        appFolderCellModels = allAppFolders.map{
+            let isSelectedAppFolder = selectedAppFolders.contains($0)
             return AppFolderTableViewCellModel(
                 appFolder: $0,
                 isSelectedAppFolder: isSelectedAppFolder)}
@@ -69,7 +69,7 @@ final class AppFolderSelectViewModel: NSObject {
         }
         var selectedAppFolder = [AppFolder]()
         for index in selectedIndexes {
-            selectedAppFolder.append(appFolders[index])
+            selectedAppFolder.append(allAppFolders[index])
         }
         do {
             _ = try await appFolderUsecase.updateAppFolder(
