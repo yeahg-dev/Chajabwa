@@ -9,6 +9,7 @@ import UIKit
 
 final class AnimatableArrowLayer: CAShapeLayer {
     
+    private let defaultStartAngle = 1.5 * .pi
     private let centerPoint: CGPoint
     private let pathRadius: CGFloat
     private var startAngle: CGFloat!
@@ -38,20 +39,29 @@ final class AnimatableArrowLayer: CAShapeLayer {
     
     func setPosition(_ start: CGFloat) {
         self.startAngle = start
-        let initialPosition = CAKeyframeAnimation(keyPath: "position")
+        let initialPositionAnimation = CAKeyframeAnimation(keyPath: "position")
+        let clockwise = (defaultStartAngle < start) ? true : false
         let postionPath = UIBezierPath(
             arcCenter: centerPoint,
             radius: pathRadius,
-            startAngle: start,
+            startAngle: defaultStartAngle,
             endAngle: start,
-            clockwise: true)
-        initialPosition.path = postionPath.cgPath
+            clockwise: clockwise)
+        initialPositionAnimation.path = postionPath.cgPath
+        initialPositionAnimation.duration = 0.01
+        initialPositionAnimation.isRemovedOnCompletion = false
+        initialPositionAnimation.fillMode = .forwards
+        if clockwise {
+            initialPositionAnimation.rotationMode = .rotateAuto
+        } else {
+            initialPositionAnimation.rotationMode = .rotateAutoReverse
+        }
         
-        self.position = postionPath.currentPoint
+        add(initialPositionAnimation, forKey: "initialPostion")
     }
     
     func animate(to end: CGFloat) {
-        self.removeAnimation(forKey: "position")
+        self.removeAnimation(forKey: "initialPostion")
         
         let positionAnimation = CAKeyframeAnimation(keyPath: "position")
         let clockwise = (startAngle < end) ? true : false
@@ -71,7 +81,7 @@ final class AnimatableArrowLayer: CAShapeLayer {
         } else {
             positionAnimation.rotationMode = .rotateAutoReverse
         }
-        add(positionAnimation, forKey: "positoon")
+        add(positionAnimation, forKey: "moveAroundArc")
         
         self.startAngle = end
     }
