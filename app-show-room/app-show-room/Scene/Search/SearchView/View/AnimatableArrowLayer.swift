@@ -41,13 +41,13 @@ final class AnimatableArrowLayer: CAShapeLayer {
         self.startAngle = start
         let initialPositionAnimation = CAKeyframeAnimation(keyPath: "position")
         let clockwise = (defaultStartAngle < start) ? true : false
-        let postionPath = UIBezierPath(
+        let path = UIBezierPath(
             arcCenter: centerPoint,
             radius: pathRadius,
             startAngle: defaultStartAngle,
             endAngle: start,
             clockwise: clockwise)
-        initialPositionAnimation.path = postionPath.cgPath
+        initialPositionAnimation.path = path.cgPath
         initialPositionAnimation.duration = 0.01
         initialPositionAnimation.isRemovedOnCompletion = false
         initialPositionAnimation.fillMode = .forwards
@@ -58,6 +58,7 @@ final class AnimatableArrowLayer: CAShapeLayer {
         }
         
         add(initialPositionAnimation, forKey: "initialPostion")
+        self.position = path.currentPoint
     }
     
     func animate(to end: CGFloat) {
