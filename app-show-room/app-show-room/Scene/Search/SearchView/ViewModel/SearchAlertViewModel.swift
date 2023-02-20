@@ -36,29 +36,29 @@ extension SearchViewModel {
     
     private struct InvalidInputAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = "ID를 다시 확인해주세요"
-        var message: String? = "숫자만 입력 할 수 있어요"
+        var title: String? = Text.please_check_id_again
+        var message: String? = Text.enter_only_numbers_for_id
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     
     private struct SearchFailureAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = "검색에 실패했습니다"
-        var message: String? = "다시 시도해주세요🙏🏻"
+        var title: String? = Text.search_failed
+        var message: String? = Text.please_try_again
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     
     private struct EmptyResultAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = "결과가 없습니다"
-        var message: String? = "검색어를 확인해주세요"
+        var title: String? = Text.no_results
+        var message: String? = Text.please_check_keyword_again
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     
     private struct CountryCodeDownloadErrorAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = "앱 데이터 다운로드를 실패했습니다"
-        var message: String? = "다시 시도해주세요🙏🏻"
+        var title: String? = Text.app_data_download_failed
+        var message: String? = Text.please_try_again
         var preferredStyle: UIAlertControllerStyle = .alert
         
     }

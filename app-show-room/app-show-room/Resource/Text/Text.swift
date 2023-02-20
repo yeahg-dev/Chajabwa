@@ -47,4 +47,10 @@ struct Text {
     static let delete_warning = "delete_warning".localized
     static let delete_failed = "delete_failed".localized
     static let save_failed = "save_failed".localized
+    static let search_failed = "search_failed".localized
+    static let no_results = "no_results".localized
+    static let please_check_id_again = "please_check_id_again".localized
+    static let enter_only_numbers_for_id = "enter_only_numbers_for_id".localized
+    static let please_check_keyword_again = "please_check_keyword_again".localized
+    static let app_data_download_failed = "app_data_download_failed".localized
 }
