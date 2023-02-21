@@ -125,16 +125,7 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchController.showsSearchResultsController = true
-        guard searchAppResultsController.showAppResults == false else {
-            return
-        }
         searchAppResultsController.showRecentSearchKeywordTableView()
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar.text?.count == 1 {
-            searchAppResultsController.showRecentSearchKeywordTableView()
-        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
