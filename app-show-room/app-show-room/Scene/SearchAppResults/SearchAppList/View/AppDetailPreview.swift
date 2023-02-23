@@ -88,7 +88,7 @@ class AppDetailPreview: UIView {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(
-            UIImage(named: "addFolder"),
+            Images.Icon.addFolder.image,
             for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         return button

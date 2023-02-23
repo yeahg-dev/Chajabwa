@@ -22,7 +22,7 @@ final class SearchViewController: UIViewController {
     private lazy var folderButton: UIButton = {
         let button = UIButton()
         button.setImage(
-            UIImage(named: "folder"),
+            Images.Icon.addFolder.image,
             for: .normal)
         button.contentMode = .scaleAspectFit
         button.addTarget(
@@ -199,7 +199,7 @@ private enum Design {
     static let appFolderButtonWidth: CGFloat = 30
     
     static let navigationBarLargeTitleTextColor = UIColor.white
-    static let searchBarTextFieldBackgroundColor = Color.skyBlue
+    static let searchBarTextFieldBackgroundColor = Colors.skyBlue.color
     static let searchBarTextFieldTextColor = UIColor.white
-    static let searchBarTintColor: UIColor = Color.blueGreen
+    static let searchBarTintColor: UIColor = Colors.blueGreen.color
 }

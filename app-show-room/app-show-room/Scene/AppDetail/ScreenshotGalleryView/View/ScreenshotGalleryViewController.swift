@@ -23,7 +23,7 @@ final class ScreenshotGalleryViewController: UIViewController {
     private lazy var doneButton: UIButton = {
         let action = UIAction { _ in self.dismiss(animated: true) }
         let button = UIButton(type: .system, primaryAction: action)
-        button.setTitleColor(Color.blueGreen, for: .normal)
+        button.setTitleColor(Colors.blueGreen.color, for: .normal)
         return button
     }()
     
@@ -40,7 +40,7 @@ final class ScreenshotGalleryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.lightSkyBlue
+        view.backgroundColor = Colors.lightSkyBlue.color
         view.addSubview(collectionView)
         view.addSubview(doneButton)
         configureCollectionView()
@@ -52,7 +52,7 @@ final class ScreenshotGalleryViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(LargeScreenshotCollectionViewCell.self)
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = Color.lightSkyBlue
+        collectionView.backgroundColor = Colors.lightSkyBlue.color
     }
     
     private func configureDoneButton() {

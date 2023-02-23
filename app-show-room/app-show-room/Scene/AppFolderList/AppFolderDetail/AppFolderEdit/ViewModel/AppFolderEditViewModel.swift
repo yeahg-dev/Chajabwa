@@ -33,8 +33,8 @@ class AppFolderEditViewModel {
     
     struct Output {
         
-        let folderNameTextFieldPlaceholder = Text.folder_name_condition
-        let doneButtonTitle = Text.save
+        let folderNameTextFieldPlaceholder = Texts.folder_name_condition
+        let doneButtonTitle = Texts.save
         let appFolderName: String
         let appFolderDescription: String?
         let navigationBarTitle: String
@@ -77,7 +77,7 @@ class AppFolderEditViewModel {
         return Output(
             appFolderName: appFolder.name,
             appFolderDescription: appFolder.description,
-            navigationBarTitle: Text.app_folder_eidt,
+            navigationBarTitle: Texts.app_folder_eidt,
             doneButtonIsEnabled: doneButtonIsEnabled,
             alertViewModel: alertViewModel.eraseToAnyPublisher(),
             presentingViewWillUpdate: presentingViewWillUpdate.eraseToAnyPublisher(),

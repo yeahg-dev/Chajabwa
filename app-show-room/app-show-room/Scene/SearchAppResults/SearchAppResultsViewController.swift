@@ -196,7 +196,7 @@ extension SearchAppResultsViewController: SearchKeywordTableFooterViewDelegate {
 
 private enum Design {
     
-    static let backgroundColor: UIColor = Color.lightSkyBlue
+    static let backgroundColor: UIColor = Colors.lightSkyBlue.color
     
     static let searchKeywordHedaerViewHeight: CGFloat =  75
     static let searchKeywordFooterViewHeight: CGFloat = 60

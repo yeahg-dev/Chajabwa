@@ -18,15 +18,15 @@ extension AppFolderSelectViewModel {
     
     private struct SaveFailureAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = Text.save_failed
-        var message: String? = Text.please_try_again
+        var title: String? = Texts.save_failed
+        var message: String? = Texts.please_try_again
         var preferredStyle: UIAlertControllerStyle = .alert
 
     }
     
     private struct ConfirmAction: UIAlertActionViewModel {
         
-        var title: String? = Text.confirm
+        var title: String? = Texts.confirm
         var style: UIAlertActionStyle = .defaults
         var handler: ((UIAlertAction) -> Void)?
     

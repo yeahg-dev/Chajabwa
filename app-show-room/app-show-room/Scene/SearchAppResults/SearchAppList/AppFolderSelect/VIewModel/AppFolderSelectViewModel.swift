@@ -23,8 +23,8 @@ final class AppFolderSelectViewModel: NSObject {
     
     // MARK: - Output
     
-    var navigationTitle = Text.save_to_folder
-    var saveButtonTitle = Text.save
+    var navigationTitle = Texts.save_to_folder
+    var saveButtonTitle = Texts.save
     
     var saveButtonIsEnabled: AnyPublisher<Bool, Never> {
         return cellDidSelected.map { [unowned self] in

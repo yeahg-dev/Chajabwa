@@ -13,7 +13,7 @@ struct SettingViewModel {
     private var countries: [Country] = Country.localizedSortedList
     private var selectedCountry: Country = AppSearchingConfiguration.country
     
-    var navigationBarTitle: String = Text.country_setting
+    var navigationBarTitle: String = Texts.country_setting
     
     var selectedCountryIndex: Int? {
         return countries.firstIndex { $0 == selectedCountry }

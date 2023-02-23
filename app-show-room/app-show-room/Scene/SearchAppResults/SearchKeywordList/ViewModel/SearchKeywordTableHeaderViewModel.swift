@@ -13,11 +13,11 @@ struct SearchKeywordTableHeaderViewModel {
         searchKeywordRepository: RealmSearchKeywordRepository())
     
     var headerTitle: String {
-        return Text.recent_search_keyword
+        return Texts.recent_search_keyword
     }
     
     var savingSwitchTitle: String {
-        return Text.save
+        return Texts.save
     }
     
     var isSavingSwithOn: Bool {

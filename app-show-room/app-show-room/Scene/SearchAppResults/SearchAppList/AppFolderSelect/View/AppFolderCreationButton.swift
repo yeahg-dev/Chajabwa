@@ -9,7 +9,7 @@ import UIKit
 
 final class AppFolderCreationButton: UIControl {
 
-    private let plusImage = UIImage(named: "plus")
+    private let plusImage = Images.Icon.plus.image
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -23,7 +23,7 @@ final class AppFolderCreationButton: UIControl {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Design.titleFont
         label.textColor = Design.tintColor
-        label.text = Text.create_new_folder
+        label.text = Texts.create_new_folder
         return label
     }()
     
@@ -71,7 +71,7 @@ private enum Design {
     
     static let titleFont: UIFont = .preferredFont(forTextStyle: .headline)
     
-    static let tintColor: UIColor = Color.tintedLilac
+    static let tintColor: UIColor = Colors.tintedLilac.color
     
     static let contentInsetLeading: CGFloat = 35
     static let contentInsetBottom: CGFloat = 15

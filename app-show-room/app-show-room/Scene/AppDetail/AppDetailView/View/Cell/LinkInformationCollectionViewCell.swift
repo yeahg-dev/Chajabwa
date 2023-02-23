@@ -53,7 +53,7 @@ final class LinkInformationContentView: UIView, UIContentView {
         super.init(frame: .zero)
         setSubviews()
         apply(configuration: configuration)
-        backgroundColor = Color.lightSkyBlue
+        backgroundColor = Colors.lightSkyBlue.color
     }
     
     required init?(coder: NSCoder) {
@@ -126,7 +126,7 @@ private enum Design {
     static let categoryLabelFont: UIFont = .preferredFont(forTextStyle: .callout)
     
     // text color
-    static let categoryLabelTextColor: UIColor = Color.blueGreen
-    static let tintColor: UIColor = Color.blueGreen
+    static let categoryLabelTextColor: UIColor = Colors.blueGreen.color
+    static let tintColor: UIColor = Colors.blueGreen.color
     
 }

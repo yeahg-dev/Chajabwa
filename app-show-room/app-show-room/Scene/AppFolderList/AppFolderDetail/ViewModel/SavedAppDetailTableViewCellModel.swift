@@ -9,8 +9,8 @@ import UIKit
 
 struct SavedAppDetailTableViewCellModel {
     
-    let supportedDeviceText = Text.supporting_device
-    let appStoreText = Text.app_store
+    let supportedDeviceText = Texts.supporting_device
+    let appStoreText = Texts.app_store
     let supportedDeviceIconImages: [UIImage?]
     let countryName: String
     let countryFlag: String

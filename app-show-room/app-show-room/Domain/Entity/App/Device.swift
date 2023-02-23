@@ -18,15 +18,15 @@ enum Device: String {
     var iconImage: UIImage? {
         switch self {
         case .iPhone:
-            return UIImage(named: "iPhone")
+            return Images.Device.iPhone.image
         case .iPad:
-            return UIImage(named: "iPad")
+            return Images.Device.iPad.image
         case .watch:
-            return UIImage(named: "appleWatch")
+            return Images.Device.appleWatch.image
         case .mac:
-            return UIImage(named: "mac")
+            return Images.Device.mac.image
         case .iPod:
-            return UIImage(named: "iPod")
+            return Images.Device.iPod.image
         }
     }
     

@@ -38,7 +38,7 @@ struct SearchKeywordAlertViewModel {
     
     struct RecentSearckKeywordRepositoryFailureAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = Text.error
+        var title: String? = Texts.error
         var message: String?
         var preferredStyle: UIAlertControllerStyle = .alert
         
@@ -46,7 +46,7 @@ struct SearchKeywordAlertViewModel {
     
     struct RecentSearchKeywordReadFailureAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = Text.unable_to_download
+        var title: String? = Texts.unable_to_download
         var message: String?
         var preferredStyle: UIAlertControllerStyle = .alert
         
@@ -54,7 +54,7 @@ struct SearchKeywordAlertViewModel {
     
     struct RecentSearchKeywordDeleteFailureAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = Text.delete_failed
+        var title: String? = Texts.delete_failed
         var message: String?
         var preferredStyle: UIAlertControllerStyle = .alert
         
@@ -64,7 +64,7 @@ struct SearchKeywordAlertViewModel {
     
     struct OKActionViewModel: UIAlertActionViewModel {
         
-        var title: String? = Text.confirm
+        var title: String? = Texts.confirm
         var style: UIAlertActionStyle = .defaults
         var handler: ((UIAlertAction) -> Void)?
         
@@ -72,7 +72,7 @@ struct SearchKeywordAlertViewModel {
     
     struct RetryActionViewModel: UIAlertActionViewModel {
         
-        var title: String? = Text.please_try_again
+        var title: String? = Texts.please_try_again
         var style: UIAlertActionStyle = .defaults
         var handler: ((UIAlertAction) -> Void)?
         
@@ -80,7 +80,7 @@ struct SearchKeywordAlertViewModel {
     
     struct ReportToDeveloperActionViewModel: UIAlertActionViewModel {
         
-        var title: String? = Text.report_bug
+        var title: String? = Texts.report_bug
         var style: UIAlertActionStyle = .defaults
         var handler: ((UIAlertAction) -> Void)?
         

@@ -191,10 +191,10 @@ private enum Design {
     static let saveButtonPaddingBottom: CGFloat = 40
     
     static let navigtaionBarTitleTextColor: UIColor = .black
-    static let navigationBarTintColor = Color.blueGreen
-    static let backgroundColor: UIColor = Color.lightSkyBlue
-    static let saveButtonColor: UIColor = Color.lilac
-    static let saveButtonDisableColor: UIColor = Color.lightGray
+    static let navigationBarTintColor = Colors.blueGreen.color
+    static let backgroundColor: UIColor = Colors.lightSkyBlue.color
+    static let saveButtonColor: UIColor = Colors.lilac.color
+    static let saveButtonDisableColor: UIColor = Colors.lightGray.color
     
     static let saveButtonTitleColor: UIColor = .white
     static let saveButtonTitleFont: UIFont = .preferredFont(forTextStyle: .headline)

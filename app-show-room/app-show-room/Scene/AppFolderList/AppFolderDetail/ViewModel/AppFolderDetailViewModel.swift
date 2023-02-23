@@ -145,8 +145,8 @@ final class AppFolderDetailViewModel: NSObject {
             presentAppFolderEditAlert: presentAppFolderEditAlert,
             presentAppFolderDeleteAlert: presentAppFolderDeleteAlert,
             navigateToAppFolderListView: navigateToAppFolderListView.eraseToAnyPublisher(),
-            EmptyViewguideLabelText: Text.no_saved_app,
-            goToSearchButtonTitle: Text.go_search,
+            EmptyViewguideLabelText: Texts.no_saved_app,
+            goToSearchButtonTitle: Texts.go_search,
             showEmptyView: showEmptyView.eraseToAnyPublisher()
         )
     }

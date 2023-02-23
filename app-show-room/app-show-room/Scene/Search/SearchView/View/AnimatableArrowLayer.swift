@@ -24,7 +24,7 @@ final class AnimatableArrowLayer: CAShapeLayer {
         centerPoint = center
         pathRadius = radius
         super.init()
-        let arrowImage = UIImage(named: "arrow")!
+        let arrowImage = Images.Icon.arrow.image
         contents = arrowImage.cgImage
         bounds = CGRect(
             x: 0.0,

@@ -23,8 +23,7 @@ class AppFolderTableViewCell: BaseTableViewCell {
         return imageView
     }()
     
-    private let defaultIconImage = UIImage(
-        named: "defaultAppIcon")!
+    private let defaultIconImage = Images.Icon.defaultAppIcon.image
     
     private lazy var labelStackView: UIStackView = {
         let stackView = UIStackView(
@@ -176,9 +175,9 @@ private enum Design {
     
     static let backgroundColor: UIColor = .clear
     static let folderNameLabelFontColor: UIColor = .black
-    static let savedAppCountLabelFontColor: UIColor = Color.grayLavender
+    static let savedAppCountLabelFontColor: UIColor = Colors.grayLavender.color
     static let cellTintColor: UIColor = .red
-    static let defaultImageBackgroundColor: UIColor = Color.lightGray
-    static let selectedBackgroundColor = Color.lilac
+    static let defaultImageBackgroundColor: UIColor = Colors.lightGray.color
+    static let selectedBackgroundColor = Colors.lilac.color
     
 }

@@ -268,8 +268,8 @@ private enum Design {
     static let purchaseButtonTextColor: UIColor = .white
     
     // backgroundColor
-    static let purchaseButtonBackgroundColor: UIColor = Color.blueGreen
+    static let purchaseButtonBackgroundColor: UIColor = Colors.blueGreen.color
     
     // tintColor
-    static let shareButtonTintColor = Color.blueGreen
+    static let shareButtonTintColor = Colors.blueGreen.color
 }

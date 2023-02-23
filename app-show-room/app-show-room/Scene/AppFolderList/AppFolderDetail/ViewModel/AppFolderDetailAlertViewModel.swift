@@ -17,14 +17,14 @@ extension AppFolderDetailViewModel {
     
     private struct SavedAppFetchFailureAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = Text.unable_to_download
-        var message: String? = Text.please_try_again
+        var title: String? = Texts.unable_to_download
+        var message: String? = Texts.please_try_again
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     
     private struct ConfirmActionViewModel: UIAlertActionViewModel {
         
-        var title: String? = Text.confirm
+        var title: String? = Texts.confirm
         var style: UIAlertActionStyle = .defaults
         var handler: ((UIAlertAction) -> Void)?
         
@@ -49,7 +49,7 @@ extension AppFolderDetailViewModel {
     
     private struct EditActionViewModel: UIAlertActionViewModel {
         
-        var title: String? = Text.app_folder_eidt
+        var title: String? = Texts.app_folder_eidt
         var style: UIAlertActionStyle = .defaults
         var handler: ((UIAlertAction) -> Void)?
         
@@ -57,7 +57,7 @@ extension AppFolderDetailViewModel {
     
     private struct DeleteActionViewModel: UIAlertActionViewModel {
         
-        var title: String? = Text.app_folder_delete
+        var title: String? = Texts.app_folder_delete
         var style: UIAlertActionStyle = .destructive
         var handler: ((UIAlertAction) -> Void)?
         
@@ -75,14 +75,14 @@ extension AppFolderDetailViewModel {
 
     private struct AppFolderDeleteConfirmAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = Text.app_folder_delete_reconfirm
-        var message: String? = Text.delete_warning
+        var title: String? = Texts.app_folder_delete_reconfirm
+        var message: String? = Texts.delete_warning
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     
     private struct CancelActionViewModel: UIAlertActionViewModel {
         
-        var title: String? = Text.cancel
+        var title: String? = Texts.cancel
         var style: UIAlertActionStyle = .defaults
         var handler: ((UIAlertAction) -> Void)?
         
@@ -99,8 +99,8 @@ extension AppFolderDetailViewModel {
     
     private struct AppFolderDeleteErrorAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = Text.delete_failed
-        var message: String? = Text.please_try_again
+        var title: String? = Texts.delete_failed
+        var message: String? = Texts.please_try_again
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     

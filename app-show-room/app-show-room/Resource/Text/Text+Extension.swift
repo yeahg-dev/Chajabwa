@@ -7,16 +7,16 @@
 
 import Foundation
 
-extension Text {
+extension Texts {
     
     static func numberOfRating(_ count: Int) -> String {
         let formattedNumber = count.formattedNumber
-        return "\(formattedNumber)\(Text.rating_unit)"
+        return "\(formattedNumber)\(Texts.rating_unit)"
     }
     
     static func numberOfLanguage(_ count: Int) -> String {
         let formattedNumber = count.formattedNumber
-        return "\(formattedNumber)\(Text.language_unit)"
+        return "\(formattedNumber)\(Texts.language_unit)"
     }
     
 }

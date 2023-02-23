@@ -104,7 +104,7 @@ final class SearchAppTableViewCell: BaseTableViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(
-            UIImage(named: "addFolder"),
+            Images.Icon.addFolder.image,
             for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(pushAppFolderSelectView), for: .touchUpInside)
@@ -268,7 +268,7 @@ extension SearchAppTableViewCell {
         
         // backgroundColor
         static let backgroundColor: UIColor = .clear
-        static let selectedBackgroundColor: UIColor = Color.skyBlue
+        static let selectedBackgroundColor: UIColor = Colors.skyBlue.color
         
         // layer
         static let iconImageViewCornerRadius: CGFloat = 20

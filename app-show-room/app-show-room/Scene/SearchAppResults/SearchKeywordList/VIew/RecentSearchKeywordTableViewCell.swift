@@ -138,6 +138,6 @@ private enum Design {
     
     static let keywordLabelTextColor: UIColor = .black
     static let backgroundColor: UIColor = .clear
-    static let selectedBackgroundColor: UIColor = Color.skyBlue
+    static let selectedBackgroundColor: UIColor = Colors.skyBlue.color
     
 }

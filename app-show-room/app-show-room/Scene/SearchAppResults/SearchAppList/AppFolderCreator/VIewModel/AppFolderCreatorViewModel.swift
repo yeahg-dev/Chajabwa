@@ -27,9 +27,9 @@ struct AppFolderCreatorViewModel {
     
     // MARK: - Output
     
-    let navigationBarTitle = Text.create_new_folder
-    let folderNameTextFieldPlaceholder = Text.folder_name_condition
-    let doneButtonTitle = Text.save
+    let navigationBarTitle = Texts.create_new_folder
+    let folderNameTextFieldPlaceholder = Texts.folder_name_condition
+    let doneButtonTitle = Texts.save
     
     var doneButtonIsEnabled: AnyPublisher<Bool, Never> {
         return appFolderName.flatMap({ name in

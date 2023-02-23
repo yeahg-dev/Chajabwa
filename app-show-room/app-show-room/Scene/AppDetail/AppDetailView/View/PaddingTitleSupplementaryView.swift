@@ -32,7 +32,7 @@ final class PaddingTitleSupplementaryView: UICollectionReusableView {
         super.init(frame: frame)
         self.layer.addSublayer(separatorLayer)
         configureSubview()
-        backgroundColor = Color.lightSkyBlue
+        backgroundColor = Colors.lightSkyBlue.color
     }
     
     required init?(coder: NSCoder) {

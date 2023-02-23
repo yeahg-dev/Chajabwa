@@ -16,11 +16,11 @@ enum SoftwareType: String {
     var iconImage: UIImage? {
         switch self {
         case .iPhone:
-            return UIImage(named: "iPhone")
+            return Images.Device.iPhone.image
         case .iPad:
-            return UIImage(named: "iPad")
+            return Images.Device.iPad.image
         case .mac:
-            return UIImage(named: "mac")
+            return Images.Device.mac.image
         }
     }
     

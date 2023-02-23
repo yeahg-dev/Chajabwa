@@ -12,7 +12,7 @@ final class LaunchScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let launchScreenImage = UIImage(named: "launchScreen")
+        let launchScreenImage = Images.App.launchScreen.image
         let backgroundImageView = UIImageView.init(frame: self.view.frame)
         backgroundImageView.image = launchScreenImage
         backgroundImageView.contentMode = .scaleAspectFill

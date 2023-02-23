@@ -191,8 +191,8 @@ private enum Design {
     
     static let supportedDeviceLabelTextColor: UIColor = .gray
     static let appStoreLabelTextColor: UIColor = .gray
-    static let countryNameLabelTextColor: UIColor = Color.grayLavender
+    static let countryNameLabelTextColor: UIColor = Colors.grayLavender.color
     
-    static let selectedBackgroundColor: UIColor = Color.lilac
+    static let selectedBackgroundColor: UIColor = Colors.lilac.color
     
 }

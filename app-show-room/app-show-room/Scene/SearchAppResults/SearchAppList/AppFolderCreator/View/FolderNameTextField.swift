@@ -42,7 +42,7 @@ class FolderNameTextField: UITextField {
 private enum Design {
     
     static let font: UIFont = .preferredFont(forTextStyle: .headline)
-    static let underlineColor: UIColor = Color.favoriteLavender
+    static let underlineColor: UIColor = Colors.favoriteLavender.color
     
     static let underlineHeight: CGFloat = 1
     
