@@ -542,6 +542,23 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		637997BB29A7A63A00ED8B55 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				6388DE4628A640500011D47E /* Images.xcassets */,
+				63BFA4F929A787E400E191BD /* Colors.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		637997BC29A7A65600ED8B55 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				6388DE4828A640500011D47E /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
 		637E10DF297E590A000E74B1 /* AppFolderEdit */ = {
 			isa = PBXGroup;
 			children = (
@@ -812,12 +829,11 @@
 		6388DE5428A664520011D47E /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				63BFA4F629A7596200E191BD /* SwiftGen */,
 				639F0194299A6BF30009DED5 /* Secret.plist */,
+				637997BB29A7A63A00ED8B55 /* Assets */,
+				63BFA4F629A7596200E191BD /* SwiftGen */,
 				63A6E5642991F0EE0016C101 /* Text */,
-				6388DE4828A640500011D47E /* LaunchScreen.storyboard */,
-				6388DE4628A640500011D47E /* Images.xcassets */,
-				63BFA4F929A787E400E191BD /* Colors.xcassets */,
+				637997BC29A7A65600ED8B55 /* Storyboards */,
 			);
 			path = Resource;
 			sourceTree = "<group>";

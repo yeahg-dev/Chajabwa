@@ -23,7 +23,7 @@
 ##   - To know which params are supported for a template, use `swiftgen template doc xcassets swift5` to open the template documentation on GitHub.
  xcassets:
   - inputs:
-    - Images.xcassets
+    - Assets/Images.xcassets
     outputs:
      - templateName: swift5
        params:
@@ -31,7 +31,7 @@
          enumName: Images
        output: SwiftGen/Images.swift
   - inputs:
-    - Colors.xcassets
+    - Assets/Colors.xcassets
     outputs:
      - templateName: swift5
        params:
