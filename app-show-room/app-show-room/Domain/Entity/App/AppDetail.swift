@@ -25,7 +25,7 @@ struct AppDetail {
     let minimumOSVersion: String?
     let providerURL: String?
     let version: String?
-    let currentVersionReleaseDate: String?
+    let currentVersionReleaseDate: Date?
     let releaseDescription: String?
     let supportedDevices: [String]?
     

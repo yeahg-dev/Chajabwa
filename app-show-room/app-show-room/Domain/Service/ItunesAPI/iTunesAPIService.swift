@@ -26,4 +26,6 @@ extension iTunesAPIService {
         return URLSession(configuration: defaultConfiguration)
     }()
     
+    static let dateFormatter = ISO8601DateFormatter()
+    
 }

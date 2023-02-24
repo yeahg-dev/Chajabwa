@@ -238,12 +238,6 @@ struct AppDetailViewModel {
 }
 
 extension AppDetailViewModel {
-    static let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        return dateFormatter
-    }()
     
     enum Item: Hashable {
         case signBoard(AppSignBoard)
@@ -287,12 +281,12 @@ extension AppDetailViewModel {
     struct ReleaseNote: Hashable {
         
         private let versionValue: String?
-        private let currentVersionReleaseDateValue: String?
+        private let currentVersionReleaseDateValue: Date?
         
         var description: String?
         var isTrucated: Bool = true
         
-        init(version: String?, currentVersionReleaseDate: String?, description: String?,
+        init(version: String?, currentVersionReleaseDate: Date?, description: String?,
              isTruncated: Bool) {
             self.versionValue = version
             self.currentVersionReleaseDateValue = currentVersionReleaseDate
@@ -308,20 +302,21 @@ extension AppDetailViewModel {
         }
         
         var currentVersionReleaseDate: String? {
-            return releaseDateRepresentation(currentVersionReleaseDateValue)
+            return releaseDateString(currentVersionReleaseDateValue)
         }
         
         var buttonTitle: String? {
             return isTrucated ? Texts.more_details : Texts.shortly
         }
         
-        private func releaseDateRepresentation(_ string: String?) -> String? {
-            guard let string = string,
-                  let releaseDate = ISO8601DateFormatter().date(from: string) else {
+        private func releaseDateString(_ date: Date?) -> String? {
+            guard let date else {
                 return nil
             }
-   
-            return AppDetailViewModel.dateFormatter.string(from: releaseDate)
+            return DateFormatter.localizedString(
+                from: date,
+                dateStyle: .medium,
+                timeStyle: .none)
         }
         
     }
