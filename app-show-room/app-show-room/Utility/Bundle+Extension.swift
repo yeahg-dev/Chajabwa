@@ -11,10 +11,12 @@ extension Bundle {
     
     var countryCodeAPIKey: String {
         guard let filePath = self.path(forResource: "Secret", ofType: "plist") else {
+            print("\(Self.className) Error, filePath Creation Failed")
             return ""
         }
         
         guard let resource = NSDictionary(contentsOfFile: filePath) else {
+            print("\(Self.className) Error, Dictionary Creation Failed")
             return ""
         }
         
