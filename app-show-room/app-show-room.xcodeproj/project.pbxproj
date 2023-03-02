@@ -15,6 +15,7 @@
 		630068D42953377800BD73C9 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630068D32953377800BD73C9 /* Array+Extension.swift */; };
 		63075FBF28C1D7590094E117 /* ReleaseNoteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63075FBE28C1D7590094E117 /* ReleaseNoteCollectionViewCell.swift */; };
 		63075FC528C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63075FC428C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift */; };
+		63182ECB29B071BF003BBC90 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 63182ECD29B071BF003BBC90 /* InfoPlist.strings */; };
 		631CDA762977A02E00ED71C8 /* AppFolderListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631CDA752977A02E00ED71C8 /* AppFolderListViewModel.swift */; };
 		631CDA782977A35F00ED71C8 /* AppFolderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631CDA772977A35F00ED71C8 /* AppFolderListViewController.swift */; };
 		631CDA7A2977F8D700ED71C8 /* SavedAppDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631CDA792977F8D700ED71C8 /* SavedAppDetail.swift */; };
@@ -205,6 +206,8 @@
 		630068D32953377800BD73C9 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		63075FBE28C1D7590094E117 /* ReleaseNoteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseNoteCollectionViewCell.swift; sourceTree = "<group>"; };
 		63075FC428C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailCollectionViewCellDesign.swift; sourceTree = "<group>"; };
+		63182ECC29B071BF003BBC90 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		63182ECE29B071C8003BBC90 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		631CDA752977A02E00ED71C8 /* AppFolderListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderListViewModel.swift; sourceTree = "<group>"; };
 		631CDA772977A35F00ED71C8 /* AppFolderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderListViewController.swift; sourceTree = "<group>"; };
 		631CDA792977F8D700ED71C8 /* SavedAppDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAppDetail.swift; sourceTree = "<group>"; };
@@ -829,6 +832,7 @@
 		6388DE5428A664520011D47E /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				63182ECD29B071BF003BBC90 /* InfoPlist.strings */,
 				639F0194299A6BF30009DED5 /* Secret.plist */,
 				637997BB29A7A63A00ED8B55 /* Assets */,
 				63BFA4F629A7596200E191BD /* SwiftGen */,
@@ -1417,6 +1421,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6388DE4A28A640500011D47E /* LaunchScreen.storyboard in Resources */,
+				63182ECB29B071BF003BBC90 /* InfoPlist.strings in Resources */,
 				639F0195299A6BF30009DED5 /* Secret.plist in Resources */,
 				63BFA4FA29A787E400E191BD /* Colors.xcassets in Resources */,
 				63A6E5602991F0820016C101 /* Localizable.strings in Resources */,
@@ -1675,6 +1680,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		63182ECD29B071BF003BBC90 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				63182ECC29B071BF003BBC90 /* ko */,
+				63182ECE29B071C8003BBC90 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		6388DE4828A640500011D47E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
