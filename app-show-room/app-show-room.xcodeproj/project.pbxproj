@@ -1441,6 +1441,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		63A6E5672991F6640016C101 /* Strings file Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -1459,6 +1460,7 @@
 		};
 		63BFA4F529A756D400E191BD /* SwiftGen Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
