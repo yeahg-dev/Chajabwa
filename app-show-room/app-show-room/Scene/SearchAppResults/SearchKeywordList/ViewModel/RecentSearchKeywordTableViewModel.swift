@@ -48,19 +48,19 @@ final class RecentSearchKeywordTableViewModel: NSObject {
     }
     
     var title: String {
-        return Text.recentSearchKeyword.rawValue
+        return Texts.recent_search_keyword
     }
     
     var savingSwtichTitle: String {
-        return Text.save.rawValue
+        return Texts.save
     }
     
     var deleteAllButtonTitle: String {
-        return Text.deleteAll.rawValue
+        return Texts.delete_all
     }
     
     var savingModeOffDescription: String {
-        return Text.savingIsDeactivate.rawValue
+        return Texts.search_word_storage_feature_is_turned_off
     }
     
     var isActivateSavingButton: Bool {
@@ -81,12 +81,12 @@ final class RecentSearchKeywordTableViewModel: NSObject {
             let result = try await self.appSearchUsecase?.searchAppDetail(of: keyword)
             if let appDetails = result,
                appDetails.isEmpty {
-                return .failure(SearchAlertViewModel.EmptyResultAlertViewModel())
+                return .failure(SearchViewModel.EmptyResultAlertViewModel())
             } else {
                 return .success(result!)
             }
         } catch {
-            return .failure(SearchAlertViewModel.SearchFailureAlertViewModel())
+            return .failure(SearchViewModel.SearchFailureAlertViewModel())
         }
     }
     

@@ -45,10 +45,10 @@ struct SearchViewModel {
 
 extension SearchViewModel: SearchViewModelInput {
 
-    var navigationItemTitle: String { Text.searchTitle.rawValue }
+    var navigationItemTitle: String { Texts.app_name }
     
     var searchBarPlaceholder: String {
-        return Text.searchBarPlaceholder.rawValue
+        return Texts.please_enter_name_or_id
     }
     
     var platformType: SoftwareType {
@@ -56,11 +56,11 @@ extension SearchViewModel: SearchViewModelInput {
     }
     
     var countryFlag: String {
-        return AppSearchingConfiguration.countryISOCode.flag
+        return AppSearchingConfiguration.country.flag
     }
     
     var countryName: String {
-        return AppSearchingConfiguration.countryISOCode.name
+        return AppSearchingConfiguration.country.localizedName
     }
     
   
@@ -72,12 +72,12 @@ extension SearchViewModel: SearchViewModelInput {
             let appDetails = try await self.appSearchUsecase.searchAppDetail(
                 of: input)
             if appDetails.isEmpty {
-                return .failure(SearchAlertViewModel.EmptyResultAlertViewModel())
+                return .failure(EmptyResultAlertViewModel())
             } else {
                 return .success(appDetails)
             }
         } catch {
-            return .failure(SearchAlertViewModel.SearchFailureAlertViewModel())
+            return .failure(SearchFailureAlertViewModel())
         }
     }
     

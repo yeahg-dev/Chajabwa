@@ -24,7 +24,7 @@ final class AppDetailViewController: UIViewController {
        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.imageView?.contentMode = .scaleAspectFit
-        button.setImage(UIImage(named: "addFolder"), for: .normal)
+        button.setImage(Images.Icon.addFolder.image, for: .normal)
         button.addTarget(
             self,
             action: #selector(pushAppFolderSelectView),
@@ -56,13 +56,13 @@ final class AppDetailViewController: UIViewController {
     
     init(appDetailViewModel: AppDetailViewModel) {
         viewModel = appDetailViewModel
-        let currentCountry = AppSearchingConfiguration.countryISOCode
+        let currentCountry = AppSearchingConfiguration.country
         let currentPlatform = AppSearchingConfiguration.softwareType
         appUnit = AppUnit(
             name: appDetailViewModel.name,
             appID: appDetailViewModel.appID,
-            country: currentCountry,
-            platform: currentPlatform)
+            searchingContury: currentCountry,
+            searchingPlatform: currentPlatform)
         appIconImageURL = appDetailViewModel.iconImageURL
         super.init(nibName: nil, bundle: nil)
     }
@@ -367,7 +367,7 @@ final class AppDetailViewController: UIViewController {
             content.secondaryTextProperties.font = .preferredFont(forTextStyle: .callout)
             content.secondaryTextProperties.color = .label
             cell.contentConfiguration = content
-            cell.backgroundColor = Color.lightSkyBlue
+            cell.backgroundColor = Colors.lightSkyBlue.color
         }
     }
     
@@ -475,8 +475,8 @@ extension AppDetailViewController: UICollectionViewDelegate {
 private enum Design {
     
     // color
-    static let backgroundColor: UIColor = Color.lightSkyBlue
-    static let navigationBarTintColor: UIColor = Color.blueGreen
+    static let backgroundColor: UIColor = Colors.lightSkyBlue.color
+    static let navigationBarTintColor: UIColor = Colors.blueGreen.color
     
     // padding
     static let sectionPaddingTop: CGFloat = 20

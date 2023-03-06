@@ -225,7 +225,7 @@ extension AppFolderDetailViewController: UITableViewDelegate {
     {
         let deleteAction = UIContextualAction(
             style: .destructive,
-            title: Text.delete.rawValue
+            title: Texts.delete
         ) {  [unowned self] _, _, _ in
             cellWillDeletedAt.send(indexPath)
             viewWillRefresh.send(())
@@ -248,7 +248,7 @@ extension AppFolderDetailViewController: AppFoldrDetailViewPresenter {
 
 private enum Design {
     
-    static let backgroundColor: UIColor = Color.favoriteLavender
-    static let navigationBarTintColor = Color.blueGreen
+    static let backgroundColor: UIColor = Colors.favoriteLavender.color
+    static let navigationBarTintColor = Colors.blueGreen.color
     
 }

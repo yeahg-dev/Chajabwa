@@ -230,11 +230,11 @@ private enum Design {
     static let backgroundColor: UIColor = .white
     static let navigationBarTitleTextColor: UIColor = .black
     static let textFieldTextColor: UIColor = .black
-    static let textFieldPlaceholderTextColor: UIColor = Color.shadeLavender
-    static let textFieldBackgroundColor: UIColor = Color.grayLavender
+    static let textFieldPlaceholderTextColor: UIColor = Colors.shadeLavender.color
+    static let textFieldBackgroundColor: UIColor = Colors.grayLavender.color
     static let textViewTextColor: UIColor = .black
-    static let textViewBackgroundColor: UIColor = Color.favoriteLavender
-    static let disabledButtonColor: UIColor = Color.lightGray
-    static let normalButtonColor: UIColor = Color.lilac
+    static let textViewBackgroundColor: UIColor = Colors.favoriteLavender.color
+    static let disabledButtonColor: UIColor = Colors.lightGray.color
+    static let normalButtonColor: UIColor = Colors.lilac.color
     
 }

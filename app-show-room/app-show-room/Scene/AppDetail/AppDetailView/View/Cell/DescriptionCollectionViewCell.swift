@@ -171,7 +171,7 @@ private enum Design {
     static let textContainerMinimumNumberOfLines = 3
     
     // textColor
-    static let foldingButtonTextColor: UIColor = Color.blueGreen
+    static let foldingButtonTextColor: UIColor = Colors.blueGreen.color
     static let descriptionTextViewTextColor: UIColor = .black
     
 }

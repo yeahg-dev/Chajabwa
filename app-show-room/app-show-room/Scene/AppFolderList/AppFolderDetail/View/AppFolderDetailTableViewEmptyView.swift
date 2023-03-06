@@ -76,9 +76,9 @@ private enum Design {
     static let guideLabelFont: UIFont = .preferredFont(forTextStyle: .headline)
     static let goToSearchButtonFont: UIFont = .preferredFont(forTextStyle: .subheadline)
     
-    static let guideLabelTextColor: UIColor = Color.grayLavender
-    static let magnifierImageTintColor: UIColor = Color.lightSkyBlue
-    static let goToSearchButtonBackgroundColor: UIColor = Color.blueGreen
+    static let guideLabelTextColor: UIColor = Colors.grayLavender.color
+    static let magnifierImageTintColor: UIColor = Colors.lightSkyBlue.color
+    static let goToSearchButtonBackgroundColor: UIColor = Colors.blueGreen.color
     
     static let goToSearchButtonWidth: CGFloat = 180
     static let goToSearcgButtonHeight: CGFloat = 50

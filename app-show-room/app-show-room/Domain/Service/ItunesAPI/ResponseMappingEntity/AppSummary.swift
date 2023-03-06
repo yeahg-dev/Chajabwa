@@ -87,8 +87,16 @@ extension AppSummary: Decodable {
             minimumOSVersion: self.minimumOSVersion,
             providerURL: self.sellerURL,
             version: self.version,
-            currentVersionReleaseDate: self.currentVersionReleaseDate,
+            currentVersionReleaseDate: date(self.currentVersionReleaseDate),
             releaseDescription: self.releaseNotes,
             supportedDevices: self.supportedDevices)
     }
+    
+    private func date(_ string: String?) -> Date? {
+        guard let string else {
+            return nil
+        }
+        return iTunesAPIService.dateFormatter.date(from: string)
+    }
+    
 }

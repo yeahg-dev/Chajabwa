@@ -33,8 +33,8 @@ class AppFolderEditViewModel {
     
     struct Output {
         
-        let folderNameTextFieldPlaceholder = "폴더 이름 (2글자 이상)"
-        let doneButtonTitle = "완료"
+        let folderNameTextFieldPlaceholder = Texts.folder_name_condition
+        let doneButtonTitle = Texts.save
         let appFolderName: String
         let appFolderDescription: String?
         let navigationBarTitle: String
@@ -68,7 +68,7 @@ class AppFolderEditViewModel {
                         dismiss.send(())
                     } catch {
                         alertViewModel.send(
-                            AppFolderEditAlertViewModel.AppFolderSaveFailureAlertViewModel())
+                            AppFolderSaveFailureAlertViewModel())
                     }
                 }
             }.store(in: &cancellables)
@@ -77,7 +77,7 @@ class AppFolderEditViewModel {
         return Output(
             appFolderName: appFolder.name,
             appFolderDescription: appFolder.description,
-            navigationBarTitle: Text.appFolderEdit.rawValue,
+            navigationBarTitle: Texts.app_folder_eidt,
             doneButtonIsEnabled: doneButtonIsEnabled,
             alertViewModel: alertViewModel.eraseToAnyPublisher(),
             presentingViewWillUpdate: presentingViewWillUpdate.eraseToAnyPublisher(),

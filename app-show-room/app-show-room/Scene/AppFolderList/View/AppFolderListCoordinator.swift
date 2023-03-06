@@ -10,7 +10,7 @@ import UIKit
 final class AppFolderListCoordinator: Coordinator {
     
     var childCoordinator: [Coordinator] = []
-    var navigationController: UINavigationController
+    var navigationController: UINavigationController!
     var parentCoordinator: Coordinator?
     
     init(navigationController: UINavigationController) {

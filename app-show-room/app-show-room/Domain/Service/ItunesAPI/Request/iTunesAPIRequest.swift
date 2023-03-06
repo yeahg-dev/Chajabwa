@@ -12,7 +12,7 @@ protocol iTunesAPIRequest: APIRequest {
 }
 
 extension iTunesAPIRequest {
-    
+
     var baseURLString: String {
         "http://itunes.apple.com"
     }
@@ -22,4 +22,5 @@ extension iTunesAPIRequest {
          "Accept": "application/json",
          "Cache-control": "no-cache"]
     }
+    
 }

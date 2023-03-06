@@ -25,7 +25,16 @@ extension UIViewController {
             }
         }
         
-        present(alertController, animated: false)
+        present(alertController, animated: true) {
+            let tapGesture = UITapGestureRecognizer(
+                target: alertController,
+                action: #selector(self.dismissAlertController))
+            alertController.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    @objc func dismissAlertController(){
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

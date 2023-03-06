@@ -5,26 +5,47 @@
 //  Created by Moon Yeji on 2023/01/25.
 //
 
+import Combine
 import UIKit
 
 final class SearchCoordinator: NSObject, Coordinator {
     
     var childCoordinator = [Coordinator]()
-    var navigationController: UINavigationController
+    var launchScreenViewController: LaunchScreenViewController
+    var navigationController: UINavigationController!
     
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+    init(rootViewController: LaunchScreenViewController) {
+        self.launchScreenViewController = rootViewController
     }
     
     func start() {
+        Task {
+            do {
+                try await AppSearchingConfiguration().downloadCountryCode()
+                await MainActor.run {
+                    _ = presentSearchViewController()
+                }
+            } catch {
+                await MainActor.run {
+                    let searchVC = presentSearchViewController()
+                    searchVC.presentCountryCodeDownloadErrorAlert()
+                }
+            }
+        }
+    }
+    
+    @discardableResult
+    private func presentSearchViewController() -> SearchViewController {
         let searchKeywordRepository = RealmSearchKeywordRepository()
         let appSearchUseacase = AppSearchUsecase(
             searchKeywordRepository: searchKeywordRepository)
         let seachViewModel = SearchViewModel(appSearchUsecase: appSearchUseacase)
         let searchVC = SearchViewController(searchViewModel: seachViewModel)
         searchVC.coordinator = self
-        
-        navigationController.pushViewController(searchVC, animated: false)
+        navigationController = UINavigationController(rootViewController: searchVC)
+        navigationController.modalPresentationStyle = .fullScreen
+        launchScreenViewController.present(navigationController, animated: false)
+        return searchVC
     }
     
 }

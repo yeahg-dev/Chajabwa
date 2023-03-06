@@ -85,7 +85,7 @@ private enum Design {
     static let paddingLeading: CGFloat = 25
     static let paddingTrailing: CGFloat = 25
 
-    static let switchOnColor: UIColor = Color.lilac
+    static let switchOnColor: UIColor = Colors.lilac.color
     static let titleLabelTextColor: UIColor = .black
 
 }

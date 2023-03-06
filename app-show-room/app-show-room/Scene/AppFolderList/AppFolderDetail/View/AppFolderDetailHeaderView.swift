@@ -45,7 +45,7 @@ class AppFolderDetailHeaderView: UIView {
         return textView
     }()
     
-    private let defaultAppIconImage = UIImage(named: "defaultAppIcon")!
+    private let defaultAppIconImage = Images.Icon.defaultAppIcon.image
     
     private var cancellableTasks = [CancellableTask?]()
     
@@ -165,5 +165,5 @@ private enum Design {
     static let appFolderNameLabelTextColor: UIColor = .white
     static let appFolderDescriptionTextViewTextColor: UIColor = .white
     static let appFolderDescriptionTextViewBackgroundColor: UIColor = .clear
-    static let gradientEndColor: UIColor = Color.favoriteLavender
+    static let gradientEndColor: UIColor = Colors.favoriteLavender.color
 }

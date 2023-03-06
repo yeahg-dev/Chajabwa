@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 struct RealmAppFolderRepository: AppFolderRepository {
-
+    
     private let realm: Realm
     private let realmQueue: DispatchQueue
     
@@ -70,8 +70,8 @@ struct RealmAppFolderRepository: AppFolderRepository {
                 if let fetchedSaveapp = realm.objects(SavedAppRealm.self)
                     .where ({ savedApp in
                         savedApp.appID == appUnit.appID &&
-                        savedApp.countryName == appUnit.country.name &&
-                        savedApp.softwareTypeName == appUnit.platform.rawValue })
+                        savedApp.searchinConturyISOCode == appUnit.searchingContury.isoCode &&
+                        savedApp.searchingPlatformName == appUnit.searchingPlatform.rawValue })
                         .first {
                     continuation.resume(returning: fetchedSaveapp.toDomain())
                 } else {
@@ -192,7 +192,7 @@ struct RealmAppFolderRepository: AppFolderRepository {
                 savedApp,
                 iconImageURL: iconImageURL)
         }
-    
+        
         return try await withCheckedThrowingContinuation { continuation in
             realmQueue.async {
                 if let appFolderRealm = realm.object(
@@ -253,15 +253,15 @@ struct RealmAppFolderRepository: AppFolderRepository {
         return try await withCheckedThrowingContinuation { continuation in
             realmQueue.async {
                 if let appFolder = realm.object(ofType: AppFolderRealm.self, forPrimaryKey: appFolder.identifier) {
-                      do {
-                          try realm.write{
-                              realm.delete(appFolder)
-                          }
-                          continuation.resume()
-                      } catch {
-                          print("failed in \(self): \(error)")
-                          continuation.resume(throwing: RealmAppFolderRepositoryError.appFolderDeleteError)
-                      }
+                    do {
+                        try realm.write{
+                            realm.delete(appFolder)
+                        }
+                        continuation.resume()
+                    } catch {
+                        print("failed in \(self): \(error)")
+                        continuation.resume(throwing: RealmAppFolderRepositoryError.appFolderDeleteError)
+                    }
                 }
             }
         }
@@ -273,16 +273,21 @@ struct RealmAppFolderRepository: AppFolderRepository {
         iconImageURL: String?)
     async -> SavedApp
     {
-        return await withCheckedContinuation { continuation in
-            realmQueue.async {
-                let newSavedApp = SavedApp(
-                    appUnit: appUnit,
-                    iconImageURL: iconImageURL)
-                let savedAppRealm = SavedAppRealm(model: newSavedApp)
-                try! realm.write {
-                    realm.add(savedAppRealm)
+        if let savedApp = await fetchSavedApp(appUnit) {
+            return savedApp
+        } else {
+            return await withCheckedContinuation { continuation in
+                realmQueue.async {
+                    
+                    let newSavedApp = SavedApp(
+                        appUnit: appUnit,
+                        iconImageURL: iconImageURL)
+                    let savedAppRealm = SavedAppRealm(model: newSavedApp)
+                    try! realm.write {
+                        realm.add(savedAppRealm)
+                    }
+                    continuation.resume(returning: newSavedApp)
                 }
-                continuation.resume(returning: newSavedApp)
             }
         }
     }

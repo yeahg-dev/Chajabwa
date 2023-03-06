@@ -105,14 +105,10 @@ final class SearchAppResultsViewController: UITableViewController {
     }
     
     func scrollToTop() {
-        guard tableView.numberOfRows(inSection: 0) != 0 else {
+        guard let searchBarHeight = navigationItem.searchController?.searchBar.bounds.height else {
             return
         }
-        
-        tableView.scrollToRow(
-            at: IndexPath(row: 0, section: 0),
-            at: .top,
-            animated: true)
+        tableView.bounds.origin.y = searchBarHeight
     }
     
     override func viewDidLoad() {
@@ -200,7 +196,7 @@ extension SearchAppResultsViewController: SearchKeywordTableFooterViewDelegate {
 
 private enum Design {
     
-    static let backgroundColor: UIColor = Color.lightSkyBlue
+    static let backgroundColor: UIColor = Colors.lightSkyBlue.color
     
     static let searchKeywordHedaerViewHeight: CGFloat =  75
     static let searchKeywordFooterViewHeight: CGFloat = 60

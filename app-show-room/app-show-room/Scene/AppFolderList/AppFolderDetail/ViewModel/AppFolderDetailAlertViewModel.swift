@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct AppFolderDetailAlertViewModel {
+extension AppFolderDetailViewModel {
     
     struct SavedAppFetchFailureAlertViewModel: AlertViewModel {
         
@@ -15,16 +15,16 @@ struct AppFolderDetailAlertViewModel {
         var alertActions: [UIAlertActionViewModel]? = [ConfirmActionViewModel()]
     }
     
-    struct SavedAppFetchFailureAlertControllerViewModel: UIAlertControllerViewModel {
+    private struct SavedAppFetchFailureAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = "데이터를 불러오는 데 실패했어요"
-        var message: String? = "다시 시도해주세요"
+        var title: String? = Texts.unable_to_download
+        var message: String? = Texts.please_try_again
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     
-    struct ConfirmActionViewModel: UIAlertActionViewModel {
+    private struct ConfirmActionViewModel: UIAlertActionViewModel {
         
-        var title: String? = "확인"
+        var title: String? = Texts.confirm
         var style: UIAlertActionStyle = .defaults
         var handler: ((UIAlertAction) -> Void)?
         
@@ -40,24 +40,24 @@ struct AppFolderDetailAlertViewModel {
         
     }
 
-    struct AppFolderEditAlertControllerViewModel: UIAlertControllerViewModel {
+    private struct AppFolderEditAlertControllerViewModel: UIAlertControllerViewModel {
         
         var title: String? = nil
         var message: String? = nil
         var preferredStyle: UIAlertControllerStyle = .actionSheet
     }
     
-    struct EditActionViewModel: UIAlertActionViewModel {
+    private struct EditActionViewModel: UIAlertActionViewModel {
         
-        var title: String? = "폴더 수정"
+        var title: String? = Texts.app_folder_eidt
         var style: UIAlertActionStyle = .defaults
         var handler: ((UIAlertAction) -> Void)?
         
     }
     
-    struct DeleteActionViewModel: UIAlertActionViewModel {
+    private struct DeleteActionViewModel: UIAlertActionViewModel {
         
-        var title: String? = "폴더 삭제"
+        var title: String? = Texts.app_folder_delete
         var style: UIAlertActionStyle = .destructive
         var handler: ((UIAlertAction) -> Void)?
         
@@ -73,16 +73,16 @@ struct AppFolderDetailAlertViewModel {
         
     }
 
-    struct AppFolderDeleteConfirmAlertControllerViewModel: UIAlertControllerViewModel {
+    private struct AppFolderDeleteConfirmAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = "폴더를 삭제하시겠어요?"
-        var message: String? = "삭제하면 다시 복구할 수 없어요"
+        var title: String? = Texts.app_folder_delete_reconfirm
+        var message: String? = Texts.delete_warning
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     
-    struct CancelActionViewModel: UIAlertActionViewModel {
+    private struct CancelActionViewModel: UIAlertActionViewModel {
         
-        var title: String? = "취소"
+        var title: String? = Texts.cancel
         var style: UIAlertActionStyle = .defaults
         var handler: ((UIAlertAction) -> Void)?
         
@@ -97,10 +97,10 @@ struct AppFolderDetailAlertViewModel {
         
     }
     
-    struct AppFolderDeleteErrorAlertControllerViewModel: UIAlertControllerViewModel {
+    private struct AppFolderDeleteErrorAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = "삭제를 실패했어요"
-        var message: String? = "다시 시도해주세요"
+        var title: String? = Texts.delete_failed
+        var message: String? = Texts.please_try_again
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     

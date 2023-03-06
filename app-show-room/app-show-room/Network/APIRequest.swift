@@ -17,17 +17,11 @@ protocol APIRequest {
     var query: [String: Any] { get }
     var header: [String: String] { get }
     var body: Data? { get }
+    var url: URL? { get }
     
 }
 
 extension APIRequest {
-    
-    var url: URL? {
-        var urlComponents = URLComponents(string: baseURLString + path)
-        urlComponents?.queryItems = query.map {
-            URLQueryItem(name: $0.key, value: "\($0.value)") }
-        return urlComponents?.url
-    }
     
     var urlRequest: URLRequest? {
         guard let url = url else {
@@ -40,4 +34,5 @@ extension APIRequest {
         urlRequest.httpBody = body
         return urlRequest
     }
+    
 }

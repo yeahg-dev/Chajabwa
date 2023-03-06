@@ -7,64 +7,67 @@
 
 import UIKit
 
-enum SearchAlertViewModel {
-    
-    // MARK: - UIAlertActionViewModel
+extension SearchViewModel {
     
     struct InvalidInputAlertViewModel: AlertViewModel {
         
         var alertController: UIAlertControllerViewModel = InvalidInputAlertControllerViewModel()
-        var alertActions: [UIAlertActionViewModel]? = [InvalidInputAlertActionViewModel()]
+        var alertActions: [UIAlertActionViewModel]? = [ConfirmActionViewModel()]
     }
     
     struct SearchFailureAlertViewModel: AlertViewModel {
         
         var alertController: UIAlertControllerViewModel = SearchFailureAlertControllerViewModel()
-        var alertActions: [UIAlertActionViewModel]? = [SearchFailureAlertActionViewModel()]
+        var alertActions: [UIAlertActionViewModel]? = [ConfirmActionViewModel()]
     }
     
     struct EmptyResultAlertViewModel: AlertViewModel {
         
         var alertController: UIAlertControllerViewModel = EmptyResultAlertControllerViewModel()
-        var alertActions: [UIAlertActionViewModel]? = [SearchFailureAlertActionViewModel()]
+        var alertActions: [UIAlertActionViewModel]? = [ConfirmActionViewModel()]
+    }
+    
+    struct CountryCodeDownloadErrorAlertViewModel: AlertViewModel {
+        var alertController: UIAlertControllerViewModel = CountryCodeDownloadErrorAlertControllerViewModel()
+        var alertActions: [UIAlertActionViewModel]? = [ConfirmActionViewModel()]
     }
     
     // MARK: - UIAlertControllerViewModel
     
-    struct InvalidInputAlertControllerViewModel: UIAlertControllerViewModel {
+    private struct InvalidInputAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = "ID를 다시 확인해주세요"
-        var message: String? = "숫자만 입력 할 수 있어요"
+        var title: String? = Texts.please_check_id_again
+        var message: String? = Texts.enter_only_numbers_for_id
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     
-    struct SearchFailureAlertControllerViewModel: UIAlertControllerViewModel {
+    private struct SearchFailureAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = "검색에 실패했습니다"
-        var message: String? = "다시 시도해주세요🙏🏻"
+        var title: String? = Texts.search_failed
+        var message: String? = Texts.please_try_again
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     
-    struct EmptyResultAlertControllerViewModel: UIAlertControllerViewModel {
+    private struct EmptyResultAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = "결과가 없습니다"
-        var message: String? = "검색어를 확인해주세요"
+        var title: String? = Texts.no_results
+        var message: String? = Texts.please_check_keyword_again
         var preferredStyle: UIAlertControllerStyle = .alert
+    }
+    
+    private struct CountryCodeDownloadErrorAlertControllerViewModel: UIAlertControllerViewModel {
+        
+        var title: String? = Texts.app_data_download_failed
+        var message: String? = Texts.please_try_again
+        var preferredStyle: UIAlertControllerStyle = .alert
+        
     }
     
     // MARK: - UIAlertActionViewModel
     
-    struct InvalidInputAlertActionViewModel: UIAlertActionViewModel {
+    private struct ConfirmActionViewModel: UIAlertActionViewModel {
         
-        var title: String? = Text.confirm.rawValue
-        var style: UIAlertActionStyle = .defaults
-        var handler: ((UIAlertAction) -> Void)?
-        
-    }
-    
-    struct SearchFailureAlertActionViewModel: UIAlertActionViewModel {
-        
-        var title: String? = Text.confirm.rawValue
+        var title: String? = Texts.confirm
         var style: UIAlertActionStyle = .defaults
         var handler: ((UIAlertAction) -> Void)?
         

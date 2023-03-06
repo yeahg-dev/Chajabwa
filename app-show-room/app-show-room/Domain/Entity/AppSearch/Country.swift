@@ -9,24 +9,19 @@ import UIKit
 
 struct Country: Decodable, Equatable {
     
-    static let hashTable: [String: Country] = {
-        let data = NSDataAsset(name: "CountryCodes")!
-        let countries = try! JSONDecoder().decode([Country].self, from: data.data)
-        var all = [String: Country]()
-        for country in countries {
-            all[country.isoCode] = country
+    static var list: [Country] = []
+    
+    static var localizedSortedList: [Country] {
+        switch DeviceSetting.currentLanguage {
+        case .korean:
+            return list.sorted { $0.koreanName < $1.koreanName }
+        case .english:
+            return list.sorted { $0.englishName < $1.englishName }
         }
-        return all
-    }()
+    }
     
-    static let list: [Country] = {
-        let data = NSDataAsset(name: "CountryCodes")!
-        let countries = try! JSONDecoder().decode([Country].self, from: data.data)
-        return countries.sorted(by: {$0.name < $1.name})
-    }()
-    
-    let name: String
-    let dialCode: String
+    let englishName: String
+    let koreanName: String
     let isoCode: String
     
     var flag: String {
@@ -38,28 +33,39 @@ struct Country: Decodable, Equatable {
             .joined()
     }
     
-    init(name: String, dialCode: String, isoCode: String) {
-        self.name = name
-        self.dialCode = dialCode
+    var localizedName: String {
+        switch DeviceSetting.currentLanguage {
+        case .korean:
+            return self.koreanName
+        case .english:
+            return self.englishName
+        }
+    }
+    
+    init(englishName: String, koreanName: String, isoCode: String) {
+        self.englishName = englishName
+        self.koreanName = koreanName
         self.isoCode = isoCode
     }
     
-    init?(name: String) {
-        if let country = Country.list.first(where: { $0.name == name }) {
-            self.name = name
-            self.dialCode = country.dialCode
+    init?(englishName: String) {
+        if let country = Country.list.first(where: { $0.englishName == englishName }) {
+            self.englishName = englishName
+            self.koreanName = country.koreanName
             self.isoCode = country.isoCode
         } else {
             return nil
         }
     }
     
-    private enum CodingKeys: String, CodingKey {
-        
-        case name
-        case dialCode = "dial_code"
-        case isoCode = "code"
-        
+    init?(isoCode: String) {
+        if let country = Country.list.first(where: { $0.isoCode == isoCode }) {
+            self.englishName = country.englishName
+            self.koreanName = country.koreanName
+            self.isoCode = country.isoCode
+        } else {
+            return nil
+        }
     }
     
 }

@@ -11,7 +11,7 @@ struct AppUnit: Equatable {
     
     let name: String
     let appID: Int
-    let country: Country
-    let platform: SoftwareType
+    let searchingContury: Country
+    let searchingPlatform: SoftwareType
     
 }

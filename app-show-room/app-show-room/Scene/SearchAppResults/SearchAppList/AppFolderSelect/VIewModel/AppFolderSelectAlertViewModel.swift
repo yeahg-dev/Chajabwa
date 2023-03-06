@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct AppFolderSelectAlertViewModel {
+extension AppFolderSelectViewModel {
     
     struct SaveFailureAlertViewModel: AlertViewModel {
         
@@ -16,17 +16,17 @@ struct AppFolderSelectAlertViewModel {
         
     }
     
-    struct SaveFailureAlertControllerViewModel: UIAlertControllerViewModel {
+    private struct SaveFailureAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = "저장에 실패했습니다"
-        var message: String? = "다시 시도해주세요"
+        var title: String? = Texts.save_failed
+        var message: String? = Texts.please_try_again
         var preferredStyle: UIAlertControllerStyle = .alert
 
     }
     
-    struct ConfirmAction: UIAlertActionViewModel {
+    private struct ConfirmAction: UIAlertActionViewModel {
         
-        var title: String? = "확인"
+        var title: String? = Texts.confirm
         var style: UIAlertActionStyle = .defaults
         var handler: ((UIAlertAction) -> Void)?
     

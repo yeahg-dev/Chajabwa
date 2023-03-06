@@ -9,8 +9,8 @@ import UIKit
 
 struct SavedAppDetailTableViewCellModel {
     
-    let supportedDeviceText = "지원 기기 "
-    let appStoreText = "앱 스토어 국가"
+    let supportedDeviceText = Texts.supporting_device
+    let appStoreText = Texts.app_store
     let supportedDeviceIconImages: [UIImage?]
     let countryName: String
     let countryFlag: String
@@ -19,7 +19,7 @@ struct SavedAppDetailTableViewCellModel {
     
     init(savedAppDetail: SavedAppDetail) {
         self.supportedDeviceIconImages = savedAppDetail.supportedDevices.map{ $0.iconImage }
-        self.countryName = savedAppDetail.country.name
+        self.countryName = savedAppDetail.country.localizedName
         self.countryFlag = savedAppDetail.country.flag
         self.appDetailprevieViewModel = AppDetailPreviewViewModel(appDetail: savedAppDetail.appDetali)
     }

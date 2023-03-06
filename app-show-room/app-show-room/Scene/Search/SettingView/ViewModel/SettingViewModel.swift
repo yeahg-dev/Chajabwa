@@ -9,14 +9,14 @@ import UIKit
 
 struct SettingViewModel {
     
-    private let allCountries: [Country] = Country.list
-    private var countries: [Country] = Country.list
-    private var selecteCountry: Country = AppSearchingConfiguration.countryISOCode
+    private let allCountries: [Country] = Country.localizedSortedList
+    private var countries: [Country] = Country.localizedSortedList
+    private var selectedCountry: Country = AppSearchingConfiguration.country
     
-    var navigationBarTitle: String = "나라 설정"
+    var navigationBarTitle: String = Texts.country_setting
     
     var selectedCountryIndex: Int? {
-        return countries.firstIndex { $0 == selecteCountry }
+        return countries.firstIndex { $0 == selectedCountry }
     }
     
     func numberOfCountry() -> Int {
@@ -24,7 +24,7 @@ struct SettingViewModel {
     }
     
     func countryName(at row: Int) -> String? {
-        return countries[safe: row]?.name
+        return countries[safe: row]?.localizedName
     }
     
     func countryFlag(at row: Int) -> String? {
@@ -39,11 +39,11 @@ struct SettingViewModel {
         guard let country = countries[safe: indexPath.row] else {
             return
         }
-        selecteCountry = country
+        selectedCountry = country
     }
     
     func saveSetting() {
-        AppSearchingConfiguration.setCountry(by: selecteCountry)
+        AppSearchingConfiguration.setCountry(by: selectedCountry)
     }
     
     mutating func searchBarTextDidChange(to text: String) {
@@ -52,7 +52,7 @@ struct SettingViewModel {
             return
         }
         countries = allCountries.filter{
-            $0.name.localizedCaseInsensitiveContains(text)
+            $0.localizedName.localizedCaseInsensitiveContains(text)
         }
     }
     

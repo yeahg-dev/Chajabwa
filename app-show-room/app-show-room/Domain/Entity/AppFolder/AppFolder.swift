@@ -51,8 +51,8 @@ extension AppFolder {
     
     static let placeholder = AppFolder(
         savedApps: [],
-        name: Text.fetchFailurePlaceHodler.rawValue,
-        description: Text.fetchFailurePlaceHodler.rawValue,
+        name: Texts.unable_to_download,
+        description: Texts.unable_to_download,
         iconImageURL: nil)
     
 }

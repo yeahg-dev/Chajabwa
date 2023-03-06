@@ -16,6 +16,13 @@ struct AppSearchAPIRequest: iTunesAPIRequest {
     var query: [String: Any]
     var body: Data? = nil
     
+    var url: URL? {
+        var urlComponents = URLComponents(string: baseURLString + path)
+        urlComponents?.queryItems = query.map {
+            URLQueryItem(name: $0.key, value: "\($0.value)") }
+        return urlComponents?.url
+    }
+    
     init(term: String, countryISOCode: String, softwareType: String) {
         self.query = ["term": term, "country": countryISOCode, "entity": softwareType]
     }

@@ -38,7 +38,7 @@ final class SettingViewController: UIViewController {
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.placeholder = "나라 검색"
+        searchBar.placeholder = Texts.search_country
         searchBar.delegate = self
         searchBar.barTintColor = Design.backgroundColor
         return searchBar
@@ -185,9 +185,9 @@ extension SettingViewController: UISearchBarDelegate {
 
 private enum Design {
     
-    static let backgroundColor: UIColor = Color.lightSkyBlue
+    static let backgroundColor: UIColor = Colors.lightSkyBlue.color
     static let navigationBarTitleTextColor: UIColor = .black
-    static let tintColor: UIColor = Color.blueGreen
+    static let tintColor: UIColor = Colors.blueGreen.color
     static let checktMarkTintColor: UIColor = .red
     static let cellBackgroundColor: UIColor = .clear
     static let cellTextColor: UIColor = .black

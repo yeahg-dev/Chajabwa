@@ -18,22 +18,22 @@ final class PlatformButton: UIButton {
         var normalImage: UIImage? {
             switch self {
             case .iPhone:
-                return UIImage(named: "platform_iphone")
+                return Images.PlatformButton.platformIphone.image
             case .iPad:
-                return UIImage(named: "platform_ipad")
+                return Images.PlatformButton.platformIpad.image
             case .mac:
-                return UIImage(named: "platform_mac")
+                return Images.PlatformButton.platformMac.image
             }
         }
         
         var selectedImage: UIImage? {
             switch self {
             case .iPhone:
-                return UIImage(named: "platform_iphone_selected")
+                return Images.PlatformButton.platformIphoneSelected.image
             case .iPad:
-                return UIImage(named: "platform_ipad_selected")
+                return Images.PlatformButton.platformIpadSelected.image
             case .mac:
-                return UIImage(named: "platform_mac_selected")
+                return Images.PlatformButton.platformMacSelected.image
             }
         }
     }

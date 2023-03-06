@@ -23,7 +23,7 @@ final class AppFolderListViewModel: NSObject {
     
     struct Output {
         
-        let navigationTitle = "폴더 리스트"
+        let navigationTitle = Texts.folder_list
         let slectedAppFolder: AnyPublisher<AppFolder?, Never>
         
     }

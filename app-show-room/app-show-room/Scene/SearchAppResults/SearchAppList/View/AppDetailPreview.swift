@@ -78,8 +78,8 @@ class AppDetailPreview: UIView {
     private let userRatingCountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Design.starRatingLabelFont
-        label.textColor = Design.starRatingLabelTextColor
+        label.font = Design.userRatingCountLabelFont
+        label.textColor = Design.userRatingCountLableTextColor
         label.textAlignment = .left
         return label
     }()
@@ -88,7 +88,7 @@ class AppDetailPreview: UIView {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(
-            UIImage(named: "addFolder"),
+            Images.Icon.addFolder.image,
             for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         return button
@@ -229,12 +229,12 @@ private enum Design {
     // font
     static let titleLabelFont: UIFont = .preferredFont(forTextStyle: .title3)
     static let providerLabelFont: UIFont = .preferredFont(forTextStyle: .subheadline)
-    static let starRatingLabelFont: UIFont = .preferredFont(forTextStyle: .subheadline)
+    static let userRatingCountLabelFont: UIFont = .preferredFont(forTextStyle: .subheadline)
     
     // textColor
     static let nameLabelTextColor: UIColor = .black
     static let providerLabelTextColor: UIColor = .gray
-    static let starRatingLabelTextColor: UIColor = .systemGray3
+    static let userRatingCountLableTextColor: UIColor = .systemGray2
     
     // starRatingView
     static let starSize: CGFloat = 13

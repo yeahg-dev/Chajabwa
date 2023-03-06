@@ -10,7 +10,7 @@ import UIKit
 final class AppFolderSelectCoordinator: Coordinator {
     
     var childCoordinator: [Coordinator] = []
-    var navigationController: UINavigationController
+    var navigationController: UINavigationController!
     weak var parentCoordintaor: Coordinator?
     
     private let appUnit: AppUnit
@@ -29,6 +29,7 @@ final class AppFolderSelectCoordinator: Coordinator {
         let appFolderSelectVC = AppFolderSelectViewController(
             appUnit: appUnit,
             iconImageURL: appIconImageURL)
+        appFolderSelectVC.coordinator = self
         navigationController.pushViewController(appFolderSelectVC, animated: true)
     }
     

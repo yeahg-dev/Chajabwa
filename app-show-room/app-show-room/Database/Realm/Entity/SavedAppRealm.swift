@@ -16,8 +16,8 @@ class SavedAppRealm: Object {
     @Persisted(primaryKey: true) var identifier: String
     @Persisted var name: String
     @Persisted var appID: Int
-    @Persisted var countryName: String
-    @Persisted var softwareTypeName: String
+    @Persisted var searchinConturyISOCode: String
+    @Persisted var searchingPlatformName: String
     @Persisted var iconImageURL: String?
     
     @Persisted var folders = LinkingObjects(fromType: AppFolderRealm.self, property: "savedApps")
@@ -27,21 +27,21 @@ class SavedAppRealm: Object {
         identifier = model.identifier
         name = model.appUnit.name
         appID = model.appUnit.appID
-        countryName = model.appUnit.country.name
-        softwareTypeName = model.appUnit.platform.rawValue
+        searchinConturyISOCode = model.appUnit.searchingContury.isoCode
+        searchingPlatformName = model.appUnit.searchingPlatform.rawValue
         iconImageURL = model.iconImageURL
     }
     
     func toDomain() -> SavedApp? {
-        guard let country = Country(name: countryName),
-        let platform = SoftwareType(rawValue: softwareTypeName) else {
+        guard let country = Country(isoCode: searchinConturyISOCode),
+        let platform = SoftwareType(rawValue: searchingPlatformName) else {
             return nil
         }
         let appUnit = AppUnit(
             name: name,
             appID: appID,
-            country: country,
-            platform: platform)
+            searchingContury: country,
+            searchingPlatform: platform)
         return SavedApp(
             identifier: identifier,
             appUnit: appUnit,

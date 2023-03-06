@@ -23,13 +23,13 @@ class RecentSearchKeywordRealm: Object {
         self.init()
         keyword = model.keyword
         date = model.date
-        country = model.configuration.country.name
+        country = model.configuration.country.englishName
         softwareType = model.configuration.softwareType.rawValue
         identifier = model.identifier
     }
     
     func toDomain() -> DomainEntity? {
-        guard let country = Country(name: country),
+        guard let country = Country(englishName: country),
         let software = SoftwareType(rawValue: softwareType) else {
             return nil
         }

@@ -22,7 +22,7 @@ final class SearchViewController: UIViewController {
     private lazy var folderButton: UIButton = {
         let button = UIButton()
         button.setImage(
-            UIImage(named: "folder"),
+            Images.Icon.addFolder.image,
             for: .normal)
         button.contentMode = .scaleAspectFit
         button.addTarget(
@@ -67,6 +67,10 @@ final class SearchViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
+    func presentCountryCodeDownloadErrorAlert() {
+        presentAlert(SearchViewModel.CountryCodeDownloadErrorAlertViewModel())
     }
     
     private func configureNavigationItem() {
@@ -121,16 +125,7 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchController.showsSearchResultsController = true
-        guard searchAppResultsController.showAppResults == false else {
-            return
-        }
         searchAppResultsController.showRecentSearchKeywordTableView()
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar.text?.count == 1 {
-            searchAppResultsController.showRecentSearchKeywordTableView()
-        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -204,7 +199,7 @@ private enum Design {
     static let appFolderButtonWidth: CGFloat = 30
     
     static let navigationBarLargeTitleTextColor = UIColor.white
-    static let searchBarTextFieldBackgroundColor = Color.skyBlue
+    static let searchBarTextFieldBackgroundColor = Colors.skyBlue.color
     static let searchBarTextFieldTextColor = UIColor.white
-    static let searchBarTintColor: UIColor = Color.blueGreen
+    static let searchBarTintColor: UIColor = Colors.blueGreen.color
 }

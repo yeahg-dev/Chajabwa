@@ -10,7 +10,7 @@ import Foundation
 struct ScreenshotGalleryViewModel {
     
     private let screenshotURLs: [String]?
-    let doneButtonTitle = "완료"
+    let doneButtonTitle = Texts.done
     
     init(screenshotURLs: [String]?) {
         self.screenshotURLs = screenshotURLs

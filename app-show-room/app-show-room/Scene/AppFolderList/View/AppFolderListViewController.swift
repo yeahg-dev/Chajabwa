@@ -139,8 +139,8 @@ extension AppFolderListViewController: AppFolderCreatorViewPresenter {
 
 private enum Design {
     
-    static let backgroundColor: UIColor = Color.favoriteLavender
-    static let navigationBarTintColor = Color.blueGreen
+    static let backgroundColor: UIColor = Colors.favoriteLavender.color
+    static let navigationBarTintColor = Colors.blueGreen.color
     static let navigtaionBarTitleTextColor: UIColor = .black
     
 }

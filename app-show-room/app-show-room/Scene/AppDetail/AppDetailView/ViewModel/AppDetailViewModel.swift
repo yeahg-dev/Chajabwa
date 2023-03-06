@@ -24,13 +24,13 @@ struct AppDetailViewModel {
             case .summary:
                 return nil
             case .releaseNote:
-                return Text.newFeature.value
+                return Texts.new_feature
             case .screenshot:
-                return Text.screenshotView.value
+                return Texts.screenshot_preview
             case .descritption:
                 return nil
             case .information:
-                return Text.information.value
+                return Texts.information
             }
         }
     }
@@ -143,7 +143,7 @@ struct AppDetailViewModel {
             numberFormatter.maximumFractionDigits = 1
             let averageUserRatingText = numberFormatter.string(from: averageUserRating as NSNumber)
             
-            userRatingPrimaryText = Text.ratingCount.value(with: userRatingCount)
+            userRatingPrimaryText = Texts.numberOfRating(userRatingCount)
             userRatingSymbolImage = TextSymbolView(averageUserRatingText ?? "_").image
         }
     
@@ -159,23 +159,23 @@ struct AppDetailViewModel {
         if let languageCodes = app.languageCodesISO2A,
            let firstLanguageCode = languageCodes.first {
             languageSymbolImage = TextSymbolView(firstLanguageCode).image
-            languageSecondaryText = Text.languageCount.value(with: languageCodes.count)
+            languageSecondaryText = Texts.numberOfLanguage(languageCodes.count)
         }
         
         let summary = Summary(
             userRatingPrimaryText: userRatingPrimaryText,
             userRatingSymbolImage: userRatingSymbolImage,
             userRatingSecondaryValue: app.averageUserRating,
-            contentAdivisoryRatingPrimaryText: Text.age.value,
+            contentAdivisoryRatingPrimaryText: Texts.age,
             contentAdivisoryRatingSymbolImage: contentAdivisoryRatingSymbolImage,
-            contentAdivisoryRatingSecondaryText: Text.old.value,
-            providerPrimaryText: Text.developer.value,
+            contentAdivisoryRatingSecondaryText: Texts.old,
+            providerPrimaryText: Texts.developer,
             providerSymbolImage: providerSymbolImage,
             providerSecondaryText: app.provider,
-            genrePrimaryText: Text.genre.value,
+            genrePrimaryText: Texts.genre,
             genreSymbolImage: genreSymbolImage,
             genreSecondaryText: app.primaryGenreName,
-            languagePrimaryText: Text.language.value,
+            languagePrimaryText: Texts.language,
             languageSymbolImage: languageSymbolImage,
             languageSecondaryText: languageSecondaryText)
         return Item.summary(summary)
@@ -186,35 +186,35 @@ struct AppDetailViewModel {
         
         if let provider = app.provider {
             inforamtions.append(Information(
-                category: Text.provider.value,
+                category: Texts.provider,
                 value: provider,
                 image: nil))
         }
         
         if let fileSize = app.fileSize {
             inforamtions.append(Information(
-                category: Text.fileSize.value,
+                category: Texts.file_size,
                 value: fileSize.formattedByte,
                 image: nil))
         }
         
         if let genre = app.primaryGenreName {
             inforamtions.append(Information(
-                category: Text.genre.value,
+                category: Texts.genre,
                 value: genre,
                 image: nil))
         }
         
         if let contentAdvisoryRating = app.contentAdvisoryRating {
             inforamtions.append(Information(
-                category: Text.contentAdvisoryRating.value,
+                category: Texts.content_advisory_rating,
                 value: contentAdvisoryRating,
                 image: nil))
         }
         
         if let minimumOSVersion = app.minimumOSVersion {
             inforamtions.append(Information(
-                category: Text.minimumOSVersion.value,
+                category: Texts.minimum_os_version,
                 value: minimumOSVersion,
                 image: nil))
         }
@@ -227,7 +227,7 @@ struct AppDetailViewModel {
         
         if let sellerURL = app.providerURL {
             inforamtions.append(Information(
-                category: Text.developerWebsite.value,
+                category: Texts.developer_website,
                 value: sellerURL,
                 image: UIImage(systemName: "safari.fill")))
         }
@@ -238,12 +238,6 @@ struct AppDetailViewModel {
 }
 
 extension AppDetailViewModel {
-    static let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        return dateFormatter
-    }()
     
     enum Item: Hashable {
         case signBoard(AppSignBoard)
@@ -287,12 +281,12 @@ extension AppDetailViewModel {
     struct ReleaseNote: Hashable {
         
         private let versionValue: String?
-        private let currentVersionReleaseDateValue: String?
+        private let currentVersionReleaseDateValue: Date?
         
         var description: String?
         var isTrucated: Bool = true
         
-        init(version: String?, currentVersionReleaseDate: String?, description: String?,
+        init(version: String?, currentVersionReleaseDate: Date?, description: String?,
              isTruncated: Bool) {
             self.versionValue = version
             self.currentVersionReleaseDateValue = currentVersionReleaseDate
@@ -302,26 +296,27 @@ extension AppDetailViewModel {
         
         var version: String? {
             if let versionValue = versionValue {
-                return Text.version.value + " " + versionValue
+                return Texts.version + " " + versionValue
             }
             return nil
         }
         
         var currentVersionReleaseDate: String? {
-            return releaseDateRepresentation(currentVersionReleaseDateValue)
+            return releaseDateString(currentVersionReleaseDateValue)
         }
         
         var buttonTitle: String? {
-            return isTrucated ? Text.moreDetails.value : Text.preview.value
+            return isTrucated ? Texts.more_details : Texts.shortly
         }
         
-        private func releaseDateRepresentation(_ string: String?) -> String? {
-            guard let string = string,
-                  let releaseDate = ISO8601DateFormatter().date(from: string) else {
+        private func releaseDateString(_ date: Date?) -> String? {
+            guard let date else {
                 return nil
             }
-   
-            return AppDetailViewModel.dateFormatter.string(from: releaseDate)
+            return DateFormatter.localizedString(
+                from: date,
+                dateStyle: .medium,
+                timeStyle: .none)
         }
         
     }
@@ -334,7 +329,7 @@ extension AppDetailViewModel {
         let text: String?
         var isTrucated: Bool = true
         var buttonTitle: String {
-            return isTrucated ? Text.moreDetails.value : Text.preview.value
+            return isTrucated ? Texts.more_details : Texts.shortly
         }
     }
     

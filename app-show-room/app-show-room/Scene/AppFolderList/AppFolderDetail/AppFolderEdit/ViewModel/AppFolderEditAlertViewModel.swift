@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct AppFolderEditAlertViewModel {
+extension AppFolderEditViewModel {
  
     // MARK: - AppFolderSaveFailureAlertViewModel
     
@@ -18,16 +18,16 @@ struct AppFolderEditAlertViewModel {
         
     }
 
-    struct AppFolderSaveFailureAlertControllerViewModel: UIAlertControllerViewModel {
+    private struct AppFolderSaveFailureAlertControllerViewModel: UIAlertControllerViewModel {
         
-        var title: String? = "저장을 실패했어요"
-        var message: String? = "다시 시도해주세요"
+        var title: String? = Texts.save_failed
+        var message: String? = Texts.please_try_again
         var preferredStyle: UIAlertControllerStyle = .alert
     }
     
-    struct ConfirmActionViewModel: UIAlertActionViewModel {
+    private struct ConfirmActionViewModel: UIAlertActionViewModel {
         
-        var title: String? = "확인"
+        var title: String? = Texts.confirm
         var style: UIAlertActionStyle = .destructive
         var handler: ((UIAlertAction) -> Void)?
         

@@ -45,7 +45,7 @@ struct AppSearchUsecase {
     }
     
     func searchAppDetail(of input: String) async throws -> [AppDetail] {
-        let currentCountry = AppSearchingConfiguration.countryISOCode
+        let currentCountry = AppSearchingConfiguration.country
         let currentSoftwareType = AppSearchingConfiguration.softwareType
         
         createRecentSearchKeyword(with: input)
@@ -99,7 +99,7 @@ struct AppSearchUsecase {
             keyword: input,
             date: Date(),
             configuration: SearchConfiguration(
-                country: AppSearchingConfiguration.countryISOCode,
+                country: AppSearchingConfiguration.country,
                 softwareType: AppSearchingConfiguration.softwareType))
         Task {
             do {

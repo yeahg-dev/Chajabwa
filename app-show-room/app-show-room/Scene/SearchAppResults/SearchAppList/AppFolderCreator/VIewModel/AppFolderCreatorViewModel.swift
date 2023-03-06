@@ -27,9 +27,9 @@ struct AppFolderCreatorViewModel {
     
     // MARK: - Output
     
-    let navigationBarTitle = "폴더 만들기"
-    let folderNameTextFieldPlaceholder = "폴더 이름 (2글자 이상)"
-    let doneButtonTitle = "완료"
+    let navigationBarTitle = Texts.create_new_folder
+    let folderNameTextFieldPlaceholder = Texts.folder_name_condition
+    let doneButtonTitle = Texts.save
     
     var doneButtonIsEnabled: AnyPublisher<Bool, Never> {
         return appFolderName.flatMap({ name in
@@ -43,7 +43,7 @@ struct AppFolderCreatorViewModel {
     async -> Output<AppFolder, AlertViewModel>
     {
         guard let name else {
-            return .failure(AppFolderCreatorAlertViewModel.AppFolderCreationFailureAlertViewModel())
+            return .failure(AppFolderCreationFailureAlertViewModel())
         }
         
         do {
@@ -52,7 +52,7 @@ struct AppFolderCreatorViewModel {
                 description: description)
             return .success(appFolder)
         } catch {
-            return .failure(AppFolderCreatorAlertViewModel.AppFolderCreationFailureAlertViewModel())
+            return .failure(AppFolderCreationFailureAlertViewModel())
         }
     }
     

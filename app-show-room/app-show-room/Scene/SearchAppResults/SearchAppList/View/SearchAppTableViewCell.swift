@@ -74,7 +74,7 @@ final class SearchAppTableViewCell: BaseTableViewCell {
             arrangedSubviews: [averageStarRatingView, userRatingCountLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.alignment = .fill
+        stackView.alignment = .center
         stackView.distribution = .fill
         stackView.spacing = Design.ratingStackViewSpacing
         return stackView
@@ -104,7 +104,7 @@ final class SearchAppTableViewCell: BaseTableViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(
-            UIImage(named: "addFolder"),
+            Images.Icon.addFolder.image,
             for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(pushAppFolderSelectView), for: .touchUpInside)
@@ -239,13 +239,13 @@ final class SearchAppTableViewCell: BaseTableViewCell {
     
     private func assignAppUnit(viewModel: SearchAppTableViewCellModel) {
         iconImageURL = viewModel.iconImageURL
-        let currentCountry = AppSearchingConfiguration.countryISOCode
+        let currentCountry = AppSearchingConfiguration.country
         let currentPlatform = AppSearchingConfiguration.softwareType
         appUnit = AppUnit(
             name: viewModel.name!,
             appID: viewModel.appID!,
-            country: currentCountry,
-            platform: currentPlatform)
+            searchingContury: currentCountry,
+            searchingPlatform: currentPlatform)
     }
     
     @objc
@@ -268,7 +268,7 @@ extension SearchAppTableViewCell {
         
         // backgroundColor
         static let backgroundColor: UIColor = .clear
-        static let selectedBackgroundColor: UIColor = Color.skyBlue
+        static let selectedBackgroundColor: UIColor = Colors.skyBlue.color
         
         // layer
         static let iconImageViewCornerRadius: CGFloat = 20
