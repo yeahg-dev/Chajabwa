@@ -782,6 +782,7 @@
 			children = (
 				6388DE5228A6641E0011D47E /* App */,
 				6388DE5428A664520011D47E /* Resource */,
+				63D52B1D295D5ED2006F043D /* Service */,
 				63D52B1E295D5F6E006F043D /* Domain */,
 				63861EBF28AA41F00062A8BD /* Scene */,
 				6388DE5328A6643D0011D47E /* UIComponents */,
@@ -1177,7 +1178,6 @@
 			isa = PBXGroup;
 			children = (
 				63D52B1F295D5F7C006F043D /* Entity */,
-				63D52B1D295D5ED2006F043D /* Service */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
