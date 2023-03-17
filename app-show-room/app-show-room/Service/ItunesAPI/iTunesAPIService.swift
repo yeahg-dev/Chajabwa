@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-struct iTunesAPIService: APIService {
+struct iTunesAPIService: CombineAPIService {
     
     var session: URLSession
     

@@ -14,6 +14,10 @@ protocol APIService {
     
     func getResponse<T: APIRequest>(request: T) async throws -> T.APIResponse
     
+}
+
+protocol CombineAPIService: APIService {
+    
     func getResponse<T: APIRequest>(
         request: T)
     -> AnyPublisher<T.APIResponse, Error>
