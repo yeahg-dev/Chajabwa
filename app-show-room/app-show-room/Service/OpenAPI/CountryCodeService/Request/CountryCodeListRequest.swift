@@ -22,15 +22,23 @@ struct CountryCodeListRequest: APIRequest {
         var urlComponents = URLComponents(string: baseURLString + path)
         urlComponents?.queryItems = query.map {
             URLQueryItem(name: $0.key, value: "\($0.value)") }
-        let encodedQuery = urlComponents?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-        urlComponents?.percentEncodedQuery = encodedQuery
-        return urlComponents?.url
+        let encodedUrlComponents = percentEncodePlusSign(urlComponents)
+        return encodedUrlComponents?.url
     }
     
     init(pageNo: Int, numOfRows: Int) {
         self.query = ["serviceKey": Bundle.main.countryCodeAPIKey,
                       "numOfRows": numOfRows,
                       "pageNo": pageNo]
+    }
+    
+    private func percentEncodePlusSign(_ urlComponents: URLComponents?) -> URLComponents? {
+        var encodedUrlComponents = urlComponents
+        let encodedQuery = urlComponents?.percentEncodedQuery?.replacingOccurrences(
+            of: "+",
+            with: "%2B")
+        encodedUrlComponents?.percentEncodedQuery = encodedQuery
+        return encodedUrlComponents
     }
 
 }
