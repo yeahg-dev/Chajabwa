@@ -48,7 +48,7 @@ struct ItunesAppDetailRepository: AppDetailRepository {
             appID: id,
             countryISOCode: country.isoCode,
             softwareType: software.rawValue)
-        let lookupResponse = try await self.service.execute(request: lookupRequest)
+        let lookupResponse = try await self.service.getResponse(request: lookupRequest)
         guard let app = lookupResponse.results.first else {
             throw AppDetailRepositoryError.nonExistAppDetail
         }
@@ -97,7 +97,7 @@ struct ItunesAppDetailRepository: AppDetailRepository {
             term: term,
             countryISOCode: country.isoCode,
             softwareType: software.rawValue)
-        let response = try await self.service.execute(request: searchRequest)
+        let response = try await self.service.getResponse(request: searchRequest)
         if response.results.isEmpty {
             return []
         } else {
