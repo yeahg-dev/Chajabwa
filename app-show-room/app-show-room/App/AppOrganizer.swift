@@ -41,7 +41,7 @@ protocol AppStarter {
     
     func addObserver()
     
-    func prepareDidStart()
+    func prepareDidStart(_ notification: Notification)
     
     func prepareEndWithError()
     

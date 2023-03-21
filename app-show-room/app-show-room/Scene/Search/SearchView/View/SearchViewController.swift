@@ -57,6 +57,7 @@ final class SearchViewController: UIViewController {
         configureNavigationItem()
         configureSearchController()
         configureIntialState()
+        addObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,6 +116,61 @@ final class SearchViewController: UIViewController {
     @objc
     private func pushAppFolderListView() {
         coordinator?.pushAppFolderListView()
+    }
+    
+    private func presentPrepareProgressAlert(_ progress: Progress) {
+        
+    }
+    
+    private func dismsisPrepareProgressAlert() {
+        
+    }
+    
+    private func presentPrepareErrorAlert() {
+        
+    }
+    
+}
+
+// MARK: - AppStarter
+
+extension SearchViewController: AppStarter {
+    
+    func addObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(prepareDidStart(_:)),
+            name: .prepareStart,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(prepareEndWithError),
+            name: .prepareEndWithError,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(prepareEndWithSuccess),
+            name: .prepareEndWithSuccess,
+            object: nil)
+    }
+    
+    @objc func prepareDidStart(_ notification: Notification) {
+        guard let progress = notification.object as? Progress else {
+            return
+        }
+        presentPrepareProgressAlert(progress)
+    }
+    
+    @objc func prepareEndWithError() {
+        dismsisPrepareProgressAlert()
+        presentPrepareErrorAlert()
+    }
+    
+    @objc func prepareEndWithSuccess() {
+        dismsisPrepareProgressAlert()
+        DispatchQueue.main.async {
+            self.refreshState()
+        }
     }
     
 }
