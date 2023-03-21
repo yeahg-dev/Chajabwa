@@ -15,6 +15,7 @@
 		630068D42953377800BD73C9 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630068D32953377800BD73C9 /* Array+Extension.swift */; };
 		63075FBF28C1D7590094E117 /* ReleaseNoteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63075FBE28C1D7590094E117 /* ReleaseNoteCollectionViewCell.swift */; };
 		63075FC528C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63075FC428C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift */; };
+		630F08F129C9F45200011442 /* AppOrganizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630F08F029C9F45200011442 /* AppOrganizer.swift */; };
 		63182ECB29B071BF003BBC90 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 63182ECD29B071BF003BBC90 /* InfoPlist.strings */; };
 		631CDA762977A02E00ED71C8 /* AppFolderListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631CDA752977A02E00ED71C8 /* AppFolderListViewModel.swift */; };
 		631CDA782977A35F00ED71C8 /* AppFolderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631CDA772977A35F00ED71C8 /* AppFolderListViewController.swift */; };
@@ -206,6 +207,7 @@
 		630068D32953377800BD73C9 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		63075FBE28C1D7590094E117 /* ReleaseNoteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseNoteCollectionViewCell.swift; sourceTree = "<group>"; };
 		63075FC428C1F3120094E117 /* AppDetailCollectionViewCellDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailCollectionViewCellDesign.swift; sourceTree = "<group>"; };
+		630F08F029C9F45200011442 /* AppOrganizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOrganizer.swift; sourceTree = "<group>"; };
 		63182ECC29B071BF003BBC90 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		63182ECE29B071C8003BBC90 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		631CDA752977A02E00ED71C8 /* AppFolderListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderListViewModel.swift; sourceTree = "<group>"; };
@@ -811,6 +813,7 @@
 			children = (
 				6388DE3D28A6404E0011D47E /* AppDelegate.swift */,
 				6388DE3F28A6404E0011D47E /* SceneDelegate.swift */,
+				630F08F029C9F45200011442 /* AppOrganizer.swift */,
 				639F0199299B85DF0009DED5 /* Device */,
 				639F0198299B85D30009DED5 /* Localization */,
 			);
@@ -1644,6 +1647,7 @@
 				63D52B3F29617DBC006F043D /* RecentSearchKeywordTableViewModel.swift in Sources */,
 				63CEA7392940AFC3009684A7 /* SoftwareType.swift in Sources */,
 				6322E717296D014C00134B30 /* RealmAppFolderRepository.swift in Sources */,
+				630F08F129C9F45200011442 /* AppOrganizer.swift in Sources */,
 				63D52B1A295AF206006F043D /* AnimatableArrowLayer.swift in Sources */,
 				6388DE5D28A691820011D47E /* AppGenre.swift in Sources */,
 				633A925728A7A44A00B3435F /* APIError.swift in Sources */,
