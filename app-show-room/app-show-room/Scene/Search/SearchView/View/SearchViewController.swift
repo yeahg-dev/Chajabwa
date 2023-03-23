@@ -33,7 +33,9 @@ final class SearchViewController: UIViewController {
     }()
     
     private let searchBackgroundView = SearchBackgroundView()
-
+    
+    private var prepareProgressAlertViewController: UIAlertController?
+    
     // MARK: - ViewModel
     
     private let viewModel: SearchViewModel
@@ -43,6 +45,7 @@ final class SearchViewController: UIViewController {
     init(searchViewModel: SearchViewModel) {
         self.viewModel = searchViewModel
         super.init(nibName: nil, bundle: nil)
+        addObserver()
     }
     
     required init?(coder: NSCoder) {
@@ -50,14 +53,13 @@ final class SearchViewController: UIViewController {
     }
     
     // MARK: - Overrides
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
         configureNavigationItem()
         configureSearchController()
         configureIntialState()
-        addObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,6 +70,7 @@ final class SearchViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
+        removeObservers()
     }
     
     func presentCountryCodeDownloadErrorAlert() {
@@ -95,7 +98,7 @@ final class SearchViewController: UIViewController {
         searchController.searchBar.searchTextField.textColor = Design.searchBarTextFieldTextColor
         searchController.searchBar.tintColor = Design.searchBarTintColor
     }
-
+    
     private func configureSearchController() {
         searchController.searchBar.delegate = self
         searchAppResultsController.delegate = self
@@ -103,10 +106,10 @@ final class SearchViewController: UIViewController {
     
     private func configureIntialState() {
         searchController.searchBar.placeholder = viewModel.searchBarPlaceholder
-        refreshState()
+        refreshView()
     }
     
-    private func refreshState() {
+    private func refreshView() {
         searchBackgroundView.bindCountry(
             flag: viewModel.countryFlag,
             name: viewModel.countryName)
@@ -119,15 +122,26 @@ final class SearchViewController: UIViewController {
     }
     
     private func presentPrepareProgressAlert(_ progress: Progress) {
+        let prepareProgressView = PrepareProgressViewController(progress: progress)
+        prepareProgressAlertViewController = UIAlertController(
+            title: "Loading",
+            message: nil,
+            preferredStyle: .alert)
         
+        guard let alert = prepareProgressAlertViewController else {
+            return
+        }
+        alert.setValue(prepareProgressView, forKey: "contentViewController")
+        self.present(alert, animated: false)
     }
     
     private func dismsisPrepareProgressAlert() {
-        
+        guard let alert = prepareProgressAlertViewController else { return }
+        alert.dismiss(animated: false)
     }
     
     private func presentPrepareErrorAlert() {
-        
+        self.presentAlert(SearchViewModel.CountryCodeDownloadErrorAlertViewModel())
     }
     
 }
@@ -154,22 +168,30 @@ extension SearchViewController: AppStarter {
             object: nil)
     }
     
+    private func removeObservers() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     @objc func prepareDidStart(_ notification: Notification) {
         guard let progress = notification.object as? Progress else {
             return
         }
-        presentPrepareProgressAlert(progress)
+        DispatchQueue.main.async { [weak self] in
+            self?.presentPrepareProgressAlert(progress)
+        }
     }
     
     @objc func prepareEndWithError() {
-        dismsisPrepareProgressAlert()
-        presentPrepareErrorAlert()
+        DispatchQueue.main.async { [weak self] in
+            self?.dismsisPrepareProgressAlert()
+            self?.presentPrepareErrorAlert()
+        }
     }
     
     @objc func prepareEndWithSuccess() {
-        dismsisPrepareProgressAlert()
-        DispatchQueue.main.async {
-            self.refreshState()
+        DispatchQueue.main.async { [weak self] in
+            self?.dismsisPrepareProgressAlert()
+            self?.refreshView()
         }
     }
     
@@ -214,7 +236,7 @@ extension SearchViewController: UISearchBarDelegate {
 // MARK: - SearchAppResultsViewDelegate
 
 extension SearchViewController: SearchAppResultsDelegate {
-
+    
     func pushAppDetailView(_ appDetail: AppDetail) {
         coordinator?.pushAppDetailView(appDetail)
     }
@@ -226,7 +248,7 @@ extension SearchViewController: SearchAppResultsDelegate {
     func resignSearchBarFirstResponder() {
         searchController.searchBar.resignFirstResponder()
     }
-
+    
 }
 
 // MARK: - SearchBackgroundViewPresentaionDelegate
@@ -245,9 +267,9 @@ extension SearchViewController: SearchBackgroundViewDelegate {
 extension SearchViewController: SettingViewPresenter {
     
     func didSettingChanged() {
-        refreshState()
+        refreshView()
     }
-
+    
 }
 
 private enum Design {

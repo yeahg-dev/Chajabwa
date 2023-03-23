@@ -24,6 +24,7 @@ struct AppSearchingConfiguration {
     }
     
     static var country: Country {
+        // FIXME: - 초기엔 Country.list가 empty이기 때문에 항상 default Contury로 set
         guard let code = defaults.string(forKey: UserDefaultsKey.isoCode),
               let country = Country(isoCode: code) else {
             let defaultCountry = DefaultConfiguration.country

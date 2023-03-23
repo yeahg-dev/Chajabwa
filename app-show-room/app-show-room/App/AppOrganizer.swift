@@ -8,13 +8,15 @@
 import Foundation
 
 final class AppOrganizer {
+    
+    private let countryCodeAPIService = CountryCodeAPIService()
 
     func prepare() {
         downloadCountryCodes()
     }
     
     private func downloadCountryCodes() {
-        CountryCodeAPIService().fetchCountryCodes()
+        countryCodeAPIService.fetchCountryCodes()
     }
     
 }

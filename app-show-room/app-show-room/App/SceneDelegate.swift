@@ -11,6 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     var mainCoordinator: Coordinator?
+    private let appOrganizer = AppOrganizer()
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -24,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let mainCooordinator = SearchCoordinator(rootViewController: navigationController)
         mainCoordinator = mainCooordinator
         mainCooordinator.start()
-        AppOrganizer().prepare()
+        appOrganizer.prepare()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
