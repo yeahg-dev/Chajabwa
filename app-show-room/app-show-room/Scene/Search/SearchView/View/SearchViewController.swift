@@ -45,7 +45,6 @@ final class SearchViewController: UIViewController {
     init(searchViewModel: SearchViewModel) {
         self.viewModel = searchViewModel
         super.init(nibName: nil, bundle: nil)
-        addObserver()
     }
     
     required init?(coder: NSCoder) {
@@ -70,11 +69,7 @@ final class SearchViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
-        removeObservers()
-    }
     
-    func presentCountryCodeDownloadErrorAlert() {
-        presentAlert(SearchViewModel.CountryCodeDownloadErrorAlertViewModel())
     }
     
     private func configureNavigationItem() {
@@ -119,80 +114,6 @@ final class SearchViewController: UIViewController {
     @objc
     private func pushAppFolderListView() {
         coordinator?.pushAppFolderListView()
-    }
-    
-    private func presentPrepareProgressAlert(_ progress: Progress) {
-        let prepareProgressView = PrepareProgressViewController(progress: progress)
-        prepareProgressAlertViewController = UIAlertController(
-            title: "Loading",
-            message: nil,
-            preferredStyle: .alert)
-        
-        guard let alert = prepareProgressAlertViewController else {
-            return
-        }
-        alert.setValue(prepareProgressView, forKey: "contentViewController")
-        self.present(alert, animated: false)
-    }
-    
-    private func dismsisPrepareProgressAlert() {
-        guard let alert = prepareProgressAlertViewController else { return }
-        alert.dismiss(animated: false)
-    }
-    
-    private func presentPrepareErrorAlert() {
-        self.presentAlert(SearchViewModel.CountryCodeDownloadErrorAlertViewModel())
-    }
-    
-}
-
-// MARK: - AppStarter
-
-extension SearchViewController: AppStarter {
-    
-    func addObserver() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(prepareDidStart(_:)),
-            name: .prepareStart,
-            object: nil)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(prepareEndWithError),
-            name: .prepareEndWithError,
-            object: nil)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(prepareEndWithSuccess),
-            name: .prepareEndWithSuccess,
-            object: nil)
-    }
-    
-    private func removeObservers() {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    @objc func prepareDidStart(_ notification: Notification) {
-        guard let progress = notification.object as? Progress else {
-            return
-        }
-        DispatchQueue.main.async { [weak self] in
-            self?.presentPrepareProgressAlert(progress)
-        }
-    }
-    
-    @objc func prepareEndWithError() {
-        DispatchQueue.main.async { [weak self] in
-            self?.dismsisPrepareProgressAlert()
-            self?.presentPrepareErrorAlert()
-        }
-    }
-    
-    @objc func prepareEndWithSuccess() {
-        DispatchQueue.main.async { [weak self] in
-            self?.dismsisPrepareProgressAlert()
-            self?.refreshView()
-        }
     }
     
 }

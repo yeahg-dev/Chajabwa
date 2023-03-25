@@ -58,21 +58,3 @@ final class CountryCodeAPIService: NSObject {
     }
     
 }
-
-extension CountryCodeAPIService: AppOrganizerDelegate {
-    
-    func notifyPrepareStart(with progress: Progress) {
-        NotificationCenter.default.post(
-            name: .prepareStart,
-            object: progress)
-    }
-    
-    func notifyEndWithError() {
-        NotificationCenter.default.post(name: .prepareEndWithError, object: nil)
-    }
-    
-    func notifyEndWithSuccess() {
-        NotificationCenter.default.post(name: .prepareEndWithSuccess, object: nil)
-    }
-    
-}
