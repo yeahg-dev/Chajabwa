@@ -97,6 +97,7 @@
 		6388DE6728A6CAB70011D47E /* iTunesAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DE6628A6CAB70011D47E /* iTunesAPIRequest.swift */; };
 		638DB2BB29CEFE1D008D8A2B /* NetworkStatusViewUpdating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638DB2BA29CEFE1D008D8A2B /* NetworkStatusViewUpdating.swift */; };
 		638DB2BD29CF32A3008D8A2B /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638DB2BC29CF32A3008D8A2B /* NetworkMonitor.swift */; };
+		638DB2C329CF5B61008D8A2B /* AppLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638DB2C229CF5B61008D8A2B /* AppLoadingViewController.swift */; };
 		6395706128C624D6002D56CF /* TitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6395706028C624D6002D56CF /* TitleSupplementaryView.swift */; };
 		6396270E29644D0C0037A2B7 /* SearchKeywordTableHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6396270D29644D0C0037A2B7 /* SearchKeywordTableHeaderViewModel.swift */; };
 		63962710296560F80037A2B7 /* SearchKeywordTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6396270F296560F80037A2B7 /* SearchKeywordTableFooterView.swift */; };
@@ -296,6 +297,7 @@
 		6388DE6628A6CAB70011D47E /* iTunesAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesAPIRequest.swift; sourceTree = "<group>"; };
 		638DB2BA29CEFE1D008D8A2B /* NetworkStatusViewUpdating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatusViewUpdating.swift; sourceTree = "<group>"; };
 		638DB2BC29CF32A3008D8A2B /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		638DB2C229CF5B61008D8A2B /* AppLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLoadingViewController.swift; sourceTree = "<group>"; };
 		6395706028C624D6002D56CF /* TitleSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSupplementaryView.swift; sourceTree = "<group>"; };
 		6396270D29644D0C0037A2B7 /* SearchKeywordTableHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchKeywordTableHeaderViewModel.swift; sourceTree = "<group>"; };
 		6396270F296560F80037A2B7 /* SearchKeywordTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchKeywordTableFooterView.swift; sourceTree = "<group>"; };
@@ -681,6 +683,7 @@
 		63861EBF28AA41F00062A8BD /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				638DB2C229CF5B61008D8A2B /* AppLoadingViewController.swift */,
 				6383165D299BCC890064D673 /* LaunchScreen.swift */,
 				63DCAE6A2980D74F002ADDFD /* Coordinator */,
 				631CDA7229779FFB00ED71C8 /* AppFolderList */,
@@ -1673,6 +1676,7 @@
 				6322E717296D014C00134B30 /* RealmAppFolderRepository.swift in Sources */,
 				630F08F129C9F45200011442 /* AppOrganizer.swift in Sources */,
 				63D52B1A295AF206006F043D /* AnimatableArrowLayer.swift in Sources */,
+				638DB2C329CF5B61008D8A2B /* AppLoadingViewController.swift in Sources */,
 				6388DE5D28A691820011D47E /* AppGenre.swift in Sources */,
 				633A925728A7A44A00B3435F /* APIError.swift in Sources */,
 			);

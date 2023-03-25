@@ -14,16 +14,17 @@ final class CountryCodeAPIService: NSObject {
         delegate: nil,
         delegateQueue: nil)
     
-    func fetchCountryCodes() {
+    func fetchCountryCodes(completion: @escaping (() -> Void)) {
         guard let request = CountryCodeListRequest(pageNo: 1, numOfRows: 240).urlRequest else {
             return
         }
+        
         let downloadTask = session.dataTask(with: request) { [weak self] ( data, urlResponse, error) in
         
             if error != nil {
                 NetworkMonitor.shared.handleNetworkError {
                     DispatchQueue.global().async { [weak self] in
-                        self?.fetchCountryCodes()
+                        self?.fetchCountryCodes(completion: completion)
                     }
                 }
                 return
@@ -48,6 +49,7 @@ final class CountryCodeAPIService: NSObject {
             }
             
             self?.appendCountries(countryCodeList: parsedData)
+            completion()
         }
         
         downloadTask.resume()

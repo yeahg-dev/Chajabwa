@@ -24,8 +24,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let mainCooordinator = SearchCoordinator(rootViewController: navigationController)
         mainCoordinator = mainCooordinator
-        mainCooordinator.start()
-        appOrganizer.prepare()
+        
+        let loadingView = AppLoadingViewController()
+        loadingView.modalPresentationStyle = .fullScreen
+        navigationController.present(loadingView, animated: false)
+        
+        appOrganizer.prepare {
+            DispatchQueue.main.async {
+                loadingView.dismiss(animated: false)
+                mainCooordinator.start()
+            }
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

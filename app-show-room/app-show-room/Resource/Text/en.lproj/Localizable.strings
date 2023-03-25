@@ -7,6 +7,7 @@
 */
 
 app_name = "Chajabwa";
+loading = "Loading...";
 please_enter_name_or_id = "Enter App name or ID";
 provider = "Provider";
 file_size = "Size";

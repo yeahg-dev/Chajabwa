@@ -1,5 +1,6 @@
 struct Texts {
     static let app_name = "app_name".localized
+    static let loading = "loading".localized
     static let please_enter_name_or_id = "please_enter_name_or_id".localized
     static let provider = "provider".localized
     static let file_size = "file_size".localized

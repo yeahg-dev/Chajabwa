@@ -11,12 +11,8 @@ final class AppOrganizer {
     
     private let countryCodeAPIService = CountryCodeAPIService()
 
-    func prepare() {
-        downloadCountryCodes()
-    }
-    
-    private func downloadCountryCodes() {
-        countryCodeAPIService.fetchCountryCodes()
+    func prepare(didEnd completion: @escaping (() -> Void)) {
+        countryCodeAPIService.fetchCountryCodes(completion: completion)
     }
     
 }
