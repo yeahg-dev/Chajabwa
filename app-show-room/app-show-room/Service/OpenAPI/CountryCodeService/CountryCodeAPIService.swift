@@ -19,11 +19,14 @@ final class CountryCodeAPIService: NSObject {
             return
         }
         let downloadTask = session.dataTask(with: request) { [weak self] ( data, urlResponse, error) in
-            
-            NetworkMonitor.shared.handleNetworkError(error: error) {
-                DispatchQueue.global().async { [weak self] in
-                    self?.fetchCountryCodes()
+        
+            if error != nil {
+                NetworkMonitor.shared.handleNetworkError {
+                    DispatchQueue.global().async { [weak self] in
+                        self?.fetchCountryCodes()
+                    }
                 }
+                return
             }
             
             guard let httpResponse = urlResponse as? HTTPURLResponse,
@@ -33,7 +36,7 @@ final class CountryCodeAPIService: NSObject {
             }
             
             guard let contentType = httpResponse.value(forHTTPHeaderField: "Content-Type"),
-            contentType == "application/json;charset=UTF-8" else {
+                  contentType == "application/json;charset=UTF-8" else {
                 print("\(String(describing: self)) : response Content-Type is \(String(describing: httpResponse.value(forHTTPHeaderField: "Content-Type")))")
                 return
             }
@@ -49,7 +52,7 @@ final class CountryCodeAPIService: NSObject {
         
         downloadTask.resume()
     }
-
+    
     private func appendCountries(countryCodeList: CountryCodeList) {
         Country.list += countryCodeList.data.compactMap {$0.toDomain()}
     }

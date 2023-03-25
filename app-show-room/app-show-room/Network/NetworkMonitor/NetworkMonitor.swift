@@ -13,21 +13,12 @@ final class NetworkMonitor {
     
     private init() { }
     
-    func handleNetworkError(error: Error?, with retry: @escaping(() -> Void)) {
-        guard let error else {
-            return
-        }
-        if isNSURLErrorNotConnectedToInternet(error) {
+    func handleNetworkError(by retry: @escaping(() -> Void)) {
             DispatchQueue.main.async {
                 SceneDelegate.topMostViewController?.presentNetworkErrorAlertWith(
                     retry: { retry() }
                 )
             }
-        }
-    }
-    
-    private func isNSURLErrorNotConnectedToInternet(_ error: Error) -> Bool {
-        return (error as NSError).code == NSURLErrorNotConnectedToInternet ? true : false
     }
     
 }
