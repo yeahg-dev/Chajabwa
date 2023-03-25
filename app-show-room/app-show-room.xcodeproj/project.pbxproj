@@ -96,6 +96,8 @@
 		6388DE6228A6A56A0011D47E /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DE6128A6A56A0011D47E /* APIRequest.swift */; };
 		6388DE6528A6C71E0011D47E /* AppLookupAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DE6428A6C71E0011D47E /* AppLookupAPIRequest.swift */; };
 		6388DE6728A6CAB70011D47E /* iTunesAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DE6628A6CAB70011D47E /* iTunesAPIRequest.swift */; };
+		638DB2BB29CEFE1D008D8A2B /* NetworkStatusViewUpdating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638DB2BA29CEFE1D008D8A2B /* NetworkStatusViewUpdating.swift */; };
+		638DB2BD29CF32A3008D8A2B /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638DB2BC29CF32A3008D8A2B /* NetworkMonitor.swift */; };
 		6395706128C624D6002D56CF /* TitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6395706028C624D6002D56CF /* TitleSupplementaryView.swift */; };
 		6396270E29644D0C0037A2B7 /* SearchKeywordTableHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6396270D29644D0C0037A2B7 /* SearchKeywordTableHeaderViewModel.swift */; };
 		63962710296560F80037A2B7 /* SearchKeywordTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6396270F296560F80037A2B7 /* SearchKeywordTableFooterView.swift */; };
@@ -294,6 +296,8 @@
 		6388DE6128A6A56A0011D47E /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		6388DE6428A6C71E0011D47E /* AppLookupAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLookupAPIRequest.swift; sourceTree = "<group>"; };
 		6388DE6628A6CAB70011D47E /* iTunesAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesAPIRequest.swift; sourceTree = "<group>"; };
+		638DB2BA29CEFE1D008D8A2B /* NetworkStatusViewUpdating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatusViewUpdating.swift; sourceTree = "<group>"; };
+		638DB2BC29CF32A3008D8A2B /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		6395706028C624D6002D56CF /* TitleSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSupplementaryView.swift; sourceTree = "<group>"; };
 		6396270D29644D0C0037A2B7 /* SearchKeywordTableHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchKeywordTableHeaderViewModel.swift; sourceTree = "<group>"; };
 		6396270F296560F80037A2B7 /* SearchKeywordTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchKeywordTableFooterView.swift; sourceTree = "<group>"; };
@@ -851,10 +855,8 @@
 		6388DE5E28A6A5200011D47E /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				633A925228A79C2500B3435F /* APIService.swift */,
-				6388DE6128A6A56A0011D47E /* APIRequest.swift */,
-				633A925628A7A44A00B3435F /* APIError.swift */,
-				6388DE5F28A6A5430011D47E /* HTTPMethod.swift */,
+				638DB2BF29CF36E3008D8A2B /* NetworkMonitor */,
+				638DB2BE29CF36BC008D8A2B /* HTTP */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -867,6 +869,26 @@
 				63861EB728AA1ABC0062A8BD /* ResponseMappingEntity */,
 			);
 			path = ItunesAPI;
+			sourceTree = "<group>";
+		};
+		638DB2BE29CF36BC008D8A2B /* HTTP */ = {
+			isa = PBXGroup;
+			children = (
+				633A925228A79C2500B3435F /* APIService.swift */,
+				6388DE6128A6A56A0011D47E /* APIRequest.swift */,
+				633A925628A7A44A00B3435F /* APIError.swift */,
+				6388DE5F28A6A5430011D47E /* HTTPMethod.swift */,
+			);
+			path = HTTP;
+			sourceTree = "<group>";
+		};
+		638DB2BF29CF36E3008D8A2B /* NetworkMonitor */ = {
+			isa = PBXGroup;
+			children = (
+				638DB2BC29CF32A3008D8A2B /* NetworkMonitor.swift */,
+				638DB2BA29CEFE1D008D8A2B /* NetworkStatusViewUpdating.swift */,
+			);
+			path = NetworkMonitor;
 			sourceTree = "<group>";
 		};
 		639F0188299A35B00009DED5 /* OpenAPI */ = {
@@ -1560,6 +1582,7 @@
 				63A201C6296EB2B000CCE285 /* AppUnit.swift in Sources */,
 				637E10ED297ED7E4000E74B1 /* AppFolderDetailHeaderViewModel.swift in Sources */,
 				63F0341E28D8A0A5003F1751 /* StarRatingView.swift in Sources */,
+				638DB2BB29CEFE1D008D8A2B /* NetworkStatusViewUpdating.swift in Sources */,
 				63A202102974EB4F00CCE285 /* AppFolderTableViewCellModel.swift in Sources */,
 				63A201E5297064C300CCE285 /* FolderNameTextField.swift in Sources */,
 				63A201EA29712F3500CCE285 /* AppFolderCreationButton.swift in Sources */,
@@ -1581,6 +1604,7 @@
 				63861EB628AA10990062A8BD /* SearchViewModel.swift in Sources */,
 				63861EC628AA43450062A8BD /* AppDetailViewModel.swift in Sources */,
 				63BFA50729A7961E00E191BD /* Images.swift in Sources */,
+				638DB2BD29CF32A3008D8A2B /* NetworkMonitor.swift in Sources */,
 				6322E719296D4A5100134B30 /* RealmStore.swift in Sources */,
 				63A202202976DD4C00CCE285 /* AppFolderSelectAlertViewModel.swift in Sources */,
 				630068D02952947300BD73C9 /* AppSearchResults.swift in Sources */,

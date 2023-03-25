@@ -29,6 +29,7 @@ struct Texts {
     static let delete = "delete".localized
     static let confirm = "confirm".localized
     static let cancel = "cancel".localized
+    static let retry = "retry".localized
     static let country_setting = "country_setting".localized
     static let search_country = "search_country".localized
     static let create_new_folder = "create_new_folder".localized
@@ -53,4 +54,6 @@ struct Texts {
     static let enter_only_numbers_for_id = "enter_only_numbers_for_id".localized
     static let please_check_keyword_again = "please_check_keyword_again".localized
     static let app_data_download_failed = "app_data_download_failed".localized
+    static let network_error = "network_error".localized
+    static let retry_after_network_connection = "retry_after_network_connection".localized
 }
