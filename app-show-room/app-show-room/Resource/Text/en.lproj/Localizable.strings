@@ -69,5 +69,5 @@ app_data_download_failed = "App data download failed";
 
 network_error = "Network Error";
 retry_after_network_connection = "Please connect wifi or cellular and try again🙏🏻";
-network_connected = "네트워크에 연결되었어요";
-network_disconnected = "네트워크 연결을 확인해주세요";
+network_connected = "Connected to the network";
+network_disconnected = "Please check the network connection";
