@@ -6,19 +6,38 @@
 //
 
 import Foundation
+import Network
 
 final class NetworkMonitor {
+    
+    private let queue = DispatchQueue.global(qos: .background)
+    private let monitor = NWPathMonitor()
     
     static let shared = NetworkMonitor()
     
     private init() { }
     
-    func handleNetworkError(by retry: @escaping(() -> Void)) {
+    func startMonitoring(
+        statusUpdateHandler: @escaping (NWPath.Status) -> Void)
+    {
+        monitor.pathUpdateHandler = { path in
             DispatchQueue.main.async {
-                SceneDelegate.topMostViewController?.presentNetworkErrorAlertWith(
-                    retry: { retry() }
-                )
+                statusUpdateHandler(path.status)
             }
+        }
+        monitor.start(queue: queue)
+    }
+    
+    func stopMonitoring() {
+        monitor.cancel()
+    }
+    
+    func handleNetworkError(by retry: @escaping(() -> Void)) {
+        DispatchQueue.main.async {
+            SceneDelegate.topMostViewController?.presentNetworkErrorAlertWith(
+                retry: { retry() }
+            )
+        }
     }
     
 }
