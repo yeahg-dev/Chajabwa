@@ -22,7 +22,7 @@ final class SearchViewController: UIViewController {
     private lazy var folderButton: UIButton = {
         let button = UIButton()
         button.setImage(
-            Images.Icon.addFolder.image,
+            Images.Icon.folder.image,
             for: .normal)
         button.contentMode = .scaleAspectFit
         button.addTarget(
