@@ -69,3 +69,5 @@
 
 "network_error" = "네트워크 오류";
 "retry_after_network_connection" = "Wifi나 셀룰러 연결 후 재시도해주세요🙏🏻";
+"network_connected" = "네트워크에 연결되었어요";
+"network_disconnected" = "네트워크 연결을 확인해주세요";

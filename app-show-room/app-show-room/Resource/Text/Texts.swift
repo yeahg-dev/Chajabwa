@@ -57,4 +57,6 @@ struct Texts {
     static let app_data_download_failed = "app_data_download_failed".localized
     static let network_error = "network_error".localized
     static let retry_after_network_connection = "retry_after_network_connection".localized
+    static let network_connected = "network_connected".localized
+    static let network_disconnected = "network_disconnected".localized
 }
