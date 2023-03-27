@@ -15,3 +15,13 @@ struct AppUnit: Equatable {
     let searchingPlatform: SoftwareType
     
 }
+
+extension AppUnit {
+    
+    static let placeholder = AppUnit(
+        name: Texts.unable_to_download,
+        appID: 0,
+        searchingContury: Country.placeholder,
+        searchingPlatform: SoftwareType.iPhone)
+    
+}

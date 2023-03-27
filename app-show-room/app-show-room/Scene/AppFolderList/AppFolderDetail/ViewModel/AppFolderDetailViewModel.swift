@@ -187,10 +187,12 @@ extension AppFolderDetailViewModel: UITableViewDataSourcePrefetching {
                     }
                     .eraseToAnyPublisher()
             }
+            .catch({ _ in
+                return Just((0, SavedAppDetail.placeholder))
+            })
             .map{ (index, savedAppDetail) in
                 return (index, SavedAppDetailTableViewCellModel(savedAppDetail: savedAppDetail))
             }
-            .assertNoFailure()
             .sink { [unowned self] (index, cellModel) in
                 self.fetchedCellModels[index] = cellModel
             }.store(in: &cancellable)
@@ -230,10 +232,12 @@ extension AppFolderDetailViewModel: UITableViewDataSource {
             cell.bind(cellModel)
         } else {
             let cellModel = appFolderUsecase.readSavedAppDetail(of: savedApp)
+                .catch({ _ in
+                    return Just(SavedAppDetail.placeholder)
+                })
                 .map { savedAppDetail in
                     return SavedAppDetailTableViewCellModel(savedAppDetail: savedAppDetail)
                 }
-                .assertNoFailure()
                 .eraseToAnyPublisher()
 
             cell.bind(cellModel)

@@ -30,3 +30,27 @@ struct AppDetail {
     let supportedDevices: [String]?
     
 }
+
+extension AppDetail {
+    
+    static let placeholder = AppDetail(
+        id: nil,
+        appName: Texts.unable_to_download,
+        iconImageURL: nil,
+        provider: Texts.unable_to_download,
+        price: Texts.unable_to_download,
+        averageUserRating: nil,
+        userRatingCount: nil,
+        primaryGenreName: Texts.unable_to_download,
+        languageCodesISO2A: nil,
+        screenShotURLs: nil,
+        description: Texts.unable_to_download,
+        fileSize: Texts.unable_to_download,
+        contentAdvisoryRating: Texts.unable_to_download,
+        minimumOSVersion: Texts.unable_to_download,
+        providerURL: Texts.unable_to_download,
+        version: Texts.unable_to_download,
+        currentVersionReleaseDate: nil,
+        releaseDescription: Texts.unable_to_download,
+        supportedDevices: nil)
+}

@@ -48,3 +48,11 @@ struct SavedAppDetail {
     }
     
 }
+
+extension SavedAppDetail {
+    
+    static let placeholder = SavedAppDetail(
+        appDetail: AppDetail.placeholder,
+        appUnit: AppUnit.placeholder)
+    
+}
