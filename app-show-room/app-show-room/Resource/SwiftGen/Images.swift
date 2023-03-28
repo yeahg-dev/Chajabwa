@@ -33,7 +33,7 @@ internal enum Images {
     internal static let mac = ImageAsset(name: "mac")
   }
   internal enum Icon {
-    internal static let downloadOnTheAppStoreBadgeUSUKRGBWht092917 = ImageAsset(name: "Download_on_the_App_Store_Badge_US-UK_RGB_wht_092917")
+    internal static let downloadOnTheAppStore = ImageAsset(name: "Download_on_the_App_Store")
     internal static let folderSetting = ImageAsset(name: "FolderSetting")
     internal static let addFolder = ImageAsset(name: "addFolder")
     internal static let appStore = ImageAsset(name: "appStore")
