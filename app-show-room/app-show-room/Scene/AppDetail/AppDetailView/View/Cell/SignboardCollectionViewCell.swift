@@ -9,6 +9,8 @@ import UIKit
 
 final class SignboardCollectionViewCell: BaseCollectionViewCell {
     
+    private var appStoreURL: String?
+    
     // MARK: - Design used in AppDetialView
     
     static let cellHeight = Design.height
@@ -18,14 +20,14 @@ final class SignboardCollectionViewCell: BaseCollectionViewCell {
     private let appNameLabel = UILabel()
     private let providerLabel = UILabel()
     private let purchaseButton = UIButton(type: .custom)
-    private let shareButton = UIButton(type: .system)
+    private let appStoreButton = UIButton(type: .custom)
     
     override func addSubviews() {
         contentView.addSubview(iconImageView)
         contentView.addSubview(appNameLabel)
         contentView.addSubview(providerLabel)
         contentView.addSubview(purchaseButton)
-        contentView.addSubview(shareButton)
+        contentView.addSubview(appStoreButton)
     }
     
     override func configureSubviews() {
@@ -34,7 +36,7 @@ final class SignboardCollectionViewCell: BaseCollectionViewCell {
     
     override func setConstraints() {
         invalidateTranslateAutoResizingMasks(of: [
-            iconImageView, appNameLabel, providerLabel, purchaseButton, shareButton, self.contentView
+            iconImageView, appNameLabel, providerLabel, purchaseButton, appStoreButton, self.contentView
         ])
         setConstraintsOfContentView()
         setContratinsOfIconImageView()
@@ -44,12 +46,13 @@ final class SignboardCollectionViewCell: BaseCollectionViewCell {
         setConstraintOfShareButton()
     }
     
-   func bind(model: AppDetailViewModel.Item) {
+    func bind(model: AppDetailViewModel.Item) {
         if case let .signBoard(signBoard) = model {
             fillIconImage(url: signBoard.iconImageURL)
             fillAppNameLabel(name: signBoard.name)
             fillProviderLabel(provider: signBoard.provider)
             fillPurcahseButton(price: signBoard.price)
+            bindAppStoreButton(url: signBoard.appStoreURL)
         }
         
     }
@@ -59,7 +62,7 @@ final class SignboardCollectionViewCell: BaseCollectionViewCell {
         configureAppNameLabel()
         configureProviderLabel()
         configurePurchaseButton()
-        configureShareButton()
+        configrueAppStoreButton()
     }
     
 }
@@ -98,9 +101,25 @@ extension SignboardCollectionViewCell {
         purchaseButton.titleLabel?.adjustsFontSizeToFitWidth = true
     }
     
-    private func configureShareButton() {
-        let shareImage = Design.shareButtonImage
-        shareButton.setImage(shareImage, for: .normal)
+    private func configrueAppStoreButton() {
+        let appStoreImage = Design.DownloadOnTheAppStoreImage.image
+        appStoreButton.setImage(appStoreImage, for: .normal)
+        appStoreButton.addTarget(
+            self,
+            action: #selector(openAppStore),
+            for: .touchDown)
+    }
+    
+    @objc
+    private func openAppStore() {
+        if let urlString = appStoreURL,
+           let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
     }
     
 }
@@ -137,10 +156,7 @@ extension SignboardCollectionViewCell {
                 constant: Design.paddingLeading),
             iconImageView.topAnchor.constraint(
                 equalTo: contentView.topAnchor,
-                constant: Design.paddingTop),
-            iconImageView.bottomAnchor.constraint(
-                equalTo: contentView.bottomAnchor,
-                constant: -Design.paddingBottom)
+                constant: Design.paddingTop)
         ])
     }
     
@@ -178,9 +194,9 @@ extension SignboardCollectionViewCell {
                 equalToConstant: Design.purchaseButtonHeight),
             purchaseButton.widthAnchor.constraint(
                 equalToConstant: Design.purchaseButtonWidth),
-            purchaseButton.leadingAnchor.constraint(
-                equalTo: iconImageView.trailingAnchor,
-                constant: Design.iconImageViewTrailingMargin),
+            purchaseButton.trailingAnchor.constraint(
+                equalTo: self.trailingAnchor,
+                constant: -Design.paddingTrailing),
             purchaseButton.bottomAnchor.constraint(
                 equalTo: iconImageView.bottomAnchor)
         ])
@@ -188,11 +204,11 @@ extension SignboardCollectionViewCell {
     
     private func setConstraintOfShareButton() {
         NSLayoutConstraint.activate([
-            shareButton.trailingAnchor.constraint(
-                equalTo: contentView.trailingAnchor,
+            appStoreButton.trailingAnchor.constraint(
+                equalTo: self.trailingAnchor,
                 constant: -Design.paddingTrailing),
-            shareButton.bottomAnchor.constraint(
-                equalTo: iconImageView.bottomAnchor)
+            appStoreButton.topAnchor.constraint(equalTo: purchaseButton.bottomAnchor, constant: Design.providerLabelTopMargin),
+            appStoreButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }
@@ -219,6 +235,10 @@ extension SignboardCollectionViewCell {
         purchaseButton.setTitle(price, for: .normal)
     }
     
+    private func bindAppStoreButton(url: String?) {
+        appStoreURL = url
+    }
+    
 }
 
 private enum Design {
@@ -234,13 +254,12 @@ private enum Design {
     
     // size
     static let width = UIScreen.main.bounds.width
-    static let height = paddingTop + iconImageViewHeight + paddingBottom
+    static let height = paddingTop + iconImageViewHeight + paddingBottom + appStoreHeight + providerLabelTopMargin
     static let iconImageViewWidth = UIScreen.main.bounds.width * 0.3
     static let iconImageViewHeight = iconImageViewWidth
     static let purchaseButtonWidth: CGFloat = 70
     static let purchaseButtonHeight: CGFloat = 25
-    static let shareButtonWidth: CGFloat = 18
-    static let shareButtonHeight: CGFloat = 10
+    static let appStoreHeight: CGFloat = 40
     
     // border
     static let iconImageViewCornerRadius: CGFloat = 20
@@ -251,16 +270,14 @@ private enum Design {
     // numberOfLines
     static let appNameLabelNumberOfLines: Int = 2
     static let providerLabelNumberOfLines: Int = 1
-
+    
     // font
     static let appNameLabelFont: UIFont = .boldSystemFont(ofSize: 22)
     static let providerLabelFont: UIFont = .preferredFont(forTextStyle: .callout)
     static let purchaseButtonFont: UIFont = .preferredFont(forTextStyle: .footnote)
     
     // image
-    static let shareButtonImage = UIImage(
-        systemName: "square.and.arrow.up")?
-        .withTintColor(Design.shareButtonTintColor, renderingMode: .alwaysOriginal)
+    static let DownloadOnTheAppStoreImage = Images.Icon.downloadOnTheAppStore
     static let defaultIconImage = UIImage(withBackground: .systemGray4)
     
     // textColor

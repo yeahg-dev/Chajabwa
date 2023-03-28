@@ -24,6 +24,7 @@ struct AppSearchingConfiguration {
     }
     
     static var country: Country {
+        // FIXME: - 초기엔 Country.list가 empty이기 때문에 항상 default Contury로 set
         guard let code = defaults.string(forKey: UserDefaultsKey.isoCode),
               let country = Country(isoCode: code) else {
             let defaultCountry = DefaultConfiguration.country
@@ -50,18 +51,6 @@ struct AppSearchingConfiguration {
         defaults.set(bool, forKey: UserDefaultsKey.isActiveSavingSearchKeyword)
     }
     
-    func downloadCountryCode() async throws {
-        guard Country.list.isEmpty else {
-            return
-        }
-        do {
-            let countryCodes = try await CountryCodeAPIService().requestAllCountryCode()
-            Country.list += countryCodes.compactMap {$0.toDomain()}
-        } catch {
-            print("CountryCodeAPIService 실패")
-            throw AppSearchConfigurationError.conturyCodeDownloadError
-        }
-    }
 }
 
 extension AppSearchingConfiguration {

@@ -7,6 +7,7 @@
 */
 
 app_name = "Chajabwa";
+loading = "Loading...";
 please_enter_name_or_id = "Enter App name or ID";
 provider = "Provider";
 file_size = "Size";
@@ -37,6 +38,7 @@ save = "Save";
 delete = "Delete";
 confirm = "OK";
 cancel = "Cacnel";
+retry = "Retry";
 country_setting = "Country Setting";
 search_country = "Search country";
 create_new_folder = "Create folder";
@@ -64,3 +66,8 @@ please_check_id_again = "Please check id again";
 enter_only_numbers_for_id = "You can enter only numbers for id";
 please_check_keyword_again = "Please check keyword again";
 app_data_download_failed = "App data download failed";
+
+network_error = "Network Error";
+retry_after_network_connection = "Please connect wifi or cellular and try again🙏🏻";
+network_connected = "Connected to the network";
+network_disconnected = "Please check the network connection";

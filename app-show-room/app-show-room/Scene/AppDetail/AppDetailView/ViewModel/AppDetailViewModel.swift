@@ -53,6 +53,10 @@ struct AppDetailViewModel {
     let appID: Int
     
     let name: String
+    
+    var appStoreURL: String? {
+        return "itms-apps://itunes.apple.com/app/\(appID)"
+    }
    
     var screenshotURLs: [String]? {
         return app.screenShotURLs
@@ -106,7 +110,8 @@ struct AppDetailViewModel {
                 name: app.appName,
                 iconImageURL: app.iconImageURL,
                 provider: app.provider,
-                price: app.price)
+                price: app.price,
+                appStoreURL: appStoreURL)
             return [Item.signBoard(info)]
         case .summary:
             return [summary]
@@ -253,6 +258,7 @@ extension AppDetailViewModel {
         let iconImageURL: String?
         let provider: String?
         let price: String?
+        let appStoreURL: String?
     }
     
     struct Summary: Hashable {

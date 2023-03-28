@@ -7,6 +7,7 @@
 */
 
 "app_name" = "찾아봐";
+"loading" = "로딩중...";
 "please_enter_name_or_id" = "이름 또는 ID를 입력해주세요";
 "provider" = "제공자";
 "file_size" = "크기";
@@ -36,6 +37,7 @@
 "delete" = "삭제";
 "confirm" = "확인";
 "cancel" = "취소";
+"retry" = "재시도";
 "country_setting" = "나라 설정";
 "search_country" = "나라 검색";
 "create_new_folder" = "폴더 만들기";
@@ -64,3 +66,8 @@
 "enter_only_numbers_for_id" = "id는 숫자만 입력 할 수 있어요";
 "please_check_keyword_again" = "검색어를 확인해주세요";
 "app_data_download_failed" = "앱 데이터 다운로드를 실패했습니다";
+
+"network_error" = "네트워크 오류";
+"retry_after_network_connection" = "Wifi나 셀룰러 연결 후 재시도해주세요🙏🏻";
+"network_connected" = "네트워크에 연결되었어요";
+"network_disconnected" = "네트워크 연결을 확인해주세요";

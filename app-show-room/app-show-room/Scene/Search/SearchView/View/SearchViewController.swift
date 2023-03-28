@@ -22,7 +22,7 @@ final class SearchViewController: UIViewController {
     private lazy var folderButton: UIButton = {
         let button = UIButton()
         button.setImage(
-            Images.Icon.addFolder.image,
+            Images.Icon.folder.image,
             for: .normal)
         button.contentMode = .scaleAspectFit
         button.addTarget(
@@ -33,7 +33,9 @@ final class SearchViewController: UIViewController {
     }()
     
     private let searchBackgroundView = SearchBackgroundView()
-
+    
+    private var prepareProgressAlertViewController: UIAlertController?
+    
     // MARK: - ViewModel
     
     private let viewModel: SearchViewModel
@@ -50,7 +52,7 @@ final class SearchViewController: UIViewController {
     }
     
     // MARK: - Overrides
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
@@ -67,10 +69,7 @@ final class SearchViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
-    }
     
-    func presentCountryCodeDownloadErrorAlert() {
-        presentAlert(SearchViewModel.CountryCodeDownloadErrorAlertViewModel())
     }
     
     private func configureNavigationItem() {
@@ -94,7 +93,7 @@ final class SearchViewController: UIViewController {
         searchController.searchBar.searchTextField.textColor = Design.searchBarTextFieldTextColor
         searchController.searchBar.tintColor = Design.searchBarTintColor
     }
-
+    
     private func configureSearchController() {
         searchController.searchBar.delegate = self
         searchAppResultsController.delegate = self
@@ -102,10 +101,10 @@ final class SearchViewController: UIViewController {
     
     private func configureIntialState() {
         searchController.searchBar.placeholder = viewModel.searchBarPlaceholder
-        refreshState()
+        refreshView()
     }
     
-    private func refreshState() {
+    private func refreshView() {
         searchBackgroundView.bindCountry(
             flag: viewModel.countryFlag,
             name: viewModel.countryName)
@@ -158,7 +157,7 @@ extension SearchViewController: UISearchBarDelegate {
 // MARK: - SearchAppResultsViewDelegate
 
 extension SearchViewController: SearchAppResultsDelegate {
-
+    
     func pushAppDetailView(_ appDetail: AppDetail) {
         coordinator?.pushAppDetailView(appDetail)
     }
@@ -170,7 +169,7 @@ extension SearchViewController: SearchAppResultsDelegate {
     func resignSearchBarFirstResponder() {
         searchController.searchBar.resignFirstResponder()
     }
-
+    
 }
 
 // MARK: - SearchBackgroundViewPresentaionDelegate
@@ -189,9 +188,9 @@ extension SearchViewController: SearchBackgroundViewDelegate {
 extension SearchViewController: SettingViewPresenter {
     
     func didSettingChanged() {
-        refreshState()
+        refreshView()
     }
-
+    
 }
 
 private enum Design {

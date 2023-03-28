@@ -69,3 +69,12 @@ struct Country: Decodable, Equatable {
     }
     
 }
+
+extension Country {
+    
+    static let placeholder = Country(
+        englishName: "Korea",
+        koreanName: "대한민국",
+        isoCode: "KR")
+    
+}
