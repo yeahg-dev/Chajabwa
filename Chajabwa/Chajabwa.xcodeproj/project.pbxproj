@@ -239,7 +239,7 @@
 		632B93282942014E004CAD58 /* SearchAppTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAppTableViewCell.swift; sourceTree = "<group>"; };
 		632B932A2942D8E0004CAD58 /* ScreenshotImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotImageView.swift; sourceTree = "<group>"; };
 		632B932D2943063A004CAD58 /* SearchAppTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAppTableViewCellModel.swift; sourceTree = "<group>"; };
-		633500AB28CF5CA700398265 /* app-show-roomUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "app-show-roomUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		633500AB28CF5CA700398265 /* ChajabwaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChajabwaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		633500AD28CF5CA700398265 /* app_show_roomUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = app_show_roomUITests.swift; sourceTree = "<group>"; };
 		633500AF28CF5CA700398265 /* app_show_roomUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = app_show_roomUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		633A925228A79C2500B3435F /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -285,7 +285,7 @@
 		638722E128A935A900A6ED7B /* lookupAPIEmptyResultResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lookupAPIEmptyResultResponse.json; sourceTree = "<group>"; };
 		638722E728A948C900A6ED7B /* AppSearchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSearchUsecase.swift; sourceTree = "<group>"; };
 		638722ED28A95F9800A6ED7B /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
-		6388DE3A28A6404E0011D47E /* app-show-room.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "app-show-room.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6388DE3A28A6404E0011D47E /* Chajabwa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chajabwa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6388DE3D28A6404E0011D47E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6388DE3F28A6404E0011D47E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		6388DE4128A6404E0011D47E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -341,7 +341,7 @@
 		63A6E56A2992406B0016C101 /* Text+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Extension.swift"; sourceTree = "<group>"; };
 		63A764F728BDFF8C003B1EAA /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		63AA535E28BEFD45000FB5DD /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		63AA536428BF3DBA000FB5DD /* app-show-room-unitTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "app-show-room-unitTest.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		63AA536428BF3DBA000FB5DD /* Chajabwa-unitTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Chajabwa-unitTest.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63AA537028BF3E15000FB5DD /* ByteFormattingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByteFormattingTest.swift; sourceTree = "<group>"; };
 		63AAE94E297D1AA70025936A /* DeviceIconImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceIconImageView.swift; sourceTree = "<group>"; };
 		63AAE950297D2F570025936A /* AppFolderDetailTableViewEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFolderDetailTableViewEmptyView.swift; sourceTree = "<group>"; };
@@ -526,13 +526,13 @@
 			path = SearchAppResults;
 			sourceTree = "<group>";
 		};
-		633500AC28CF5CA700398265 /* app-show-roomUITests */ = {
+		633500AC28CF5CA700398265 /* ChajabwaUITests */ = {
 			isa = PBXGroup;
 			children = (
 				633500AD28CF5CA700398265 /* app_show_roomUITests.swift */,
 				633500AF28CF5CA700398265 /* app_show_roomUITestsLaunchTests.swift */,
 			);
-			path = "app-show-roomUITests";
+			path = ChajabwaUITests;
 			sourceTree = "<group>";
 		};
 		633A925E28A7D15700B3435F /* iTunesAPITests */ = {
@@ -779,10 +779,10 @@
 		6388DE3128A6404E0011D47E = {
 			isa = PBXGroup;
 			children = (
-				6388DE3C28A6404E0011D47E /* app-show-room */,
+				6388DE3C28A6404E0011D47E /* Chajabwa */,
 				633A925E28A7D15700B3435F /* iTunesAPITests */,
-				63AA536528BF3DBA000FB5DD /* app-show-room-unitTest */,
-				633500AC28CF5CA700398265 /* app-show-roomUITests */,
+				63AA536528BF3DBA000FB5DD /* Chajabwa-unitTest */,
+				633500AC28CF5CA700398265 /* ChajabwaUITests */,
 				6388DE3B28A6404E0011D47E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -790,15 +790,15 @@
 		6388DE3B28A6404E0011D47E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6388DE3A28A6404E0011D47E /* app-show-room.app */,
+				6388DE3A28A6404E0011D47E /* Chajabwa.app */,
 				633A925D28A7D15700B3435F /* iTunesAPITests.xctest */,
-				63AA536428BF3DBA000FB5DD /* app-show-room-unitTest.xctest */,
-				633500AB28CF5CA700398265 /* app-show-roomUITests.xctest */,
+				63AA536428BF3DBA000FB5DD /* Chajabwa-unitTest.xctest */,
+				633500AB28CF5CA700398265 /* ChajabwaUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6388DE3C28A6404E0011D47E /* app-show-room */ = {
+		6388DE3C28A6404E0011D47E /* Chajabwa */ = {
 			isa = PBXGroup;
 			children = (
 				6388DE5228A6641E0011D47E /* App */,
@@ -814,7 +814,7 @@
 				638722EC28A95F8500A6ED7B /* Utility */,
 				6388DE4B28A640500011D47E /* Info.plist */,
 			);
-			path = "app-show-room";
+			path = Chajabwa;
 			sourceTree = "<group>";
 		};
 		6388DE5128A664150011D47E /* App */ = {
@@ -1161,13 +1161,13 @@
 			path = Text;
 			sourceTree = "<group>";
 		};
-		63AA536528BF3DBA000FB5DD /* app-show-room-unitTest */ = {
+		63AA536528BF3DBA000FB5DD /* Chajabwa-unitTest */ = {
 			isa = PBXGroup;
 			children = (
 				6322E71A296D537500134B30 /* RepositoryTet */,
 				63AA536F28BF3DEC000FB5DD /* UtilityTest */,
 			);
-			path = "app-show-room-unitTest";
+			path = "Chajabwa-unitTest";
 			sourceTree = "<group>";
 		};
 		63AA536F28BF3DEC000FB5DD /* UtilityTest */ = {
@@ -1310,9 +1310,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		633500AA28CF5CA700398265 /* app-show-roomUITests */ = {
+		633500AA28CF5CA700398265 /* ChajabwaUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 633500B528CF5CA700398265 /* Build configuration list for PBXNativeTarget "app-show-roomUITests" */;
+			buildConfigurationList = 633500B528CF5CA700398265 /* Build configuration list for PBXNativeTarget "ChajabwaUITests" */;
 			buildPhases = (
 				633500A728CF5CA700398265 /* Sources */,
 				633500A828CF5CA700398265 /* Frameworks */,
@@ -1323,9 +1323,9 @@
 			dependencies = (
 				633500B228CF5CA700398265 /* PBXTargetDependency */,
 			);
-			name = "app-show-roomUITests";
+			name = ChajabwaUITests;
 			productName = "app-show-roomUITests";
-			productReference = 633500AB28CF5CA700398265 /* app-show-roomUITests.xctest */;
+			productReference = 633500AB28CF5CA700398265 /* ChajabwaUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		633A925C28A7D15700B3435F /* iTunesAPITests */ = {
@@ -1346,32 +1346,31 @@
 			productReference = 633A925D28A7D15700B3435F /* iTunesAPITests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		6388DE3928A6404E0011D47E /* app-show-room */ = {
+		6388DE3928A6404E0011D47E /* Chajabwa */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6388DE4E28A640500011D47E /* Build configuration list for PBXNativeTarget "app-show-room" */;
+			buildConfigurationList = 6388DE4E28A640500011D47E /* Build configuration list for PBXNativeTarget "Chajabwa" */;
 			buildPhases = (
 				6388DE3628A6404E0011D47E /* Sources */,
 				6388DE3728A6404E0011D47E /* Frameworks */,
 				6388DE3828A6404E0011D47E /* Resources */,
-				63A6E5672991F6640016C101 /* Strings file Run Script */,
 				63BFA4F529A756D400E191BD /* SwiftGen Run Script */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "app-show-room";
+			name = Chajabwa;
 			packageProductDependencies = (
 				63D52B2529601520006F043D /* Realm */,
 				63D52B2729601520006F043D /* RealmSwift */,
 			);
 			productName = "app-show-room";
-			productReference = 6388DE3A28A6404E0011D47E /* app-show-room.app */;
+			productReference = 6388DE3A28A6404E0011D47E /* Chajabwa.app */;
 			productType = "com.apple.product-type.application";
 		};
-		63AA536328BF3DBA000FB5DD /* app-show-room-unitTest */ = {
+		63AA536328BF3DBA000FB5DD /* Chajabwa-unitTest */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 63AA536A28BF3DBA000FB5DD /* Build configuration list for PBXNativeTarget "app-show-room-unitTest" */;
+			buildConfigurationList = 63AA536A28BF3DBA000FB5DD /* Build configuration list for PBXNativeTarget "Chajabwa-unitTest" */;
 			buildPhases = (
 				63AA536028BF3DBA000FB5DD /* Sources */,
 				63AA536128BF3DBA000FB5DD /* Frameworks */,
@@ -1382,9 +1381,9 @@
 			dependencies = (
 				63AA536928BF3DBA000FB5DD /* PBXTargetDependency */,
 			);
-			name = "app-show-room-unitTest";
+			name = "Chajabwa-unitTest";
 			productName = "app-show-room-unitTest";
-			productReference = 63AA536428BF3DBA000FB5DD /* app-show-room-unitTest.xctest */;
+			productReference = 63AA536428BF3DBA000FB5DD /* Chajabwa-unitTest.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -1415,7 +1414,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6388DE3528A6404E0011D47E /* Build configuration list for PBXProject "app-show-room" */;
+			buildConfigurationList = 6388DE3528A6404E0011D47E /* Build configuration list for PBXProject "Chajabwa" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -1432,10 +1431,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6388DE3928A6404E0011D47E /* app-show-room */,
+				6388DE3928A6404E0011D47E /* Chajabwa */,
 				633A925C28A7D15700B3435F /* iTunesAPITests */,
-				63AA536328BF3DBA000FB5DD /* app-show-room-unitTest */,
-				633500AA28CF5CA700398265 /* app-show-roomUITests */,
+				63AA536328BF3DBA000FB5DD /* Chajabwa-unitTest */,
+				633500AA28CF5CA700398265 /* ChajabwaUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1481,25 +1480,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		63A6E5672991F6640016C101 /* Strings file Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Strings file Run Script";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\necho \"generating Texts.swift\"\n\ntouch tempText.swift\necho \"struct Texts {\" >> tempText.swift\n\ninputfile=${SRCROOT}/app-show-room/Resource/Text/en.lproj/Localizable.strings\n\nwhile IFS= read -r line\n\ndo\necho $line\npattern='^[a-zA-Z]+(.*)[\\\\s]*=[\\\\s]*(.*)$'\n\ncomment='\\/\\/.+'\n\nif [[ $line =~ $pattern ]]\nthen\n    echo \"Yes👌\"\n    variableName=$(echo ${line%%=*})\n    echo $variableName\n    if [ \"$variableName\" != \"\" ]; then\n        echo \"    static let $variableName = \\\"$variableName\\\".localized\" >> tempText.swift\n    fi\nelse\n    if [[ $line =~ $comment ]]\n    then\n        echo \"Comment 📝\"\n        echo \"\\n    $line\" >> tempText.swift\n    else\n        echo \"No👎\"\n    fi\nfi\ndone <\"$inputfile\"\n\necho \"}\" >> tempText.swift\ncat tempText.swift > ${SRCROOT}/app-show-room/Resource/Text/Texts.swift\nrm tempText.swift\n\necho \"-------------\"\ncat $inputfile\ncat ${SRCROOT}/app-show-room/Resource/Text/Texts.swift\necho \"-------------\"\n";
-		};
 		63BFA4F529A756D400E191BD /* SwiftGen Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -1714,17 +1694,17 @@
 /* Begin PBXTargetDependency section */
 		633500B228CF5CA700398265 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6388DE3928A6404E0011D47E /* app-show-room */;
+			target = 6388DE3928A6404E0011D47E /* Chajabwa */;
 			targetProxy = 633500B128CF5CA700398265 /* PBXContainerItemProxy */;
 		};
 		633A926228A7D15700B3435F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6388DE3928A6404E0011D47E /* app-show-room */;
+			target = 6388DE3928A6404E0011D47E /* Chajabwa */;
 			targetProxy = 633A926128A7D15700B3435F /* PBXContainerItemProxy */;
 		};
 		63AA536928BF3DBA000FB5DD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6388DE3928A6404E0011D47E /* app-show-room */;
+			target = 6388DE3928A6404E0011D47E /* Chajabwa */;
 			targetProxy = 63AA536828BF3DBA000FB5DD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1808,7 +1788,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/app-show-room.app/app-show-room";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chajabwa.app/Chajabwa";
 			};
 			name = Debug;
 		};
@@ -1826,7 +1806,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/app-show-room.app/app-show-room";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chajabwa.app/Chajabwa";
 			};
 			name = Release;
 		};
@@ -1955,7 +1935,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3LTF5F2YL4;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "app-show-room/Info.plist";
+				INFOPLIST_FILE = Chajabwa/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1965,7 +1945,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.YeahgDev.app-show-room";
+				PRODUCT_BUNDLE_IDENTIFIER = com.YeahgDev.Chajabwa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1982,7 +1962,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3LTF5F2YL4;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "app-show-room/Info.plist";
+				INFOPLIST_FILE = Chajabwa/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1992,7 +1972,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.YeahgDev.app-show-room";
+				PRODUCT_BUNDLE_IDENTIFIER = com.YeahgDev.Chajabwa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -2021,7 +2001,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/app-show-room.app/app-show-room";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chajabwa.app/Chajabwa";
 			};
 			name = Debug;
 		};
@@ -2045,14 +2025,14 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/app-show-room.app/app-show-room";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chajabwa.app/Chajabwa";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		633500B528CF5CA700398265 /* Build configuration list for PBXNativeTarget "app-show-roomUITests" */ = {
+		633500B528CF5CA700398265 /* Build configuration list for PBXNativeTarget "ChajabwaUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				633500B328CF5CA700398265 /* Debug */,
@@ -2070,7 +2050,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6388DE3528A6404E0011D47E /* Build configuration list for PBXProject "app-show-room" */ = {
+		6388DE3528A6404E0011D47E /* Build configuration list for PBXProject "Chajabwa" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6388DE4C28A640500011D47E /* Debug */,
@@ -2079,7 +2059,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6388DE4E28A640500011D47E /* Build configuration list for PBXNativeTarget "app-show-room" */ = {
+		6388DE4E28A640500011D47E /* Build configuration list for PBXNativeTarget "Chajabwa" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6388DE4F28A640500011D47E /* Debug */,
@@ -2088,7 +2068,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		63AA536A28BF3DBA000FB5DD /* Build configuration list for PBXNativeTarget "app-show-room-unitTest" */ = {
+		63AA536A28BF3DBA000FB5DD /* Build configuration list for PBXNativeTarget "Chajabwa-unitTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63AA536B28BF3DBA000FB5DD /* Debug */,

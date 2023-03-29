@@ -3,8 +3,8 @@
 ## In case your config entries all use a common input/output parent directory, you can specify those here.
 ##   Every input/output paths in the rest of the config will then be expressed relative to these.
 ##   Those two top-level keys are optional and default to "." (the directory of the config file).
- input_dir: app-show-room/Resource
- output_dir: app-show-room/Resource
+ input_dir: Chajabwa/Resource
+ output_dir: Chajabwa/Resource
 
 ## Generate constants for your localized strings.
 ##   Be sure that SwiftGen only parses ONE locale (typically Base.lproj, or en.lproj, or whichever your development region is); otherwise it will generate the same keys multiple times.

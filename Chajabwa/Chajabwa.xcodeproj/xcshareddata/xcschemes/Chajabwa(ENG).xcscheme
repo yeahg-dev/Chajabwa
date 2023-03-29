@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6388DE3928A6404E0011D47E"
-               BuildableName = "app-show-room.app"
-               BlueprintName = "app-show-room"
-               ReferencedContainer = "container:app-show-room.xcodeproj">
+               BuildableName = "Chajabwa.app"
+               BlueprintName = "Chajabwa"
+               ReferencedContainer = "container:Chajabwa.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6388DE3928A6404E0011D47E"
-            BuildableName = "app-show-room.app"
-            BlueprintName = "app-show-room"
-            ReferencedContainer = "container:app-show-room.xcodeproj">
+            BuildableName = "Chajabwa.app"
+            BlueprintName = "Chajabwa"
+            ReferencedContainer = "container:Chajabwa.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -64,9 +64,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6388DE3928A6404E0011D47E"
-            BuildableName = "app-show-room.app"
-            BlueprintName = "app-show-room"
-            ReferencedContainer = "container:app-show-room.xcodeproj">
+            BuildableName = "Chajabwa.app"
+            BlueprintName = "Chajabwa"
+            ReferencedContainer = "container:Chajabwa.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

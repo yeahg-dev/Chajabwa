@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6388DE3928A6404E0011D47E"
-               BuildableName = "app-show-room.app"
-               BlueprintName = "app-show-room"
-               ReferencedContainer = "container:app-show-room.xcodeproj">
+               BuildableName = "Chajabwa.app"
+               BlueprintName = "Chajabwa"
+               ReferencedContainer = "container:Chajabwa.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "633500AA28CF5CA700398265"
-               BuildableName = "app-show-roomUITests.xctest"
-               BlueprintName = "app-show-roomUITests"
-               ReferencedContainer = "container:app-show-room.xcodeproj">
+               BuildableName = "ChajabwaUITests.xctest"
+               BlueprintName = "ChajabwaUITests"
+               ReferencedContainer = "container:Chajabwa.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -49,9 +49,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "633500AA28CF5CA700398265"
-               BuildableName = "app-show-roomUITests.xctest"
-               BlueprintName = "app-show-roomUITests"
-               ReferencedContainer = "container:app-show-room.xcodeproj">
+               BuildableName = "ChajabwaUITests.xctest"
+               BlueprintName = "ChajabwaUITests"
+               ReferencedContainer = "container:Chajabwa.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6388DE3928A6404E0011D47E"
-            BuildableName = "app-show-room.app"
-            BlueprintName = "app-show-room"
-            ReferencedContainer = "container:app-show-room.xcodeproj">
+            BuildableName = "Chajabwa.app"
+            BlueprintName = "Chajabwa"
+            ReferencedContainer = "container:Chajabwa.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -88,9 +88,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6388DE3928A6404E0011D47E"
-            BuildableName = "app-show-room.app"
-            BlueprintName = "app-show-room"
-            ReferencedContainer = "container:app-show-room.xcodeproj">
+            BuildableName = "Chajabwa.app"
+            BlueprintName = "Chajabwa"
+            ReferencedContainer = "container:Chajabwa.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
